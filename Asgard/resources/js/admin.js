@@ -1,9 +1,9 @@
 const ASIDE = document.querySelector('aside');
 
 //template del navbar
-const NAVBAR = 
+const NAVBAR =
 
-`    <aside id="sidebar">
+  `    <aside id="sidebar">
 <div class="sidebar-title">
   <div class="sidebar-brand">
     <span class="material-icons-outlined">inventory</span> ASGARD
@@ -57,12 +57,12 @@ const NAVBAR =
  `;
 
 //insercion del navbar
-ASIDE.insertAdjacentHTML('beforebegin',NAVBAR);
+ASIDE.insertAdjacentHTML('beforebegin', NAVBAR);
 
 const HEADER = document.querySelector('header');
 
 //template del navbar
-const header =  `    <header class="header">
+const header = `    <header class="header">
 <div class="menu-icon" onclick="openSidebar()">
   <span class="material-icons-outlined">menu</span>
 </div>
@@ -71,12 +71,15 @@ const header =  `    <header class="header">
 </header>
  `;
 
-HEADER.insertAdjacentHTML('beforebegin',header);
+HEADER.insertAdjacentHTML('beforebegin', header);
 
 
+//declarar una variable para poder abrir el navbar
 let sidebarOpen = false;
 const sidebar = document.getElementById('sidebar');
 
+
+//Funcion para abrir el navbar cuando este en una pantalla pequeña
 function openSidebar() {
   if (!sidebarOpen) {
     sidebar.classList.add('sidebar-responsive');
@@ -84,6 +87,7 @@ function openSidebar() {
   }
 }
 
+//Funcion para cerrar el navbar cuando este en una pantalla pequeña
 function closeSidebar() {
   if (sidebarOpen) {
     sidebar.classList.remove('sidebar-responsive');

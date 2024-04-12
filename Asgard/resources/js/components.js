@@ -1,10 +1,5 @@
-// SIDEBAR TOGGLE
 
-
-
-// ---------- CHARTS ----------
-
-// BAR CHART
+// Grafica 1
 const barChartOptions = {
   series: [
     {
@@ -49,7 +44,7 @@ const barChart = new ApexCharts(
 );
 barChart.render();
 
-// AREA CHART
+// grafica 2
 const areaChartOptions = {
   series: [
     {
