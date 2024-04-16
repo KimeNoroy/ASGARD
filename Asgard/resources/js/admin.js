@@ -1,96 +1,123 @@
 const ASIDE = document.querySelector('aside');
 
 //template del navbar
-const NAVBAR =
+const NAVBAR = 
 
-  `    <aside id="sidebar">
-<div class="sidebar-title">
-  <div class="sidebar-brand">
-    <span class="material-icons-outlined">inventory</span> ASGARD
-  </div>
-  <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+`    <div class="menu">
+<ion-icon name="menu-outline"></ion-icon>
+<ion-icon name="close-outline"></ion-icon>
 </div>
 
-<ul class="sidebar-list">
-  <li class="sidebar-list-item">
-    <a href="#" target="_blank">
-      <span class="material-icons-outlined"></span> Inicio
-    </a>
-  </li>
-  <li class="sidebar-list-item">
-  <a href="#" target="_blank">
-    <span class="material-icons-outlined">dashboard</span> Usuarios para facturación
-  </a>
-</li>
-  <li class="sidebar-list-item">
-    <a href="#" target="_blank">
-      <span class="material-icons-outlined">inventory_2</span> Usuarios para crédito fiscal
-    </a>
-  </li>
-  <li class="sidebar-list-item">
-    <a href="#" target="_blank">
-      <span class="material-icons-outlined">fact_check</span> Usuarios para consumidor final
-    </a>
-  </li>
-  <li class="sidebar-list-item">
-    <a href="#" target="_blank">
-      <span class="material-icons-outlined">add_shopping_cart</span> Factura Sujeto Excluido Electrónico
-    </a>
-  </li>
-  <li class="sidebar-list-item">
-    <a href="#" target="_blank">
-      <span class="material-icons-outlined">shopping_cart</span> Usuarios para consumidor final
-    </a>
-  </li>
-  <li class="sidebar-list-item">
-    <a href="#" target="_blank">
-      <span class="material-icons-outlined">poll</span> Factura Sujeto Excluido Electrónico
-    </a>
-  </li>
-  <li class="sidebar-list-item">
-    <a href="#" target="_blank">
-      <span class="material-icons-outlined">settings</span> Usuarios para facturación
-    </a>
-  </li>
-</ul>
-</aside>
+<div class="barra-lateral">
+<div>
+    <div class="nombre-pagina">
+        <span>ASGARD</span>
+    </div>
+
+
+<nav class="navegacion">
+    <ul>
+        <li>
+            <a id="inbox" href="#">
+                <ion-icon name="mail-unread-outline"></ion-icon>
+                <span>Usuarios para facturación</span>
+            </a>
+        </li>
+        <li>
+            <a href="usuariofacturacion.html">
+                <ion-icon name="star-outline"></ion-icon>
+                <span>Usuarios para crédito fiscal</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <ion-icon name="paper-plane-outline"></ion-icon>
+                <span>Usuarios para consumidor final</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <ion-icon name="document-text-outline"></ion-icon>
+                <span>Factura Sujeto Excluido Electrónico</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <ion-icon name="bookmark-outline"></ion-icon>
+                <span>Comprobante de Crédito Fiscal</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <ion-icon name="alert-circle-outline"></ion-icon>
+                <span>Usuarios para factura normal</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <ion-icon name="trash-outline"></ion-icon>
+                <span>Trash</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div>
+    <div class="linea"></div>
+        <div class="switch">
+            <div class="base">
+                <div class="circulo">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="usuario">
+        <img src="/Jhampier.jpg" alt="">
+        <div class="info-usuario">
+            <div class="nombre-email">
+                <span class="nombre">Jhampier</span>
+                <span class="email">jhampier@gmail.com</span>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
  `;
 
 //insercion del navbar
-ASIDE.insertAdjacentHTML('beforebegin', NAVBAR);
+ASIDE.insertAdjacentHTML('beforebegin',NAVBAR);
 
 const HEADER = document.querySelector('header');
 
-//template del navbar
-const header = `    <header class="header">
-<div class="menu-icon" onclick="openSidebar()">
-  <span class="material-icons-outlined">menu</span>
-</div>
-<div class="header-left">
-</div>
-</header>
- `;
 
-HEADER.insertAdjacentHTML('beforebegin', header);
+const cloud = document.getElementById("cloud");
+const barraLateral = document.querySelector(".barra-lateral");
+const spans = document.querySelectorAll("span");
+const menu = document.querySelector(".menu");
+const main = document.querySelector("main");
+
+menu.addEventListener("click",()=>{
+    barraLateral.classList.toggle("max-barra-lateral");
+    if(barraLateral.classList.contains("max-barra-lateral")){
+        menu.children[0].style.display = "none";
+        menu.children[1].style.display = "block";
+    }
+    else{
+        menu.children[0].style.display = "block";
+        menu.children[1].style.display = "none";
+    }
+    if(window.innerWidth<=320){
+        barraLateral.classList.add("mini-barra-lateral");
+        main.classList.add("min-main");
+        spans.forEach((span)=>{
+            span.classList.add("oculto");
+        })
+    }
+});
 
 
-//declarar una variable para poder abrir el navbar
-let sidebarOpen = false;
-const sidebar = document.getElementById('sidebar');
 
-
-//Funcion para abrir el navbar cuando este en una pantalla pequeña
-function openSidebar() {
-  if (!sidebarOpen) {
-    sidebar.classList.add('sidebar-responsive');
-    sidebarOpen = true;
-  }
-}
-
-//Funcion para cerrar el navbar cuando este en una pantalla pequeña
-function closeSidebar() {
-  if (sidebarOpen) {
-    sidebar.classList.remove('sidebar-responsive');
-    sidebarOpen = false;
-  }
-}
