@@ -177,7 +177,7 @@ body{
     color: var(--color-menu-hover-texto);
 }
 .barra-lateral .navegacion ion-icon{
-    min-width: 5px;
+    min-width: 50px;
     font-size: 25px;
 }
 
@@ -286,7 +286,7 @@ body{
 }
 
 main{
-    margin-left: 380px;
+    margin-left: 180px;
     padding: 20px;
     transition: margin-left 0.5s ease;
 }
