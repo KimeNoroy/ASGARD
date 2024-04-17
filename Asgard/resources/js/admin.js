@@ -59,11 +59,31 @@ const NAVBAR =
         </li>
         <li>
             <a href="#">
-                <ion-icon name="alert-circle-outline"></ion-icon>
+            <ion-icon name="albums-outline"></ion-icon>
                 <span>factura normal</span>
             </a>
         </li>
-        
+    </ul>
+    <div class="linea"></div>
+    <ul>
+    <li>
+            <a href="#">
+            <ion-icon name="book-outline"></ion-icon>
+                <span>Factura emitidas</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            <ion-icon name="person-outline"></ion-icon>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            <ion-icon name="person-add-outline"></ion-icon>
+                <span>Empleados</span>
+            </a>
+        </li>
     </ul>
 </nav>
 
