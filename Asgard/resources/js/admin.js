@@ -85,7 +85,7 @@ const NAVBAR =
     </div>
 
     <div class="usuario">
-        <img src="../../resources/img/Jhampier.jpg" alt="">
+        <img src="../../resources/img/usuario.png" alt="">
         <div class="info-usuario">
             <div class="nombre-email">
                 <span class="nombre">Admin</span>
