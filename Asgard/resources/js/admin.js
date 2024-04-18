@@ -93,7 +93,7 @@ const NAVBAR =
     <div class="modo-oscuro">
         <div class="info">
             <ion-icon name="moon-outline"></ion-icon>
-            <span>Drak Mode</span>
+            <span>Dark Mode</span>
         </div>
         <div class="switch">
             <div class="base">
