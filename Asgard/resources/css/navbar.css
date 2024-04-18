@@ -20,25 +20,35 @@
     --color-scroll-hover:rgb(134,134,134);
 }
 
-.dark-mode{
-    --color-barra-lateral:rgb(44,45,49);
+.dark-mode {
+    /* Color del navbar en modo oscuro */
+    --color-barra-lateral: #2c2d31;
+    --color-fondo-dark: #2c2d31;
+    /* Color del texto en modo oscuro */
+    --color-texto: rgb(255, 255, 255);
+    --color-texto-menu: rgb(110, 110, 117);
 
-    --color-texto:rgb(255,255,255);
-    --color-texto-menu:rgb(110,110,117);
+    /* Color de fondo del menú al pasar el mouse en modo oscuro */
+    --color-menu-hover: rgb(0, 0, 0);
+    --color-menu-hover-texto: rgb(238, 238, 238);
 
-    --color-menu-hover:rgb(0,0,0);
-    --color-menu-hover-texto:rgb(238,238,238);
+    /* Color del botón en modo oscuro */
+    --color-boton: rgb(255, 255, 255);
+    --color-boton-texto: rgb(0, 0, 0);
 
-    --color-boton:rgb(255,255,255);
-    --color-boton-texto:rgb(0,0,0);
+    /* Color de las líneas en modo oscuro */
+    --color-linea: rgb(90, 90, 90);
 
-    --color-linea:rgb(90,90,90);
+    /* Color de la base del interruptor en modo oscuro */
+    --color-switch-base: rgb(39, 205, 64);
+    --color-switch-circulo: rgb(255, 255, 255);
 
-    --color-switch-base :rgb(39,205,64);
-    --color-switch-circulo:rgb(255,255,255);
+    /* Color del scroll en modo oscuro */
+    --color-scroll: rgb(68, 69, 74);
+    --color-scroll-hover: rgb(85, 85, 85);
 
-    --color-scroll:rgb(68,69,74);
-    --color-scroll-hover:rgb(85,85,85);
+    /* Fondo del cuerpo en modo oscuro */
+    background-color: var(--color-barra-lateral);
 }
 
 
@@ -85,6 +95,9 @@ body{
     background-color: var(--color-barra-lateral);
     transition: width 0.5s ease,background-color 0.3s ease,left 0.5s ease;
     z-index: 50;
+}
+.amarillo {
+    color: #FFD500;
 }
 
 .mini-barra-lateral{

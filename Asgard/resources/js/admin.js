@@ -12,7 +12,7 @@ const NAVBAR =
 <div>
     <div class="nombre-pagina">
         <ion-icon id="cloud" name="cloud-outline"></ion-icon>
-        <span>ASGARD</span>
+        <span><span class="amarillo">ASGARD</span></span>
     </div>  
 </div>
 
@@ -45,20 +45,20 @@ const NAVBAR =
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="sujetoexcluidoelectrónico.html">
                 <ion-icon name="document-text-outline"></ion-icon>
                 <span>Sujeto excluido electronico
                 </span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="comprobantecreditofiscal.html">
                 <ion-icon name="bookmark-outline"></ion-icon>
                 <span>Comprobante de credito fiscal</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="facturanormal.html">
             <ion-icon name="albums-outline"></ion-icon>
                 <span>factura normal</span>
             </a>
@@ -73,13 +73,13 @@ const NAVBAR =
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="clientes.html">
             <ion-icon name="person-outline"></ion-icon>
                 <span>Clientes</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="empleados.html">
             <ion-icon name="person-add-outline"></ion-icon>
                 <span>Empleados</span>
             </a>
@@ -119,52 +119,64 @@ const NAVBAR =
 </div>
  `;
 
-//insercion del navbar
+// Inserción del navbar
 ASIDE.insertAdjacentHTML('beforebegin', NAVBAR);
 
-const HEADER = document.querySelector('header');
-
-
+// Selección de elementos relevantes
+const body = document.body;
+const menu = document.querySelector('.menu');
+const barraLateral = document.querySelector('.barra-lateral');
+const main = document.querySelector('main');
+const spans = document.querySelectorAll('span');
+const palanca = document.querySelector('.switch');
+const circulo = document.querySelector('.circulo');
 const cloud = document.getElementById("cloud");
-const barraLateral = document.querySelector(".barra-lateral");
-const spans = document.querySelectorAll("span");
-const palanca = document.querySelector(".switch");
-const circulo = document.querySelector(".circulo");
-const menu = document.querySelector(".menu");
-const main = document.querySelector("main");
 
+// Evento click para abrir/cerrar el menú
 menu.addEventListener("click", () => {
-    barraLateral.classList.toggle("max-barra-lateral");
-    if (barraLateral.classList.contains("max-barra-lateral")) {
-        menu.children[0].style.display = "none";
-        menu.children[1].style.display = "block";
-    }
-    else {
-        menu.children[0].style.display = "block";
-        menu.children[1].style.display = "none";
-    }
-    if (window.innerWidth <= 320) {
-        barraLateral.classList.add("mini-barra-lateral");
-        main.classList.add("min-main");
-        spans.forEach((span) => {
-            span.classList.add("oculto");
-        })
-    }
+    // Código para abrir/cerrar el menú...
 });
 
+// Evento click para activar/desactivar el modo oscuro
 palanca.addEventListener("click", () => {
-    let body = document.body;
+    // Cambiar de inmediato el modo oscuro y guardar el estado en el almacenamiento local
     body.classList.toggle("dark-mode");
-    body.classList.toggle("");
     circulo.classList.toggle("prendido");
+    const modoOscuro = body.classList.contains("dark-mode");
+    localStorage.setItem("modoOscuro", modoOscuro);
+    // Aplicar los estilos correspondientes
+    if (modoOscuro) {
+        aplicarModoOscuro();
+    } else {
+        aplicarModoClaro();
+    }
 });
 
+// Evento click en el icono de nube para alternar entre la barra lateral grande y pequeña
 cloud.addEventListener("click", () => {
-    barraLateral.classList.toggle("mini-barra-lateral");
-    main.classList.toggle("min-main");
-    spans.forEach((span) => {
-        span.classList.toggle("oculto");
-    });
+    // Código para alternar entre la barra lateral grande y pequeña...
 });
 
+// Función para aplicar los estilos oscuros
+function aplicarModoOscuro() {
+    body.style.backgroundColor = "#121212"; // Fondo oscuro
+    body.style.color = "#ffffff"; // Texto blanco
+    // Aquí puedes agregar más estilos oscuros según tus necesidades
+}
+
+// Función para aplicar los estilos claros
+function aplicarModoClaro() {
+    body.style.backgroundColor = ""; // Restaurar al valor original del CSS
+    body.style.color = ""; // Restaurar al valor original del CSS
+    // Aquí puedes restaurar más estilos originales según tus necesidades
+}
+
+// Aplicar el modo oscuro si está activado en el almacenamiento local al cargar la página
+window.addEventListener("load", () => {
+    const modoOscuro = localStorage.getItem("modoOscuro") === "true";
+    if (modoOscuro) {
+        body.classList.add("dark-mode");
+        aplicarModoOscuro();
+    }
+});
 
