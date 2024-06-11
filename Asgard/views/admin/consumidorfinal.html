@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Consumidor final</title>
+
+     <!-- Link para el uso de iconos de boostrap -->
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css"
+      rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../resources/css/navbar.css">
+    <link rel="stylesheet" href="../../resources/css/Inicio.css">
+    <link rel="stylesheet" href="../../resources/css/usuariofacturacion.css">
+    <link rel="stylesheet" href="ruta/a/sweetalert.css">
+
+    <!-- Link para el uso de las librerias de css de boostrap -->
+    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <div class="grid-container">
+        <!-- Sidebar -->
+        <aside></aside>
+      
+        <!-- Main -->
+           
+            <main class="main-container">
+                <div class="main-title">
+                    <h3 class="fw-bold fs-4 mb-3">Usuarios para factura de consumidor final</h3>
+            <!-- Boton para agregar a nuevo usuario -->
+                    <button type="button" class="btn btn-warning float-start" data-bs-toggle="modal"
+                        data-bs-target="#modalServicio"><i class="bi bi-file-earmark-plus"></i> Agregar usuario</button>
+                </div>
+                <hr>
+             <!-- Crud de los usuarios para factura de consumidor final -->
+                <div class="row" data-aos="fade-up">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr class="highlight">
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Apellido</th>
+                                            <th scope="col">Dui</th>
+                                            <th scope="col">NCR</th>
+                                            <th scope="col">Departamento</th>
+                                            <th scope="col">Municipio</th>
+                                            <th scope="col">Correo</th>
+                                            <th scope="col">Telefono</th>
+                                            <th scope="col">Dirrecion</th>
+                                            <th scope="col">Actividad Economica</td>
+                                            <th scope="col">NIT</th>
+                                            <th scope="col">Giro</th>
+                                            <th scope="col">Descripción del Servicio</th>
+                                            <th scope="col">Monto del servicio</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Raul</th>
+                                            <th>Fernandes</th>
+                                            <th>001234567-2</th>
+                                            <td>001-234567-123-4</td>
+                                            <td>San Salvador</td>
+                                            <td>Santa Tecla</td>
+                                            <td>anarodriguez@gmail.com</td>
+                                            <td>70123456</td>
+                                            <td>Calle La Mascota 923b, San Salvador, El Salvador</td>
+                                            <td>Agricultura</td>
+                                            <td>1234-567890-123-4</td>
+                                            <th>Bancario</th>
+                                            <th>Productos para la ganaderia</th>
+                                            <th>500.99</th>
+                                            <td><button type="button" class="btn btn-primary" id="btn_actualizar"
+                                                data-bs-toggle="modal" data-bs-target="#modificarModal"><i
+                                                    class="bi bi-pencil"></i></button> <button type="button"
+                                                class="btn btn-danger" id="btn_eliminar"><i
+                                                    class="bi bi-trash"></i></button> </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Raul</th>
+                                            <th>Fernandes</th>
+                                            <th>001234567-2</th>
+                                            <td>001-234567-123-4</td>
+                                            <td>San Salvador</td>
+                                            <td>Santa Tecla</td>
+                                            <td>anarodriguez@gmail.com</td>
+                                            <td>70123456</td>
+                                            <td>Calle La Mascota 923b, San Salvador, El Salvador</td>
+                                            <td>Agricultura</td>
+                                            <td>1234-567890-123-4</td>
+                                            <th>Bancario</th>
+                                            <th>Productos para la ganaderia</th>
+                                            <th>500.99</th>
+                                            <td><button type="button" class="btn btn-primary" id="btn_actualizar"
+                                                data-bs-toggle="modal" data-bs-target="#modificarModal"><i
+                                                    class="bi bi-pencil"></i></button> <button type="button"
+                                                class="btn btn-danger" id="btn_eliminar"><i
+                                                    class="bi bi-trash"></i></button> </td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Raul</th>
+                                            <th>Fernandes</th>
+                                            <th>001234567-2</th>
+                                            <td>001-234567-123-4</td>
+                                            <td>San Salvador</td>
+                                            <td>Santa Tecla</td>
+                                            <td>anarodriguez@gmail.com</td>
+                                            <td>70123456</td>
+                                            <td>Calle La Mascota 923b, San Salvador, El Salvador</td>
+                                            <td>Agricultura</td>
+                                            <td>1234-567890-123-4</td>
+                                            <th>Bancario</th>
+                                            <th>Productos para la ganaderia</th>
+                                            <th>500.99</th>
+                                            <td><button type="button" class="btn btn-primary" id="btn_actualizar"
+                                                data-bs-toggle="modal" data-bs-target="#modificarModal"><i
+                                                    class="bi bi-pencil"></i></button> <button type="button"
+                                                class="btn btn-danger" id="btn_eliminar"><i
+                                                    class="bi bi-trash"></i></button> </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </section>
+            </main>
+            <!-- End Main -->
+
+        <!-- Modal para editar usuario -->
+            <div class="modal fade" id="modificarModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Editar usuario</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="nombre" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="apellido" class="form-label">Apellido</label>
+                                    <input type="text" class="form-control" id="apellido" placeholder="Apellido">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="dui" class="form-label">DUI</label>
+                                    <input type="number" class="form-control" id="dui" placeholder="12345678-9"
+                                        maxlength="10">
+                                    <small id="duiHelp" class="form-text text-muted">Debe tener 9 dígitos y un guion al
+                                        final.</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ncr" class="form-label">NCR</label>
+                                    <input type="number" class="form-control" id="dui" placeholder="12345678-9"
+                                        maxlength="10">
+                                    <small id="duiHelp" class="form-text text-muted">Debe tener 9 dígitos y un guion al
+                                        final.</small>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="departamento" class="form-label">Departamento</label>
+                                    <input type="text" class="form-control" id="departamento"
+                                        placeholder="Departamento">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="municipio" class="form-label">Municipio</label>
+                                    <input type="text" class="form-control" id="municipio" placeholder="Municipio">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="correo" class="form-label">Correo</label>
+                                    <input type="email" class="form-control" id="correo"
+                                        placeholder="usuario@dominio.com">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="telefono" class="form-label">Teléfono</label>
+                                    <input type="number" class="form-control" id="telefono" placeholder="Teléfono">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="correo" class="form-label">Dirrecion</label>
+                                    <input type="text" class="form-control" id="Dirrecion"
+                                        placeholder="Dirrecion">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="nit" class="form-label">NIT</label>
+                                    <input type="number" class="form-control" id="nit" placeholder="1234-567890-123"
+                                        maxlength="13">
+                                    <small id="nitHelp" class="form-text text-muted">Debe tener 13 dígitos
+                                        numéricos.</small>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="descripcion" class="form-label">Giro</label>
+                                    <textarea class="form-control" id="descripcion" rows="3"
+                                        ></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="descripcion" class="form-label">Descripción del Servicio</label>
+                                    <textarea class="form-control" id="descripcion" rows="3"
+                                        placeholder="Descripción del Servicio"></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="monto" class="form-label">Monto del Servicio</label>
+                                    <input type="text" class="form-control" id="monto" placeholder="Monto del Servicio">
+                                </div>
+                                    <div class="col-md-6">
+                                        <label for="actividad" class="form-label">Actividad Económica</label>
+                                        <input type="text" class="form-control" id="actividad"
+                                            placeholder="Actividad Económica">
+                                    </div>
+                    </div>
+                </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-warning">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Modal para agregar un nuevo usuario -->
+            <div class="modal fade" id="modalServicio" tabindex="-1" aria-labelledby="modalServicioLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalServicioLabel">Agregar nuevo usuario</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="nombre" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="apellido" class="form-label">Apellido</label>
+                                    <input type="text" class="form-control" id="apellido" placeholder="Apellido">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="dui" class="form-label">DUI</label>
+                                    <input type="number" class="form-control" id="dui" placeholder="12345678-9"
+                                        maxlength="10">
+                                    <small id="duiHelp" class="form-text text-muted">Debe tener 9 dígitos y un guion al
+                                        final.</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ncr" class="form-label">NCR</label>
+                                    <input type="number" class="form-control" id="dui" placeholder="12345678-9"
+                                        maxlength="10">
+                                    <small id="duiHelp" class="form-text text-muted">Debe tener 9 dígitos y un guion al
+                                        final.</small>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="departamento" class="form-label">Departamento</label>
+                                    <input type="text" class="form-control" id="departamento"
+                                        placeholder="Departamento">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="municipio" class="form-label">Municipio</label>
+                                    <input type="text" class="form-control" id="municipio" placeholder="Municipio">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="correo" class="form-label">Correo</label>
+                                    <input type="email" class="form-control" id="correo"
+                                        placeholder="usuario@dominio.com">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="telefono" class="form-label">Teléfono</label>
+                                    <input type="number" class="form-control" id="telefono" placeholder="Teléfono">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="correo" class="form-label">Dirrecion</label>
+                                    <input type="text" class="form-control" id="Dirrecion"
+                                        placeholder="Dirrecion">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="nit" class="form-label">NIT</label>
+                                    <input type="number" class="form-control" id="nit" placeholder="1234-567890-123"
+                                        maxlength="13">
+                                    <small id="nitHelp" class="form-text text-muted">Debe tener 13 dígitos
+                                        numéricos.</small>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="descripcion" class="form-label">Giro</label>
+                                    <textarea class="form-control" id="descripcion" rows="3"
+                                        ></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="descripcion" class="form-label">Descripción del Servicio</label>
+                                    <textarea class="form-control" id="descripcion" rows="3"
+                                        placeholder="Descripción del Servicio"></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="monto" class="form-label">Monto del Servicio</label>
+                                    <input type="text" class="form-control" id="monto" placeholder="Monto del Servicio">
+                                </div>
+                                    <div class="col-md-6">
+                                        <label for="actividad" class="form-label">Actividad Económica</label>
+                                        <input type="text" class="form-control" id="actividad"
+                                            placeholder="Actividad Económica">
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-warning">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JavaScript -->
+        <!-- archivo de js para las librerias del uso correcto de boostrap -->
+        <script src="../../resources/js/bootstrap.bundle.min.js"></script>
+
+        <!-- archivo de js para libreria de alertas -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- archivo de js para libreria de iconos para el navbar -->
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
+            <!-- Custom JS -->
+            <script src="../../resources/js/admin.js"></script>
+            <script src="../../resources/js/alertas.js"></script>
+</body>
+
+</html>
