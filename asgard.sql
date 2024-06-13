@@ -3,18 +3,12 @@ DROP DATABASE IF EXISTS asgard;
 CREATE DATABASE IF NOT EXISTS asgard;
 USE asgard;
  
--- Tabla de Departamentos
-CREATE TABLE tb_departamentos (
-   id_departamento INT PRIMARY KEY AUTO_INCREMENT,
-   nombre_departamento VARCHAR(100) NOT NULL
-);
- 
  CREATE TABLE tb_administrador (
-  id_administrador int(10) UNSIGNED NOT NULL,
-  nombre_administrador varchar(50) NOT NULL,
-  apellido_administrador varchar(50) NOT NULL,
-  email_administrador varchar(100) NOT NULL,
-  contraseña_administrador varchar(100) NOT NULL,
+  id_administrador INT PRIMARY KEY AUTO_INCREMENT,
+  nombre_administrador VARCHAR(50) NOT NULL,
+  apellido_administrador VARCHAR(50) NOT NULL,
+  email_administrador VARCHAR(100) NOT NULL,
+  contraseña_administrador VARCHAR(100) NOT NULL
 );
 
 -- Tabla de Clientes
@@ -26,11 +20,7 @@ CREATE TABLE tb_clientes (
    contraseña_cliente VARCHAR(50) NOT NULL,
    telefono VARCHAR(15) UNIQUE,
    dui_cliente VARCHAR(10) UNIQUE,
-   nit_cliente VARCHAR(100) UNIQUE,
-   id_departamento INT,
-   FOREIGN KEY (id_departamento) REFERENCES tb_departamentos(id_departamento),
-   CHECK (LENGTH(dui_cliente) = 10),
-   CHECK (LENGTH(telefono) <= 15)
+   nit_cliente VARCHAR(100) UNIQUE
 );
  
 -- Tabla de Documentos Emitidos
@@ -83,16 +73,14 @@ CREATE TABLE tb_comprobante_credito_fiscal (
    id_comprobante INT PRIMARY KEY AUTO_INCREMENT,
    id_cliente INT,
    id_servicio INT,
-   nit VARCHAR(100) UNIQUE,
-   nombre VARCHAR(100) NOT NULL,
-   nrc VARCHAR(100),
-   giro VARCHAR(255),
-   departamento VARCHAR(100),
-   municipio VARCHAR(100),
-   direccion VARCHAR(255),
-   email VARCHAR(100),
-   telefono VARCHAR(15),
-   dui VARCHAR(10),
+   nit_credito_fiscal VARCHAR(100) UNIQUE,
+   nombre_credito_fiscal VARCHAR(100) NOT NULL,
+   nrc_credito_fiscal VARCHAR(100),
+   giro_credito_fiscal VARCHAR(255),
+   direccion_credito_fiscal VARCHAR(255),
+   email_credito_fiscal VARCHAR(100),
+   telefono_credito_fiscal VARCHAR(15),
+   dui_credito_fiscal VARCHAR(10),
    FOREIGN KEY (id_cliente) REFERENCES tb_clientes(id_cliente),
    FOREIGN KEY (id_servicio) REFERENCES tb_servicios(id_servicio)
 );
