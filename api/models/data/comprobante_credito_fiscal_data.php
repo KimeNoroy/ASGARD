@@ -37,8 +37,8 @@ class ClienteData extends ClienteHandler
             $this->data_error = 'El nombre debe tener una longitud entre ' . $min . ' y ' . $max;
             return false;
         }
-    }-
-    0     public function setCorreo($value, $min = 8, $max = 100)
+    }
+        public function setCorreo($value, $min = 8, $max = 100)
     {
         if (!Validator::validateEmail($value)) {
             $this->data_error = 'El correo no es válido';

@@ -53,7 +53,7 @@ class AdministradorData extends AdministradorHandler
         }
     }
 
-    public function setCorreo($value, $min = 8, $max = 100)
+    public function setEmail($value, $min = 8, $max = 100)
     {
         if (!Validator::validateEmail($value)) {
             $this->data_error = 'El correo no es válido';
@@ -67,7 +67,7 @@ class AdministradorData extends AdministradorHandler
         }
     }
 
-    public function setClave($value)
+    public function setContraseña($value)
     {
         if (Validator::validatePassword($value)) {
             $this->contraseña = password_hash($value, PASSWORD_DEFAULT);
