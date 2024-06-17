@@ -20,14 +20,14 @@ class AdministradorHandler
      */
     public function checkUser($email, $password)
     {
-        $sql = 'SELECT id_administrador, correo_administrador, clave_administrador
+        $sql = 'SELECT id_administrador, email_administrador, contraseña_administrador
                 FROM tb_administrador
-                WHERE  correo_administrador = ?';
+                WHERE  email_administrador = ?';
         $params = array($email);
         $data = Database::getRow($sql, $params);
         if (password_verify($password, $data['contraseña_administrador'])) {
             $_SESSION['idAdministrador'] = $data['id_administrador'];
-            $_SESSION['correoAdministrador'] = $data['email_administrador'];
+            $_SESSION['emailAdministrador'] = $data['email_administrador'];
             return true;
         } else {
             return false;

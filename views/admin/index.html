@@ -1,63 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="../../resources/css/login.css">
-    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css" />
+    <title>Iniciar Sesión</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body>
-
-    <section class="vh-100" id="fondo">
-        <div class="container-fluid h-custom">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-md-9 col-lg-6 col-xl-5 justify-content-center">
-                    <img src="../../resources/imgs/image 3.png" class="img-fluid" alt="Sample image">
-                    <img src="../../resources/img/image 3.png" class="img-fluid" alt="Sample image">
-                </div>
-                <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                    <form>
-                        <div class="d-flex flex-row align-items-center justify-content-center">
-                            <div class="text-center">
-                                <h2 id="text1">Iniciar sesión</h2>
-                            </div>
-                        </div>
-                        <form>
-                            <div class="login-space">
-                                <div class="login">
-                                    <div id="font">
-                                        <div class="group">
-                                            <input id="user" type="ema" class="input" placeholder="Correo:">
-                                        </div>
-                                        <div class="group">
-                                            <input id="pass" type="password" class="input" data-type="password"
-                                                placeholder="Contraseña:">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </form>
-                        <div class="text-center text-lg-start mt-4 pt-2">
-                            <div class="text-center">
-                                <div class="d-grid gap-2 col-6 mx-auto">
-                                    <a href="..." class="btn btn-lg" id="boton">Iniciar sesión</a>
-                                    <a href="../../views/admin/inicio.html" class="btn btn-lg" id="boton">Iniciar sesión</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+    <div class="d-flex justify-content-center align-items-center vh-100" style="background-image: url('../../resources/img/fondo.jpg'); background-size: cover;">
+        <div class="card p-4" style="width: 370px;">
+            <div class="text-center mb-4">
+                <img src="../../resources/img/usuario.png" class="rounded-circle" alt="Ícono de Usuario" width="80">
             </div>
+            <h4 class="text-center">Bienvenido de nuevo</h4>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="emailAdministrador">Correo Electronico</label>
+                    <input type="text" class="form-control" id="emailAdministrador" name="emailAdministrador" placeholder="Introduce tu correo">
+                </div>
+                <div class="form-group">
+                    <label for="claveAdministrador">Contraseña</label>
+                    <input type="password" class="form-control" id="claveAdministrador" name="claveAdministrador" placeholder="Introduce tu contraseña">
+                </div>
+                <button type="submit" class="btn btn-primary">Acceso</button>
+            </form>
         </div>
-    </section>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
-    <script src="..."></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <!-- Llamada al controlador general de la aplicación -->
+    <script type="text/javascript" src="../../controllers/utils/componets.js"></script>
+    <!-- Llamada al controlador del sitio privado -->
+    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
+    <!-- Llamada al controlador de la página web -->
+    <script type="text/javascript" src="../../controllers/admin/index.js"></script>
 </body>
-</div>
-</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+</html>
