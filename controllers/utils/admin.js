@@ -4,7 +4,7 @@
 */
 
 // Constante para completar la ruta de la API.
-const USER_API = 'services/administrador.php';
+const USER_API = 'services/admin/administrador.php';
 // Constante para establecer el elemento del contenido principal.
 const MAIN = document.querySelector('main');
 // Se establece el título de la página web.
@@ -30,7 +30,6 @@ const loadTemplate = async () => {
                     <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
                         <div class="container">
                             <a class="navbar-brand" href="dashboard.html">
-                                <img src="../../resources/img/logo.png" alt="CoffeeShop" width="50">
                             </a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
@@ -74,7 +73,6 @@ const loadTemplate = async () => {
                     <nav class="navbar fixed-top bg-body-tertiary">
                         <div class="container">
                             <a class="navbar-brand" href="index.html">
-                                <img src="../../resources/img/logo.png" alt="inventory" width="50">
                             </a>
                         </div>
                     </nav>
