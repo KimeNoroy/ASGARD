@@ -27,11 +27,9 @@ class AdministradorHandler
           if (!($data = Database::getRow($sql, $params))) {
               return false;
           } elseif (password_verify($password, $data['contraseña_administrador'])) {
-              $this ->id = $data['id_administrador'];
-              $this->contraseña = $data['email_administrador'];
-              $this->correo = $data['email_administrador'];
-  
-              return true;
+            $_SESSION['idAdministrador'] = $data['id_administrador'];
+            $_SESSION['emailAdministrador'] = $data['email_administrador'];
+            return true;
           } else {
               return false;
           }
