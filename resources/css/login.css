@@ -168,3 +168,53 @@ body{
   background-color: #FF7A00;
   color: #FF7A00;
 }
+
+@media (width < 1100px){
+  
+  .main-cotent{
+    width: 90%;
+  }
+
+  .main-content-element.one{
+    width: 40%;
+  }
+  .main-content-element.two{
+    width: 60%;
+  }
+}
+
+@media (width < 800px){
+  
+  .main-cotent{
+    width: 95%;
+    flex-direction: column;
+    justify-content: start;
+  }
+
+  .main-content-element.one{
+    width: 100%;
+    height: fit-content;
+    margin-top: 80px;
+  }
+  .main-content-element.two{
+    width: 100%;
+  }
+}
+
+.main-cotent#loginContent{
+  display: none;
+}
+.main-cotent#signUpContent{
+  display: none;
+}
+
+#loginContent.show{
+  display: flex;
+}
+
+#signUpContent.show{
+  display: flex;
+}
+
+/* INCIO DE SESION */
+
