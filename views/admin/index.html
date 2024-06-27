@@ -1,130 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap');
-
-    * {
-      font-family: 'Outfit', sans-serif;
-    }
-
-    body, html {
-      height: 100%;
-      margin: 0;
-      display: flex;
-    }
-
-    .left-panel, .right-panel {
-      height: 100%;
-    }
-
-    .left-panel {
-      background-color: #FFA000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      padding-top: 20px; /* Ajusta este valor según sea necesario */
-    }
-
-    .right-panel {
-      background-color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      padding: 40px;
-      padding-top: 20px; /* Ajusta este valor según sea necesario */
-    }
-
-    .login-form {
-      width: 100%;
-      max-width: 400px;
-    }
-
-    .login-form h2 {
-      margin-bottom: 20px;
-    }
-
-    .login-form .form-control {
-      margin-bottom: 10px;
-    }
-
-    .login-form .btn-primary {
-      width: 100%;
-    }
-
-    .text {
-      color: #8692A6;
-    }
-
-  </style>
+  <link rel="stylesheet" href="../../resources/css/login.css">
 </head>
+
 <body>
-  <div class="left-panel">
-    <img src="../../resources/img/login_image.png" alt="Login Image" style="max-width: 70%; height: auto;">
+
+  <div class="container">
+    <img src="../../resources/img/logo.png" alt="" class="logo">
   </div>
 
-  <div class="right-panel">
-    <div class="form-container">
-      <form id="loginForm" class="d-none">
-        <div class="login-form">
-          <h2>Inicio de sesión</h2>
-          <p class="text">Puedes iniciar sesión con tu dirección de correo electrónico y contraseña.</p>
-          <div class="form-group">
-            <label for="email"><i class="bi bi-envelope"></i> Correo Electronico</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Escriba su correo" required>
+  <div class="main-cotent">
+    <div class="main-content-element one">
+      <div class="text-container">
+        <span class="tittle1">¡Bienvenido</span>
+        <span class="tittle2">nuevamente!</span>
+      </div>
+    </div>
+    <div class="main-content-element two">
+      <div class="card-container">
+        <div class="title">Iniciar Sesión</div>
+        <form id="loginForm">
+        <div class="main">
+          <div class="input">
+            <div class="input-row">
+              <svg width="24" height="21" viewBox="0 0 24 21">
+                <path
+                  d="M24 6.048V16.7344C24 19.0089 22.3722 20.8677 20.3213 20.9933L20.1 21H3.9C1.82036 21 0.1209 19.2196 0.00616808 16.9764L0 16.7344V6.048L11.5824 12.6845C11.844 12.8343 12.156 12.8343 12.4176 12.6845L24 6.048ZM3.9 0H20.1C22.1216 0 23.7841 1.68251 23.9806 3.83716L12 10.7012L0.0194281 3.83716C0.208632 1.76231 1.75718 0.125278 3.67691 0.00686431L3.9 0Z"
+                  fill="#2F2F2F" />
+              </svg>
+            </div>
+            <input type="text" placeholder="Correo" id="email" name="email">
           </div>
-          <div class="form-group">
-            <label for="clave"><i class="bi bi-lock"></i> Contraseña</label>
-            <input type="password" class="form-control" id="clave" name="clave" placeholder="Contraseña" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Iniciar sesión <i class="bi bi-arrow-right"></i></button>
-        </div>
-      </form>
 
-      <!-- Formulario para crear el primer administrador -->
-      <form class="d-none" id="signupForm">
-        <div class="login-form">
-          <h2>Crear Cuenta</h2>
-          <p class="text">Por favor, rellena los siguientes campos para crear tu cuenta.</p>
-          <div class="form-group">
-            <label for="nombreAdministrador"><i class="bi bi-person"></i> Nombre</label>
-            <input type="text" class="form-control" id="nombreAdministrador" name="nombreAdministrador" placeholder="Escriba su nombre" required>
+          <div class="input">
+            <div class="input-row">
+              <svg width="21" height="24" viewBox="0 0 21 24">
+                <path
+                  d="M21 12C21 10.6764 19.8227 9.6 18.375 9.6H17.0625V6C17.0625 2.6916 14.1186 0 10.5 0C6.88144 0 3.9375 2.6916 3.9375 6V9.6H2.625C1.17731 9.6 0 10.6764 0 12V21.6C0 22.9236 1.17731 24 2.625 24H18.375C19.8227 24 21 22.9236 21 21.6V12ZM6.5625 6C6.5625 4.0152 8.32912 2.4 10.5 2.4C12.6709 2.4 14.4375 4.0152 14.4375 6V9.6H6.5625V6Z"
+                  fill="#2F2F2F" />
+              </svg>
+            </div>
+            <input type="text" placeholder="Contraseña" id="clave" name="clave">
           </div>
-          <div class="form-group">
-            <label for="apellidoAdministrador"><i class="bi bi-person"></i> Apellido</label>
-            <input type="text" class="form-control" id="apellidoAdministrador" name="apellidoAdministrador" placeholder="Escriba su apellido" required>
-          </div>
-          <div class="form-group">
-            <label for="emailAdministrador"><i class="bi bi-envelope"></i> Correo</label>
-            <input type="email" class="form-control" id="emailAdministrador" name="emailAdministrador" placeholder="Escriba su correo" required>
-          </div>
-          <div class="form-group">
-            <label for="claveAdministrador"><i class="bi bi-lock"></i> Contraseña</label>
-            <input type="password" class="form-control" id="claveAdministrador" name="claveAdministrador" placeholder="Contraseña" required>
-          </div>
-          <div class="form-group">
-            <label for="confirmarClave"><i class="bi bi-lock"></i> Confirmar contraseña</label>
-            <input type="password" class="form-control" id="confirmarClave" name="confirmarClave" placeholder="Confirmar contraseña" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Guardar <i class="bi bi-save"></i></button>
+
+          <button class="button" type="submit">Ingresar
         </div>
-      </form>
+        </form>
+      </div>
+
     </div>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    
+  </script>
+
   <script src="../../resources/js/sweetalert.min.js"></script>
-  <script src="../../controllers/admin/index.js"></script>
+  <!-- <script src="../../controllers/admin/index.js"></script> -->
   <script src="../../controllers/utils/admin.js"></script>
   <script src="../../controllers/utils/componentes.js"></script>
 </body>
+
 </html>

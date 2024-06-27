@@ -1,38 +1,170 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap');
+@import url('outfit.css');
 
-body, html {
-    height: 100%;
-    margin: 0;
-    display: flex;
-  }
-  .left-panel, .right-panel {
-    height: 100%;
-  }
-  .left-panel {
-    background-color: #FFA000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-  }
-  .right-panel {
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    padding: 40px;
-  }
-  .login-form {
-    width: 100%;
-    max-width: 400px;
-  }
-  .login-form h2 {
-    margin-bottom: 20px;
-  }
-  .login-form .form-control {
-    margin-bottom: 10px;
-  }
-  .login-form .btn-primary {
-    width: 100%;
-  }
+:root{
+  --text-color-main: #FBA454;
+  --text-color-secondary: #FFDAB9;
+
+  --input-color-1: #FBA454;
+  --input-color-2: #FFDAB9;
+
+  --font-width-title-xlarge: 50px;
+  --font-width-title-large: 30px;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../img/login-wallpaper.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo{
+  width: 40px;
+  height: auto;
+  position: absolute;
+  left: 30px;
+  top: 25px;
+  z-index: 10;
+}
+
+.main-cotent{
+  display: flex;
+  width: 80%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-content-element{
+  width: 50%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-content-element.one .text-container{
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.main-content-element.one .text-container .tittle1{
+  color: var(--text-color-main);
+  font-size: var(--font-width-title-xlarge);
+  font-weight: 600;
+}
+
+.main-content-element.one .text-container .tittle2{
+  color: var(--text-color-secondary);
+  font-size: var(--font-width-title-large);
+}
+
+
+/* CARD DE LOGIN */
+
+.main-content-element.two .card-container{
+  background-color: #4747473d;
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  width: 90%;
+  height: 300px;
+  box-shadow: 0px 0px 22px 3px rgba(251,164,84,0.76);
+  position: relative;
+}
+
+.main-content-element.two .card-container .title{
+  color: var(--text-color-secondary);
+  margin-left: 40px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  font-size: var(--font-width-title-large);
+}
+
+.main-content-element.two .card-container .main .button{
+  position: absolute;
+  top: calc(100% - 25px);
+  background: rgb(255,165,58);
+  background: linear-gradient(90deg, rgba(255,165,58,1) 0%, rgba(255,75,75,1) 100%);
+  border-radius: 20px;
+  padding: 0px 100px 0px 100px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 18px;
+  transition: all .3s ease;
+  user-select: none;
+  cursor: pointer;
+  border: none;
+}
+
+.main-content-element.two .card-container .main .button:hover{
+  background: rgb(255,160,46);
+  background: linear-gradient(90deg, rgba(255,160,46,1) 0%, rgba(255,40,40,1) 100%);  border-radius: 10px;
+}
+.main-content-element.two .card-container .main{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.main-content-element.two .card-container .main .input{
+  display: flex;
+  height: 40px;
+  width: 100%;
+  justify-content: center;
+}
+
+.input *{
+  background-color: #FFAB5E;
+  transition: all 0.3s ease;
+}
+
+
+.main-content-element.two .card-container .main .input input{
+  display: flex;
+  width: calc(80% - 40px);
+  border-radius: 0px 10px 10px 0px;
+  background-color: #ffffff00;
+  border: #FFAB5E 2px solid;
+  border-left: 0px;
+  padding-left: 10px;
+  color: white;
+}
+
+.main-content-element.two .card-container .main .input input:focus{
+  outline: none;
+  box-shadow: none;
+  border-color: #FF7A00;
+}
+
+.main-content-element.two .card-container .main .input input::placeholder{
+  color: #FFAB5E;
+}
+
+.main-content-element.two .card-container .main .input .input-row{
+  width: 40px;
+  border-radius: 5px 0px 0px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input:focus-within *{
+  background-color: #FF7A00;
+  color: #FF7A00;
+}
