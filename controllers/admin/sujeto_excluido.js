@@ -15,7 +15,17 @@ const TITULO_MODAL = document.getElementById('tituloModal'),
 // Constantes para establecer los elementos del formulario.
 const FORM_SUJETO = document.getElementById('formSujeto'),
     ID_SUJETO = document.getElementById('idSujeto'),
-    NOMBRE_SUJETO = document.getElementById('nombreSujeto');
+    NIT_CLIENTE = document.getElementById('nitCliente'),
+    NOMBRE_SUJETO = document.getElementById('nombreSujeto'),
+    DIRECCION_CLIENTE = document.getElementById('direccionCliente'),
+    DEPARTAMENTO_CLIENTE = document.getElementById('departamentoCliente'),
+    MUNICIPIO_CLIENTE = document.getElementById('municipioCliente'),
+    EMAIL_CLIENTE = document.getElementById('emailCliente'),
+    TELEFONO_CLIENTE = document.getElementById('telefonoCliente'),
+    DUI_CLIENTE = document.getElementById('duiCliente'),
+    TIPO_SERVICIO = document.getElementById('tipoServicio'),
+    MONTO = document.getElementById('monto'),
+    FECHA_EMISION = document.getElementById('fechaEmision');
 
 // Función para abrir el modal crear o editar.
 const abrirModal = async (tituloModal, idSujeto) => {
