@@ -50,7 +50,7 @@ const abrirModal = async (tituloModal, idSujeto) => {
             // Se configura el nuevo color del botón.
             BOTON_ACCION.classList.add('btn-success');
             // Se configura el título del botón.
-            BOTON_ACCION.innerHTML = 'Editar color';
+            BOTON_ACCION.innerHTML = 'Editar usuario';
             // Se prepara el formulario para cargar los input.
             FORM_SUJETO.reset();
             // Se cargan los campos de la base en una variable.
@@ -180,7 +180,7 @@ const cargarTabla = async (form = null) => {
                 <tr>
                     <td class="text-center">${row.cliente_nombre}</td>
                     <td class="celda-agregar-eliminar text-right text-center">
-                        <button type="button" class="btn btn-success text-center" onclick="abrirModal('Editar color',${row.id_nombre_cliente})">
+                        <button type="button" class="btn btn-success text-center" onclick="abrirModal('Editar usuario',${row.id_nombre_cliente})">
                             <img src="../../resources/img/lapiz.png" alt="lapizEditar" width="30px">
                         </button>
                         <button type="button" class="btn btn-danger text-center" onclick="abrirEliminar(${row.id_nombre_cliente})">
@@ -193,8 +193,8 @@ const cargarTabla = async (form = null) => {
         // Se muestra un mensaje de acuerdo con el resultado.
         FILAS_ENCONTRADAS.textContent = DATA.message;
     } else {
-        // En caso de que no existan colores registrados o no se encuentren coincidencias de búsqeuda. 
-        if (DATA.error == 'No existen colores registrados' || DATA.error == 'No hay coincidencias') {
+        // En caso de que no existan usuarios registrados o no se encuentren coincidencias de búsqeuda. 
+        if (DATA.error == 'No existen usuarios registrados' || DATA.error == 'No hay coincidencias') {
             // Se muestra el mensaje de la API.
             sweetAlert(4, DATA.error, true);
             // Se restablece el contenido de la tabla.
