@@ -15,73 +15,84 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'searchRows':
-                if (!Validator::validateSearch($_POST['buscarusuario'])) {
-                    $result['error'] = Validator::getSearchError();
-                } elseif ($result['dataset'] = $usuario->searchRows()) {
-                    $result['status'] = 1;
-                    $result['message'] = count($result['dataset']) . ' coincidencias';
+                if (!isset($_POST['buscarusuario']) || !Validator::validateSearch($_POST['buscarusuario'])) {
+                    $result['error'] = 'Búsqueda inválida';
                 } else {
-                    $result['error'] = 'No hay coincidencias';
+                    Validator::setSearchValue($_POST['buscarusuario']);
+                    $result['dataset'] = $usuario->searchRows();
+                    if ($result['dataset']) {
+                        $result['status'] = 1;
+                        $result['message'] = count($result['dataset']) . ' coincidencias';
+                    } else {
+                        $result['error'] = 'No hay coincidencias';
+                    }
                 }
                 break;
             case 'createRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
+                    !isset($_POST['nombre_cliente']) ||
                     !$usuario->setNombre($_POST['nombre_cliente'])
                 ) {
                     $result['error'] = $usuario->getDataError();
                 } elseif ($usuario->createRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'usuario creado correctamente';
+                    $result['message'] = 'Usuario creado correctamente';
                 } else {
                     $result['error'] = 'Ocurrió un problema al crear el usuario';
                 }
                 break;
             case 'readAll':
-                if ($result['dataset'] = $usuario->readAll()) {
-                    +$result['status'] = 1;
+                $result['dataset'] = $usuario->readAll();
+                if ($result['dataset']) {
+                    $result['status'] = 1;
                     $result['message'] = 'Mostrando ' . count($result['dataset']) . ' registros';
                 } else {
                     $result['error'] = 'No existen usuarios registrados';
                 }
                 break;
             case 'readOne':
-                if (!$usuario->setId($_POST['id_cliente'])) {
-                    $result['error'] = $usuario->getDataError();
-                } elseif ($result['dataset'] = $usuario->readOne()) {
-                    $result['status'] = 1;
+                if (!isset($_POST['id_cliente']) || !$usuario->setId($_POST['id_cliente'])) {
+                    $result['error'] = 'ID de cliente inválido';
                 } else {
-                    $result['error'] = 'usuario inexistente';
+                    $result['dataset'] = $usuario->readOne();
+                    if ($result['dataset']) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['error'] = 'Usuario inexistente';
+                    }
                 }
                 break;
             case 'updateRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$usuario->setId($_POST['id_cliente']) or
+                    !isset($_POST['id_cliente']) ||
+                    !isset($_POST['nombre_cliente']) ||
+                    !$usuario->setId($_POST['id_cliente']) ||
                     !$usuario->setNombre($_POST['nombre_cliente'])
                 ) {
                     $result['error'] = $usuario->getDataError();
                 } elseif ($usuario->updateRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'usuario modificado correctamente';
+                    $result['message'] = 'Usuario modificado correctamente';
                 } else {
                     $result['error'] = 'Ocurrió un problema al modificar el usuario';
                 }
                 break;
             case 'deleteRow':
-                if (
-                    !$usuario->setId($_POST['id_cliente'])
-                ) {
-                    $result['error'] = $usuario->getDataError();
-                } elseif ($usuario->deleteRow()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'usuario eliminado correctamente';
+                if (!isset($_POST['id_cliente']) || !$usuario->setId($_POST['id_cliente'])) {
+                    $result['error'] = 'ID de cliente inválido';
                 } else {
-                    $result['error'] = 'Ocurrió un problema al eliminar el usuario';
+                    if ($usuario->deleteRow()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Usuario eliminado correctamente';
+                    } else {
+                        $result['error'] = 'Ocurrió un problema al eliminar el usuario';
+                    }
                 }
                 break;
             default:
-                $result['error'] = 'Acción no disponible dentro de la sesión';
+                $result['error'] = 'Acción no disponible';
         }
         // Se obtiene la excepción del servidor de bd por si ocurrió un problema.
         $result['exception'] = Database::getException();

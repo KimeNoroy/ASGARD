@@ -21,6 +21,7 @@ const FORM_SUJETO = document.getElementById('formSujeto'),
     DEPARTAMENTO_CLIENTE = document.getElementById('departamentoCliente'),
     MUNICIPIO_CLIENTE = document.getElementById('municipioCliente'),
     EMAIL_CLIENTE = document.getElementById('emailCliente'),
+    DESCRIPCION_SERVICIO = document.getElementById('descripcionServicio'),
     TELEFONO_CLIENTE = document.getElementById('telefonoCliente'),
     DUI_CLIENTE = document.getElementById('duiCliente'),
     TIPO_SERVICIO = document.getElementById('tipoServicio'),
@@ -69,6 +70,16 @@ const abrirModal = async (tituloModal, idSujeto) => {
             ID_SUJETO.value = ROW.id_nombre_cliente;
             // Se carga el nombre del color en el input nombreSujeto.
             NOMBRE_SUJETO.value = ROW.cliente_nombre;
+            NIT_CLIENTE.value = ROW.nit_cliente;
+            DIRECCION_CLIENTE.value = ROW.direccion_cliente;
+            DEPARTAMENTO_CLIENTE.value = ROW.departamento_cliente;
+            MUNICIPIO_CLIENTE.value = ROW.municipio_cliente;
+            EMAIL_CLIENTE.value = ROW.email_cliente;
+            TELEFONO_CLIENTE.value = ROW.telefono_cliente;
+            DUI_CLIENTE.value = ROW.dui_cliente;
+            TIPO_SERVICIO.value = ROW.tipo_servicio;
+            MONTO.value = ROW.monto;
+            FECHA_EMISION.value = ROW.fecha_emision;
             // Se abre el modal editar.
             MODALSUJETO.show();
         } else {
@@ -189,6 +200,16 @@ const cargarTabla = async (form = null) => {
             CUERPO_TABLA.innerHTML += `
                 <tr>
                     <td class="text-center">${row.cliente_nombre}</td>
+                    <td class="text-center">${row.nit_cliente}</td>
+                    <td class="text-center">${row.direccion_cliente}</td>
+                    <td class="text-center">${row.departamento_cliente}</td>
+                    <td class="text-center">${row.municipio_cliente}</td>
+                    <td class="text-center">${row.email_cliente}</td>
+                    <td class="text-center">${row.telefono_cliente}</td>
+                    <td class="text-center">${row.dui_cliente}</td>
+                    <td class="text-center">${row.tipo_servicio}</td>
+                    <td class="text-center">${row.monto}</td>
+                    <td class="text-center">${row.fecha_emision}</td>
                     <td class="celda-agregar-eliminar text-right text-center">
                         <button type="button" class="btn btn-success text-center" onclick="abrirModal('Editar usuario',${row.id_nombre_cliente})">
                             <img src="../../resources/img/lapiz.png" alt="lapizEditar" width="30px">
