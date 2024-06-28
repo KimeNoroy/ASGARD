@@ -83,6 +83,10 @@ body{
   position: relative;
 }
 
+#loginContent .main-content-element.two .card-container{
+  height: 300px;
+}
+
 .main-content-element.two .card-container .title{
   color: var(--text-color-secondary);
   margin-left: 40px;
@@ -146,13 +150,20 @@ body{
   color: white;
 }
 
-.main-content-element.two .card-container .main .input input:focus{
+.main-content-element.two .card-container .main .input input:focus,
+#signUpContent .nonIconInput:focus{
   outline: none;
   box-shadow: none;
   border-color: #FF7A00;
 }
 
-.main-content-element.two .card-container .main .input input::placeholder{
+.main-content-element.two .card-container .main .input input:focus::placeholder,
+#signUpContent .nonIconInput:focus::placeholder{
+  color: #FF7A00;
+}
+
+.main-content-element.two .card-container .main .input input::placeholder,
+#signUpContent .nonIconInput::placeholder{
   color: #FFAB5E;
 }
 
@@ -218,3 +229,18 @@ body{
 
 /* INCIO DE SESION */
 
+#signUpContent .main-content-element.two .card-container{
+  height: 500px;
+}
+
+@media (width < 800px){
+
+  #signUpContent .main-content-element.two{
+    height: 500px;
+  }
+
+  #signUpContent .main-content-element.two{
+    margin-top: 100px;
+  }
+  
+}
