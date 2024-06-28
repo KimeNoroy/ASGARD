@@ -1,0 +1,56 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#SIDEBAR{
+    background-color: whitesmoke;
+    height: 100vh;
+    width: 300px;
+}
+
+/* LOGO */
+
+#SIDEBAR .logo-container{
+    height: 150px;
+}
+
+/* CARTAS */
+
+#SIDEBAR .main-container{
+    height: calc(100% - 400px);
+}
+
+#SIDEBAR .main-container .main-cards-container{
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    gap: 10px;
+    overflow: visible;
+}
+
+#SIDEBAR .main-container .main-cards-container .main-card{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    color: #565656;
+    font-size: 18px;
+    user-select: none;
+    padding: 15px 0px 15px 15px;
+    border-radius: 10px;
+    width: 270px;
+}
+
+#SIDEBAR .main-container .main-cards-container .main-card.selected{
+    background-color: #FF790D;
+    color: white;
+    font-weight: 500;
+    margin-left: 10px;
+    
+}
+
+#SIDEBAR .main-container .main-cards-container .main-card.selected svg path{
+    fill: white;
+}
+
