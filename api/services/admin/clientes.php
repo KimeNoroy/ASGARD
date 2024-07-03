@@ -1,12 +1,12 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = htmlspecialchars($_POST['nombre']);
-    $apellido = htmlspecialchars($_POST['apellido']);
-    $dui = htmlspecialchars($_POST['dui']);
+    $nombre = htmlspecialchars($_POST['nombre_cliente']);
+    $apellido = htmlspecialchars($_POST['apellido_cliente']);
+    $correo = htmlspecialchars($_POST['email_cliente']);
+    $clave = htmlspecialchars($_POST['contraseña_cliente']);
     $telefono = htmlspecialchars($_POST['telefono']);
-    $departamento = htmlspecialchars($_POST['departamento']);
-    $correo = htmlspecialchars($_POST['correo']);
-    $nit = htmlspecialchars($_POST['nit']);
+    $dui = htmlspecialchars($_POST['dui_cliente']);
+    $nit = htmlspecialchars($_POST['nit_cliente']);
 
     // Aquí puedes procesar los datos recibidos, por ejemplo, guardarlos en una base de datos
 
@@ -24,7 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Conexión fallida: " . $conn->connect_error);
     }
 
-    $sql = "INSERT INTO clientes (nombre, apellido, dui, telefono, departamento, correo, nit) VALUES ('$nombre', '$apellido', '$dui', '$telefono', '$departamento', '$correo', '$nit')";
+    $sql = "INSERT INTO tb_clientes(nombre_cliente, apellido_cliente, email_cliente, contraseña_cliente, telefono, dui_cliente, nit_cliente)
+    VALUES ('$nombre', '$apellido', '$correo', '$clave', '$telefono', '$dui', '$nit')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Nuevo cliente registrado exitosamente";

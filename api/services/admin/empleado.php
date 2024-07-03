@@ -1,11 +1,9 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = htmlspecialchars($_POST['nombre']);
-    $apellido = htmlspecialchars($_POST['apellido']);
-    $dui = htmlspecialchars($_POST['dui']);
-    $telefono = htmlspecialchars($_POST['telefono']);
-    $correo = htmlspecialchars($_POST['correo']);
-    $nit = htmlspecialchars($_POST['nit']);
+    $nombre = htmlspecialchars($_POST['nombres_empleado']);
+    $apellido = htmlspecialchars($_POST['apellidos_empleado']);
+    $dui = htmlspecialchars($_POST['dui_empleado']);
+    $clave = htmlspecialchars($_POST['contrasena']);
 
     // Aquí puedes procesar los datos recibidos, por ejemplo, guardarlos en una base de datos
 
@@ -23,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Conexión fallida: " . $conn->connect_error);
     }
 
-    $sql = "INSERT INTO empleados (nombre, apellido, dui, telefono, correo, nit) VALUES ('$nombre', '$apellido', '$dui', '$telefono', '$correo', '$nit')";
+    $sql = "INSERT INTO tb_empleados(nombres_empleado, apellidos_empleado, dui_empleado) VALUES ('$nombre', '$apellido', '$dui')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Nuevo registro creado exitosamente";

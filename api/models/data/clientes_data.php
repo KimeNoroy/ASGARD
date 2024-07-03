@@ -97,7 +97,7 @@ class ClienteData extends ClienteHandler
 
   
 
-    public function setDireccion($value, $min = 2, $max = 250)
+   /* public function setDireccion($value, $min = 2, $max = 250)
     {
         if (!Validator::validateString($value)) {
             $this->data_error = 'La dirección contiene caracteres prohibidos';
@@ -109,7 +109,7 @@ class ClienteData extends ClienteHandler
             $this->data_error = 'La dirección debe tener una longitud entre ' . $min . ' y ' . $max;
             return false;
         }
-    }
+    } */
 
     public function setClave($value)
     {
@@ -122,7 +122,7 @@ class ClienteData extends ClienteHandler
         }
     }
 
-    public function setEstado($value)
+   /* public function setEstado($value)
     {
         if (Validator::validateBoolean($value)) {
             $this->estado = $value;
@@ -131,7 +131,7 @@ class ClienteData extends ClienteHandler
             $this->data_error = 'Estado incorrecto';
             return false;
         }
-    }
+    }*/
 
     // Método para obtener el error de los datos.
     public function getDataError()
