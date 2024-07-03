@@ -31,150 +31,41 @@ class factura_sujeto_excluido extends factura_sujeto_excluido_handler
         }
     }
 
-    public function setNombre($value, $min = 4, $max = 100)
+    public function setIdCliente($value)
     {
-        if (!Validator::validateAlphabetic($value)) {
-            $this->data_error = 'El nombre debe ser un value alfabético';
-            return false;
-        } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->nombre = $value;
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_cliente = $value;
             return true;
         } else {
-            $this->data_error = 'El nombre debe tener una longitud entre ' . $min . ' y ' . $max;
+            $this->data_error = 'El cliente es incorrecto o esta vacio';
             return false;
         }
     }
 
-    public function SetApellido($value, $min = 4, $max = 100)
+    public function setIdServicio($value)
     {
-        if (!Validator::validateAlphabetic($value)) {
-            $this->data_error = 'El apellido debe ser un value alfabético';
-            return false;
-        } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->apellido = $value;
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_servicio = $value;
             return true;
         } else {
-            $this->data_error = 'El apellido debe tener una longitud entre ' . $min . ' y ' . $max;
-            return false;
-        }
-    }
-
-    // Método para establecer el correo del cliente.
-    public function setEmail($value, $min = 8, $max = 100)
-    {
-        if (!Validator::validateEmail($value)) {
-            $this->info_error = 'El correo no es válido';
-            return false;
-        } elseif (Validator::validateLength($value, $min, $max)) {
-            // Verifica si el correo ya existe en la base de datos
-            if ($this->checkDuplicate($value)) {
-                $this->info_error = 'El correo ingresado ya existe';
-                return false;
-            } else {
-                // Si todas las validaciones pasan, establece el correo
-                $this->email = $value;
-                return true;
-            }
-        } else {
-            $this->info_error = 'El correo debe tener una longitud entre ' . $min . ' y ' . $max;
-            return false;
-        }
-    }
-
-    // Método para establecer el DUI del cliente.
-    public function setDUI($value)
-    {
-        if (!Validator::validateDUI($value)) {
-            $this->info_error = 'El DUI debe tener el formato ########-#';
-            return false;
-        } elseif($this->checkDuplicate($value)) {
-            $this->info_error = 'El DUI ingresado ya existe';
-            return false;
-        } else {
-            $this->dui = $value;
-            return true;
-        }
-    }
-
-    // Método para establecer el NIT del cliente.
-    public function setNIT($value)
-    {
-        if (!Validator::validateNIT($value)) {
-            $this->info_error = 'El NIT debe tener el formato #########';
-            return false;
-        } elseif($this->checkDuplicate($value)) {
-            $this->info_error = 'El NIT ingresado ya existe';
-            return false;
-        } else {
-            $this->nit = $value;
-            return true;
-        }
-    }
-
-    // Método para establecer el teléfono del cliente.
-    public function setTelefono($value)
-    {
-        if (!Validator::validatePhone($value)) {
-            $this->info_error = 'El teléfono debe iniciar con el formato (6, 7)###-####';
-            return false;
-        } elseif ($this->checkDuplicate($value)) {
-            $this->info_error = 'El teléfono ingresado ya está siendo usado por otro cliente';
-            return false;
-        } else {
-            $this->telefono = $value;
-            return true;
-        }
-    }
-
-    // Método para establecer la dirección del cliente.
-    public function setDireccion($value, $min = 10, $max = 255)
-    {
-        if (!Validator::validateAlphanumeric($value)) {
-            $this->info_error = 'La dirección debe ser un valor alfanumérico';
-            return false;
-        } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->direccion = $value;
-            return true;
-        } else {
-            $this->info_error = 'La dirección debe tener una longitud entre ' . $min . ' y ' . $max;
-            return false;
-        }
-    }
-
-    // Método para establecer el departamento del cliente.
-    public function setDepartamento($value, $min = 10, $max = 100)
-    {
-        if (!Validator::validateAlphanumeric($value)) {
-            $this->info_error = 'El departamento debe ser un valor alfanumérico';
-            return false;
-        } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->departamento = $value;
-            return true;
-        } else {
-            $this->info_error = 'El departamento debe tener una longitud entre ' . $min . ' y ' . $max;
-            return false;
-        }
-    }
-
-    // Método para establecer el municipio del cliente.
-    public function setMunicipio($value, $min = 10, $max = 100)
-    {
-        if (!Validator::validateAlphanumeric($value)) {
-            $this->info_error = 'El municipio debe ser un value alfanumérico';
-            return false;
-        } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->municipio = $value;
-            return true;
-        } else {
-            $this->info_error = 'El municipio debe tener una longitud entre ' . $min . ' y ' . $max;
+            $this->data_error = 'El servicio es incorrecto o esta vacio';
             return false;
         }
     }
 
     // Método para establecer el tipo de servicio.
-    public function setTipoServicio($value)
+    public function setTipoServicio($value, $min = 3, $max = 25)
     {
-        
+        if (!Validator::validateString($value)) {
+            $this->data_error = 'No se ha seleccionado ningun servicio';
+            return false;
+        } elseif (Validator::validateLength($value, $min, $max)) {
+            $this->tipo_servicio = $value;
+            return true;
+        } else {
+            $this->data_error = 'El tipo servicio debe tener una longitud entre ' . $min . ' y ' . $max;
+            return false;
+        }
     }
 
     // Método para establecer el precio del servicio.
@@ -199,6 +90,17 @@ class factura_sujeto_excluido extends factura_sujeto_excluido_handler
             return true;
         } else {
             $this->data_error = 'La descripción debe tener una longitud entre ' . $min . ' y ' . $max;
+            return false;
+        }
+    }
+
+    public function setFecha($value)
+    {
+        if (Validator::validateDate($value)) {
+            $this->fecha = $value;
+            return true;
+        } else {
+            $this->data_error = 'La fecha es incorrecta';
             return false;
         }
     }

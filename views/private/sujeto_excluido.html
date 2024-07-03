@@ -104,74 +104,20 @@
                     </div>
                     <form id="formSujeto">
                         <!-- Cuerpo del modal -->
+                        <input type="hidden" id="id_factura" name="id_factura">
                         <div class="modal-body">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-md">
-                                            <input type="number" class="d-none" id="idFactura" name="idFactura">
-                                            <label for="nombreCliente" class="col-form-label"
-                                                for="validationDefault01">Nombres:</label>
-                                            <input type="text" class="form-control" id="nombreCliente" name="nombreCliente"
-                                                required>
-                                        </div>
-                                        <div class="mb-md">
-                                            <label for="apellidoCliente" class="col-form-label"
-                                                for="validationDefault02">Apellidos:</label>
-                                            <input type="text" class="form-control" id="apellidoCliente"
-                                                name="apellidoCliente" required>
-                                        </div>
-                                        <div class="mb-md">
-                                            <label for="duiCliente" class="col-form-label"
-                                                for="validationDefault03">DUI:</label>
-                                            <input type="text" class="form-control" id="duiCliente" name="duiCliente"
-                                                oninput="duiNacional(event)" required>
-                                        </div>
-                                        <div class="mb-md">
-                                            <label for="departamentoCliente" class="col-form-label"
-                                                for="validationDefault04">Departamento:</label>
-                                            <input type="text" class="form-control" id="departamentoCliente"
-                                                name="departamentoCliente" required>
-                                        </div>
-                                        <div class="mb-md">
-                                            <label for="emailCliente" class="col-form-label"
-                                                for="validationDefault05">Correo:</label>
-                                            <input type="email" class="form-control" id="emailCliente" name="emailCliente"
-                                                required>
-                                        </div>
-                                        <div class="mb-md">
-                                            <label for="descripcion" class="col-form-label"
+                                            <label for="descripcionServicio" class="col-form-label"
                                                 for="validationDefault06">Descripción del
                                                 servicio:</label>
-                                            <input type="text" class="form-control" id="descripcion"
+                                            <input type="text" class="form-control" id="descripcionServicio"
                                                 name="descripcion" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="mb-md">
-                                            <label for="direccionCliente" class="col-form-label"
-                                                for="validationDefault07">Dirección:</label>
-                                            <input type="text" class="form-control" id="direccionCliente"
-                                                name="direccionCliente" required>
-                                        </div>
-                                        <div class="mb-md">
-                                            <label for="municipioCliente" class="col-form-label"
-                                                for="validationDefault08">Municipio:</label>
-                                            <input type="text" class="form-control" id="municipioCliente"
-                                                name="municipioCliente" required>
-                                        </div>
-                                        <div class="mb-md">
-                                            <label for="telefonoCliente" class="col-form-label"
-                                                for="validationDefault09">Teléfono:</label>
-                                            <input type="text" class="form-control" id="telefonoCliente"
-                                                name="telefonoCliente" oninput="numeroNacional(event)" required>
-                                        </div>
-                                        <div class="mb-md">
-                                            <label for="nitCliente" class="col-form-label"
-                                                for="validationDefault10">NIT:</label>
-                                            <input type="text" class="form-control" id="nitCliente" name="nitCliente"
-                                                oninput="validarNIT(event)" required>
-                                        </div>
                                         <div class="mb-md">
                                             <label for="monto" class="col-form-label" for="validationDefault11">Monto
                                                 del
@@ -182,8 +128,28 @@
                                         <div class="mb-md">
                                             <label for="tipoServicio" class="col-form-label"
                                                 for="validationDefault12">Tipo de servicio:</label>
-                                            <input type="text" class="form-control" id="tipoServicio"
+                                            <select class="form-select" id="tipoServicio"
                                                 name="tipoServicio" required>
+                                                <option value="" selected>Selecciona una opción</option>
+                                                <option value="Credito Fiscal">Credito Fiscal</option>
+                                                <option value="Factura Consumidor Final">Factura Consumidor Final</option>
+                                                <option value="Factura Sujeto Excluido">Factura Sujeto Excluido</option>
+                                                <option value="Otro">Otro</option>
+                                              </select>
+                                        </div>
+                                        <div class="mb-md">
+                                            <label for="id_servicio" class="col-form-label"
+                                                for="validationDefault12">Servicio</label>
+                                            <select class="form-select" id="id_servicio"
+                                                name="id_servicio" required>
+                                            </select>
+                                        </div>
+                                        <div class="mb-md">
+                                            <label for="id_cliente" class="col-form-label"
+                                                for="validationDefault12">Clientes:</label>
+                                            <select class="form-select" id="id_cliente"
+                                                name="id_cliente" required>
+                                            </select>
                                         </div>
                                         <div class="mb-md">
                                             <label for="fechaEmision" class="col-form-label"
@@ -213,7 +179,7 @@
                     <form id="formEliminar">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="tituloModalEliminar"></h1>
-                            <input type="number" class="d-none" id="idFactura" name="inputIdFactura">
+                            <input type="number" class="d-none" id="idFactura" name="idFactura">
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
