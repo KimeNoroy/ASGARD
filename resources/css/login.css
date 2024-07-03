@@ -1,38 +1,59 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap');
 
-body, html {
+* {
+    font-family: 'Outfit', sans-serif;
+}
+
+body,
+html {
     height: 100%;
     margin: 0;
     display: flex;
-  }
-  .left-panel, .right-panel {
+}
+
+.left-panel,
+.right-panel {
     height: 100%;
-  }
-  .left-panel {
+}
+
+.left-panel {
     background-color: #FFA000;
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 1;
-  }
-  .right-panel {
+    padding-top: 20px;
+    /* Ajusta este valor según sea necesario */
+}
+
+.right-panel {
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 1;
     padding: 40px;
-  }
-  .login-form {
+    padding-top: 20px;
+    /* Ajusta este valor según sea necesario */
+}
+
+.login-form {
     width: 100%;
     max-width: 400px;
-  }
-  .login-form h2 {
+}
+
+.login-form h2 {
     margin-bottom: 20px;
-  }
-  .login-form .form-control {
+}
+
+.login-form .form-control {
     margin-bottom: 10px;
-  }
-  .login-form .btn-primary {
+}
+
+.login-form .btn-primary {
     width: 100%;
-  }
+}
+
+.text {
+    color: #8692A6;
+}

@@ -24,56 +24,121 @@ const loadTemplate = async () => {
         if (DATA.status) {
             // Se agrega el encabezado de la página web antes del contenido principal.
             MAIN.insertAdjacentHTML('beforebegin', `
-                <header>
-                    <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
-                        <div class="container">
-                            <a class="navbar-brand" href="dashboard.html">
-                                <img src="../../resources/img/logo.png" alt="CoffeeShop" width="50">
-                            </a>
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbarContent">
-                                <ul class="navbar-nav ms-auto">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="producto.html">Productos</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="categoria.html">Categorías</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="administrador.html">Administradores</a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Cuenta: <b>${DATA.username}</b></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="profile.html">Editar perfil</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item" href="#" onclick="logOut()">Cerrar sesión</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </header>
-            `);
-            // Se agrega el pie de la página web después del contenido principal.
-            MAIN.insertAdjacentHTML('afterend', `
-                <footer>
-                    <nav class="navbar fixed-bottom bg-body-tertiary">
-                        <div class="container">
-                            <div>
-                                <p><a class="nav-link" href="https://github.com/dacasoft/coffeeshop" target="_blank"><i class="bi bi-github"></i> CoffeeShop</a></p>
-                                <p><i class="bi bi-c-square-fill"></i> 2018-2024 Todos los derechos reservados</p>
-                            </div>
-                            <div>
-                                <p><a class="nav-link" href="../public/" target="_blank"><i class="bi bi-cart-fill"></i> Sitio público</a></p>
-                                <p><i class="bi bi-envelope-fill"></i> dacasoft@outlook.com</p>
-                            </div>
-                        </div>
-                    </nav>
-                </footer>
+                <div class="menu">
+<ion-icon name="menu-outline"></ion-icon>
+<ion-icon name="close-outline"></ion-icon>
+</div>
+
+<div class="barra-lateral">
+<div>
+    <div class="nombre-pagina">
+        <ion-icon id="cloud" name="cloud-outline"></ion-icon>
+        <span><span class="amarillo">ASGARD</span></span>
+    </div>  
+</div>
+
+
+
+<nav class="navegacion">
+    <ul>
+    <li>
+    <a href="inicio.html">
+    <ion-icon name="home-outline"></ion-icon>
+        <span>Inicio</span>
+    </a>
+</li>
+     <li>
+            <a id="" href="usuariofacturacion.html">
+                <ion-icon name="mail-unread-outline"></ion-icon>
+                <span>Fanturación</span>
+            </a>
+        </li>
+        <li>
+            <a href="usuariocreditofiscal.html">
+                <ion-icon name="star-outline"></ion-icon>
+                <span>Credito fiscal</span>
+            </a>
+        </li>
+        <li>
+            <a href="consumidorfinal.html">
+                <ion-icon name="paper-plane-outline"></ion-icon>
+                <span>Consumidor final</span>
+            </a>
+        </li>
+        <li>
+            <a href="sujetoexcluidoelectrónico.html">
+                <ion-icon name="document-text-outline"></ion-icon>
+                <span>Sujeto excluido electronico
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="comprobantecreditofiscal.html">
+                <ion-icon name="bookmark-outline"></ion-icon>
+                <span>Comprobante de credito fiscal</span>
+            </a>
+        </li>
+        <li>
+            <a href="facturanormal.html">
+            <ion-icon name="albums-outline"></ion-icon>
+                <span>factura normal</span>
+            </a>
+        </li>
+    </ul>
+    <div class="linea"></div>
+    <ul>
+    <li>
+            <a href="#">
+            <ion-icon name="book-outline"></ion-icon>
+                <span>Factura emitidas</span>
+            </a>
+        </li>
+        <li>
+            <a href="clientes.html">
+            <ion-icon name="person-outline"></ion-icon>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li>
+            <a href="empleados.html">
+            <ion-icon name="person-add-outline"></ion-icon>
+                <span>Empleados</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div>
+    <div class="linea"></div>
+
+    <div class="modo-oscuro">
+        <div class="info">
+            <ion-icon name="moon-outline"></ion-icon>
+            <span>Dark Mode</span>
+        </div>
+        <div class="switch">
+            <div class="base">
+                <div class="circulo">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="usuario">
+        <img src="../../resources/img/usuario.png" alt="">
+        <div class="info-usuario">
+            <div class="nombre-email">
+                <span class="nombre">Admin</span>
+                <span class="email">admin@gmail.com</span>
+            </div>
+            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+        </div>
+    </div>
+</div>
+
+</div>
+
             `);
         } else {
             sweetAlert(3, DATA.error, false, 'index.html');
@@ -92,17 +157,6 @@ const loadTemplate = async () => {
                         </div>
                     </nav>
                 </header>
-            `);
-            // Se agrega el pie de la página web después del contenido principal.
-            MAIN.insertAdjacentHTML('afterend', `
-                <footer>
-                    <nav class="navbar fixed-bottom bg-body-tertiary">
-                        <div class="container">
-                            <p><a class="nav-link" href="https://github.com/dacasoft/coffeeshop" target="_blank"><i class="bi bi-github"></i> CoffeeShop</a></p>
-                            <p><i class="bi bi-envelope-fill"></i> dacasoft@outlook.com</p>
-                        </div>
-                    </nav>
-                </footer>
             `);
         } else {
             location.href = 'index.html';

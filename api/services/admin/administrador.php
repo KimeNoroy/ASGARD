@@ -51,6 +51,14 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No existen administradores registrados';
                 }
                 break;
+            case 'readDashboardStats':
+                if ($result['dataset'] = $administrador->readDashboardStats()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Chido';
+                } else {
+                    $result['error'] = 'No existen administradores registrados';
+                }
+                break;
             case 'readOne':
                 if (!$administrador->setId($_POST['idAdministrador'])) {
                     $result['error'] = 'Administrador incorrecto';

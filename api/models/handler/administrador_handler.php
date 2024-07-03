@@ -132,4 +132,14 @@ class AdministradorHandler
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+
+    public function readDashboardStats()
+    {
+        $sql = 'SELECT 
+        (SELECT COUNT(*) FROM tb_empleados) AS total_empleados,
+        (SELECT COUNT(*) FROM tb_factura_sujeto_excluido) + 
+        (SELECT COUNT(*) FROM tb_factura_consumidor_final) AS total_facturas,
+        (SELECT COUNT(*) FROM tb_clientes) AS total_clientes;';
+        return Database::getRow($sql);
+    }
 }

@@ -1,130 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap');
-
-    * {
-      font-family: 'Outfit', sans-serif;
-    }
-
-    body, html {
-      height: 100%;
-      margin: 0;
-      display: flex;
-    }
-
-    .left-panel, .right-panel {
-      height: 100%;
-    }
-
-    .left-panel {
-      background-color: #FFA000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      padding-top: 20px; /* Ajusta este valor según sea necesario */
-    }
-
-    .right-panel {
-      background-color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      padding: 40px;
-      padding-top: 20px; /* Ajusta este valor según sea necesario */
-    }
-
-    .login-form {
-      width: 100%;
-      max-width: 400px;
-    }
-
-    .login-form h2 {
-      margin-bottom: 20px;
-    }
-
-    .login-form .form-control {
-      margin-bottom: 10px;
-    }
-
-    .login-form .btn-primary {
-      width: 100%;
-    }
-
-    .text {
-      color: #8692A6;
-    }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../resources/css/login.css">
 </head>
+
 <body>
-  <div class="left-panel">
-    <img src="../../resources/img/login_image.png" alt="Login Image" style="max-width: 70%; height: auto;">
-  </div>
-
-  <div class="right-panel">
-    <div class="form-container">
-      <form id="loginForm" class="d-none">
-        <div class="login-form">
-          <h2>Inicio de sesión</h2>
-          <p class="text">Puedes iniciar sesión con tu dirección de correo electrónico y contraseña.</p>
-          <div class="form-group">
-            <label for="email"><i class="bi bi-envelope"></i> Correo Electronico</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Escriba su correo" required>
-          </div>
-          <div class="form-group">
-            <label for="clave"><i class="bi bi-lock"></i> Contraseña</label>
-            <input type="password" class="form-control" id="clave" name="clave" placeholder="Contraseña" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Iniciar sesión <i class="bi bi-arrow-right"></i></button>
-        </div>
-      </form>
-
-      <!-- Formulario para crear el primer administrador -->
-      <form class="d-none" id="signupForm">
-        <div class="login-form">
-          <h2>Crear Cuenta</h2>
-          <p class="text">Por favor, rellena los siguientes campos para crear tu cuenta.</p>
-          <div class="form-group">
-            <label for="nombreAdministrador"><i class="bi bi-person"></i> Nombre</label>
-            <input type="text" class="form-control" id="nombreAdministrador" name="nombreAdministrador" placeholder="Escriba su nombre" required>
-          </div>
-          <div class="form-group">
-            <label for="apellidoAdministrador"><i class="bi bi-person"></i> Apellido</label>
-            <input type="text" class="form-control" id="apellidoAdministrador" name="apellidoAdministrador" placeholder="Escriba su apellido" required>
-          </div>
-          <div class="form-group">
-            <label for="emailAdministrador"><i class="bi bi-envelope"></i> Correo</label>
-            <input type="email" class="form-control" id="emailAdministrador" name="emailAdministrador" placeholder="Escriba su correo" required>
-          </div>
-          <div class="form-group">
-            <label for="claveAdministrador"><i class="bi bi-lock"></i> Contraseña</label>
-            <input type="password" class="form-control" id="claveAdministrador" name="claveAdministrador" placeholder="Contraseña" required>
-          </div>
-          <div class="form-group">
-            <label for="confirmarClave"><i class="bi bi-lock"></i> Confirmar contraseña</label>
-            <input type="password" class="form-control" id="confirmarClave" name="confirmarClave" placeholder="Confirmar contraseña" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Guardar <i class="bi bi-save"></i></button>
-        </div>
-      </form>
+    <div class="left-panel">
+        <img src="../../resources/img/login_image.png" alt="Login Image" style="max-width: 70%; height: auto;">
     </div>
-  </div>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="../../resources/js/sweetalert.min.js"></script>
-  <script src="../../controllers/admin/index.js"></script>
-  <script src="../../controllers/utils/admin.js"></script>
-  <script src="../../controllers/utils/componentes.js"></script>
+    <div class="right-panel">
+        <div class="form-container">
+            <form id="loginForm" class="d-none">
+                <div class="login-form">
+                    <h2>Inicio de sesión</h2>
+                    <p class="text">Puedes iniciar sesión con tu dirección de correo electrónico y contraseña.</p>
+                    <div class="form-group">
+                        <label for="email"><i class="bi bi-envelope"></i> Correo Electronico</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Escriba su correo"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clave"><i class="bi bi-lock"></i> Contraseña</label>
+                        <input type="password" class="form-control" id="clave" name="clave" placeholder="Contraseña"
+                            required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Iniciar sesión <i
+                            class="bi bi-arrow-right"></i></button>
+                </div>
+            </form>
+
+            <!-- Formulario para crear el primer administrador -->
+            <form class="d-none" id="signupForm">
+                <div class="login-form">
+                    <h2>Crear Cuenta</h2>
+                    <p class="text">Por favor, rellena los siguientes campos para crear tu cuenta.</p>
+                    <div class="form-group">
+                        <label for="nombreAdministrador"><i class="bi bi-person"></i> Nombre</label>
+                        <input type="text" class="form-control" id="nombreAdministrador" name="nombreAdministrador"
+                            placeholder="Escriba su nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidoAdministrador"><i class="bi bi-person"></i> Apellido</label>
+                        <input type="text" class="form-control" id="apellidoAdministrador" name="apellidoAdministrador"
+                            placeholder="Escriba su apellido" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailAdministrador"><i class="bi bi-envelope"></i> Correo</label>
+                        <input type="email" class="form-control" id="emailAdministrador" name="emailAdministrador"
+                            placeholder="Escriba su correo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="claveAdministrador"><i class="bi bi-lock"></i> Contraseña</label>
+                        <input type="password" class="form-control" id="claveAdministrador" name="claveAdministrador"
+                            placeholder="Contraseña" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmarClave"><i class="bi bi-lock"></i> Confirmar contraseña</label>
+                        <input type="password" class="form-control" id="confirmarClave" name="confirmarClave"
+                            placeholder="Confirmar contraseña" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar <i class="bi bi-save"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="../../controllers/admin/index.js"></script>
+    <script src="../../controllers/utils/admin.js"></script>
+    <script src="../../controllers/utils/componentes.js"></script>
 </body>
+
 </html>

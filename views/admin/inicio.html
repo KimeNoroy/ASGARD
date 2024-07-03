@@ -1,87 +1,61 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Inicio</title>
-
+    <title></title>
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../../resources/css/navbar.css">
     <link rel="stylesheet" href="../../resources/css/Inicio.css">
-
-
     <!-- Link para el uso de las librerias de css de boostrap -->
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
 </head>
-
 <body>
-    <div class="grid-container">
-        <!-- Navbar -->
-        <aside></aside>
-
-        <!-- Main -->
-        <main class="main-container">
+    <main class="main-container">
+        <div class="grid-container">
             <div class="main-title">
                 <h3 class="fw-bold fs-4 mb-3">Inicio</h3>
             </div>
-            <!-- Cards que muestra información -->
             <div class="main-cards">
                 <div class="card">
                     <div class="card-inner">
                         <p class="text">CLIENTES</p>
                         <span class="material-icons-outlined text-blue">inventory_2</span>
                     </div>
-                    <span class="text font-weight-bold">249</span>
+                    <span class="text font-weight-bold" id="cantidadClientes">Cargando...</span>
                 </div>
                 <div class="card">
                     <div class="card-inner">
                         <p class="text">FACTURAS</p>
                         <span class="material-icons-outlined text-orange">add_shopping_cart</span>
                     </div>
-                    <span class="text font-weight-bold">83</span>
+                    <span class="text font-weight-bold" id="cantidadFacturas">Cargando...</span>
                 </div>
                 <div class="card">
                     <div class="card-inner">
                         <p class="text">EMPLEADOS</p>
                         <span class="material-icons-outlined text-green">shopping_cart</span>
                     </div>
-                    <span class="text font-weight-bold">79</span>
+                    <span class="text font-weight-bold" id="cantidadEmpleados">Cargando...</span>
                 </div>
             </div>
-
-             <!-- Graficas que se implementan con la libreria ApexCharts  -->
+            <!-- Se muestra un gráfico con el porcentaje de productos por categoría -->
             <div class="charts">
                 <div class="charts-card">
-                    <p class="chart-title"></p>
-                    <div id="bar-chart"></div>
-                </div>
-
-                <div class="charts-card">
-                    <p class="chart-title"></p>
-                    <div id="area-chart"></div>
+                    <canvas id="chart2"></canvas>
                 </div>
             </div>
-        </main>
-        <!-- End Main -->
-
-    </div>
-
-    <!-- JavaScript -->
-
-    <!-- ApexCharts libreria para graficas -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
-
-    <!-- Libreria para iconos -->
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-
-
+            <!-- Importación de la librería para generar los gráficos. Para más información https://www.chartjs.org/ -->
+    </main>
     <!-- Custom JS -->
+    <script type="text/javascript" src="../../resources/js/chart.umd.min.js"></script>
 
+    <script src="../../controllers/utils/componentes.js"></script>
+    <script src="../../controllers/utils/admin.js"></script>
+    <script src="../../controllers/admin/datos.js"></script>
 </body>
 
 </html>

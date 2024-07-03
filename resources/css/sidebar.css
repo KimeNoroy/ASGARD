@@ -1,0 +1,268 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+}
+
+main{
+    width: 100vw;
+    margin-left: 300px;
+}
+
+#SIDEBAR{
+    background-color: whitesmoke;
+    height: 100vh;
+    width: 300px;
+    position: absolute;
+}
+
+/* LOGO */
+
+#SIDEBAR .logo-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#SIDEBAR .logo-container img{
+    object-fit: contain;
+    width: 260px;
+    height: 100%;
+}
+
+/* CARTAS */
+
+#SIDEBAR .main-container .main-cards-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    gap: 15px;
+    height: calc(100% - 60px);
+}
+
+/* Ocultar scrollbar vertical en navegadores basados en WebKit */
+#SIDEBAR .main-container .main-cards-container::-webkit-scrollbar {
+    width: 0px; /* Ocultar scrollbar */
+    background: transparent; /* Fondo transparente */
+}
+
+/* Ocultar scrollbar vertical en Firefox */
+#SIDEBAR .main-container .main-cards-container {
+    scrollbar-width: none; /* Ocultar scrollbar */
+}
+
+/* Ocultar scrollbar vertical en Internet Explorer y Edge */
+#SIDEBAR .main-container .main-cards-container {
+    -ms-overflow-style: none; /* Ocultar scrollbar */
+}
+
+#SIDEBAR .main-container .main-cards-container .main-card,
+.main-container .logout-card{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    color: #565656;
+    font-size: 18px;
+    user-select: none;
+    padding: 15px 0px 15px 15px;
+    transition: all .2s ease;
+    border-radius: 10px 0px 0px 10px;
+}
+
+#SIDEBAR .main-container .main-cards-container .main-card:hover{
+    background-color: rgb(224, 224, 224);
+}
+
+#SIDEBAR .main-container .main-cards-container .main-card.selected{
+    width: 265px;
+    background-color: #FF790D;
+    color: white;
+    font-weight: 500;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+
+#SIDEBAR .main-container .main-cards-container .main-card.selected:hover{
+    box-shadow: 0px 0px 10px 3px #FF790Db7;
+}
+
+#SIDEBAR .main-container .main-cards-container .main-card.selected svg path{
+    fill: white;
+}
+
+#SIDEBAR .main-container .logout-card{
+    width: 265px;
+    margin-left: 40px;
+    background-color: #565656;
+    color: white;
+    border-radius: 10px;
+}
+
+#SIDEBAR .main-container .logout-card:hover{
+    box-shadow: 0px 0px 10px 3px #565656b7;
+}
+
+/* USER */
+
+#SIDEBAR .user-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+#SIDEBAR .user-container .image{
+    border-radius: 50%;
+    background-color: #FF790D;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 20px;
+    position: relative;
+    transition: all .3s ease;
+}
+
+#SIDEBAR .user-container .info{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+#SIDEBAR .user-container .info .name-text{
+    font-size: 20px;
+}
+
+/* ANIMAR INFO SOBRE USUARIO */
+
+#SIDEBAR .user-container .image svg{
+    position: absolute;
+    display: none;
+}
+
+#SIDEBAR .user-container .image:hover{
+    background-color: #99561f;
+    color: gray;
+}
+
+#SIDEBAR .user-container .image:hover svg{
+    display: block;
+}
+
+/* ICONO PARA ABRIR EL SIDEBAR */
+#SIDEBAR-ACTIVATOR{
+    display: none;
+}
+
+/* PORCENTAJES */
+
+#SIDEBAR .logo-container{
+    height: 20%;
+}
+
+#SIDEBAR .main-container{
+    height: 68%;
+}
+
+#SIDEBAR .user-container{
+    height: 12%;
+}
+
+@media screen and (width < 600px){
+
+    main{
+        margin-left: 0px;
+    }
+
+    main.blur{
+        filter: blur(5px);
+    }
+
+    #SIDEBAR{
+        z-index: 998;
+        left: -100%;
+        width: 85%;
+        transition: left 0.3s ease;
+    }
+
+    #SIDEBAR *{
+       font-size: 15px;
+    }
+
+    #SIDEBAR.active{
+        position: absolute;
+        left: 0;
+    }
+
+    #SIDEBAR .main-container .main-cards-container .main-card,
+    .main-container .logout-card{
+    padding: 12px 0px 12px 15px;
+    }
+
+    #SIDEBAR-ACTIVATOR{
+        position: absolute;
+        display: block;
+        width: 30px;
+        height: 30px;
+        padding: 15px;
+        border-radius: 15px;
+        top: 15px;
+        right: 15px;
+        z-index: 999;
+        background-color: #565656;
+    }
+
+    #SIDEBAR .main-container .main-cards-container .main-card.selected{
+        width: 260px;
+    }
+    
+    #SIDEBAR .main-container .logout-card{
+        width: 260px;
+    }
+
+    #SIDEBAR .main-container .main-cards-container {
+        gap: 8px;
+    }
+
+    #SIDEBAR .main-container .main-cards-container .main-card:hover{
+        background-color: initial;
+    }
+    
+    #SIDEBAR .main-container .main-cards-container .main-card.selected:hover{
+        box-shadow: initial;
+    }
+
+    #SIDEBAR .user-container .info .name-text{
+        font-size: 18px;
+    }
+
+    /* PORCENTAJES */
+
+    #SIDEBAR .logo-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #SIDEBAR .logo-container img{
+        object-fit: contain;
+        width: 200px;
+    }
+
+    #SIDEBAR .logo-container{
+        height: 18%;
+    }
+
+    #SIDEBAR .main-container{
+        height: 72%;
+    }
+
+    #SIDEBAR .user-container{
+        height: 11%;
+}}

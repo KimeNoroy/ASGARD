@@ -134,6 +134,13 @@ class ClienteHandler
         return Database::getRow($sql, $params);
     }
 
+    public function countClientes()
+    {
+        $sql = 'SELECT COUNT(*) AS cantidad FROM tb_clientes';
+        return Database::getRow($sql);
+    }
+    
+
     public function updateRow()
     {
         $sql = 'UPDATE tb_clientes
@@ -158,6 +165,18 @@ class ClienteHandler
                 WHERE id_cliente = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
+    }
+
+    public function clienteDepartamentos()
+    {
+        $sql = 'SELECT departamento_cliente, COUNT(*) AS cantidad FROM (
+        SELECT departamento_cliente FROM tb_factura_sujeto_excluido
+        UNION ALL
+        SELECT departamento_cliente FROM tb_factura_consumidor_final
+        ) AS clientes_departamento
+        GROUP BY departamento_cliente
+';
+        return Database::getRows($sql);
     }
 }
 
