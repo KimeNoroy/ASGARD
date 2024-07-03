@@ -15,6 +15,10 @@
     <link href="../../resources/css/color_de_botones.css">
     <!-- Css para la tabla responsive -->
     <link rel="stylesheet" href="../../resources/css/tabla_responsive.css">
+    <link rel="stylesheet" href="../../resources/css/navbar.css">
+    <link rel="stylesheet" href="../../resources/css/Inicio.css">
+    <link rel="stylesheet" href="../../resources/css/usuariofacturacion.css">
+    <link rel="stylesheet" href="ruta/a/sweetalert.css">
 </head>
 
 <!-- Cuerpo de la página -->
@@ -52,7 +56,8 @@
                             <td colspan="12" id="filasEncontradas"></td>
                         </tr>
                         <tr>
-                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Nombres</th>
+                            <th class="text-center">Apellidos</th>
                             <th class="text-center">Email</th>
                             <th class="text-center">Teléfono</th>
                             <th class="text-center">DUI</th>
@@ -66,10 +71,20 @@
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
-                    <!-- CREAMOS EL INTERIOR DE LA TABLA (LAS FILAS Y COLUMNAS DE CADA COLOR)-->
-                    <tbody id="cuerpoTabla">
-                        <!-- FILA -->
+                    <tbody>
                         <tr>
+                            <th scope="row">Ana</th>
+                            <td>Rodríguez</td>
+                            <td>anarodriguez@gmail.com</td>
+                            <td>70123456</td>
+                            <td>001234567-8</td>
+                            <td>001-234567-123-4</td>
+                            <td>Avenida avenida</td>
+                            <td>San Salvador</td>
+                            <td>Santa Tecla</td>
+                            <td>Credito fiscal</td>
+                            <td>01/01/2022</td>
+                            <td>$1000</td>
                             <td id="celda-agregar-eliminar" class="text-center"></td>
                         </tr>
                     </tbody>
@@ -94,68 +109,87 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-md">
-                                            <label for="nombreSujeto" class="col-form-label"
+                                            <input type="number" class="d-none" id="idFactura" name="idFactura">
+                                            <label for="nombreCliente" class="col-form-label"
                                                 for="validationDefault01">Nombres:</label>
-                                            <input type="text" class="form-control" id="idSujeto" name="idSujeto"
+                                            <input type="text" class="form-control" id="nombreCliente" name="nombreCliente"
                                                 required>
                                         </div>
                                         <div class="mb-md">
+                                            <label for="apellidoCliente" class="col-form-label"
+                                                for="validationDefault02">Apellidos:</label>
+                                            <input type="text" class="form-control" id="apellidoCliente"
+                                                name="apellidoCliente" required>
+                                        </div>
+                                        <div class="mb-md">
                                             <label for="duiCliente" class="col-form-label"
-                                                for="validationDefault02">DUI:</label>
-                                            <input type="text" class="form-control" id="idDui" name="idDui"
+                                                for="validationDefault03">DUI:</label>
+                                            <input type="text" class="form-control" id="duiCliente" name="duiCliente"
                                                 oninput="duiNacional(event)" required>
                                         </div>
                                         <div class="mb-md">
                                             <label for="departamentoCliente" class="col-form-label"
-                                                for="validationDefault03">Departamento:</label>
-                                            <input type="text" class="form-control" id="idDepartamento"
-                                                name="idDepartamento" required>
+                                                for="validationDefault04">Departamento:</label>
+                                            <input type="text" class="form-control" id="departamentoCliente"
+                                                name="departamentoCliente" required>
                                         </div>
                                         <div class="mb-md">
                                             <label for="emailCliente" class="col-form-label"
-                                                for="validationDefault04">Correo:</label>
-                                            <input type="email" class="form-control" id="idEmail" name="idEmail"
+                                                for="validationDefault05">Correo:</label>
+                                            <input type="email" class="form-control" id="emailCliente" name="emailCliente"
                                                 required>
                                         </div>
                                         <div class="mb-md">
-                                            <label for="descripcionServicio" class="col-form-label"
-                                                for="validationDefault05">Descripción del
+                                            <label for="descripcion" class="col-form-label"
+                                                for="validationDefault06">Descripción del
                                                 servicio:</label>
-                                            <input type="text" class="form-control" id="idDescripcion"
-                                                name="idDescripcion" required>
+                                            <input type="text" class="form-control" id="descripcion"
+                                                name="descripcion" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-md">
                                             <label for="direccionCliente" class="col-form-label"
-                                                for="validationDefault06">Dirección:</label>
-                                            <input type="text" class="form-control" id="idDireccion" name="idDireccion"
-                                                required>
+                                                for="validationDefault07">Dirección:</label>
+                                            <input type="text" class="form-control" id="direccionCliente"
+                                                name="direccionCliente" required>
                                         </div>
                                         <div class="mb-md">
                                             <label for="municipioCliente" class="col-form-label"
-                                                for="validationDefault07">Municipio:</label>
-                                            <input type="text" class="form-control" id="idMunicipio" name="idMunicipio"
-                                                required>
+                                                for="validationDefault08">Municipio:</label>
+                                            <input type="text" class="form-control" id="municipioCliente"
+                                                name="municipioCliente" required>
                                         </div>
                                         <div class="mb-md">
                                             <label for="telefonoCliente" class="col-form-label"
-                                                for="validationDefault08">Teléfono:</label>
-                                            <input type="text" class="form-control" id="idTelefono" name="idTelefono"
-                                                oninput="numeroNacional(event)" required>
+                                                for="validationDefault09">Teléfono:</label>
+                                            <input type="text" class="form-control" id="telefonoCliente"
+                                                name="telefonoCliente" oninput="numeroNacional(event)" required>
                                         </div>
                                         <div class="mb-md">
                                             <label for="nitCliente" class="col-form-label"
-                                                for="validationDefault09">NIT:</label>
-                                            <input type="text" class="form-control" id="idNit" name="idNit"
+                                                for="validationDefault10">NIT:</label>
+                                            <input type="text" class="form-control" id="nitCliente" name="nitCliente"
                                                 oninput="validarNIT(event)" required>
                                         </div>
                                         <div class="mb-md">
-                                            <label for="monto" class="col-form-label" for="validationDefault10">Monto
+                                            <label for="monto" class="col-form-label" for="validationDefault11">Monto
                                                 del
                                                 servicio:</label>
-                                            <input type="number" class="form-control" id="idMonto" name="idMonto"
+                                            <input type="number" class="form-control" id="monto" name="monto"
                                                 required>
+                                        </div>
+                                        <div class="mb-md">
+                                            <label for="tipoServicio" class="col-form-label"
+                                                for="validationDefault12">Tipo de servicio:</label>
+                                            <input type="text" class="form-control" id="tipoServicio"
+                                                name="tipoServicio" required>
+                                        </div>
+                                        <div class="mb-md">
+                                            <label for="fechaEmision" class="col-form-label"
+                                                for="validationDefault13">Fecha de emisión:</label>
+                                            <input type="date" class="form-control" id="fechaEmision"
+                                                name="fechaEmision" required>
                                         </div>
                                     </div>
                                 </div>
@@ -175,19 +209,19 @@
         <!-- Modal eliminar -->
         <div class="modal fade" id="borrarModalSujeto">
             <div class="modal-dialog">
-                <form id="formEliminar">
-                    <div class="modal-content">
+                <div class="modal-content">
+                    <form id="formEliminar">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="tituloModalEliminar"></h1>
-                            <input type="number" class="d-none" id="inputIdSujeto" name="idSujeto">
+                            <input type="number" class="d-none" id="idFactura" name="inputIdFactura">
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
                             <button type="button" class="btn btn-primary" onclick="eliminarCliente()">Eliminar</button>
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -209,6 +243,10 @@
     <script src="../../resources/js/validar_dui.js"></script>
     <!-- Validar número de NIT -->
     <script src="../../resources/js/validar_nit.js"></script>
+    <!-- archivo de js para libreria de alertas -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- archivo de js para libreria de iconos para el navbar -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 </body>
 
 </html>

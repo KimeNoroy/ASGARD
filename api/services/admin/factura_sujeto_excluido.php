@@ -11,28 +11,35 @@ if (isset($_GET['action'])) {
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null, 'fileStatus' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
-    if (isset($_SESSION['id_cliente'])) {
+    if (isset($_SESSION['idAdministrador'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'searchRows':
-                if (!isset($_POST['buscarusuario']) || !Validator::validateSearch($_POST['buscarusuario'])) {
-                    $result['error'] = 'Búsqueda inválida';
+                if (!Validator::validateSearch($_POST['buscarUsuario'])) {
+                    $result['error'] = Validator::getSearchError();
+                } elseif ($result['dataset'] = $clientes->searchRows()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } else {
-                    Validator::setSearchValue($_POST['buscarusuario']);
-                    $result['dataset'] = $usuario->searchRows();
-                    if ($result['dataset']) {
-                        $result['status'] = 1;
-                        $result['message'] = count($result['dataset']) . ' coincidencias';
-                    } else {
-                        $result['error'] = 'No hay coincidencias';
-                    }
+                    $result['error'] = 'No hay coincidencias';
                 }
                 break;
             case 'createRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !isset($_POST['nombre_cliente']) ||
-                    !$usuario->setNombre($_POST['nombre_cliente'])
+                    !$usuario->setNombre($_POST['nombre_cliente']) or
+                    !$usuario->setApellido($_POST['apellido_cliente']) or
+                    !$usuario->setDUI($_POST['dui_cliente'], 0) or
+                    !$usuario->setNIT($_POST['nit_cliente'], 0) or
+                    !$usuario->setFecha($_POST['fecha_emision']) or
+                    !$usuario->setDireccion($_POST['direccion_cliente']) or
+                    !$usuario->setDepartamento($_POST['departamento_cliente']) or
+                    !$usuario->setMunicipio($_POST['municipio_cliente']) or
+                    !$usuario->setEmail($_POST['email_cliente'], 0) or
+                    !$usuario->setTelefono($_POST['telefono_cliente'], 0) or
+                    !$usuario->setDescripcion($_POST['descripcion']) or
+                    !$usuario->setTipoServicio($_POST['tipo_servicio']) or
+                    !$usuario->setMonto($_POST['monto'])
                 ) {
                     $result['error'] = $usuario->getDataError();
                 } elseif ($usuario->createRow()) {
@@ -52,8 +59,8 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readOne':
-                if (!isset($_POST['id_cliente']) || !$usuario->setId($_POST['id_cliente'])) {
-                    $result['error'] = 'ID de cliente inválido';
+                if (!$usuario->setId($_POST['id_factura'])) {
+                    $result['error'] = 'ID es inválido';
                 } else {
                     $result['dataset'] = $usuario->readOne();
                     if ($result['dataset']) {
@@ -66,10 +73,19 @@ if (isset($_GET['action'])) {
             case 'updateRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !isset($_POST['id_cliente']) ||
-                    !isset($_POST['nombre_cliente']) ||
-                    !$usuario->setId($_POST['id_cliente']) ||
-                    !$usuario->setNombre($_POST['nombre_cliente'])
+                    !$usuario->setNombre($_POST['nombre_cliente']) or
+                    !$usuario->setApellido($_POST['apellido_cliente']) or
+                    !$usuario->setDUI($_POST['dui_cliente'], 1) or
+                    !$usuario->setNIT($_POST['nit_cliente'], 1) or
+                    !$usuario->setFecha($_POST['fecha_emision']) or
+                    !$usuario->setDireccion($_POST['direccion_cliente']) or
+                    !$usuario->setDepartamento($_POST['departamento_cliente']) or
+                    !$usuario->setMunicipio($_POST['municipio_cliente']) or
+                    !$usuario->setEmail($_POST['email_cliente'], 1) or
+                    !$usuario->setTelefono($_POST['telefono_cliente'], 1) or
+                    !$usuario->setDescripcion($_POST['descripcion']) or
+                    !$usuario->setTipoServicio($_POST['tipo_servicio']) or
+                    !$usuario->setMonto($_POST['monto'])
                 ) {
                     $result['error'] = $usuario->getDataError();
                 } elseif ($usuario->updateRow()) {
@@ -80,7 +96,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'deleteRow':
-                if (!isset($_POST['id_cliente']) || !$usuario->setId($_POST['id_cliente'])) {
+                if (!$usuario->setId($_POST['id_factura'])) {
                     $result['error'] = 'ID de cliente inválido';
                 } else {
                     if ($usuario->deleteRow()) {

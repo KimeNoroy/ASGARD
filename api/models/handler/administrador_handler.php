@@ -12,7 +12,7 @@ class AdministradorHandler
     protected $id = null;
     protected $nombre = null;
     protected $apellido = null;
-    protected $correo = null;
+    protected $email = null;
     protected $contraseña = null;
 
     /*
@@ -20,7 +20,7 @@ class AdministradorHandler
      */
     public function checkUser($email, $password)
     {
-        $sql = 'SELECT id_administrador, email_administrador, contraseña_administrador
+        $sql = 'SELECT id_administrador, nombre_administrador, apellido_administrador, email_administrador, contraseña_administrador
                 FROM tb_administrador
                 WHERE  email_administrador = ?';
           $params = array($email);
@@ -28,14 +28,14 @@ class AdministradorHandler
               return false;
           } elseif (password_verify($password, $data['contraseña_administrador'])) {
               $this ->id = $data['id_administrador'];
-              $this->contraseña = $data['email_administrador'];
-              $this->correo = $data['email_administrador'];
+              $this->contraseña = $data['contraseña_administrador'];
+              $this->email = $data['email_administrador'];
   
               return true;
           } else {
               return false;
           }
-      }
+    }
 
     public function checkPassword($password)
     {
@@ -63,7 +63,7 @@ class AdministradorHandler
 
     public function readProfile()
     {
-        $sql = 'SELECT id_administrador, nombre_administrador, apellido_administrador, correo_administrador
+        $sql = 'SELECT id_administrador, nombre_administrador, apellido_administrador, email_administrador, contraseña_administrador
                 FROM tb_administrador
                 WHERE id_administrador = ?';
         $params = array($_SESSION['idAdministrador']);
@@ -75,7 +75,7 @@ class AdministradorHandler
         $sql = 'UPDATE tb_administrador
                 SET nombre_administrador = ?, apellido_administrador = ?, email_administrador = ?
                 WHERE id_administrador = ?';
-        $params = array($this->nombre, $this->apellido, $this->correo, $_SESSION['idAdministrador']);
+        $params = array($this->nombre, $this->apellido, $this->email, $_SESSION['idAdministrador']);
         return Database::executeRow($sql, $params);
     }
 
@@ -97,7 +97,7 @@ class AdministradorHandler
     {
         $sql = 'INSERT INTO tb_administrador(nombre_administrador, apellido_administrador, email_administrador, contraseña_administrador)
                 VALUES(?, ?, ?, ?)';
-        $params = array($this->nombre, $this->apellido, $this->correo, $this->contraseña);
+        $params = array($this->nombre, $this->apellido, $this->email, $this->contraseña);
         return Database::executeRow($sql, $params);
     }
 
@@ -121,9 +121,9 @@ class AdministradorHandler
     public function updateRow()
     {
         $sql = 'UPDATE tb_administrador
-                SET nombre_administrador = ?, apellido_administrador = ?, correo_administrador = ?
+                SET nombre_administrador = ?, apellido_administrador = ?, email_administrador = ?
                 WHERE id_administrador = ?';
-        $params = array($this->nombre, $this->apellido, $this->correo, $this->id);
+        $params = array($this->nombre, $this->apellido, $this->email, $this->id);
         return Database::executeRow($sql, $params);
     }
 
