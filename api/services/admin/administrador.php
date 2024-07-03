@@ -31,10 +31,10 @@ if (isset($_GET['action'])) {
                     !$administrador->setNombre($_POST['nombreAdministrador']) or
                     !$administrador->setApellido($_POST['apellidoAdministrador']) or
                     !$administrador->setEmail($_POST['emailAdministrador']) or
-                    !$administrador->setContraseña($_POST['claveAdministrador'])
+                    !$administrador->setContraseña($_POST['contraseñaAdministrador'])
                 ) {
                     $result['error'] = $administrador->getDataError();
-                } elseif ($_POST['claveAdministrador'] != $_POST['confirmarClave']) {
+                } elseif ($_POST['contraseñaAdministrador'] != $_POST['confirmarContraseña']) {
                     $result['error'] = 'Contraseñas diferentes';
                 } elseif ($administrador->createRow()) {
                     $result['status'] = 1;
@@ -122,18 +122,18 @@ if (isset($_GET['action'])) {
                 } elseif ($administrador->editProfile()) {
                     $result['status'] = 1;
                     $result['message'] = 'Perfil modificado correctamente';
-                    $_SESSION['aliasAdministrador'] = $_POST['aliasAdministrador'];
+                    $_SESSION['emailAdministrador'] = $_POST['emailAdministrador'];
                 } else {
                     $result['error'] = 'Ocurrió un problema al modificar el perfil';
                 }
                 break;
             case 'changePassword':
                 $_POST = Validator::validateForm($_POST);
-                if (!$administrador->checkPassword($_POST['claveActual'])) {
+                if (!$administrador->checkPassword($_POST['contraseñaActual'])) {
                     $result['error'] = 'Contraseña actual incorrecta';
-                } elseif ($_POST['claveNueva'] != $_POST['confirmarClave']) {
+                } elseif ($_POST['contraseñaNueva'] != $_POST['confirmarContraseña']) {
                     $result['error'] = 'Confirmación de contraseña diferente';
-                } elseif (!$administrador->setContraseña($_POST['claveNueva'])) {
+                } elseif (!$administrador->setContraseña($_POST['contraseñaNueva'])) {
                     $result['error'] = $administrador->getDataError();
                 } elseif ($administrador->changePassword()) {
                     $result['status'] = 1;
@@ -162,10 +162,10 @@ if (isset($_GET['action'])) {
                     !$administrador->setNombre($_POST['nombreAdministrador']) or
                     !$administrador->setApellido($_POST['apellidoAdministrador']) or
                     !$administrador->setEmail($_POST['emailAdministrador']) or
-                    !$administrador->setContraseña($_POST['claveAdministrador'])
+                    !$administrador->setContraseña($_POST['contraseñaAdministrador'])
                 ) {
                     $result['error'] = $administrador->getDataError();
-                } elseif ($_POST['claveAdministrador'] != $_POST['confirmarClave']) {
+                } elseif ($_POST['contraseñaAdministrador'] != $_POST['confirmarContraseña']) {
                     $result['error'] = 'Contraseñas diferentes';
                 } elseif ($administrador->createRow()) {
                     $result['status'] = 1;
@@ -176,7 +176,7 @@ if (isset($_GET['action'])) {
                 break;
             case 'logIn':
                 $_POST = Validator::validateForm($_POST);
-                if ($administrador->checkUser($_POST['emailAdministrador'], $_POST['claveAdministrador'])) {
+                if ($administrador->checkUser($_POST['emailAdministrador'], $_POST['contraseñaAdministrador'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
                 } else {

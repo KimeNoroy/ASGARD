@@ -38,6 +38,10 @@
                 <label for="emailAdministrador" class="form-label">Correo</label>
                 <input id="emailAdministrador" type="email" name="emailAdministrador" class="form-control" required>
             </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <label for="duiEmpleado" class="form-label">DUI:</label>
+                <input id="duiEmpleado" type="email" name="duiEmpleado" class="form-control" required>
+            </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Guardar</button>
             </div>
@@ -62,20 +66,20 @@
                     <form id="passwordForm">
                         <div class="modal-body row g-3">
                             <div class="col-sm-12 col-md-6 offset-md-3">
-                                <label for="claveActual" class="form-label">Contraseña actual</label>
-                                <input id="claveActual" type="password" name="claveActual" class="form-control"
+                                <label for="contraseñaActual" class="form-label">Contraseña actual</label>
+                                <input id="contraseñaActual" type="password" name="contraseñaActual" class="form-control"
                                     required>
                             </div>
                             <div class="col-12 text-center">
                                 <span>CONTRASEÑA NUEVA</span>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <label for="claveNueva" class="form-label">Contraseña</label>
-                                <input id="claveNueva" type="password" name="claveNueva" class="form-control" required>
+                                <label for="contraseñaNueva" class="form-label">Contraseña</label>
+                                <input id="contraseñaNueva" type="password" name="contraseñaNueva" class="form-control" required>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <label for="confirmarClave" class="form-label">Confirmar contraseña</label>
-                                <input id="confirmarClave" type="password" name="confirmarClave" class="form-control"
+                                <label for="confirmarContraseña" class="form-label">Confirmar contraseña</label>
+                                <input id="confirmarContraseña" type="password" name="confirmarContraseña" class="form-control"
                                     required>
                             </div>
                         </div>
@@ -98,7 +102,7 @@
     <script type="text/javascript" src="../../controllers/utils/componets.js"></script>
     <!-- Mandar a llamar el controlador de la página privada -->
     <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
-    <!-- Mandar a llamar el controlador de sujeto excluido -->
+    <!-- Mandar a llamar el controlador de mi perfil -->
     <script type="text/javascript" src="../../controllers/admin/mi_perfil.js"></script>
     <!-- Validar número de teléfono -->
     <script src="../../resources/js/validar_telefono.js"></script>
