@@ -92,20 +92,7 @@ class factura_sujeto_excluido_handler
                 SET nombre_cliente = ?, apellido_cliente = ?, email_cliente = ?, dui_cliente = ?, nit_cliente = ?, telefono_cliente = ?, direccion_cliente = ?, departamento_cliente = ?, municipio_cliente = ?, tipo_servicio = ?, monto = ?,  descripcion = ?,  fecha_emision = ?
                 WHERE id_factura = ?';
         $params = array(
-            $this->id
-            $this->nombre,
-            $this->apellido,
-            $this->email,
-            $this->dui,
-            $this->nit,
-            $this->telefono,
-            $this->direccion,
-            $this->departamento,
-            $this->municipio,
-            $this->tipo_servicio,
-            $this->monto,
-            $this->descripcion,
-            $this->fecha
+            $this->id, $this->nombre, $this->apellido, $this->email, $this->dui, $this->nit, $this->telefono, $this->direccion, $this->departamento, $this->municipio, $this->tipo_servicio, $this->monto, $this->descripcion, $this->fecha
         );
         return Database::executeRow($sql, $params);
     }
