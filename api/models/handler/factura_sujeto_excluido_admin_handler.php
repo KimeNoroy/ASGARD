@@ -37,14 +37,14 @@ class factura_sujeto_excluido_handler
     // Método para crear un nuevo usuario.
     public function createRow()
     {
-        $sql = 'INSERT INTO tb_factura_sujeto_excluido(tipo_servicio, monto, fecha_emision, descripcion, id_empleado, id_cliente, id_servicio)
+        $sql = 'INSERT INTO tb_factura_sujeto_excluido(tipo_servicio, monto, fecha_emision, descripcion, id_administrador, id_cliente, id_servicio)
                 VALUES(?, ?, ?, ?, ?, ?, ?)';
         $params = array(
             $this->tipo_servicio,
             $this->monto,
             $this->fecha,
             $this->descripcion,
-            $_SESSION['id_empleado'],
+            $_SESSION['id_administrador'],
             $this->id_cliente,
             $this->id_servicio
         );
@@ -89,14 +89,14 @@ class factura_sujeto_excluido_handler
     public function updateRow()
     {
         $sql = 'UPDATE tb_factura_sujeto_excluido
-                SET tipo_servicio = ?, monto = ?, fecha_emision = ?, descripcion = ?, id_empleado = ?, id_cliente = ?, id_servicio = ?
+                SET tipo_servicio = ?, monto = ?, fecha_emision = ?, descripcion = ?, id_administrador = ?, id_cliente = ?, id_servicio = ?
                 WHERE id_factura = ?';
         $params = array(
             $this->tipo_servicio,
             $this->monto,
             $this->fecha,
             $this->descripcion,
-            $_SESSION['id_empleado'],
+            $_SESSION['id_administrador'],
             $this->id_cliente,
             $this->id_servicio,
             $this->id

@@ -14,8 +14,8 @@ const SAVE_FORM = document.getElementById('saveForm'),
     NOMBRE_ADMINISTRADOR = document.getElementById('nombreAdministrador'),
     APELLIDO_ADMINISTRADOR = document.getElementById('apellidoAdministrador'),
     EMAIL_ADMINISTRADOR = document.getElementById('emailAdministrador'),
-    CONTRASEÑA_ADMINISTRADOR = document.getElementById('contraseñaAdministrador'),
-    CONFIRMAR_CONTRASEÑA = document.getElementById('confirmarContraseña');
+    CONTRASEÑA_ADMINISTRADOR = document.getElementById('claveAdministrador'),
+    CONFIRMAR_CONTRASEÑA = document.getElementById('confirmarClave');
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {

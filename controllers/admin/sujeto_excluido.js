@@ -14,13 +14,23 @@ const TITULO_MODAL = document.getElementById('tituloModal'),
     BOTON_ACCION = document.getElementById('btnAccion');
 // Constantes para establecer los elementos del formulario.
 const FORM_SUJETO = document.getElementById('formSujeto'),
-    ID_FACTURA = document.getElementById('idFactura'),
+    ID_FACTURA = document.getElementById('id_factura'),
     DESCRIPCION = document.getElementById('descripcionServicio'),
     ID_CLIENTE = document.getElementById('id_cliente'),
     TIPO_SERVICIO = document.getElementById('tipoServicio'),
     ID_SERVICIO = document.getElementById('id_servicio'),
     MONTO = document.getElementById('monto'),
     FECHA_EMISION = document.getElementById('fechaEmision');
+
+// Método del evento para cuando el documento ha cargado.
+document.addEventListener('DOMContentLoaded', () => {
+    // Llamada a la función para mostrar el encabezado y pie del documento.
+    loadTemplate();
+    // Se establece el título del contenido principal.
+    MAIN_TITLE.textContent = 'Gestionar usuarios';
+    // Llamada a la función para llenar la tabla con los registros existentes.
+    fillTable();
+});
 
 // Función para abrir el modal crear o editar.
 const abrirModal = async (tituloModal, idFactura) => {
@@ -80,12 +90,6 @@ const abrirModal = async (tituloModal, idFactura) => {
     }
 }
 
-function verificarReset() {
-    if (document.getElementById('buscarUsuario').value == "") {
-        cargarTabla();
-    }
-}
-
 // Método del evento para cuando se envía el formulario de buscar.
 FORM_BUSCAR.addEventListener('submit', (event) => {
     // Se evita recargar la página web después de enviar el formulario.
@@ -93,7 +97,7 @@ FORM_BUSCAR.addEventListener('submit', (event) => {
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(FORM_BUSCAR);
     // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
-    cargarTabla(FORM);
+    loadTemplate(FORM);
 });
 
 // Función para abrir el modal de eliminar.
@@ -112,7 +116,7 @@ const eliminarServicio = async (id_factura) => {
         // Se muestra un mensaje de éxito.
         await sweetAlert(1, DATA.message, true);
         // Se carga nuevamente la tabla para visualizar los cambios.
-        cargarTabla();
+        loadTemplate();
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -147,13 +151,13 @@ FORM_SUJETO.addEventListener('submit', async (event) => {
         // Se muestra un mensaje de éxito.
         sweetAlert(1, DATA.message, true);
         // Se carga nuevamente la tabla para visualizar los cambios.
-        cargarTabla();
+        loadTemplate();
     } else {
         sweetAlert(2, DATA.error, false);
     }
 });
 
-const cargarTabla = async (form = null) => {
+const loadTemplate = async (form = null) => {
     // Se verifica la acción a realizar.
     (form) ? action = 'searchRows' : action = 'readAll';
     // Petición para obtener los registros disponibles.

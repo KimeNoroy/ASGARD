@@ -18,6 +18,7 @@ document.querySelector('title').textContent = 'ASGARD';
 const loadTemplate = async () => {
     // Petición para obtener en nombre del usuario que ha iniciado sesión.
     const DATA = await fetchData(USER_API, 'getUser');
+    console.log("hola");
     // Se verifica si el usuario está autenticado, de lo contrario se envía a iniciar sesión.
     if (DATA.session) {
         // Se comprueba si existe un alias definido para el usuario, de lo contrario se muestra un mensaje con la excepción.
@@ -127,14 +128,16 @@ const loadTemplate = async () => {
     </div>
 
     <div class="usuario">
-        <img src="../../resources/img/usuario.png" alt="">
-        <div class="info-usuario">
-            <div class="nombre-email">
-                <span class="nombre">Admin</span>
-                <span class="email">admin@gmail.com</span>
+        <a href="mi_perfil.html">
+            <img src="../../resources/img/usuario.png" alt="">
+            <div class="info-usuario">
+                <div class="nombre-email">
+                    <span class="nombre">Admin</span>
+                    <span class="email">admin@gmail.com</span>
+                </div>
+                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
             </div>
-            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-        </div>
+        </a>
     </div>
 </div>
 

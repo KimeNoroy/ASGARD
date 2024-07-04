@@ -18,4 +18,3 @@ function validarNIT(input) {
 // Ejemplo de uso
 var nitInput = '00001234567890';
 var nitFormateado = validarNIT(nitInput);
-console.log(nitFormateado); // Output: "0000-123456789-0"

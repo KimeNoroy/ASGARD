@@ -14,11 +14,9 @@
     <!-- Css de un boton naranja -->
     <link href="../../resources/css/color_de_botones.css">
     <!-- Css para la tabla responsive -->
-    <link rel="stylesheet" href="../../resources/css/tabla_responsive.css">
     <link rel="stylesheet" href="../../resources/css/navbar.css">
     <link rel="stylesheet" href="../../resources/css/Inicio.css">
     <link rel="stylesheet" href="../../resources/css/usuariofacturacion.css">
-    <link rel="stylesheet" href="ruta/a/sweetalert.css">
 </head>
 
 <!-- Cuerpo de la página -->
@@ -193,16 +191,16 @@
 
     </main>
     <!-- IMPORTANDO ARCHIVOS JAVASCRIPT -->
+    <!-- Mandar a llamar el controlador de la página privada -->
+    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
     <!-- Mandar a llamar el framework -->
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <!-- Mandar a llamar la librería de alertas -->
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
-    <!-- Llamada al controlador general de la aplicación -->
-    <script type="text/javascript" src="../../controllers/utils/componets.js"></script>
-    <!-- Mandar a llamar el controlador de la página privada -->
-    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
     <!-- Mandar a llamar el controlador de sujeto excluido -->
-    <script type="text/javascript" src="../../controllers/admin/sujeto_excluido.js"></script>
+    <script src="../../controllers/admin/sujeto_excluido.js"></script>
+    <!-- Llamada al controlador -->
+    <script src="../../controllers/utils/componentes.js"></script>
     <!-- Validar número de teléfono -->
     <script src="../../resources/js/validar_telefono.js"></script>
     <!-- Validar número de DUI -->
