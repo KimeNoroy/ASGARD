@@ -153,9 +153,12 @@ const openUpdate = async (id) => {
         APELLIDO_CLIENTE.value = ROW.apellido_cliente;
         DUI_CLIENTE.value = ROW.dui_cliente;
         NIT_CLIENTE.value = ROW.nit_cliente;
+        DIRECCION_CLIENTE.value = ROW.direccion_cliente;
+        DEPARTAMENTO_CLIENTE.value = ROW.departamento_cliente;
+        MUNICIPIO_CLIENTE.value = ROW.municipio_cliente;
         EMAIL_CLIENTE.checked = ROW.email_cliente;
         TELEFONO_CLIENTE.checked = ROW.telefono;
-        PASSWORD_CLIENTE.checked = ROW.password_cliente;
+        //PASSWORD_CLIENTE.checked = ROW.password_cliente;
         //fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto', ROW.id_categoria);
     } else {
         sweetAlert(2, DATA.error, false);
@@ -188,15 +191,3 @@ const openDelete = async (id) => {
         }
     }
 }
-
-/*
-*   Función para abrir un reporte automático de productos por categoría.
-*   Parámetros: ninguno.
-*   Retorno: ninguno.
-*/
-/*const openReport = () => {
-    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/admin/productos.php`);
-    // Se abre el reporte en una nueva pestaña.
-    window.open(PATH.href);
-}*/

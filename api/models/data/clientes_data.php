@@ -138,44 +138,6 @@ public function setMunicipio($value, $min = 2, $max = 100)
         }
     }
 
-  
-
-   /* public function setDireccion($value, $min = 2, $max = 250)
-    {
-        if (!Validator::validateString($value)) {
-            $this->data_error = 'La dirección contiene caracteres prohibidos';
-            return false;
-        } elseif(Validator::validateLength($value, $min, $max)) {
-            $this->direccion = $value;
-            return true;
-        } else {
-            $this->data_error = 'La dirección debe tener una longitud entre ' . $min . ' y ' . $max;
-            return false;
-        }
-    } */
-
-   /* public function setClave($value)
-    {
-        if (Validator::validatePassword($value)) {
-            $this->clave = password_hash($value, PASSWORD_DEFAULT);
-            return true;
-        } else {
-            $this->data_error = Validator::getPasswordError();
-            return false;
-        }
-    }*/
-
-   /* public function setEstado($value)
-    {
-        if (Validator::validateBoolean($value)) {
-            $this->estado = $value;
-            return true;
-        } else {
-            $this->data_error = 'Estado incorrecto';
-            return false;
-        }
-    }*/
-
     // Método para obtener el error de los datos.
     public function getDataError()
     {

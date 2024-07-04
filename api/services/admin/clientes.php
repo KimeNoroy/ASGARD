@@ -16,7 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Ejemplo de cómo guardar los datos en una base de datos MySQL
     $servername = "localhost";
     $username = "tu_usuario";
-    $password = "tu_contraseña";
     $dbname = "tu_base_de_datos";
 
     // Crear conexión
@@ -27,8 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Conexión fallida: " . $conn->connect_error);
     }
 
-    $sql = "INSERT INTO tb_clientes(nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, contraseña_cliente, telefono, dui_cliente, nit_cliente)
-    VALUES ('$nombre', '$apellido', '$correo', '$direccion','$departamento','$municipio','$clave', '$telefono', '$dui', '$nit')";
+    $sql = "INSERT INTO tb_clientes(nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono, dui_cliente, nit_cliente)
+    VALUES ('$nombre', '$apellido', '$correo', '$direccion','$departamento','$municipio', '$telefono', '$dui', '$nit')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Nuevo cliente registrado exitosamente";

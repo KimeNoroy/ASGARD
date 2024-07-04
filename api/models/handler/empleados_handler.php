@@ -30,7 +30,7 @@ class EmpleadoHandler
         } elseif (password_verify($password, $data['contrasena'])) {
             $this ->id = $data['id_empleado'];
             $this->clave = $data['contrasena'];
-            $this->dui = $data['email_empleado'];
+            $this->email = $data['email_empleado'];
            // $this->estado = $data['estado_cliente'];
 
             return true;
@@ -39,16 +39,6 @@ class EmpleadoHandler
         }
     }
 
- /*   public function checkStatus()
-    {
-        if ($this->estado) {
-            $_SESSION['idCliente'] = $this->id;
-            $_SESSION['emailCliente'] = $this->correo;
-            return true;
-        } else {
-            return false;
-        }
-    } */
 
     public function checkPassword($password)
     {
@@ -82,15 +72,6 @@ class EmpleadoHandler
         $params = array($_SESSION['id_empleado']);
         return Database::getRow($sql, $params);
     }
-
-   /* public function updateRow()
-    {
-        $sql = 'UPDATE tb_clientes
-                SET nombre_cliente = ?, apellido_cliente = ?, email_cliente = ?, telefono = ?, dui_cliente = ?, nit_cliente = ?
-                WHERE id_cliente = ?';
-        $params = array($this->nombre, $this->apellido, $this->correo, $_SESSION['idAdministrador']);
-        return Database::executeRow($sql, $params);
-    }*/
 
     /*
      *  Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
