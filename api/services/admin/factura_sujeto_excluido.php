@@ -1,6 +1,6 @@
 <?php
 // Se incluye la clase del modelo.
-require_once('../../models/data/factura_sujeto_excluido.php');
+require_once ('../../models/data/factura_sujeto_excluido_data.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
@@ -27,19 +27,12 @@ if (isset($_GET['action'])) {
             case 'createRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$usuario->setNombre($_POST['nombre_cliente']) or
-                    !$usuario->setApellido($_POST['apellido_cliente']) or
-                    !$usuario->setDUI($_POST['dui_cliente'], 0) or
-                    !$usuario->setNIT($_POST['nit_cliente'], 0) or
-                    !$usuario->setFecha($_POST['fecha_emision']) or
-                    !$usuario->setDireccion($_POST['direccion_cliente']) or
-                    !$usuario->setDepartamento($_POST['departamento_cliente']) or
-                    !$usuario->setMunicipio($_POST['municipio_cliente']) or
-                    !$usuario->setEmail($_POST['email_cliente'], 0) or
-                    !$usuario->setTelefono($_POST['telefono_cliente'], 0) or
+                    !$usuario->setTipoServicio($_POST['tipoServicio']) or
+                    !$usuario->setMonto($_POST['monto']) or
+                    !$usuario->setFecha($_POST['fechaEmision']) or
                     !$usuario->setDescripcion($_POST['descripcion']) or
-                    !$usuario->setTipoServicio($_POST['tipo_servicio']) or
-                    !$usuario->setMonto($_POST['monto'])
+                    !$usuario->setIdCliente($_POST['id_cliente']) or
+                    !$usuario->setIdServicio($_POST['id_servicio'])
                 ) {
                     $result['error'] = $usuario->getDataError();
                 } elseif ($usuario->createRow()) {
@@ -51,6 +44,24 @@ if (isset($_GET['action'])) {
                 break;
             case 'readAll':
                 $result['dataset'] = $usuario->readAll();
+                if ($result['dataset']) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Mostrando ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existen usuarios registrados';
+                }
+                break;
+            case 'readAllservicio':
+                $result['dataset'] = $usuario->readAllservicio();
+                if ($result['dataset']) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Mostrando ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existen usuarios registrados';
+                }
+                break;
+            case 'readAllclientes':
+                $result['dataset'] = $usuario->readAllclientes();
                 if ($result['dataset']) {
                     $result['status'] = 1;
                     $result['message'] = 'Mostrando ' . count($result['dataset']) . ' registros';
@@ -73,19 +84,12 @@ if (isset($_GET['action'])) {
             case 'updateRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$usuario->setNombre($_POST['nombre_cliente']) or
-                    !$usuario->setApellido($_POST['apellido_cliente']) or
-                    !$usuario->setDUI($_POST['dui_cliente'], 1) or
-                    !$usuario->setNIT($_POST['nit_cliente'], 1) or
-                    !$usuario->setFecha($_POST['fecha_emision']) or
-                    !$usuario->setDireccion($_POST['direccion_cliente']) or
-                    !$usuario->setDepartamento($_POST['departamento_cliente']) or
-                    !$usuario->setMunicipio($_POST['municipio_cliente']) or
-                    !$usuario->setEmail($_POST['email_cliente'], 1) or
-                    !$usuario->setTelefono($_POST['telefono_cliente'], 1) or
+                    !$usuario->setId($_POST['id_factura']) or
+                    !$usuario->setMonto($_POST['monto']) or
+                    !$usuario->setFecha($_POST['fechaEmision']) or
                     !$usuario->setDescripcion($_POST['descripcion']) or
-                    !$usuario->setTipoServicio($_POST['tipo_servicio']) or
-                    !$usuario->setMonto($_POST['monto'])
+                    !$usuario->setIdCliente($_POST['id_cliente']) or
+                    !$usuario->setIdServicio($_POST['id_servicio'])
                 ) {
                     $result['error'] = $usuario->getDataError();
                 } elseif ($usuario->updateRow()) {
@@ -115,10 +119,10 @@ if (isset($_GET['action'])) {
         // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
         header('Content-type: application/json; charset=utf-8');
         // Se imprime el resultado en formato JSON y se retorna al controlador.
-        print(json_encode($result));
+        print (json_encode($result));
     } else {
-        print(json_encode('Acceso denegado'));
+        print (json_encode('Acceso denegado'));
     }
 } else {
-    print(json_encode('Recurso no disponible'));
+    print (json_encode('Recurso no disponible'));
 }

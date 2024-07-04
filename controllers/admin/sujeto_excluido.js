@@ -15,17 +15,10 @@ const TITULO_MODAL = document.getElementById('tituloModal'),
 // Constantes para establecer los elementos del formulario.
 const FORM_SUJETO = document.getElementById('formSujeto'),
     ID_FACTURA = document.getElementById('idFactura'),
-    NIT_CLIENTE = document.getElementById('nitCliente'),
-    NOMBRE_CLIENTE = document.getElementById('nombreCliente'),
-    APELLIDO_CLIENTE = document.getElementById('apellidoCliente'),
-    DIRECCION_CLIENTE = document.getElementById('direccionCliente'),
-    DEPARTAMENTO_CLIENTE = document.getElementById('departamentoCliente'),
-    MUNICIPIO_CLIENTE = document.getElementById('municipioCliente'),
-    EMAIL_CLIENTE = document.getElementById('emailCliente'),
     DESCRIPCION = document.getElementById('descripcionServicio'),
-    TELEFONO_CLIENTE = document.getElementById('telefonoCliente'),
-    DUI_CLIENTE = document.getElementById('duiCliente'),
+    ID_CLIENTE = document.getElementById('id_cliente'),
     TIPO_SERVICIO = document.getElementById('tipoServicio'),
+    ID_SERVICIO = document.getElementById('id_servicio'),
     MONTO = document.getElementById('monto'),
     FECHA_EMISION = document.getElementById('fechaEmision');
 
@@ -43,6 +36,9 @@ const abrirModal = async (tituloModal, idFactura) => {
         BOTON_ACCION.innerHTML = 'Agregar usuario';
         // Se limpian los input para dejarlos vacíos.
         FORM_SUJETO.reset();
+
+        await fillSelect(FACTURA_API, 'readAllclientes', 'id_cliente');
+        await fillSelect(FACTURA_API, 'readAllservicio', 'id_servicio');
         // Se abre el modal agregar.
         MODALSUJETO.show();
     }
@@ -50,19 +46,19 @@ const abrirModal = async (tituloModal, idFactura) => {
         // Se define una constante tipo objeto que almacenará el idFactura
         const FORM = new FormData();
         // Se almacena el nombre del campo y el valor (idFactura) en el formulario.
-        FORM.append('idFactura', idFactura);
+        FORM.append('id_factura', idFactura);
         // Petición para obtener los datos del registro solicitado.
         const DATA = await fetchData(FACTURA_API, 'readOne', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se configura el título del modal.
-            TITULO_MODAL.textContent = 'Actualizar usuario';
+            TITULO_MODAL.textContent = 'Actualizar servicio';
             // Se remueve el antiguo color del botón.
             BOTON_ACCION.classList.remove('btn-primary');
             // Se configura el nuevo color del botón.
             BOTON_ACCION.classList.add('btn-success');
             // Se configura el título del botón.
-            BOTON_ACCION.innerHTML = 'Editar usuario';
+            BOTON_ACCION.innerHTML = 'Editar servicio';
             // Se prepara el formulario para cargar los input.
             FORM_SUJETO.reset();
             // Se cargan los campos de la base en una variable.
@@ -70,15 +66,8 @@ const abrirModal = async (tituloModal, idFactura) => {
             // Se carga el id del usuario en el input idUsuario.
             ID_FACTURA.value = ROW.id_factura;
             // Se carga el nombre del cliente en el input nombreSujeto.
-            NOMBRE_CLIENTE.value = ROW.nombre_cliente;
-            APELLIDO_CLIENTE.value = ROW.apellido_cliente;
-            NIT_CLIENTE.value = ROW.nit_cliente;
-            DIRECCION_CLIENTE.value = ROW.direccion_cliente;
-            DEPARTAMENTO_CLIENTE.value = ROW.departamento_cliente;
-            MUNICIPIO_CLIENTE.value = ROW.municipio_cliente;
-            EMAIL_CLIENTE.value = ROW.email_cliente;
-            TELEFONO_CLIENTE.value = ROW.telefono_cliente;
-            DUI_CLIENTE.value = ROW.dui_cliente;
+            await fillSelect(FACTURA_API, 'readAllclientes', 'id_cliente', ROW.id_cliente);
+            await fillSelect(FACTURA_API, 'readAllservicio', 'id_servicio', ROW.id_servicio);
             TIPO_SERVICIO.value = ROW.tipo_servicio;
             MONTO.value = ROW.monto;
             FECHA_EMISION.value = ROW.fecha_emision;
@@ -107,37 +96,13 @@ FORM_BUSCAR.addEventListener('submit', (event) => {
     cargarTabla(FORM);
 });
 
-// Función para abrir el modal eliminar usuario.
-const abrirEliminar = async (idFactura) => {
-    // Se define una constante tipo objeto que almacenará el idFactura.
-    const FORM = new FormData();
-    // Se almacena el nombre del campo y el valor (idFactura) en el formulario.
-    FORM.append('idFactura', idFactura);
-    // Petición para obtener los datos del registro solicitado.
-    const DATA = await fetchData(FACTURA_API, 'readOne', FORM);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-    if (DATA.status) {
-        // Se cargan los campos de la base en una variable.
-        const ROW = DATA.dataset;
-        // Se define el título del modal.
-        document.getElementById('tituloModalEliminar').innerHTML = "¿Desea eliminar el cliente " + ROW.nombre_cliente + "?";
-        // Se carga el id cliente en el input inputIdFactura.
-        document.getElementById('inputIdFactura').value = ROW.id_factura;
-        // Se abre el modal borrar 
-        MODALBSUJETO.show();
-    } else {
-        sweetAlert(2, DATA.error, false);
-    }
-}
+// Función para abrir el modal de eliminar.
+const eliminarServicio = async (id_factura) => {
 
-const eliminarCliente = async () => {
-
-    // Se define una variable con el valor del input inputIdFactura.
-    var idFactura = document.getElementById('inputIdFactura').value;
     // Se define una constante tipo objeto donde se almacenará el idFactura.
     const FORM = new FormData();
     // Se almacena el nombre del campo y el valor (idFactura).
-    FORM.append('idFactura', idFactura);
+    FORM.append('id_factura', id_factura);
     // Petición para eliminar el registro seleccionado.
     const DATA = await fetchData(FACTURA_API, 'deleteRow', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -217,10 +182,10 @@ const cargarTabla = async (form = null) => {
                     <td class="text-center">${row.fecha_emision}</td>
                     <td class="text-center">${row.descripcion}</td>
                     <td class="celda-agregar-eliminar text-right text-center">
-                        <button type="button" class="btn btn-success text-center" onclick="abrirModal('Editar usuario',${row.id_nombre_cliente})">
+                        <button type="button" class="btn btn-success text-center" onclick="abrirModal('Editar factura',${row.id_factura})">
                             <img src="../../resources/img/lapiz.png" alt="lapizEditar" width="30px">
                         </button>
-                        <button type="button" class="btn btn-danger text-center" onclick="abrirEliminar(${row.id_nombre_cliente})">
+                        <button type="button" class="btn btn-danger text-center" onclick="eliminarServicio(${row.id_factura})">
                             <img src="../../resources/img/eliminar.png" alt="lapizEditar" width="30px">
                         </button>
                     </td>

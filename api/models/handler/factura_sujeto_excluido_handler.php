@@ -11,15 +11,8 @@ class factura_sujeto_excluido_handler
      *   Declaración de atributos para el manejo de datos.
      */
     protected $id= null;
-    protected $nombre = null;
-    protected $apellido = null;
-    protected $email = null;
-    protected $dui = null;
-    protected $nit = null;
-    protected $telefono = null;
-    protected $direccion = null;
-    protected $departamento = null;
-    protected $municipio = null;
+    protected $id_cliente = null;
+    protected $id_servicio = null;
     protected $tipo_servicio = null;
     protected $monto = null;
     protected $descripcion = null;
@@ -44,24 +37,16 @@ class factura_sujeto_excluido_handler
     // Método para crear un nuevo usuario.
     public function createRow()
     {
-        $sql = 'INSERT INTO tb_factura_sujeto_excluido(id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion)
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO tb_factura_sujeto_excluido(tipo_servicio, monto, fecha_emision, descripcion, id_empleado, id_cliente, id_servicio)
+                VALUES(?, ?, ?, ?, ?, ?, ?)';
         $params = array(
-            $this->id,
-            $this->nombre,
-            $this->apellido,
-            $this->email,
-            $this->dui,
-            $this->nit,
-            $this->telefono,
-            $this->direccion,
-            $this->departamento,
-            $this->municipio,
             $this->tipo_servicio,
             $this->monto,
             $this->fecha,
             $this->descripcion,
-            $_SESSION['id_empleado']
+            $_SESSION['id_empleado'],
+            $this->id_cliente,
+            $this->id_servicio
         );
         return Database::executeRow($sql, $params);
     }
@@ -69,17 +54,32 @@ class factura_sujeto_excluido_handler
     // Método para leer todos los usuarios.
     public function readAll()
     {
-        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
-                FROM tb_factura_sujeto_excluido
+        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision
+                FROM vista_tb_factura_sujeto_excluido
                 ORDER BY nombre_cliente';
+        return Database::getRows($sql);
+    }
+
+    // Método para leer todos los clientes.
+    public function readAllclientes()
+    {
+        $sql = 'SELECT id_cliente, nombre_cliente
+                FROM tb_clientes';
+        return Database::getRows($sql);
+    }
+    // Método para leer todos los servicios.
+    public function readAllservicio()
+    {
+        $sql = 'SELECT id_servicio, nombre_servicio
+                FROM tb_servicios';
         return Database::getRows($sql);
     }
 
     // Método para leer un usuario específico.
     public function readOne()
     {
-        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
-                FROM tb_factura_sujeto_excluido
+        $sql = 'SELECT id_factura, id_cliente, id_servicio, tipo_servicio, monto, fecha_emision, descripcion
+                FROM vista_tb_factura_sujeto_excluido
                 WHERE id_factura = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
@@ -89,10 +89,17 @@ class factura_sujeto_excluido_handler
     public function updateRow()
     {
         $sql = 'UPDATE tb_factura_sujeto_excluido
-                SET nombre_cliente = ?, apellido_cliente = ?, email_cliente = ?, dui_cliente = ?, nit_cliente = ?, telefono_cliente = ?, direccion_cliente = ?, departamento_cliente = ?, municipio_cliente = ?, tipo_servicio = ?, monto = ?,  descripcion = ?,  fecha_emision = ?
+                SET tipo_servicio = ?, monto = ?, fecha_emision = ?, descripcion = ?, id_empleado = ?, id_cliente = ?, id_servicio = ?
                 WHERE id_factura = ?';
         $params = array(
-            $this->id, $this->nombre, $this->apellido, $this->email, $this->dui, $this->nit, $this->telefono, $this->direccion, $this->departamento, $this->municipio, $this->tipo_servicio, $this->monto, $this->descripcion, $this->fecha
+            $this->tipo_servicio,
+            $this->monto,
+            $this->fecha,
+            $this->descripcion,
+            $_SESSION['id_empleado'],
+            $this->id_cliente,
+            $this->id_servicio,
+            $this->id
         );
         return Database::executeRow($sql, $params);
     }
@@ -102,28 +109,9 @@ class factura_sujeto_excluido_handler
     {
         $sql = 'DELETE FROM tb_factura_sujeto_excluido
                 WHERE id_factura = ?';
-        $params = array($this->id_factura);
+        $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
 
-    // Método para comprobar duplicados.
-    public function checkDuplicate($value)
-    {
-        $sql = 'SELECT id_factura
-                FROM tb_factura_sujeto_excluido
-                WHERE dui_cliente = ? OR nit_cliente = ? OR email_cliente = ? OR telefono_cliente = ?';
-        $params = array($value, $value, $value, $value);
-        return Database::getRow($sql, $params);
-    }
-
-    // Método para comprobar duplicados por valor excluyendo un ID.
-    public function checkDuplicateWithId($value)
-    {
-        $sql = 'SELECT id_factura
-                FROM tb_factura_sujeto_excluido
-                WHERE (dui_cliente = ? OR nit_cliente = ? OR email_cliente = ? OR telefono_cliente = ?) AND id_factura != ?';
-        $params = array($value, $value, $value, $value, $this->id_factura);
-        return Database::getRow($sql, $params);
-    }
 
 }
