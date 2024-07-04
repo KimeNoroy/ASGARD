@@ -3,25 +3,25 @@
 // Se incluye la clase para validar los datos de entrada.
 require_once('../../helpers/validator.php');
 // Se incluye la clase padre.
-require_once('../../models/handler/administrador_handler.php');
+require_once('../../models/handler/empleados_handler.php');
 /*
- *  Clase para manejar el encapsulamiento de los datos de la tabla USUARIO.
- */
-class AdministradorData extends AdministradorHandler
+*	Clase para manejar el encapsulamiento de los datos de la tabla Empleados.
+*/
+class EmpleadoData extends EmpleadoHandler
 {
     // Atributo genérico para manejo de errores.
     private $data_error = null;
 
     /*
-     *  Métodos para validar y asignar valores de los atributos.
-     */
+    *   Métodos para validar y establecer los datos.
+    */
     public function setId($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id = $value;
             return true;
         } else {
-            $this->data_error = 'El identificador del administrador es incorrecto';
+            $this->data_error = 'El identificador del cliente es incorrecto';
             return false;
         }
     }
@@ -54,24 +54,69 @@ class AdministradorData extends AdministradorHandler
         }
     }
 
+    public function setCorreo($value, $min = 8, $max = 100)
+    {
+        if (!Validator::validateEmail($value)) {
+            $this->data_error = 'El correo no es válido';
+            return false;
+        } elseif (!Validator::validateLength($value, $min, $max)) {
+            $this->data_error = 'El correo debe tener una longitud entre ' . $min . ' y ' . $max;
+            return false;
+        } elseif($this->checkDuplicate($value)) {
+            $this->data_error = 'El correo ingresado ya existe';
+            return false;
+        } else {
+            $this->correo = $value;
+            return true;
+        }
+    }
+
     public function setEmail($value, $min = 8, $max = 100)
     {
         if (!Validator::validateEmail($value)) {
             $this->data_error = 'El correo no es válido';
             return false;
-        } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->correo = $value;
+        } elseif (!Validator::validateLength($value, $min, $max)) {
+            $this->data_error = 'El correo debe tener una longitud entre ' . $min . ' y ' . $max;
+            return false;
+        } elseif($this->checkDuplicateEmail($value)) {
+            $this->data_error = 'El correo ingresado ya existe';
+            return false;
+        } else {
+            $this->email = $value;
+            return true;
+        }
+    }
+
+    public function setTelefono($value)
+    {
+        if (Validator::validatePhone($value)) {
+            $this->telefono = $value;
             return true;
         } else {
-            $this->data_error = 'El correo debe tener una longitud entre ' . $min . ' y ' . $max;
+            $this->data_error = 'El teléfono debe tener el formato (2, 6, 7)###-####';
             return false;
         }
     }
 
-    public function setContraseña($value)
+    public function setDUI($value)
+    {
+        if (!Validator::validateDUI($value)) {
+            $this->data_error = 'El DUI debe tener el formato ########-#';
+            return false;
+        } elseif($this->checkDuplicate($value)) {
+            $this->data_error = 'El DUI ingresado ya existe';
+            return false;
+        } else {
+            $this->dui = $value;
+            return true;
+        }
+    }
+
+    public function setClave($value)
     {
         if (Validator::validatePassword($value)) {
-            $this->contraseña = password_hash($value, PASSWORD_DEFAULT);
+            $this->clave = password_hash($value, PASSWORD_DEFAULT);
             return true;
         } else {
             $this->data_error = Validator::getPasswordError();
