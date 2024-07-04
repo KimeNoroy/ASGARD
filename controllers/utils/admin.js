@@ -67,7 +67,7 @@ const loadTemplate = async () => {
             </a>
         </li>
         <li>
-            <a href="sujetoexcluidoelectrónico.html">
+            <a href="sujeto_excluido.html">
                 <ion-icon name="document-text-outline"></ion-icon>
                 <span>Sujeto excluido electronico
                 </span>
