@@ -25,7 +25,7 @@ class ClienteData extends ClienteHandler
         }
     }
 
-    public function setNombre($value, $min = 2, $max = 50)
+    public function setNombre($value, $min = 2, $max = 100)
     {
         if (!Validator::validateAlphabetic($value)) {
             $this->data_error = 'El nombre debe ser un valor alfabético';
@@ -39,7 +39,7 @@ class ClienteData extends ClienteHandler
         }
     }
 
-    public function setApellido($value, $min = 2, $max = 50)
+    public function setApellido($value, $min = 2, $max = 100)
     {
         if (!Validator::validateAlphabetic($value)) {
             $this->data_error = 'El apellido debe ser un valor alfabético';
@@ -81,6 +81,49 @@ class ClienteData extends ClienteHandler
         }
     }
 
+    public function setDireccion($value, $min = 5, $max = 100)
+{
+    if (!Validator::validateAlphanumeric($value)) {
+        $this->data_error = 'La dirección debe ser alfanumérica';
+        return false;
+    } elseif (Validator::validateLength($value, $min, $max)) {
+        $this->direccion = $value;
+        return true;
+    } else {
+        $this->data_error = 'La dirección debe tener una longitud entre ' . $min . ' y ' . $max;
+        return false;
+    }
+}
+
+public function setDepartamento($value, $min = 2, $max = 250)
+{
+    if (!Validator::validateAlphabetic($value)) {
+        $this->data_error = 'El departamento debe ser un valor alfabético';
+        return false;
+    } elseif (Validator::validateLength($value, $min, $max)) {
+        $this->departamento = $value;
+        return true;
+    } else {
+        $this->data_error = 'El departamento debe tener una longitud entre ' . $min . ' y ' . $max;
+        return false;
+    }
+}
+
+public function setMunicipio($value, $min = 2, $max = 100)
+{
+    if (!Validator::validateAlphabetic($value)) {
+        $this->data_error = 'El municipio debe ser un valor alfabético';
+        return false;
+    } elseif (Validator::validateLength($value, $min, $max)) {
+        $this->municipio = $value;
+        return true;
+    } else {
+        $this->data_error = 'El municipio debe tener una longitud entre ' . $min . ' y ' . $max;
+        return false;
+    }
+}
+
+
     public function setDUI($value)
     {
         if (!Validator::validateDUI($value)) {
@@ -95,47 +138,10 @@ class ClienteData extends ClienteHandler
         }
     }
 
-  
-
-    public function setDireccion($value, $min = 2, $max = 250)
-    {
-        if (!Validator::validateString($value)) {
-            $this->data_error = 'La dirección contiene caracteres prohibidos';
-            return false;
-        } elseif(Validator::validateLength($value, $min, $max)) {
-            $this->direccion = $value;
-            return true;
-        } else {
-            $this->data_error = 'La dirección debe tener una longitud entre ' . $min . ' y ' . $max;
-            return false;
-        }
-    }
-
-    public function setClave($value)
-    {
-        if (Validator::validatePassword($value)) {
-            $this->clave = password_hash($value, PASSWORD_DEFAULT);
-            return true;
-        } else {
-            $this->data_error = Validator::getPasswordError();
-            return false;
-        }
-    }
-
-    public function setEstado($value)
-    {
-        if (Validator::validateBoolean($value)) {
-            $this->estado = $value;
-            return true;
-        } else {
-            $this->data_error = 'Estado incorrecto';
-            return false;
-        }
-    }
-
     // Método para obtener el error de los datos.
     public function getDataError()
     {
         return $this->data_error;
     }
 }
+

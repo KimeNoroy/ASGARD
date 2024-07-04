@@ -1,4 +1,3 @@
-
 <?php
 // Se incluye la clase para validar los datos de entrada.
 require_once('../../helpers/validator.php');
