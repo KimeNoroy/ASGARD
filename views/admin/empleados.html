@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -7,17 +8,17 @@
     <title>Empleados</title>
 
     <!-- Link para el uso de iconos de boostrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css"
+    <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css"
         rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../../resources/css/navbar.css">
-    <link rel="stylesheet" href="../../resources/css/Inicio.css">
-    <link rel="stylesheet" href="../../resources/css/usuariofacturacion.css">
-    <link rel="stylesheet" href="ruta/a/sweetalert.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/navbar.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/Inicio.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/usuariofacturacion.css">
+    <link type="text/css" rel="stylesheet" href="ruta/a/sweetalert.css">
 
     <!-- Link para el uso de las librerias de css de boostrap -->
-    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
 
 </head>
 
@@ -31,206 +32,142 @@
             <div class="main-title">
                 <h3 class="fw-bold fs-4 mb-3">Empleados</h3>
 
-                <!-- Boton para agregar a nuevo usuario -->
+                <!-- Boton para agregar a nuevo empleado -->
                 <button type="button" class="btn btn-warning float-start" data-bs-toggle="modal"
-                    data-bs-target="#crearModal"><i class="bi bi-file-earmark-plus"></i> Agregar Empleado</button>
+                    data-bs-target="#crearModal"><i class="bi bi-file-earmark-plus" onclick="openCreate()"></i> Agregar Empleado</button>
             </div>
-            <hr>
 
-            <!-- Crud de los usuarios para facturacion -->
+            <!-- Tabla de registros: Empleados  -->
             <div class="row">
                 <div class="col-12">
                     <div class="row">
                         <div class="col-12">
                             <table class="table table-striped">
                                 <thead>
+                                    <tr>
+                                        <td colspan="6" id="rowsFound"></td>
+                                    </tr>
                                     <tr class="highlight">
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Apellido</th>
-                                        <th scope="col">Dui</th>
-                                        <th scope="col">NIT</th>                                     
-                                        <th scope="col">Correo</th>
+                                        <th scope="col">Dui</th>    
                                         <th scope="col">Telefono</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">Ana</th>
-                                        <td>Rodríguez</td>
-                                        <td>001234567-8</td>
-                                        <td>001-234567-123-4</td>
-                                        <td>anarodriguez@gmail.com</td>
-                                        <td>70123456</td>
-                                        <td><button type="button" class="btn btn-primary" id="btn_actualizar"
-                                                data-bs-toggle="modal" data-bs-target="#modificarModal"><i
-                                                    class="bi bi-pencil"></i></button> <button type="button"
-                                                class="btn btn-danger" id="btn_eliminar"><i
-                                                    class="bi bi-trash"></i></button> </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Carlos</th>
-                                        <td>Rodríguez</td>
-                                        <td>009876543-2</td>
-                                        <td>009-876543-210-5</td>
-                                        <td>carlosgarcia@gmail.com</td>
-                                        <td>71234567</td>
-                                        <td><button type="button" class="btn btn-primary" id="btn_actualizar"
-                                                data-bs-toggle="modal" data-bs-target="#modificarModal"><i
-                                                    class="bi bi-pencil"></i></button> <button type="button"
-                                                class="btn btn-danger" id="btn_eliminar"><i
-                                                    class="bi bi-trash"></i></button> </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">María</th>
-                                        <td>López</td>
-                                        <td>005432100-1</td>
-                                        <td>005-432100-987-6</td>
-                                        <td>marialopez@gmail.com</td>
-                                        <td>72345678</td>
-                                        <td><button type="button" class="btn btn-primary" id="btn_actualizar"
-                                                data-bs-toggle="modal" data-bs-target="#modificarModal"><i
-                                                    class="bi bi-pencil"></i></button> <button type="button"
-                                                class="btn btn-danger" id="btn_eliminar"><i
-                                                    class="bi bi-trash"></i></button> </td>
-                                    </tr>
-                                </tbody>
+                                <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+                                <tbody id="tableBodyEmpleados"></tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-            </section>
+
+            <!-- Modal para editar empleado -->
+            <div class="modal fade" id="modificarModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Editar usuario</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <!-- Formulario para crear o actualizar un registro -->
+                        <form id="saveForm">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nombres_empleado" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" id="nombres_empleado" name="nombres_empleado" placeholder="Nombre">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="apellidos_empleado" class="form-label">Apellido</label>
+                                        <input type="text" class="form-control" id="apellidos_empleado" name="apellidos_empleado" placeholder="Apellido">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="dui_empleado" class="form-label">DUI</label>
+                                        <input type="text" class="form-control" id="dui_empleado" name="dui_empleado" placeholder="12345678-9"
+                                            maxlength="10">
+                                        <small id="duiHelp" class="form-text text-muted">Debe tener el formato 12345678-9</small>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email_empleado" class="form-label">Correo</label>
+                                        <input type="email" class="form-control" id="email_empleado" name="email_empleado" placeholder="usuario@dominio.com">
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label for="contrasena" class="form-label">Contraseña</label>
+                                        <input type="number" class="form-control" id="contrasena" name="contrasena" placeholder="Teléfono">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-warning" id= "guardarUsuario">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para agregar un nuevo empleado -->
+            <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Agregar usuario</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <!-- Formulario para crear o actualizar un registro -->
+                        <form id="saveForm">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                                    <input type="number" class="d-none" id="id_empleado" name="id_empleado">
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nombres_empleado" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" id="nombres_empleado" name="nombres_empleado" placeholder="Nombre">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="apellidos_empleado" class="form-label">Apellido</label>
+                                        <input type="text" class="form-control" id="apellidos_empleado" name="apellidos_empleado" placeholder="Apellido">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="dui_empleado" class="form-label">DUI</label>
+                                        <input type="text" class="form-control" id="dui_empleado" name="dui_empleado" placeholder="12345678-9"
+                                            maxlength="10">
+                                        <small id="duiHelp" class="form-text text-muted">Debe el formato 12345678-9</small>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label for="contrasena" class="form-label">Contraseña</label>
+                                        <input type="number" class="form-control" id="contrasena" name="contrasena" placeholder="Teléfono">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-warning" id="AgregarUsuario">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </main>
         <!-- End Main -->
-
-        <!-- Modal para editar usuario -->
-        <div class="modal fade" id="modificarModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Editar usuario</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" placeholder="Nombre">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="apellido" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" id="apellido" placeholder="Apellido">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="dui" class="form-label">DUI</label>
-                                <input type="text" class="form-control" id="dui" placeholder="12345678-9"
-                                    maxlength="10">
-                                <small id="duiHelp" class="form-text text-muted">Debe tener 9 dígitos y un guion al
-                                    final.</small>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="nit" class="form-label">NIT</label>
-                                <input type="text" class="form-control" id="nit" placeholder="1234567890123"
-                                    maxlength="13">
-                                <small id="nitHelp" class="form-text text-muted">Debe tener 13 dígitos
-                                    numéricos.</small>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="departamento" class="form-label">Departamento</label>
-                                <input type="text" class="form-control" id="departamento" placeholder="Departamento">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="municipio" class="form-label">Municipio</label>
-                                <input type="text" class="form-control" id="municipio" placeholder="Municipio">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="correo" class="form-label">Correo</label>
-                                <input type="email" class="form-control" id="correo" placeholder="usuario@dominio.com">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="telefono" class="form-label">Teléfono</label>
-                                <input type="tel" class="form-control" id="telefono" placeholder="Teléfono">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" id= "guardarUsuario">Guardar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal para agregar un nuevo usuario -->
-        <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Agregar usuario</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" placeholder="Nombre">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="apellido" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" id="apellido" placeholder="Apellido">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="dui" class="form-label">DUI</label>
-                                <input type="number" class="form-control" id="dui" placeholder="12345678-9"
-                                    maxlength="10">
-                                <small id="duiHelp" class="form-text text-muted">Debe tener 9 dígitos y un guion al
-                                    final.</small>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="nit" class="form-label">NIT</label>
-                                <input type="number" class="form-control" id="nit" placeholder="1234-567890-123"
-                                    maxlength="13">
-                                <small id="nitHelp" class="form-text text-muted">Debe tener 13 dígitos
-                                    numéricos.</small>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="departamento" class="form-label">Departamento</label>
-                                <input type="text" class="form-control" id="departamento" placeholder="Departamento">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="municipio" class="form-label">Municipio</label>
-                                <input type="text" class="form-control" id="municipio" placeholder="Municipio">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="correo" class="form-label">Correo</label>
-                                <input type="email" class="form-control" id="correo" placeholder="usuario@dominio.com">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="telefono" class="form-label">Teléfono</label>
-                                <input type="number" class="form-control" id="telefono" placeholder="Teléfono">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" id="AgregarUsuario">Guardar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    </div>
+    <!-- End div grid-container -->
         <!-- JavaScript -->
         <!-- archivo de js para las librerias del uso correcto de boostrap -->
-        <script src="../../resources/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript"  src="../../resources/js/bootstrap.bundle.min.js"></script>
 
         <!-- archivo de js para libreria de alertas -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script type="text/javascript"  src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <!-- archivo de js para libreria de iconos para el navbar -->
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 
         <!-- Custom JS -->
-        <script src="../../resources/js/admin.js"></script>
-        <script src="../../resources/js/alertas.js"></script>
+        <script type="text/javascript"  src="../../controllers/admin/empleado.js"></script>
+        <script  type="text/javascript" src="../../resources/js/alertas.js"></script>
 </body>
 </html>
