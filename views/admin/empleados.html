@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -8,14 +7,15 @@
     <title>Empleados</title>
 
     <!-- Link para el uso de iconos de boostrap -->
-    <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css"
+    <link type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css"
         rel="stylesheet">
 
     <!-- Custom CSS -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/navbar.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/Inicio.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/usuariofacturacion.css">
-    <link type="text/css" rel="stylesheet" href="ruta/a/sweetalert.css">
+
 
     <!-- Link para el uso de las librerias de css de boostrap -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
@@ -34,7 +34,8 @@
 
                 <!-- Boton para agregar a nuevo empleado -->
                 <button type="button" class="btn btn-warning float-start" data-bs-toggle="modal"
-                    data-bs-target="#crearModal"><i class="bi bi-file-earmark-plus" onclick="openCreate()"></i> Agregar Empleado</button>
+                    data-bs-target="#crearModal"><i class="bi bi-file-earmark-plus" onclick="openCreate()"></i> Agregar
+                    Empleado</button>
             </div>
 
             <!-- Tabla de registros: Empleados  -->
@@ -50,7 +51,7 @@
                                     <tr class="highlight">
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Apellido</th>
-                                        <th scope="col">Dui</th>    
+                                        <th scope="col">Dui</th>
                                         <th scope="col">Telefono</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
@@ -78,31 +79,36 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="nombres_empleado" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="nombres_empleado" name="nombres_empleado" placeholder="Nombre">
+                                        <input type="text" class="form-control" id="nombres_empleado"
+                                            name="nombres_empleado" placeholder="Nombre">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="apellidos_empleado" class="form-label">Apellido</label>
-                                        <input type="text" class="form-control" id="apellidos_empleado" name="apellidos_empleado" placeholder="Apellido">
+                                        <input type="text" class="form-control" id="apellidos_empleado"
+                                            name="apellidos_empleado" placeholder="Apellido">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="dui_empleado" class="form-label">DUI</label>
-                                        <input type="text" class="form-control" id="dui_empleado" name="dui_empleado" placeholder="12345678-9"
-                                            maxlength="10">
-                                        <small id="duiHelp" class="form-text text-muted">Debe tener el formato 12345678-9</small>
+                                        <input type="text" class="form-control" id="dui_empleado" name="dui_empleado"
+                                            placeholder="12345678-9" maxlength="10">
+                                        <small id="duiHelp" class="form-text text-muted">Debe tener el formato
+                                            12345678-9</small>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="email_empleado" class="form-label">Correo</label>
-                                        <input type="email" class="form-control" id="email_empleado" name="email_empleado" placeholder="usuario@dominio.com">
+                                        <input type="email" class="form-control" id="email_empleado"
+                                            name="email_empleado" placeholder="usuario@dominio.com">
                                     </div>
-                                    
+
                                     <div class="col-md-6 mb-3">
                                         <label for="contrasena" class="form-label">Contraseña</label>
-                                        <input type="number" class="form-control" id="contrasena" name="contrasena" placeholder="Teléfono">
+                                        <input type="number" class="form-control" id="contrasena" name="contrasena"
+                                            placeholder="Teléfono">
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-warning" id= "guardarUsuario">Guardar</button>
+                                <button type="submit" class="btn btn-warning" id="guardarUsuario">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -110,7 +116,8 @@
             </div>
 
             <!-- Modal para agregar un nuevo empleado -->
-            <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -126,22 +133,26 @@
 
                                     <div class="col-md-6 mb-3">
                                         <label for="nombres_empleado" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="nombres_empleado" name="nombres_empleado" placeholder="Nombre">
+                                        <input type="text" class="form-control" id="nombres_empleado"
+                                            name="nombres_empleado" placeholder="Nombre">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="apellidos_empleado" class="form-label">Apellido</label>
-                                        <input type="text" class="form-control" id="apellidos_empleado" name="apellidos_empleado" placeholder="Apellido">
+                                        <input type="text" class="form-control" id="apellidos_empleado"
+                                            name="apellidos_empleado" placeholder="Apellido">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="dui_empleado" class="form-label">DUI</label>
-                                        <input type="text" class="form-control" id="dui_empleado" name="dui_empleado" placeholder="12345678-9"
-                                            maxlength="10">
-                                        <small id="duiHelp" class="form-text text-muted">Debe el formato 12345678-9</small>
+                                        <input type="text" class="form-control" id="dui_empleado" name="dui_empleado"
+                                            placeholder="12345678-9" maxlength="10">
+                                        <small id="duiHelp" class="form-text text-muted">Debe el formato
+                                            12345678-9</small>
                                     </div>
-                                    
+
                                     <div class="col-md-6 mb-3">
                                         <label for="contrasena" class="form-label">Contraseña</label>
-                                        <input type="number" class="form-control" id="contrasena" name="contrasena" placeholder="Teléfono">
+                                        <input type="text" class="form-control" id="contrasena" name="contrasena"
+                                            placeholder="Contraseña">
                                     </div>
                                 </div>
                             </div>
@@ -156,18 +167,25 @@
         <!-- End Main -->
     </div>
     <!-- End div grid-container -->
-        <!-- JavaScript -->
-        <!-- archivo de js para las librerias del uso correcto de boostrap -->
-        <script type="text/javascript"  src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <!-- Mandar a llamar el framework -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <!-- Mandar a llamar la librería de alertas -->
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <!-- Llamada al controlador general de la aplicación -->
+    <script type="text/javascript" src="../../controllers/utils/componets.js"></script>
+    <!-- Mandar a llamar el controlador de la página privada -->
+    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
+    <!-- archivo de js para libreria de alertas -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- archivo de js para libreria de iconos para el navbar -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 
-        <!-- archivo de js para libreria de alertas -->
-        <script type="text/javascript"  src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- archivo de js para libreria de alertas -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <!-- archivo de js para libreria de iconos para el navbar -->
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-
-        <!-- Custom JS -->
-        <script type="text/javascript"  src="../../controllers/admin/empleado.js"></script>
-        <script  type="text/javascript" src="../../resources/js/alertas.js"></script>
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../../controllers/admin/empleado.js"></script>
+    <script type="text/javascript" src="../../resources/js/alertas.js"></script>
 </body>
+
 </html>
