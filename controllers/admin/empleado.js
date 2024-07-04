@@ -1,5 +1,5 @@
 // Constantes para completar las rutas de la API.
-const EMPLEADO_API = 'services/admin/empleados.php';
+const EMPLEADO_API = 'services/admin/empleado.php';
 //const CATEGORIA_API = 'services/admin/categoria.php';
 // Constante para establecer el formulario de buscar.
 //const SEARCH_FORM = document.getElementById('searchForm');
@@ -64,7 +64,7 @@ const fillTable = async (form = null) => {
     // Se verifica la acción a realizar.
     (form) ? action = 'searchRows' : action = 'readAll';
     // Petición para obtener los registros disponibles.
-    const DATA = await fetchData(CLIENTE_API, action, form);
+   const DATA = await fetchData(EMPLEADO_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
