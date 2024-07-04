@@ -107,7 +107,7 @@ if (isset($_GET['action'])) {
             case 'logOut':
                 if (session_destroy()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Sesión eliminada correctamente';
+                    $result['message'] = 'Sesión cerrada correctamente';
                 } else {
                     $result['error'] = 'Ocurrió un problema al cerrar la sesión';
                 }

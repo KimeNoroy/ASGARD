@@ -18,7 +18,6 @@ document.querySelector('title').textContent = 'ASGARD';
 const loadTemplate = async () => {
     // Petición para obtener en nombre del usuario que ha iniciado sesión.
     const DATA = await fetchData(USER_API, 'getUser');
-    console.log(DATA)
     // Se verifica si el usuario está autenticado, de lo contrario se envía a iniciar sesión.
     if (DATA.session) {
         // Se comprueba si existe un alias definido para el usuario, de lo contrario se muestra un mensaje con la excepción.
@@ -125,7 +124,7 @@ const loadTemplate = async () => {
                         d="M14.0552 4.39009e-05C12.5444 -0.00414507 11.0478 0.291486 9.65213 0.86981C8.56401 1.32068 7.55408 1.93639 6.65711 2.69362C6.236 3.04912 6.2396 3.68444 6.62929 4.07413L7.02378 4.46863C7.41431 4.85915 8.04434 4.854 8.47531 4.50863C10.0544 3.24318 12.002 2.55531 14.0552 2.55531C16.4444 2.55531 18.6904 3.48671 20.3795 5.17574C22.0685 6.86477 22.9999 9.11085 22.9999 11.5C22.9999 13.8892 22.0685 16.1353 20.3795 17.8243C18.6904 19.5133 16.4444 20.4447 14.0552 20.4447C12.002 20.4447 10.0544 19.7569 8.47531 18.4914C8.04434 18.146 7.41431 18.1409 7.02378 18.5314L6.63122 18.924C6.24077 19.3144 6.23812 19.9513 6.6603 20.3072C8.72777 22.05 11.318 23 14.0552 23C17.1279 23 20.0153 21.8029 22.186 19.6309C24.358 17.4602 25.5552 14.5727 25.5552 11.5C25.5552 8.42731 24.358 5.53986 22.186 3.36916C21.121 2.29766 19.8539 1.44814 18.4582 0.86981C17.0625 0.291486 15.5659 -0.00414507 14.0552 4.39009e-05Z"
                         fill="#EBEBEB" />
                 </svg>
-                <span>Cerrar Sesión</span>
+                <span onclick="logOut()">Cerrar Sesión</span>
             </a>
         </div>
 
@@ -139,8 +138,8 @@ const loadTemplate = async () => {
                 </svg>
             </a>
             <div class="info">
-                <span class="welcome-text">Bienvenido denuevo! 👋</span>
-                <span class="name-text">Juan Perez</span>
+                <span class="welcome-text">Bienvenido de nuevo! 👋</span>
+                <span class="name-text">${DATA.username}</span>
             </div>
         </div>
     </div>
