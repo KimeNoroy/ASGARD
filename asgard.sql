@@ -24,6 +24,7 @@ CREATE TABLE tb_clientes (
    telefono_cliente VARCHAR(15) UNIQUE NOT NULL
 );
  
+SELECT *  FROM tb_administrador;
 -- Tabla de Documentos Emitidos
 CREATE TABLE tb_documentos_emitidos (
    id_documento INT PRIMARY KEY AUTO_INCREMENT,
@@ -83,13 +84,15 @@ CREATE TABLE tb_factura_sujeto_excluido (
    id_cliente INT,
    descripcion VARCHAR(500) NOT NULL,
    id_servicio INT,
+   id_administrador INT,
    id_empleado INT,
    tipo_servicio ENUM('Credito Fiscal', 'Factura Consumidor Final', 'Factura Sujeto Excluido', 'Otro') NOT NULL,
    monto DECIMAL(10, 2),
    fecha_emision DATE,
    FOREIGN KEY (id_cliente) REFERENCES tb_clientes(id_cliente),
    FOREIGN KEY (id_servicio) REFERENCES tb_servicios(id_servicio),
-   FOREIGN KEY (id_empleado) REFERENCES tb_empleados(id_empleado)
+   FOREIGN KEY (id_empleado) REFERENCES tb_empleados(id_empleado),
+   FOREIGN KEY (id_administrador) REFERENCES tb_administrador(id_administrador)
 );
 
 SELECT * FROM tb_factura_sujeto_excluido; 
@@ -163,3 +166,7 @@ INSERT INTO tb_empleados (nombres_empleado, apellidos_empleado, dui_empleado, co
 ('Diego', 'Torres', '003456789-0', 'password3'),
 ('Laura', 'Vásquez', '004567890-1', 'password4'),
 ('Andrés', 'Morales', '005678901-2', 'password5');
+
+INSERT INTO tb_administrador(nombre_administrador, apellido_administrador, email_administrador, contraseña_administrador) VALUES(
+'test', 'test', 'test@root.com', '$2y$10$YWFKSnTk4dtR3RvMz006BuDbtE1b5y685OocmGAtqMAaJijLA3YhO');
+/* CONTRASEÑA: 123123123 */

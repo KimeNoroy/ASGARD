@@ -44,7 +44,7 @@ class factura_sujeto_excluido_handler
             $this->monto,
             $this->fecha,
             $this->descripcion,
-            $_SESSION['id_administrador'],
+            $_SESSION['idAdministrador'],
             $this->id_cliente,
             $this->id_servicio
         );
@@ -96,7 +96,7 @@ class factura_sujeto_excluido_handler
             $this->monto,
             $this->fecha,
             $this->descripcion,
-            $_SESSION['id_administrador'],
+            $_SESSION['idAdministrador'],
             $this->id_cliente,
             $this->id_servicio,
             $this->id

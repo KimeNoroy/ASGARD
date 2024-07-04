@@ -151,6 +151,7 @@ FORM_SUJETO.addEventListener('submit', async (event) => {
         sweetAlert(1, DATA.message, true);
         // Se carga nuevamente la tabla para visualizar los cambios.
         loadTemplate();
+        fillTable();
     } else {
         sweetAlert(2, DATA.error, false);
     }
