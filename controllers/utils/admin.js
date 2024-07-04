@@ -193,7 +193,7 @@ const loadNavBarJs = () => {
         }
     }
 
-    SIDEBAR_ACTIVATOR.addEventListener("click", toggleSidebar);
+    //SIDEBAR_ACTIVATOR.addEventListener("click", toggleSidebar);
 
     // Lógica adicional para manejar cambios en el tamaño de la ventana
     window.addEventListener("resize", () => {

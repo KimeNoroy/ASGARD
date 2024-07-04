@@ -12,6 +12,10 @@ const FILAS_ENCONTRADAS = document.getElementById('filasEncontradas'),
 // Constante para definir el título del modal y botón.
 const TITULO_MODAL = document.getElementById('tituloModal'),
     BOTON_ACCION = document.getElementById('btnAccion');
+
+    // MODALS
+MAIN_TITLE = document.getElementById("tituloModal")
+
 // Constantes para establecer los elementos del formulario.
 const FORM_SUJETO = document.getElementById('formSujeto'),
     ID_FACTURA = document.getElementById('id_factura'),
@@ -26,6 +30,7 @@ const FORM_SUJETO = document.getElementById('formSujeto'),
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
+
     // Se establece el título del contenido principal.
     MAIN_TITLE.textContent = 'Gestionar usuarios';
     // Llamada a la función para llenar la tabla con los registros existentes.
@@ -123,13 +128,7 @@ const eliminarServicio = async (id_factura) => {
 }
 
 
-// Evento que carga los recursos de barra de navegación y función de rellenar tabla.
-document.addEventListener('DOMContentLoaded', () => {
-    // Llamada a la función para mostrar el encabezado y pie del documento.
-    loadTemplate();
-    //Llamar la función para cargar los datos de la tabla.
-    cargarTabla();
-});
+
 
 // Método del evento para cuando se envía el formulario de guardar.
 FORM_SUJETO.addEventListener('submit', async (event) => {
@@ -157,7 +156,7 @@ FORM_SUJETO.addEventListener('submit', async (event) => {
     }
 });
 
-const loadTemplate = async (form = null) => {
+const fillTable = async (form = null) => {
     // Se verifica la acción a realizar.
     (form) ? action = 'searchRows' : action = 'readAll';
     // Petición para obtener los registros disponibles.
