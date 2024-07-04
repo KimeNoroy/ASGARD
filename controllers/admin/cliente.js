@@ -16,9 +16,12 @@ const SAVE_FORM = document.getElementById('saveForm'),
     APELLIDO_CLIENTE = document.getElementById('apellido_cliente'),
     DUI_CLIENTE = document.getElementById('dui_cliente'),
     NIT_CLIENTE = document.getElementById('nit_cliente'),
+    DIRECCION_CLIENTE = document.getElementById('direccion_cliente')
+    DEPARTAMENTO_CLIENTE = document.getElementById('departamento_cliente')
+    MUNICIPIO_CLIENTE = document.getElementById('municipio_cliente')
     EMAIL_CLIENTE = document.getElementById('email_cliente');
     TELEFONO_CLIENTE = document.getElementById('telefono');
-    PASSWORD_CLIENTE = document.getElementById('password_cliente');
+    //PASSWORD_CLIENTE = document.getElementById('password_cliente');
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {

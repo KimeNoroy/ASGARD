@@ -15,6 +15,7 @@ const SAVE_FORM = document.getElementById('saveForm'),
     NOMBRE_EMPLEADO = document.getElementById('nombres_empleado'),
     APELLIDO_EMPLEADO = document.getElementById('apellidos_empleado'),
     DUI_EMPLEADO = document.getElementById('dui_empleado'),
+    EMAIL_EMPLEADO = document.getElementById('email_empleado'),
     PASSWORD_EMPLEADO = document.getElementById('contrasena');
 
 // Método del evento para cuando el documento ha cargado.
@@ -143,6 +144,7 @@ const openUpdate = async (id) => {
         NOMBRE_EMPLEADO.value = ROW.nombres_empleado;
         APELLIDO_EMPLEADO.value = ROW.apellidos_empleado;
         DUI_EMPLEADO.value = ROW.dui_empleado;
+        EMAIL_EMPLEADO.value = ROW.email_empleado;
         PASSWORD_EMPLEADO.value = ROW.contrasena;
         
         //fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto', ROW.id_categoria);

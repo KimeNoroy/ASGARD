@@ -12,6 +12,7 @@ class EmpleadoHandler
     protected $id = null;
     protected $nombre = null;
     protected $apellido = null;
+    protected $email = null;
     protected $dui = null;
     protected $clave = null;
 
@@ -20,16 +21,16 @@ class EmpleadoHandler
      */
     public function checkUser($email, $password)
     {
-        $sql = 'SELECT id_empleado, nombres_empleado, dui_empleado, contrasena
+        $sql = 'SELECT id_empleado, nombres_empleado, email_empleados, dui_empleado, contrasena
                 FROM tb_empleados 
-                WHERE  dui_empleado = ?';
-        $params = array($dui);
+                WHERE  email_empleado = ?';
+        $params = array($email);
         if (!($data = Database::getRow($sql, $params))) {
             return false;
         } elseif (password_verify($password, $data['contrasena'])) {
             $this ->id = $data['id_empleado'];
             $this->clave = $data['contrasena'];
-            $this->dui = $data['dui_empleado'];
+            $this->dui = $data['email_empleado'];
            // $this->estado = $data['estado_cliente'];
 
             return true;
@@ -75,7 +76,7 @@ class EmpleadoHandler
 
     public function readProfile()
     {
-        $sql = 'SELECT id_empleado, nombres_empleado, apellidos_empleado, dui_empleado
+        $sql = 'SELECT id_empleado, nombres_empleado, apellidos_empleado, email_empleados, dui_empleado
                 FROM tb_empleados
                 WHERE id_empleado = ?';
         $params = array($_SESSION['id_empleado']);
@@ -97,7 +98,7 @@ class EmpleadoHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_empleado, nombres_empleado, apellidos_empleado, dui_empleado
+        $sql = 'SELECT id_empleado, nombres_empleado, apellidos_empleado, email_empleados, dui_empleado
                 FROM tb_empleados
                 WHERE nombres_empleado LIKE ? OR apellidos_empleado LIKE ?
                 ORDER BY apellidos_empleado';
@@ -107,15 +108,15 @@ class EmpleadoHandler
 
     public function createRow()
     {
-        $sql = 'INSERT INTO tb_empleados(nombres_empleado, apellidos_empleado, dui_empleado, contrasena)
-                VALUES(?, ?, ?, ?)';
-        $params = array($this->nombre, $this->apellido, $this->dui, $this->clave);
+        $sql = 'INSERT INTO tb_empleados(nombres_empleado, apellidos_empleado, email_empleados, dui_empleado, contrasena)
+                VALUES(?, ?, ?, ?, ?)';
+        $params = array($this->nombre, $this->apellido, $this->email, $this->dui, $this->clave);
         return Database::executeRow($sql, $params);
     }
 
     public function readAll()
     {
-        $sql = 'SELECT id_empleado, nombres_empleado, apellidos_empleado, dui_empleado
+        $sql = 'SELECT id_empleado, nombres_empleado, apellidos_empleado, email_empleados, dui_empleado
                 FROM tb_empleados
                 ORDER BY apellidos_empleado';
         return Database::getRows($sql);
@@ -123,7 +124,7 @@ class EmpleadoHandler
 
     public function readOne()
     {
-        $sql = 'SELECT id_empleado, nombres_empleado, apellidos_empleado, dui_empleado
+        $sql = 'SELECT id_empleado, nombres_empleado, apellidos_empleado, email_empleados, dui_empleado
                 FROM tb_empleados
                 WHERE id_empleado = ?';
         $params = array($this->id);
@@ -133,9 +134,9 @@ class EmpleadoHandler
     public function updateRow()
     {
         $sql = 'UPDATE tb_empleados
-                SET nombres_empleado = ?, apellidos_empleado = ?, dui_empleado = ?
+                SET nombres_empleado = ?, apellidos_empleado = ?, email_empleado =?, dui_empleado = ?
                 WHERE id_empleado = ?';
-        $params = array($this->nombre, $this->apellido, $this->dui, $this->id);
+        $params = array($this->nombre, $this->apellido,  $this->email, $this->dui, $this->id);
         return Database::executeRow($sql, $params);
     }
 
