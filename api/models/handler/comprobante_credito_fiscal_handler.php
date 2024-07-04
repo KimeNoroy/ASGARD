@@ -1,110 +1,100 @@
 <?php
+require_once('../../helpers/database.php');
+require_once('../../helpers/validator.php');
+require_once('../../models/comprobante_credito_fiscal.php');
 
-//import de clase database
-require_once("../../helpers/database.php");
-
-//crear handler
-class ComprobanteCreditoHandler
-{
-    //campos de la tabla
-
-    protected $id = null;
-    protected $id_cliente = null;
-    protected $id_servicio = null;
-    protected $nit = null;
-    protected $nombre = null;
-    protected $nrc = null;
-    protected $giro = null;
-    protected $direccion = null;
-    protected $email = null;
-    protected $telefono = null;
-    protected $dui = null;
-
-    public function searchRows()
-    {
-        $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_comprobante, id_cliente, id_servicio, nit_credito_fiscal, nombre_credito_fiscal, nrc_credito_fiscal, giro_credito_fiscal, direccion_credito_fiscal, email_credito_fiscal, telefono_credito_fiscal, dui_credito_fiscal
-                FROM tb_comprobante_credito_fiscal
-                WHERE nombre_credito_fiscal LIKE ? 
-                ORDER BY id_comprobante';
-        $params = array($value, $value);
-        return Database::getRows($sql, $params);
+// Se comprueba si existe una acción a realizar.
+if (isset($_GET['action'])) {
+    // Se instancia el objeto de la clase correspondiente.
+    $comprobanteCreditoFiscal = new ComprobanteCreditoFiscal;
+    // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
+    $result = array('status' => 0, 'message' => null, 'exception' => null);
+    // Se verifica la acción a realizar.
+    switch ($_GET['action']) {
+        case 'readAll':
+            if ($result['dataset'] = $comprobanteCreditoFiscal->readAll()) {
+                $result['status'] = 1;
+                $result['message'] = 'Se han encontrado registros.';
+            } else {
+                $result['exception'] = 'No se encontraron registros.';
+            }
+            break;
+        case 'readOne':
+            if (!$comprobanteCreditoFiscal->setIdComprobante($_GET['idComprobante'])) {
+                $result['exception'] = 'ID de comprobante no válido.';
+            } elseif ($result['dataset'] = $comprobanteCreditoFiscal->readOne()) {
+                $result['status'] = 1;
+            } else {
+                $result['exception'] = 'No se pudo obtener el comprobante.';
+            }
+            break;
+        case 'createRow':
+            $_POST = $comprobanteCreditoFiscal->validateForm($_POST);
+            if (!$comprobanteCreditoFiscal->setNitCreditoFiscal($_POST['nitCreditoFiscal'])) {
+                $result['exception'] = 'NIT no válido.';
+            } elseif (!$comprobanteCreditoFiscal->setNombreCreditoFiscal($_POST['nombreCreditoFiscal'])) {
+                $result['exception'] = 'Nombre no válido.';
+            } elseif (!$comprobanteCreditoFiscal->setNrcCreditoFiscal($_POST['nrcCreditoFiscal'])) {
+                $result['exception'] = 'NRC no válido.';
+            } elseif (!$comprobanteCreditoFiscal->setGiroCreditoFiscal($_POST['giroCreditoFiscal'])) {
+                $result['exception'] = 'Giro no válido.';
+            } elseif (!$comprobanteCreditoFiscal->setDireccionCreditoFiscal($_POST['direccionCreditoFiscal'])) {
+                $result['exception'] = 'Dirección no válida.';
+            } elseif (!$comprobanteCreditoFiscal->setEmailCreditoFiscal($_POST['emailCreditoFiscal'])) {
+                $result['exception'] = 'Email no válido.';
+            } elseif (!$comprobanteCreditoFiscal->setTelefonoCreditoFiscal($_POST['telefonoCreditoFiscal'])) {
+                $result['exception'] = 'Teléfono no válido.';
+            } elseif (!$comprobanteCreditoFiscal->setDuiCreditoFiscal($_POST['duiCreditoFiscal'])) {
+                $result['exception'] = 'DUI no válido.';
+            } elseif ($comprobanteCreditoFiscal->createRow()) {
+                $result['status'] = 1;
+                $result['message'] = 'Crédito fiscal creado correctamente.';
+            } else {
+                $result['exception'] = Database::getException();
+            }
+            break;
+        case 'updateRow':
+            $_POST = $comprobanteCreditoFiscal->validateForm($_POST);
+            if (!$comprobanteCreditoFiscal->setIdComprobante($_POST['idComprobante'])) {
+                $result['exception'] = 'ID de comprobante no válido.';
+            } elseif (!$comprobanteCreditoFiscal->setNitCreditoFiscal($_POST['nitCreditoFiscal'])) {
+                $result['exception'] = 'NIT no válido.';
+            } elseif (!$comprobanteCreditoFiscal->setNombreCreditoFiscal($_POST['nombreCreditoFiscal'])) {
+                $result['exception'] = 'Nombre no válido.';
+            } elseif (!$comprobanteCreditoFiscal->setNrcCreditoFiscal($_POST['nrcCreditoFiscal'])) {
+                $result['exception'] = 'NRC no válido.';
+            } elseif (!$comprobanteCreditoFiscal->setGiroCreditoFiscal($_POST['giroCreditoFiscal'])) {
+                $result['exception'] = 'Giro no válido.';
+            } elseif (!$comprobanteCreditoFiscal->setDireccionCreditoFiscal($_POST['direccionCreditoFiscal'])) {
+                $result['exception'] = 'Dirección no válida.';
+            } elseif (!$comprobanteCreditoFiscal->setEmailCreditoFiscal($_POST['emailCreditoFiscal'])) {
+                $result['exception'] = 'Email no válido.';
+            } elseif (!$comprobanteCreditoFiscal->setTelefonoCreditoFiscal($_POST['telefonoCreditoFiscal'])) {
+                $result['exception'] = 'Teléfono no válido.';
+            } elseif (!$comprobanteCreditoFiscal->setDuiCreditoFiscal($_POST['duiCreditoFiscal'])) {
+                $result['exception'] = 'DUI no válido.';
+            } elseif ($comprobanteCreditoFiscal->updateRow()) {
+                $result['status'] = 1;
+                $result['message'] = 'Crédito fiscal actualizado correctamente.';
+            } else {
+                $result['exception'] = Database::getException();
+            }
+            break;
+        case 'deleteRow':
+            if (!$comprobanteCreditoFiscal->setIdComprobante($_POST['idComprobante'])) {
+                $result['exception'] = 'ID de comprobante no válido.';
+            } elseif ($comprobanteCreditoFiscal->deleteRow()) {
+                $result['status'] = 1;
+                $result['message'] = 'Crédito fiscal eliminado correctamente.';
+            } else {
+                $result['exception'] = Database::getException();
+            }
+            break;
+        default:
+            $result['exception'] = 'Acción no disponible.';
     }
-
-    public function createRow()
-    {
-        $sql = 'INSERT INTO tb_comprobante_credito_fiscal(id_cliente, id_servicio, nit_credito_fiscal, nombre_credito_fiscal, nrc_credito_fiscal, giro_credito_fiscal, direccion_credito_fiscal, email_credito_fiscal, telefono_credito_fiscal, dui_credito_fiscal)
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->id_cliente, $this->id_servicio, $this->nit, $this->nombre, $this->nrc, $this->giro, $this->direccion, $_SESSION['idAdministrador']);
-        return Database::executeRow($sql, $params);
-    }
-
-    public function readAll()
-    {
-        $sql = 'SELECT id_comprobante, id_cliente, id_servicio, nit_credito_fiscal, nombre_credito_fiscal, nrc_credito_fiscal, giro_credito_fiscal, direccion_credito_fiscal, email_credito_fiscal, telefono_credito_fiscal, dui_credito_fiscal
-                FROM tb_comprobante_credito_fiscal
-                ORDER BY nombre_credito_fiscal';
-        return Database::getRows($sql);
-    }
-
-    public function readOne()
-    {
-        $sql = 'SELECT id_comprobante, id_cliente, id_servicio, nit_credito_fiscal, nombre_credito_fiscal, ncr_credito_fiscal, gito_credito_fiscal, direccion_credito_fiscal, email_credito_fiscal, telefono_credito_fiscal, dui_credito_fiscal
-                FROM tb_comprobante_credito_fiscal
-                WHERE id_comprobante = ?';
-        $params = array($this->id);
-        return Database::getRow($sql, $params);
-    }
-
-    public function updateRow()
-    {
-        $sql = 'UPDATE tb_comprobante_credito_fiscal
-                SET nit_credito_fiscal = ?, nombre_credito_fiscal = ?, nrc_credito_fiscal = ?, giro_credito_fiscal = ?, direccion_credito_fiscal = ?, email_credito_fiscal = ?, telefono_credito_fiscal = ?, dui_credito_fiscal = ?
-                WHERE id_comprobante = ?';
-        $params = array($this->nit, $this->nombre, $this->nrc, $this->giro, $this->direccion, $this->email, $this->direccion, $this->id);
-        return Database::executeRow($sql, $params);
-    }
-
-    public function deleteRow()
-    {
-        $sql = 'DELETE FROM tb_comprobante_credito_fiscal
-                WHERE id_comprobante = ?';
-        $params = array($this->id);
-        return Database::executeRow($sql, $params);
-    }
-
-    // /*
-    // *   Métodos para generar gráficos.
-    // */
-    // public function cantidadProductosCategoria()
-    // {
-    //     $sql = 'SELECT nombre_categoria, COUNT(id_producto) cantidad
-    //             FROM producto
-    //             INNER JOIN categoria USING(id_categoria)
-    //             GROUP BY nombre_categoria ORDER BY cantidad DESC LIMIT 5';
-    //     return Database::getRows($sql);
-    // }
-
-    // public function porcentajeProductosCategoria()
-    // {
-    //     $sql = 'SELECT nombre_categoria, ROUND((COUNT(id_producto) * 100.0 / (SELECT COUNT(id_producto) FROM producto)), 2) porcentaje
-    //             FROM producto
-    //             INNER JOIN categoria USING(id_categoria)
-    //             GROUP BY nombre_categoria ORDER BY porcentaje DESC';
-    //     return Database::getRows($sql);
-    // }
-
-    // /*
-    // *   Métodos para generar reportes.
-    // */
-    // public function productosCategoria()
-    // {
-    //     $sql = 'SELECT nombre_producto, precio_producto, estado_producto
-    //             FROM producto
-    //             INNER JOIN categoria USING(id_categoria)
-    //             WHERE id_categoria = ?
-    //             ORDER BY nombre_producto';
-    //     $params = array($this->categoria);
-    //     return Database::getRows($sql, $params);
-    // }
+    // Se imprime el resultado en formato JSON y se devuelve al controlador.
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($result);
 }
+?>
