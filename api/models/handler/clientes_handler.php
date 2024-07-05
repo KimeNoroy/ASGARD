@@ -121,7 +121,7 @@ class ClienteHandler
 
     public function readAll()
     {
-        $sql = 'SELECT id_cliente, nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente ,telefono, dui_cliente, nit_cliente
+        $sql = 'SELECT *
                 FROM tb_clientes
                 ORDER BY apellido_cliente';
         return Database::getRows($sql);

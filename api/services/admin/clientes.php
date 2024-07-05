@@ -1,24 +1,24 @@
 <?php
 // Se incluye la clase del modelo.
-require_once('../../models/data/clientes.php');
+require_once('../../models/data/clientes_data.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $administrador = new AdministradorData;
+    $cliente = new ClienteData;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'session' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null, 'username' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
-    if (isset($_SESSION['idCliente'])) {
+    if (isset($_SESSION['idAdministrador'])) {
         $result['session'] = 1;
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'searchRows':
                 if (!Validator::validateSearch($_POST['search'])) {
                     $result['error'] = Validator::getSearchError();
-                } elseif ($result['dataset'] = $administrador->searchRows()) {
+                } elseif ($result['dataset'] = $cliente->searchRows()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } else {
@@ -175,7 +175,7 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando el administrador no ha iniciado sesión.
         switch ($_GET['action']) {
             case 'readUsers':
-                if ($administrador->readAll()) {
+                if ($cliente->readAll()) {
                     $result['status'] = 1;
                     $result['message'] = 'Debe autenticarse para ingresar';
                 } else {
@@ -185,15 +185,15 @@ if (isset($_GET['action'])) {
             case 'signUp':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$administrador->setNombre($_POST['nombreAdministrador']) or
-                    !$administrador->setApellido($_POST['apellidoAdministrador']) or
-                    !$administrador->setEmail($_POST['emailAdministrador']) or
-                    !$administrador->setContraseña($_POST['claveAdministrador'])
+                    !$cliente->setNombre($_POST['nombreAdministrador']) or
+                    !$cliente->setApellido($_POST['apellidoAdministrador']) or
+                    !$cliente->setEmail($_POST['emailAdministrador']) or
+                    !$cliente->setContraseña($_POST['claveAdministrador'])
                 ) {
-                    $result['error'] = $administrador->getDataError();
+                    $result['error'] = $cliente->getDataError();
                 } elseif ($_POST['claveAdministrador'] != $_POST['confirmarClave']) {
                     $result['error'] = 'Contraseñas diferentes';
-                } elseif ($administrador->createRow()) {
+                } elseif ($cliente->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Administrador registrado correctamente';
                 } else {
@@ -202,7 +202,7 @@ if (isset($_GET['action'])) {
                 break;
             case 'logIn':
                 $_POST = Validator::validateForm($_POST);
-                if ($administrador->checkUser($_POST['email'], $_POST['clave'])) {
+                if ($cliente->checkUser($_POST['email'], $_POST['clave'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
                 } else {
