@@ -51,13 +51,14 @@ const abrirModal = async (tituloModal, idFactura) => {
         BOTON_ACCION.innerHTML = 'Agregar usuario';
         // Se limpian los input para dejarlos vacíos.
         FORM_SUJETO.reset();
+        // Limpiar el valor de ID_FACTURA.
+        ID_FACTURA.value = '';
 
         await fillSelect(FACTURA_API, 'readAllclientes', 'id_cliente');
         await fillSelect(FACTURA_API, 'readAllservicio', 'id_servicio');
         // Se abre el modal agregar.
         MODALSUJETO.show();
-    }
-    else {
+    } else {
         // Se define una constante tipo objeto que almacenará el idFactura
         const FORM = new FormData();
         // Se almacena el nombre del campo y el valor (idFactura) en el formulario.
@@ -107,7 +108,7 @@ FORM_BUSCAR.addEventListener('submit', (event) => {
 
 // Función para abrir el modal de eliminar.
 const eliminarServicio = async (id_factura) => {
-
+    //console.log('Intentando eliminar el servicio con id_factura:', id_factura);
     // Se define una constante tipo objeto donde se almacenará el idFactura.
     const FORM = new FormData();
     // Se almacena el nombre del campo y el valor (idFactura).
@@ -116,19 +117,14 @@ const eliminarServicio = async (id_factura) => {
     const DATA = await fetchData(FACTURA_API, 'deleteRow', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
-        //Se oculta el modal
-        MODALBSUJETO.hide();
         // Se muestra un mensaje de éxito.
         await sweetAlert(1, DATA.message, true);
-        // Se carga nuevamente la tabla para visualizar los cambios.
-        loadTemplate();
+        //console.log('Servicio eliminado, actualizando tabla...');
+        fillTable(); // Actualiza la tabla después de eliminar el servicio
     } else {
         sweetAlert(2, DATA.error, false);
     }
 }
-
-
-
 
 // Método del evento para cuando se envía el formulario de guardar.
 FORM_SUJETO.addEventListener('submit', async (event) => {
@@ -152,6 +148,10 @@ FORM_SUJETO.addEventListener('submit', async (event) => {
         // Se carga nuevamente la tabla para visualizar los cambios.
         loadTemplate();
         fillTable();
+        // Se resetea el formulario.
+        FORM_SUJETO.reset();
+        // Limpiar el valor de ID_FACTURA.
+        ID_FACTURA.value = '';
     } else {
         sweetAlert(2, DATA.error, false);
     }

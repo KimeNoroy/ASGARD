@@ -71,9 +71,9 @@ CREATE TABLE tb_comprobante_credito_fiscal (
    nrc_credito_fiscal VARCHAR(100),
    giro_credito_fiscal VARCHAR(255),
    direccion_credito_fiscal VARCHAR(255),
-   email_credito_fiscal VARCHAR(100),
-   telefono_credito_fiscal VARCHAR(15),
-   dui_credito_fiscal VARCHAR(10),
+   email_credito_fiscal VARCHAR(100) UNIQUE,
+   telefono_credito_fiscal VARCHAR(15) UNIQUE,
+   dui_credito_fiscal VARCHAR(10) UNIQUE,
    FOREIGN KEY (id_cliente) REFERENCES tb_clientes(id_cliente),
    FOREIGN KEY (id_servicio) REFERENCES tb_servicios(id_servicio)
 );
@@ -101,14 +101,14 @@ SELECT * FROM tb_factura_sujeto_excluido;
 CREATE TABLE tb_factura_consumidor_final (
    id_factura INT PRIMARY KEY AUTO_INCREMENT,
    id_cliente INT,
-   nit_cliente VARCHAR(100),
+   nit_cliente VARCHAR(100) UNIQUE,
    nombre_cliente VARCHAR(100) NOT NULL,
    direccion_cliente VARCHAR(255),
    departamento_cliente VARCHAR(100),
    municipio_cliente VARCHAR(100),
-   email_cliente VARCHAR(100),
-   telefono_cliente VARCHAR(15),
-   dui_cliente VARCHAR(10),
+   email_cliente VARCHAR(100) UNIQUE,
+   telefono_cliente VARCHAR(15) UNIQUE,
+   dui_cliente VARCHAR(10) UNIQUE,
    id_servicio INT,
    id_empleado INT,
    tipo_servicio ENUM('Credito Fiscal', 'Factura Consumidor Final', 'Factura Sujeto Excluido', 'Otro') NOT NULL,
@@ -169,4 +169,5 @@ INSERT INTO tb_empleados (nombres_empleado, apellidos_empleado, dui_empleado, co
 
 INSERT INTO tb_administrador(nombre_administrador, apellido_administrador, email_administrador, contraseña_administrador) VALUES(
 'test', 'test', 'test@root.com', '$2y$10$YWFKSnTk4dtR3RvMz006BuDbtE1b5y685OocmGAtqMAaJijLA3YhO');
-/* CONTRASEÑA: 123123123 */
+/* CONTRASEÑA ANTES: 123123123 */
+/* CONTRASEÑA DESPUÉS: 12345678 */

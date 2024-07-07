@@ -132,8 +132,7 @@ const loadTemplate = async () => {
             <img src="../../resources/img/usuario.png" alt="">
             <div class="info-usuario">
                 <div class="nombre-email">
-                    <span class="nombre">Admin</span>
-                    <span class="email">admin@gmail.com</span>
+                    <span class="nombre">Mi perfil</span>
                 </div>
                 <ion-icon name="ellipsis-vertical-outline"></ion-icon>
             </div>
