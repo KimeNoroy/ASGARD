@@ -1,105 +1,129 @@
 <?php
+// Se incluye la clase del modelo.
+require_once('../../models/data/comprobante_credito_fiscal_data_admin.php');
 
-
-const COMPROBANTE_API = 'services/admin/comprobante_credito_fiscal.php';
-const TABLE_BODY = document.getElementById('tableBody');
-const ROWS_FOUND = document.getElementById('rowsFound');
-const SAVE_MODAL_ELEMENT = document.getElementById('modalServicio');
-const SAVE_MODAL = SAVE_MODAL_ELEMENT ? new bootstrap.Modal(SAVE_MODAL_ELEMENT) : null;
-const MODAL_TITLE = document.getElementById('modalTitle');
-const SAVE_FORM = document.getElementById('saveForm');
-const ID_COMPROBANTE = document.getElementById('idComprobante');
-const NOMBRE = document.getElementById('nombre');
-const NIT = document.getElementById('nit');
-const GIRO = document.getElementById('giro');
-
-// Mueve la declaración de fillTable aquí
-const fillTable = async (form = null) => {
-    if (ROWS_FOUND && TABLE_BODY) {
-        ROWS_FOUND.textContent = '';
-        TABLE_BODY.innerHTML = '';
-        const action = form ? 'searchRows' : 'readAll';
-        const DATA = await fetchData(COMPROBANTE_API, action, form);
-        if (DATA.status) {
-            DATA.dataset.forEach(row => {
-                TABLE_BODY.innerHTML += `
-                    <tr>
-                        <td>${row.id_comprobante}</td>
-                        <td>${row.nombre_credito_fiscal}</td>
-                        <td>${row.nit_credito_fiscal}</td>
-                        <td>${row.giro_credito_fiscal}</td>
-                        <td>
-                            <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_comprobante})">
-                                <i class="bi bi-pencil-fill"></i>
-                            </button>
-                            <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_comprobante})">
-                                <i class="bi bi-trash-fill"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            });
-            ROWS_FOUND.textContent = DATA.message;
-        } else {
-            sweetAlert(4, DATA.error, true);
+// Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
+if (isset($_GET['action'])) {
+    // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
+    session_start();
+    // Se instancia la clase correspondiente.
+    $comprobante = new ComprobanteCreditoFiscal;
+    // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
+    $result = array('status' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null);
+    // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
+    if (isset($_SESSION['idAdministrador'])) {
+        $result['session'] = 1;
+        // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
+        switch ($_GET['action']) {
+            case 'searchRows':
+                if (!Validator::validateSearch($_POST['buscar'])) {
+                    $result['error'] = Validator::getSearchError();
+                } elseif ($result['dataset'] = $comprobante->searchRows($_POST['buscar'])) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
+                } else {
+                    $result['error'] = 'No hay coincidencias';
+                }
+                break;
+                case 'createRow':
+                    $_POST = Validator::validateForm($_POST);
+                    if (
+                    // Establecer los datos del comprobante desde $_POST
+                    !$comprobante->setCliente($_POST['id_cliente']);
+                    !$comprobante->setServicio($_POST['id_servicio']);
+                    !$comprobante->setNit($_POST['nit']);
+                    !$comprobante->setNombre($_POST['nombre']);
+                    !$comprobante->setNrc($_POST['nrc']);
+                    !$comprobante->setGiro($_POST['giro']);
+                    !$comprobante->setDireccion($_POST['direccion']);
+                    !$comprobante->setEmail($_POST['email']);
+                    !$comprobante->setTelefono($_POST['telefono']);
+                    !$comprobante->setDui($_POST['dui']);
+                    !$comprobante->setFechaEmision($_POST['fechaEmision']); \
+                    // Ejecutar la creación del comprobante
+                    ) {
+                        $result['error'] = $comprobante->getDataError();
+                    } elseif ($comprobante->createRow()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Comprobante creado correctamente';
+                    } else {
+                        $result['error'] = 'Ocurrió un problema al crear el comprobante';
+                    }
+                    break;
+                
+                
+            case 'readAll':
+                $result['dataset'] = $comprobante->readAll();
+                if ($result['dataset']) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Mostrando ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existen comprobantes registrados';
+                }
+                break;
+            case 'readOne':
+                if (!$comprobante->setId($_POST['id_comprobante'])) {
+                    $result['error'] = 'ID es inválido';
+                } else {
+                    $result['dataset'] = $comprobante->readOne();
+                    if ($result['dataset']) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['error'] = 'Comprobante inexistente';
+                    }
+                }
+                break;
+                case 'updateRow':
+                    $_POST = Validator::validateForm($_POST);
+                    if (
+                        !isset($_POST['id_comprobante']) or
+                        !$comprobante->setId($_POST['id_comprobante']) or
+                        !$comprobante->setCliente($_POST['id_cliente']) or
+                        !$comprobante->setServicio($_POST['id_servicio']) or
+                        !$comprobante->setNit($_POST['nit']) or
+                        !$comprobante->setNombre($_POST['nombre']) or
+                        !$comprobante->setNrc($_POST['nrc']) or
+                        !$comprobante->setGiro($_POST['giro']) or
+                        !$comprobante->setDireccion($_POST['direccion']) or
+                        !$comprobante->setEmail($_POST['email']) or
+                        !$comprobante->setTelefono($_POST['telefono']) or
+                        !$comprobante->setDui($_POST['dui']) or
+                        !$comprobante->setFechaEmision($_POST['fechaEmision'])
+                    ) {
+                        $result['error'] = $comprobante->getDataError();
+                    } elseif ($comprobante->updateRow()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Comprobante modificado correctamente';
+                    } else {
+                        $result['error'] = 'Ocurrió un problema al modificar el comprobante';
+                    }
+                    break;
+                
+            case 'deleteRow':
+                if (!$comprobante->setId($_POST['id_comprobante'])) {
+                    $result['error'] = 'ID de comprobante inválido';
+                } else {
+                    if ($comprobante->deleteRow()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Comprobante eliminado correctamente';
+                    } else {
+                        $result['error'] = 'Ocurrió un problema al eliminar el comprobante';
+                    }
+                }
+                break;
+            default:
+                $result['error'] = 'Acción no disponible';
         }
-    }
-}
-
-// Evento para cuando el documento ha cargado.
-document.addEventListener('DOMContentLoaded', () => {
-    loadTemplate();
-    fillTable();
-});
-
-// Comentar el evento para cuando se envía el formulario de buscar.
-// const SEARCH_FORM = document.getElementById('searchForm');
-// if (SEARCH_FORM) {
-//     SEARCH_FORM.addEventListener('submit', (event) => {
-//         event.preventDefault();
-//         const FORM = new FormData(SEARCH_FORM);
-//         fillTable(FORM);
-//     });
-// }
-
-// Evento para cuando se envía el formulario de guardar.
-if (SAVE_FORM) {
-    SAVE_FORM.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const action = ID_COMPROBANTE.value ? 'updateRow' : 'createRow';
-        const FORM = new FormData(SAVE_FORM);
-        const DATA = await fetchData(COMPROBANTE_API, action, FORM);
-        if (DATA.status) {
-            if (SAVE_MODAL) SAVE_MODAL.hide();
-            sweetAlert(1, DATA.message, true);
-            fillTable();
-        } else {
-            sweetAlert(2, DATA.error, false);
-        }
-    });
-}
-
-const openCreate = () => {
-    if (SAVE_MODAL) {
-        SAVE_MODAL.show();
-        if (MODAL_TITLE) MODAL_TITLE.textContent = 'Agregar Comprobante';
-        if (SAVE_FORM) SAVE_FORM.reset();
-    }
-}
-
-const openUpdate = async (id) => {
-    const FORM = new FormData();
-    FORM.append('idComprobante', id);
-    const DATA = await fetchData(COMPROBANTE_API, 'readOne', FORM);
-    if (DATA.status) {
-        if (SAVE_MODAL) SAVE_MODAL.show();
-        if (MODAL_TITLE) MODAL_TITLE.textContent = 'Actualizar Comprobante';
-        if (SAVE_FORM) SAVE_FORM.reset();
-        const ROW = DATA.dataset;
-        if (ID_COMPROBANTE) ID_COMPROBANTE.value = ROW.id_comprobante;
-        if (NOMBRE) NOMBRE.value = ROW.nombre_credito_fiscal;
-        if (NIT) NIT.value = ROW.nit_credito_fiscal;
-        if (GIRO) GIRO.value = ROW.giro_credito_fiscal;
+        // Se obtiene la excepción del servidor de bd por si ocurrió un problema.
+        $result['exception'] = Database::getException();
+        // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
+        header('Content-type: application/json; charset=utf-8');
+        // Se imprime el resultado en formato JSON y se retorna al controlador.
+        print(json_encode($result));
     } else {
-        sweetAlert(2, DATA.error, false);
+        print(json_encode(array('error' => 'Acceso denegado')));
     }
+} else {
+    print(json_encode(array('error' => 'Recurso no disponible')));
+}
+?>

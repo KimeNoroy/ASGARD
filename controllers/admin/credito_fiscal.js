@@ -1,39 +1,18 @@
-
 // Constante para completar la ruta de la API.
 const CREDITO_FISCAL_API = 'services/admin/comprobante_credito_fiscal.php';
 const FACTURA_API = 'services/admin/factura_sujeto_excluido.php';
-
-
 // Constante para almacenar el modal de editar.
 const MODAL_CREDITO_FISCAL = new bootstrap.Modal('#modalServicio');
-
-
-
 // Constante que almacena el form de búsqueda.
 const FORM_BUSCAR = document.getElementById('formBuscar');
-
-
 // Constante para almacenar el modal de eliminar.
 const MODAL_ELIMINAR_CREDITO_FISCAL = new bootstrap.Modal('#borrarModalServicio');
-
-
 // Constantes para cargar los elementos de la tabla.
 const FILAS_ENCONTRADAS = document.getElementById('filasEncontradas');
 const CUERPO_TABLA = document.getElementById('usuariosTableBody');
-
-
 // Constante para definir el título del modal y botón.
 const TITULO_MODAL = document.getElementById('modalServicioLabel');
 const BOTON_ACCION = document.querySelector('#formServicio button[type="submit"]');
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Llamada a la función para mostrar el encabezado y pie del documento.
-    loadTemplate();
-
-   
-    
-   
-});
 
 
 // Constantes para establecer los elementos del formulario.
@@ -47,12 +26,18 @@ const NCR = document.getElementById('ncr');
 const ACTIVIDAD_ECONOMICA = document.getElementById('actividadEconomica');
 const FECHA_EMISION = document.getElementById('fechaEmision');
 
+document.addEventListener('DOMContentLoaded', () => {
+    // Llamada a la función para mostrar el encabezado y pie del documento.
+    loadTemplate();
+
+});
+
 
 // Función para abrir el modal crear o editar.
 const abrirModal = async (tituloModal, idComprobante) => {
     // Se configura el título del modal.
     TITULO_MODAL.textContent = tituloModal;
-
+    
     if (idComprobante == null) {
         // Se remueve el antiguo color del botón.
         BOTON_ACCION.classList.remove('btn-success');
@@ -152,30 +137,36 @@ const openCreate = () => {
 
 // Método del evento para cuando se envía el formulario de guardar.
 FORM_CREDITO_FISCAL.addEventListener('submit', async (event) => {
-    // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
-    // Se verifica la acción a realizar.
+
     let action = ID_COMPROBANTE.value ? 'updateRow' : 'createRow';
-    // Constante tipo objeto con los datos del formulario.
+    console.log('ID_COMPROBANTE value:', ID_COMPROBANTE.value);
+    console.log('Action:', action);
+
     const FORM = new FormData(FORM_CREDITO_FISCAL);
-    // Petición para guardar los datos del formulario.
-    const DATA = await fetchData(CREDITO_FISCAL_API, action, FORM);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-    if (DATA.status) {
-        // Se cierra la caja de diálogo.
-        MODAL_CREDITO_FISCAL.hide();
-        // Se muestra un mensaje de éxito.
-        await sweetAlert(1, DATA.message, true);
-        // Se carga nuevamente la tabla para visualizar los cambios.
-        fillTable();
-        // Se resetea el formulario.
-        FORM_CREDITO_FISCAL.reset();
-        // Limpiar el valor de ID_COMPROBANTE.
-        ID_COMPROBANTE.value = '';
-    } else {
-        sweetAlert(2, DATA.error, false);
+
+    try {
+        const DATA = await fetchData(CREDITO_FISCAL_API, action, FORM);
+        console.log('Response DATA:', DATA);
+
+        if (DATA && DATA.status) {
+            MODAL_CREDITO_FISCAL.hide();
+            await sweetAlert(1, DATA.message, true);
+            loadTemplate();
+            fillTable();
+            FORM_CREDITO_FISCAL.reset();
+            ID_COMPROBANTE.value = '';
+        } else {
+            console.error('Unexpected response format:', DATA);
+            sweetAlert(2, 'Unexpected response from server.', false);
+        }
+    } catch (error) {
+        console.error('Error during request:', error);
+        sweetAlert(2, 'Error communicating with the server.', false);
     }
 });
+
+
 
 // Función para llenar la tabla con los registros.
 const fillTable = async (form = null) => {
