@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <!-- Definir idioma de la página -->
 <html lang="es">
 
@@ -87,113 +85,77 @@
             </div>
         </div>
 
-        <!-- Modal agregar -->
-        <div class="modal fade" id="modalSujeto" 
-            tabindex="-1" aria-labelledby="tituloModal" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <!-- Encabezado del modal -->
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="tituloModal"></h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form id="formSujeto">
-                        <div class="modal-body">
-                            <div class="container">
-                                <div class="row">
-                                    <input type="text" class="d-none" id="idFactura" name="idFactura">
-                                    <div class="col-md-12">
-                                        <div class="mb-md">
-                                            <label for="idCliente" class="col-form-label">Id Cliente:</label>
-                                            <select class="form-select" id="idCliente" name="idCliente" required>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-md">
-                                            <label for="nitCliente" class="col-form-label">NIT Cliente:</label>
-                                            <input type="text" class="form-control" id="nitCliente" name="nitCliente" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-md">
-                                            <label for="descripcionServicio" class="col-form-label">Nombre cliente:</label>
-                                            <input type="text" class="form-control" id="nombreCliente" name="nombreCliente" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-md">
-                                            <label for="direccionCliente" class="col-form-label">Direccion Cliente :</label>
-                                            <input type="text" class="form-control" id="direccionCliente" name="direccionCliente" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-md">
-                                            <label for="departamentoCliente" class="col-form-label">Departamento Cliente :</label>
-                                            <input type="text" class="form-control" id="departamentoCliente" name="departamentoCliente" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-md">
-                                            <label for="municipioCliente" class="col-form-label">Municipio Cliente:</label>
-                                            <input type="text" class="form-control" id="municipioCliente" name="municipioCliente" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-md">
-                                            <label for="emailCliente" class="col-form-label">Email Cliente:</label>
-                                            <input type="text" class="form-control" id="emailCliente" name="emailCliente" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-md">
-                                            <label for="telefonoCliente" class="col-form-label">Telefono Cliente:</label>
-                                            <input type="text" class="form-control" id="telefonoCliente" name="telefonoCliente" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-md">
-                                            <label for="duiCliente" class="col-form-label">DUI Cliente:</label>
-                                            <input type="text" class="form-control" id="duiCliente" name="duiCliente" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-md">
-                                            <label for="idServicio" class="col-form-label">Id Servicio:</label>
-                                            <input type="text" class="form-control" id="idServicio" name="idServicio" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-md">
-                                            <label for="idEmpleado" class="col-form-label">Id Empleado:</label>
-                                            <input type="text" class="form-control" id="idEmpleado" name="idEmpleado" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-md">
-                                            <label for="monto" class="col-form-label">Monto:</label>
-                                            <input type="text" class="form-control" id="monto" name="monto" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-md">
-                                            <label for="fechaEmision" class="col-form-label">Fecha de Emision:</label>
-                                            <input type="date" class="form-control" id="fechaEmision" name="fechaEmision" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+       <!-- Modal agregar -->
+       <div class="modal fade" id="modalSujeto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+       aria-labelledby="tituloModal" aria-hidden="true">
+       <div class="modal-dialog modal-dialog-centered modal-lg">
+           <div class="modal-content">
+               <!-- Encabezado del modal -->
+               <div class="modal-header">
+                   <h1 class="modal-title fs-5" id="tituloModal"></h1>
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <form id="formSujeto">
+                   <!-- Cuerpo del modal -->
+                   <input type="hidden" id="id_factura" name="id_factura">
+                   <div class="modal-body">
+                       <div class="container">
+                           <div class="row">
+                               <div class="col-md-6">
+                                   <div class="mb-md">
+                                       <label for="descripcionServicio" class="col-form-label">Descripción del
+                                           servicio:</label>
+                                       <input type="text" class="form-control" id="descripcionServicio"
+                                           name="descripcion" required>
+                                   </div>
+                               </div>
+                               <div class="col-md-6">
+                                   <div class="mb-md">
+                                       <label for="monto" class="col-form-label">Monto del servicio:</label>
+                                       <input type="number" class="form-control" id="monto" name="monto" required>
+                                   </div>
+                                   <div class="mb-md">
+                                       <label for="tipoServicio" class="col-form-label">Tipo de servicio:</label>
+                                       <select class="form-select" id="tipoServicio" name="tipoServicio" required>
+                                           <option value="" selected>Selecciona una opción</option>
+                                           <option value="Credito Fiscal">Crédito Fiscal</option>
+                                           <option value="Factura Consumidor Final">Factura Consumidor Final
+                                           </option>
+                                           <option value="Factura Sujeto Excluido">Factura Sujeto Excluido</option>
+                                           <option value="Otro">Otro</option>
+                                       </select>
+                                   </div>
+                                   <div class="mb-md">
+                                       <label for="id_servicio" class="col-form-label">Servicio:</label>
+                                       <select class="form-select" id="id_servicio" name="id_servicio" required>
+                                           <!-- Opciones del select -->
+                                       </select>
+                                   </div>
+                                   <div class="mb-md">
+                                       <label for="id_cliente" class="col-form-label">Clientes:</label>
+                                       <select class="form-select" id="id_cliente" name="id_cliente" required>
+                                           <!-- Opciones del select -->
+                                       </select>
+                                   </div>
+                                   <div class="mb-md">
+                                       <label for="fechaEmision" class="col-form-label">Fecha de emisión:</label>
+                                       <input type="date" class="form-control" id="fechaEmision"
+                                           name="fechaEmision" required>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
 
-                        <!-- Footer del modal -->
-                        <div class="modal-footer d-flex justify-content-end">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-warning" id="btnAccion">Guardar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+                   <!-- Footer del modal -->
+                   <div class="modal-footer d-flex justify-content-end">
+                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                       <button type="submit" class="btn btn-warning" id="btnAccion">Guardar</button>
+                   </div>
+               </form>
+           </div>
+       </div>
+   </div>
 
         <!-- Modal eliminar -->
         <div class="modal fade" id="borrarModalSujeto">
@@ -206,7 +168,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <button type="button" class="btn btn-primary" onclick="eliminarCliente()">Eliminar</button>
+                            <button type="button" class="btn btn-primary" onclick="eliminarServicio()">Eliminar</button>
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                     </form>

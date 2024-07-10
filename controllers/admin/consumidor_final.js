@@ -1,6 +1,5 @@
 // Constante para completar la ruta de la API.
-const FACTURA_API = 'services/admin/factura_consumidor_final.php';
-const CLIENTE_API = 'services/admin/clientes.php';
+const FACTURA_API = 'services/admin/factura_sujeto_excluido.php';
 // Constante para almacenar el modal de editar.
 const MODALSUJETO = new bootstrap.Modal('#modalSujeto');
 // Constante que almacena el form de búsqueda.
@@ -19,16 +18,13 @@ MAIN_TITLE = document.getElementById("tituloModal")
 
 // Constantes para establecer los elementos del formulario.
 const FORM_SUJETO = document.getElementById('formSujeto'),
-    ID_FACTURA = document.getElementById('idFactura'),
+    ID_FACTURA = document.getElementById('id_factura'),
     DESCRIPCION = document.getElementById('descripcionServicio'),
     ID_CLIENTE = document.getElementById('id_cliente'),
     TIPO_SERVICIO = document.getElementById('tipoServicio'),
     ID_SERVICIO = document.getElementById('id_servicio'),
-    FECHA_EMISION = document.getElementById('fechaEmision'),
     MONTO = document.getElementById('monto'),
-    NIT = document.getElementById('nitCliente'); 
-    NOMBRE_CLIENTE =document.getElementById('nombreCliente'),
-    
+    FECHA_EMISION = document.getElementById('fechaEmision');
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
@@ -42,12 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Función para abrir el modal crear o editar.
-const abrirModal = async (tituloModal, idFactura = null) => {
+const abrirModal = async (tituloModal, idFactura) => {
     // Se configura el título del modal.
     TITULO_MODAL.textContent = tituloModal;
 
     if (idFactura == null) {
-        console.log("asdfas");
         // Se remueve el antiguo color del botón.
         BOTON_ACCION.classList.remove('btn-success');
         // Se configura el nuevo color del botón.
@@ -56,16 +51,18 @@ const abrirModal = async (tituloModal, idFactura = null) => {
         BOTON_ACCION.innerHTML = 'Agregar usuario';
         // Se limpian los input para dejarlos vacíos.
         FORM_SUJETO.reset();
+        // Limpiar el valor de ID_FACTURA.
+        ID_FACTURA.value = '';
 
-        fillSelect(CLIENTE_API, 'readAll', 'idCliente');
+        await fillSelect(FACTURA_API, 'readAllclientes', 'id_cliente');
+        await fillSelect(FACTURA_API, 'readAllservicio', 'id_servicio');
         // Se abre el modal agregar.
         MODALSUJETO.show();
-    }
-    else {
+    } else {
         // Se define una constante tipo objeto que almacenará el idFactura
         const FORM = new FormData();
         // Se almacena el nombre del campo y el valor (idFactura) en el formulario.
-        FORM.append('idFactura', idFactura);
+        FORM.append('id_factura', idFactura);
         // Petición para obtener los datos del registro solicitado.
         const DATA = await fetchData(FACTURA_API, 'readOne', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -84,11 +81,13 @@ const abrirModal = async (tituloModal, idFactura = null) => {
             const ROW = DATA.dataset;
             // Se carga el id del usuario en el input idUsuario.
             ID_FACTURA.value = ROW.id_factura;
-            NIT.value = ROW.nit_cliente;
             // Se carga el nombre del cliente en el input nombreSujeto.
-            fillSelect(FACTURA_API, 'readAll', 'idCliente', ROW.id_cliente);
+            await fillSelect(FACTURA_API, 'readAllclientes', 'id_cliente', ROW.id_cliente);
+            await fillSelect(FACTURA_API, 'readAllservicio', 'id_servicio', ROW.id_servicio);
+            TIPO_SERVICIO.value = ROW.tipo_servicio;
             MONTO.value = ROW.monto;
             FECHA_EMISION.value = ROW.fecha_emision;
+            DESCRIPCION.value = ROW.descripcion;
             // Se abre el modal editar.
             MODALSUJETO.show();
         } else {
@@ -109,28 +108,23 @@ FORM_BUSCAR.addEventListener('submit', (event) => {
 
 // Función para abrir el modal de eliminar.
 const eliminarServicio = async (id_factura) => {
-
+    //console.log('Intentando eliminar el servicio con id_factura:', id_factura);
     // Se define una constante tipo objeto donde se almacenará el idFactura.
     const FORM = new FormData();
     // Se almacena el nombre del campo y el valor (idFactura).
-    FORM.append('idFactura', id_factura);
+    FORM.append('id_factura', id_factura);
     // Petición para eliminar el registro seleccionado.
     const DATA = await fetchData(FACTURA_API, 'deleteRow', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
-        //Se oculta el modal
-        MODALBSUJETO.hide();
-        // Se carga nuevamente la tabla para visualizar los cambios.
-        fillTable();
         // Se muestra un mensaje de éxito.
         await sweetAlert(1, DATA.message, true);
+        //console.log('Servicio eliminado, actualizando tabla...');
+        fillTable(); // Actualiza la tabla después de eliminar el servicio
     } else {
         sweetAlert(2, DATA.error, false);
     }
 }
-
-
-
 
 // Método del evento para cuando se envía el formulario de guardar.
 FORM_SUJETO.addEventListener('submit', async (event) => {
@@ -144,6 +138,7 @@ FORM_SUJETO.addEventListener('submit', async (event) => {
     const FORM = new FormData(FORM_SUJETO);
     // Petición para guardar los datos del formulario.
     const DATA = await fetchData(FACTURA_API, action, FORM);
+    console.log(DATA);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se cierra la caja de diálogo.
@@ -151,7 +146,12 @@ FORM_SUJETO.addEventListener('submit', async (event) => {
         // Se muestra un mensaje de éxito.
         sweetAlert(1, DATA.message, true);
         // Se carga nuevamente la tabla para visualizar los cambios.
+        loadTemplate();
         fillTable();
+        // Se resetea el formulario.
+        FORM_SUJETO.reset();
+        // Limpiar el valor de ID_FACTURA.
+        ID_FACTURA.value = '';
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -173,16 +173,18 @@ const fillTable = async (form = null) => {
             CUERPO_TABLA.innerHTML += `
                 <tr>
                     <td class="text-center">${row.nombre_cliente}</td>
-                    <td class="text-center">${row.email_cliente}</td>
-                    <td class="text-center">${row.telefono_cliente}</td>
-                    <td class="text-center">${row.dui_cliente}</td>
+                    <td class="text-center">${row.apellido_cliente}</td>
                     <td class="text-center">${row.nit_cliente}</td>
                     <td class="text-center">${row.direccion_cliente}</td>
                     <td class="text-center">${row.departamento_cliente}</td>
                     <td class="text-center">${row.municipio_cliente}</td>
-                    <td class="text-center">${row.nombre_servicio}</td>
+                    <td class="text-center">${row.email_cliente}</td>
+                    <td class="text-center">${row.telefono_cliente}</td>
+                    <td class="text-center">${row.dui_cliente}</td>
+                    <td class="text-center">${row.tipo_servicio}</td>
                     <td class="text-center">${row.monto}</td>
-                    <td class="text-center">${row.fecha_emision}</td
+                    <td class="text-center">${row.fecha_emision}</td>
+                    <td class="text-center">${row.descripcion}</td>
                     <td class="celda-agregar-eliminar text-right text-center">
                         <button type="button" class="btn btn-success text-center" onclick="abrirModal('Editar factura',${row.id_factura})">
                             <img src="../../resources/img/lapiz.png" alt="lapizEditar" width="30px">

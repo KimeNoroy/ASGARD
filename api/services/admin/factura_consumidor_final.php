@@ -1,117 +1,114 @@
 <?php
 // Se incluye la clase del modelo.
-require_once('../../models/data/factura_consumidor_final_data.php');
+require_once ('../../models/data/factura_consumidor_final_data.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $facturaConsumidorFinal = new FacturaConsumidorFinalData;
+    $usuario = new factura_consumidor_final;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null, 'fileStatus' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['idAdministrador'])) {
+        $result['session'] = 1;
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'searchRows':
-                if (!isset($_POST['buscarfacturaConsumidorFinal']) || !Validator::validateSearch($_POST['buscarfacturaConsumidorFinal'])) {
-                    $result['error'] = 'Búsqueda inválida';
+                if (!Validator::validateSearch($_POST['buscarUsuario'])) {
+                    $result['error'] = Validator::getSearchError();
+                } elseif ($result['dataset'] = $clientes->searchRows()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } else {
-                    Validator::setSearchValue($_POST['buscarfacturaConsumidorFinal']);
-                    $result['dataset'] = $facturaConsumidorFinal->searchRows();
-                    if ($result['dataset']) {
-                        $result['status'] = 1;
-                        $result['message'] = count($result['dataset']) . ' coincidencias';
-                    } else {
-                        $result['error'] = 'No hay coincidencias';
-                    }
+                    $result['error'] = 'No hay coincidencias';
                 }
                 break;
             case 'createRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-               
-                    !$facturaConsumidorFinal->setIdCliente($_POST['idCliente']) or
-                    !$facturaConsumidorFinal->setNit($_POST['nitCliente']) or
-                    !$facturaConsumidorFinal->setNombreCliente($_POST['nombreCliente']) or
-                    !$facturaConsumidorFinal->setDireccionCliente($_POST['direccionCliente']) or
-                    !$facturaConsumidorFinal->setDepartamentoCliente($_POST['departamentoCliente']) or
-                    !$facturaConsumidorFinal->setMunicipioCliente($_POST['municipioCliente']) or
-                    !$facturaConsumidorFinal->setEmailCliente($_POST['emailCliente']) or
-                    !$facturaConsumidorFinal->setTelefonoCliente($_POST['telefonoCliente']) or
-                    !$facturaConsumidorFinal->setDuiCliente($_POST['duiCliente']) or
-                    !$facturaConsumidorFinal->setIdServicio($_POST['idServicio']) or
-                    !$facturaConsumidorFinal->setMonto($_POST['monto']) or
-                    !$facturaConsumidorFinal->setIdEmpleado($_POST['idEmpleado']) or
-                    !$facturaConsumidorFinal->setFechaEmision($_POST['fechaEmision']) 
-                   
+                    !$usuario->setTipoServicio($_POST['tipoServicio']) or
+                    !$usuario->setMonto($_POST['monto']) or
+                    !$usuario->setFecha($_POST['fechaEmision']) or
+                    !$usuario->setDescripcion($_POST['descripcion']) or
+                    !$usuario->setIdCliente($_POST['id_cliente']) or
+                    !$usuario->setIdServicio($_POST['id_servicio'])
                 ) {
-                    $result['error'] = $facturaConsumidorFinal->getDataError();
-                } elseif ($facturaConsumidorFinal->createRow()) {
+                    $result['error'] = $usuario->getDataError();
+                } elseif ($usuario->createRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'facturaConsumidorFinal creado correctamente';
+                    $result['message'] = 'Usuario creado correctamente';
                 } else {
-                    $result['error'] = 'Ocurrió un problema al crear el facturaConsumidorFinal';
+                    $result['error'] = 'Ocurrió un problema al crear el usuario';
                 }
                 break;
             case 'readAll':
-                $result['dataset'] = $facturaConsumidorFinal->readAll();
+                $result['dataset'] = $usuario->readAll();
                 if ($result['dataset']) {
                     $result['status'] = 1;
                     $result['message'] = 'Mostrando ' . count($result['dataset']) . ' registros';
                 } else {
-                    $result['error'] = 'No existen facturaConsumidorFinals registrados';
+                    $result['error'] = 'No existen usuarios registrados';
+                }
+                break;
+            case 'readAllservicio':
+                $result['dataset'] = $usuario->readAllservicio();
+                if ($result['dataset']) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Mostrando ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existen usuarios registrados';
+                }
+                break;
+            case 'readAllclientes':
+                $result['dataset'] = $usuario->readAllclientes();
+                if ($result['dataset']) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Mostrando ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existen usuarios registrados';
                 }
                 break;
             case 'readOne':
-                if (!$facturaConsumidorFinal->setIdFactura($_POST['idFactura'])) {
-                    $result['error'] = 'ID de cliente inválido';
+                if (!$usuario->setId($_POST['id_factura'])) {
+                    $result['error'] = 'ID es inválido';
                 } else {
-                    $result['dataset'] = $facturaConsumidorFinal->readOne();
+                    $result['dataset'] = $usuario->readOne();
                     if ($result['dataset']) {
                         $result['status'] = 1;
                     } else {
-                        $result['error'] = 'facturaConsumidorFinal inexistente';
+                        $result['error'] = 'Usuario inexistente';
                     }
                 }
                 break;
             case 'updateRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$facturaConsumidorFinal->setIdCliente($_POST['idCliente']) or
-                    !$facturaConsumidorFinal->setNit($_POST['nitCliente']) or
-                    !$facturaConsumidorFinal->setNombreCliente($_POST['nombreCliente']) or
-                    !$facturaConsumidorFinal->setDireccionCliente($_POST['direccionCliente']) or
-                    !$facturaConsumidorFinal->setDepartamentoCliente($_POST['departamentoCliente']) or
-                    !$facturaConsumidorFinal->setMunicipioCliente($_POST['municipioCliente']) or
-                    !$facturaConsumidorFinal->setEmailCliente($_POST['emailCliente']) or
-                    !$facturaConsumidorFinal->setTelefonoCliente($_POST['telefonoCliente']) or
-                    !$facturaConsumidorFinal->setDuiCliente($_POST['duiCliente']) or
-                    !$facturaConsumidorFinal->setIdServicio($_POST['idServicio']) or
-                    !$facturaConsumidorFinal->setIdEmpleado($_POST['idEmpleado']) or
-                    !$facturaConsumidorFinal->setMonto($_POST['monto']) or
-                    !$facturaConsumidorFinal->setIdFactura($_POST['idFactura']) or
-                    !$facturaConsumidorFinal->setFechaEmision($_POST['fechaEmision']) 
-
+                    !$usuario->setId($_POST['id_factura']) or
+                    !$usuario->setMonto($_POST['monto']) or
+                    !$usuario->setFecha($_POST['fechaEmision']) or
+                    !$usuario->setDescripcion($_POST['descripcion']) or
+                    !$usuario->setIdCliente($_POST['id_cliente']) or
+                    !$usuario->setIdServicio($_POST['id_servicio'])
                 ) {
-                    $result['error'] = $facturaConsumidorFinal->getDataError();
-                } elseif ($facturaConsumidorFinal->updateRow()) {
+                    $result['error'] = $usuario->getDataError();
+                } elseif ($usuario->updateRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'facturaConsumidorFinal modificado correctamente';
+                    $result['message'] = 'Usuario modificado correctamente';
                 } else {
-                    $result['error'] = 'Ocurrió un problema al modificar el facturaConsumidorFinal';
+                    $result['error'] = 'Ocurrió un problema al modificar el usuario';
                 }
                 break;
             case 'deleteRow':
-                if (!$facturaConsumidorFinal->setIdFactura($_POST['idFactura'])) {
+                if (!$usuario->setId($_POST['id_factura'])) {
                     $result['error'] = 'ID de cliente inválido';
                 } else {
-                    if ($facturaConsumidorFinal->deleteRow()) {
+                    if ($usuario->deleteRow()) {
                         $result['status'] = 1;
-                        $result['message'] = 'facturaConsumidorFinal eliminado correctamente';
+                        $result['message'] = 'Usuario eliminado correctamente';
                     } else {
-                        $result['error'] = 'Ocurrió un problema al eliminar el facturaConsumidorFinal';
+                        $result['error'] = 'Ocurrió un problema al eliminar el usuario';
                     }
                 }
                 break;
@@ -123,10 +120,10 @@ if (isset($_GET['action'])) {
         // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
         header('Content-type: application/json; charset=utf-8');
         // Se imprime el resultado en formato JSON y se retorna al controlador.
-        print(json_encode($result));
+        print (json_encode($result));
     } else {
-        print(json_encode('Acceso denegado'));
+        print (json_encode('Acceso denegado'));
     }
 } else {
-    print(json_encode('Recurso no disponible'));
+    print (json_encode('Recurso no disponible'));
 }
