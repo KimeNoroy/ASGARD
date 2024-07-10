@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Título del documento -->
-    <title>Sujeto Excluido</title>
+    <title>Comprobante Crédito Fiscal</title>
     <!-- Mandar a llamar el framework -->
     <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
     <!-- Css de un boton naranja -->
@@ -18,15 +18,13 @@
     <link rel="stylesheet" href="../../resources/css/usuariofacturacion.css">
 </head>
 
-<!-- Cuerpo de la página -->
-
 <body>
     <!-- Contenido principal de la página -->
     <main>
         <!-- CREAMOS FILAS Y COLUMNAS (ROW = FILAS, COL = COLUMNAS) -->
         <!-- CREAMOS EL CONTENEDOR PADRE DE LOS ELEMENTOS  BOTON AGREGAR Y LA BARRA DE BUSQUEDA-->
         <div class="container-fluid">
-            <h3>Usuarios para factura sujeto excluido electrónico</h3>
+            <h3>Usuarios para factura Comprobante Crédito Fiscal</h3>
             <!-- CREAMOS LA FILA Y COLUMNA DONDE COLOCAMOS EL BOTON "AGREGAR" Y LA "BARRA DE BUSQUEDA"-->
             <div class="row mt-5 row-gap-3">
                 <div class="col-12 col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -50,7 +48,7 @@
                     <!-- CREAMOS LA CABECERA DE LA TABLA COLORES -->
                     <thead>
                         <tr>
-                            <td colspan="12" id="filasEncontradas"></td>
+                            <td colspan="15" id="filasEncontradas"></td>
                         </tr>
                         <tr>
                             <th class="text-center">Nombres</th>
@@ -62,6 +60,9 @@
                             <th class="text-center">Dirección</th>
                             <th class="text-center">Departamento</th>
                             <th class="text-center">Municipio</th>
+                            <th class="text-center">NCR</th>
+                            <th class="text-center">Giro</th>
+                            <th class="text-center">Actividad económica</th>
                             <th class="text-center">Tipo de servicio</th>
                             <th class="text-center">Fecha de emisión</th>
                             <th class="text-center">Monto</th>
@@ -79,6 +80,9 @@
                             <td>Avenida avenida</td>
                             <td>San Salvador</td>
                             <td>Santa Tecla</td>
+                            <td>Ncr</td>
+                            <td>Giro</td>
+                            <td>Actividad económica</td>
                             <td>Credito fiscal</td>
                             <td>01/01/2022</td>
                             <td>$1000</td>
@@ -111,6 +115,27 @@
                                                 servicio:</label>
                                             <input type="text" class="form-control" id="descripcionServicio"
                                                 name="descripcion" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-md">
+                                            <label for="ncr" class="col-form-label">NCR:</label>
+                                            <input type="text" class="form-control" id="ncr"
+                                                name="ncr" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-md">
+                                            <label for="giro" class="col-form-label">Giro:</label>
+                                            <input type="text" class="form-control" id="giro"
+                                                name="giro" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-md">
+                                            <label for="actEconomica" class="col-form-label">Actividad económica:</label>
+                                            <input type="text" class="form-control" id="actEconomica"
+                                                name="actEconomica" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -188,7 +213,7 @@
     <!-- Mandar a llamar el framework -->
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <!-- Mandar a llamar el controlador de sujeto excluido -->
-    <script src="../../controllers/admin/sujeto_excluido.js"></script>
+    <script src="../../controllers/admin/credito_fiscal.js"></script>
     <!-- Llamada al controlador -->
     <script src="../../controllers/utils/componentes.js"></script>
     <!-- archivo de js para libreria de iconos para el navbar -->
@@ -196,5 +221,3 @@
     <!-- Mandar a llamar la librería de alertas -->
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
 </body>
-
-</html>

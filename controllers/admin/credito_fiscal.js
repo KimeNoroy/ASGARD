@@ -1,93 +1,101 @@
 // Constante para completar la ruta de la API.
-const CREDITO_FISCAL_API = 'services/admin/comprobante_credito_fiscal.php';
-const FACTURA_API = 'services/admin/factura_sujeto_excluido.php';
+const FACTURA_API = 'services/admin/comprobante_credito_fiscal.php';
 // Constante para almacenar el modal de editar.
-const MODAL_CREDITO_FISCAL = new bootstrap.Modal('#modalServicio');
+const MODALSUJETO = new bootstrap.Modal('#modalSujeto');
 // Constante que almacena el form de búsqueda.
 const FORM_BUSCAR = document.getElementById('formBuscar');
 // Constante para almacenar el modal de eliminar.
-const MODAL_ELIMINAR_CREDITO_FISCAL = new bootstrap.Modal('#borrarModalServicio');
+const MODALBSUJETO = new bootstrap.Modal('#borrarModalSujeto');
 // Constantes para cargar los elementos de la tabla.
-const FILAS_ENCONTRADAS = document.getElementById('filasEncontradas');
-const CUERPO_TABLA = document.getElementById('usuariosTableBody');
+const FILAS_ENCONTRADAS = document.getElementById('filasEncontradas'),
+    CUERPO_TABLA = document.getElementById('cuerpoTabla');
 // Constante para definir el título del modal y botón.
-const TITULO_MODAL = document.getElementById('modalServicioLabel');
-const BOTON_ACCION = document.querySelector('#formServicio button[type="submit"]');
+const TITULO_MODAL = document.getElementById('tituloModal'),
+    BOTON_ACCION = document.getElementById('btnAccion');
 
+    // MODALS
+MAIN_TITLE = document.getElementById("tituloModal")
 
 // Constantes para establecer los elementos del formulario.
-const FORM_CREDITO_FISCAL = document.getElementById('formServicio');
-const DESCRIPCION_SERVICIO = document.getElementById('descripcionServicio');
-const MONTO_SERVICIO = document.getElementById('montoServicio');
-const TIPO_SERVICIO = document.getElementById('tipoServicio');
-const ID_COMPROBANTE = document.getElementById('id_comprobante');
-const ID_CLIENTE = document.getElementById('id_cliente');
-const NCR = document.getElementById('ncr');
-const ACTIVIDAD_ECONOMICA = document.getElementById('actividadEconomica');
-const FECHA_EMISION = document.getElementById('fechaEmision');
+const FORM_SUJETO = document.getElementById('formSujeto'),
+    ID_FACTURA = document.getElementById('id_factura'),
+    DESCRIPCION = document.getElementById('descripcionServicio'),
+    ID_CLIENTE = document.getElementById('id_cliente'),
+    TIPO_SERVICIO = document.getElementById('tipoServicio'),
+    ID_SERVICIO = document.getElementById('id_servicio'),
+    MONTO = document.getElementById('monto'),
+    FECHA_EMISION = document.getElementById('fechaEmision'),
+    NCR = document.getElementById('ncr'),
+    GIRO = document.getElementById('giro'),
+    ACTECONOMICA = document.getElementById('actEconomica');
 
+// Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
 
+    // Se establece el título del contenido principal.
+    MAIN_TITLE.textContent = 'Gestionar usuarios';
+    // Llamada a la función para llenar la tabla con los registros existentes.
+    fillTable();
 });
 
-
 // Función para abrir el modal crear o editar.
-const abrirModal = async (tituloModal, idComprobante) => {
+const abrirModal = async (tituloModal, idFactura) => {
     // Se configura el título del modal.
     TITULO_MODAL.textContent = tituloModal;
-    
-    if (idComprobante == null) {
+
+    if (idFactura == null) {
         // Se remueve el antiguo color del botón.
         BOTON_ACCION.classList.remove('btn-success');
         // Se configura el nuevo color del botón.
         BOTON_ACCION.classList.add('btn-primary');
         // Se configura el título del botón.
-        BOTON_ACCION.innerHTML = 'Agregar comprobante';
+        BOTON_ACCION.innerHTML = 'Agregar usuario';
         // Se limpian los input para dejarlos vacíos.
-        FORM_CREDITO_FISCAL.reset();
-        // Limpiar el valor de ID_COMPROBANTE.
-        ID_COMPROBANTE.value = '';
+        FORM_SUJETO.reset();
+        // Limpiar el valor de ID_FACTURA.
+        ID_FACTURA.value = '';
 
-        await fillSelect(CREDITO_FISCAL_API, 'readAllclientes', 'id_cliente');
-        await fillSelect(CREDITO_FISCAL_API, 'readAllservicio', 'id_servicio');
+        await fillSelect(FACTURA_API, 'readAllclientes', 'id_cliente');
+        await fillSelect(FACTURA_API, 'readAllservicio', 'id_servicio');
         // Se abre el modal agregar.
-        MODAL_CREDITO_FISCAL.show();
+        MODALSUJETO.show();
     } else {
-        // Se define una constante tipo objeto que almacenará el idComprobante
+        // Se define una constante tipo objeto que almacenará el idFactura
         const FORM = new FormData();
-        // Se almacena el nombre del campo y el valor (idComprobante) en el formulario.
-        FORM.append('id_comprobante', idComprobante);
+        // Se almacena el nombre del campo y el valor (idFactura) en el formulario.
+        FORM.append('id_factura', idFactura);
         // Petición para obtener los datos del registro solicitado.
-        const DATA = await fetchData(CREDITO_FISCAL_API, 'readOne', FORM);
+        const DATA = await fetchData(FACTURA_API, 'readOne', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se configura el título del modal.
-            TITULO_MODAL.textContent = 'Actualizar comprobante';
+            TITULO_MODAL.textContent = 'Actualizar servicio';
             // Se remueve el antiguo color del botón.
             BOTON_ACCION.classList.remove('btn-primary');
             // Se configura el nuevo color del botón.
             BOTON_ACCION.classList.add('btn-success');
             // Se configura el título del botón.
-            BOTON_ACCION.innerHTML = 'Editar comprobante';
+            BOTON_ACCION.innerHTML = 'Editar servicio';
             // Se prepara el formulario para cargar los input.
-            FORM_CREDITO_FISCAL.reset();
+            FORM_SUJETO.reset();
             // Se cargan los campos de la base en una variable.
             const ROW = DATA.dataset;
-            // Se carga el id del comprobante en el input idComprobante.
-            ID_COMPROBANTE.value = ROW.id_comprobante;
+            // Se carga el id del usuario en el input idUsuario.
+            ID_FACTURA.value = ROW.id_factura;
             // Se carga el nombre del cliente en el input nombreSujeto.
-            await fillSelect(CREDITO_FISCAL_API, 'readAllclientes', 'id_cliente', ROW.id_cliente);
-            await fillSelect(CREDITO_FISCAL_API, 'readAllservicio', 'id_servicio', ROW.id_servicio);
+            await fillSelect(FACTURA_API, 'readAllclientes', 'id_cliente', ROW.id_cliente);
+            await fillSelect(FACTURA_API, 'readAllservicio', 'id_servicio', ROW.id_servicio);
             TIPO_SERVICIO.value = ROW.tipo_servicio;
-            MONTO_SERVICIO.value = ROW.monto;
+            MONTO.value = ROW.monto;
             FECHA_EMISION.value = ROW.fecha_emision;
-            DESCRIPCION_SERVICIO.value = ROW.descripcion;
-            NCR.value = ROW.ncr;
-            ACTIVIDAD_ECONOMICA.value = ROW.actividad_economica;
+            DESCRIPCION.value = ROW.descripcion;
+            NCR.value = ROW.nrc_credito_fiscal;
+            GIRO.value = ROW.giro_credito_fiscal ;
+            ACTECONOMICA.value =ROW.actividad_economica;
             // Se abre el modal editar.
-            MODAL_CREDITO_FISCAL.show();
+            MODALSUJETO.show();
         } else {
             sweetAlert(2, DATA.error, false);
         }
@@ -105,160 +113,114 @@ FORM_BUSCAR.addEventListener('submit', (event) => {
 });
 
 // Función para abrir el modal de eliminar.
-const eliminarComprobante = async (idComprobante) => {
-    // Se define una constante tipo objeto donde se almacenará el idComprobante.
+const eliminarServicio = async (id_factura) => {
+    //console.log('Intentando eliminar el servicio con id_factura:', id_factura);
+    // Se define una constante tipo objeto donde se almacenará el idFactura.
     const FORM = new FormData();
-    // Se almacena el nombre del campo y el valor (idComprobante).
-    FORM.append('id_comprobante', idComprobante);
+    // Se almacena el nombre del campo y el valor (idFactura).
+    FORM.append('id_factura', id_factura);
     // Petición para eliminar el registro seleccionado.
-    const DATA = await fetchData(CREDITO_FISCAL_API, 'deleteRow', FORM);
+    const DATA = await fetchData(FACTURA_API, 'deleteRow', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se muestra un mensaje de éxito.
         await sweetAlert(1, DATA.message, true);
-        // Actualiza la tabla después de eliminar el comprobante
-        fillTable();
+        //console.log('Servicio eliminado, actualizando tabla...');
+        fillTable(); // Actualiza la tabla después de eliminar el servicio
     } else {
         sweetAlert(2, DATA.error, false);
     }
 }
 
-const openCreate = () => {
-    // Se muestra la caja de diálogo con su título.
-    MODAL_CREDITO_FISCAL.show();
-    TITULO_MODAL.textContent = "Agregar Credito Fiscal";
-    console.log('olaaa');
-    // Se prepara el formulario.
-    FORM_CREDITO_FISCAL.reset();
-    fillSelect(FACTURA_API, "readAllclientes", "id_cliente");
-    fillSelect(FACTURA_API, "readAllservicio", "id_servicio");
-  };
-  
-
 // Método del evento para cuando se envía el formulario de guardar.
-FORM_CREDITO_FISCAL.addEventListener('submit', async (event) => {
+FORM_SUJETO.addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
-
-    let action = ID_COMPROBANTE.value ? 'updateRow' : 'createRow';
-    console.log('ID_COMPROBANTE value:', ID_COMPROBANTE.value);
-    console.log('Action:', action);
-
-    const FORM = new FormData(FORM_CREDITO_FISCAL);
-
-    try {
-        const DATA = await fetchData(CREDITO_FISCAL_API, action, FORM);
-        console.log('Response DATA:', DATA);
-
-        if (DATA && DATA.status) {
-            MODAL_CREDITO_FISCAL.hide();
-            await sweetAlert(1, DATA.message, true);
-            loadTemplate();
-            fillTable();
-            FORM_CREDITO_FISCAL.reset();
-            ID_COMPROBANTE.value = '';
-        } else {
-            console.error('Unexpected response format:', DATA);
-            sweetAlert(2, 'Unexpected response from server.', false);
-        }
-    } catch (error) {
-        console.error('Error during request:', error);
-        sweetAlert(2, 'Error communicating with the server.', false);
+    // Se verifica la acción a realizar.
+    (ID_FACTURA.value) ? action = 'updateRow' : action = 'createRow';
+    console.log(ID_FACTURA.value);
+    console.log(action);
+    // Constante tipo objeto con los datos del formulario.
+    const FORM = new FormData(FORM_SUJETO);
+    // Petición para guardar los datos del formulario.
+    const DATA = await fetchData(FACTURA_API, action, FORM);
+    console.log(DATA);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (DATA.status) {
+        // Se cierra la caja de diálogo.
+        MODALSUJETO.hide();
+        // Se muestra un mensaje de éxito.
+        sweetAlert(1, DATA.message, true);
+        // Se carga nuevamente la tabla para visualizar los cambios.
+        loadTemplate();
+        fillTable();
+        // Se resetea el formulario.
+        FORM_SUJETO.reset();
+        // Limpiar el valor de ID_FACTURA.
+        ID_FACTURA.value = '';
+    } else {
+        sweetAlert(2, DATA.error, false);
     }
 });
 
-
-
-// Función para llenar la tabla con los registros.
 const fillTable = async (form = null) => {
     // Se verifica la acción a realizar.
-    let action = form ? 'searchRows' : 'readAll';
-    // Petición para obtener los registros.
-    const DATA = await fetchData(CREDITO_FISCAL_API, action, form);
-    // Se comprueba si la respuesta es satisfactoria.
+    (form) ? action = 'searchRows' : action = 'readAll';
+    // Petición para obtener los registros disponibles.
+    const DATA = await fetchData(FACTURA_API, action, form);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se inicializa el contenido de la tabla.
         FILAS_ENCONTRADAS.textContent = '';
         CUERPO_TABLA.innerHTML = '';
-        // Se recorren los registros y se añaden a la tabla.
+        // Se recorre el conjunto de registros fila por fila.
         DATA.dataset.forEach(row => {
+            // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             CUERPO_TABLA.innerHTML += `
                 <tr>
-                    <td class="text-center">${row.nombre_cliente} ${row.apellido_cliente}</td>
+                    <td class="text-center">${row.nombre_cliente}</td>
+                    <td class="text-center">${row.apellido_cliente}</td>
+                    <td class="text-center">${row.nit_cliente}</td>
+                    <td class="text-center">${row.direccion_cliente}</td>
+                    <td class="text-center">${row.departamento_cliente}</td>
+                    <td class="text-center">${row.municipio_cliente}</td>
+                    <td class="text-center">${row.nrc_credito_fiscal}</td>
+                    <td class="text-center">${row.giro_credito_fiscal }</td>
+                    <td class="text-center">${row.actividad_economica }</td>
+                    <td class="text-center">${row.email_cliente}</td>
+                    <td class="text-center">${row.telefono_cliente}</td>
+                    <td class="text-center">${row.dui_cliente}</td>
                     <td class="text-center">${row.tipo_servicio}</td>
                     <td class="text-center">${row.monto}</td>
                     <td class="text-center">${row.fecha_emision}</td>
                     <td class="text-center">${row.descripcion}</td>
-                    <td class="text-center">${row.ncr}</td>
-                    <td class="text-center">${row.actividad_economica}</td>
-                    <td class="text-center">
-                        <button class="btn btn-warning btn-sm" onclick="abrirModal('Editar comprobante', ${row.id_comprobante})">Editar</button>
-                        <button class="btn btn-danger btn-sm" onclick="eliminarComprobante(${row.id_comprobante})">Eliminar</button>
+                    <td class="celda-agregar-eliminar text-right text-center">
+                        <button type="button" class="btn btn-success text-center" onclick="abrirModal('Editar factura',${row.id_factura})">
+                            <img src="../../resources/img/lapiz.png" alt="lapizEditar" width="30px">
+                        </button>
+                        <button type="button" class="btn btn-danger text-center" onclick="eliminarServicio(${row.id_factura})">
+                            <img src="../../resources/img/eliminar.png" alt="lapizEditar" width="30px">
+                        </button>
                     </td>
                 </tr>
             `;
         });
+        // Se muestra un mensaje de acuerdo con el resultado.
+        FILAS_ENCONTRADAS.textContent = DATA.message;
     } else {
-        sweetAlert(2, DATA.error, false);
-    }
-}
-
-// Función para mostrar alertas.
-const sweetAlert2 = async (type, message, reload = false) => {
-    // Se importa la función de SweetAlert de la librería.
-    const Swal = await import('sweetalert2');
-    // Se configura el tipo de alerta y el mensaje a mostrar.
-    await Swal.default.fire({
-        icon: type === 1 ? 'success' : 'error',
-        title: type === 1 ? 'Éxito' : 'Error',
-        text: message
-    });
-    // Si se especifica, se recarga la página web después de mostrar la alerta.
-    if (reload) location.reload();
-}
-
-// Función para cargar datos en un select.
-const fillSelects = async (api, action, idSelect, selectedId = null) => {
-    // Petición para obtener los datos a llenar en el select.
-    const DATA = await fetchData(api, action);
-    // Se obtiene el select por su id.
-    const SELECT = document.getElementById(idSelect);
-    // Se limpian las opciones existentes en el select.
-    SELECT.innerHTML = '';
-    // Se comprueba si la respuesta es satisfactoria.
-    if (DATA.status) {
-        // Se recorren los datos obtenidos y se añaden como opciones al select.
-        DATA.dataset.forEach(item => {
-            const OPTION = document.createElement('option');
-            OPTION.value = item[idSelect];
-            OPTION.textContent = `${item.nombre_cliente} ${item.apellido_cliente}`;
-            if (selectedId && item[idSelect] == selectedId) {
-                OPTION.selected = true;
-            }
-            SELECT.appendChild(OPTION);
-        });
-    } else {
-        sweetAlert(2, DATA.error, false);
-    }
-}
-
-// Función para realizar peticiones fetch a la API.
-const fetchDatas = async (api, action, form = null) => {
-    // Se define la URL completa con la ruta de la API y la acción a realizar.
-    const URL = `${api}?action=${action}`;
-    try {
-        // Se ejecuta la petición fetch con la URL y el método POST.
-        const RESPONSE = await fetch(URL, {
-            method: 'POST',
-            body: form
-        });
-        // Se obtiene la respuesta en formato JSON.
-        const DATA = await RESPONSE.json();
-        // Se retorna la respuesta obtenida.
-        return DATA;
-    } catch (error) {
-        // Se muestra un mensaje de error en la consola en caso de excepción.
-        console.error('Error:', error);
-        // Se retorna un objeto con estado false y el mensaje de error.
-        return { status: false, error: 'Ocurrió un error al procesar la solicitud.' };
+        // En caso de que no existan usuarios registrados o no se encuentren coincidencias de búsqeuda. 
+        if (DATA.error == 'No existen usuarios registrados' || DATA.error == 'No hay coincidencias') {
+            // Se muestra el mensaje de la API.
+            sweetAlert(4, DATA.error, true);
+            // Se restablece el contenido de la tabla.
+            FILAS_ENCONTRADAS.textContent = '';
+            CUERPO_TABLA.innerHTML = '';
+        } else if (DATA.error == 'Ingrese un valor para buscar') {
+            // Se muestra el mensaje de la API.
+            sweetAlert(4, DATA.error, true);
+        } else {
+            // Se muestra el error de la API.
+            sweetAlert(2, DATA.error, true);
+        }
     }
 }

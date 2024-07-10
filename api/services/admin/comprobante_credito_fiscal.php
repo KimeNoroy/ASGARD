@@ -1,113 +1,120 @@
 <?php
 // Se incluye la clase del modelo.
-require_once('../../models/data/comprobante_credito_fiscal_data_admin.php');
+require_once('../../models/data/comprobante_credito_fiscal_data.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $comprobante = new ComprobanteCreditoFiscal;
+    $usuario = new ComprobanteCreditoFiscal;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null);
+    $result = array('status' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null, 'fileStatus' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['idAdministrador'])) {
         $result['session'] = 1;
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'searchRows':
-                if (!Validator::validateSearch($_POST['buscar'])) {
+                if (!Validator::validateSearch($_POST['buscarUsuario'])) {
                     $result['error'] = Validator::getSearchError();
-                } elseif ($result['dataset'] = $comprobante->searchRows($_POST['buscar'])) {
+                } elseif ($result['dataset'] = $clientes->searchRows()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } else {
                     $result['error'] = 'No hay coincidencias';
                 }
                 break;
-                case 'createRow':
-                    $_POST = Validator::validateForm($_POST);
-                    if (
-                    // Establecer los datos del comprobante desde $_POST
-                    !$comprobante->setCliente($_POST['id_cliente']);
-                    !$comprobante->setServicio($_POST['id_servicio']);
-                    !$comprobante->setNit($_POST['nit']);
-                    !$comprobante->setNombre($_POST['nombre']);
-                    !$comprobante->setNrc($_POST['nrc']);
-                    !$comprobante->setGiro($_POST['giro']);
-                    !$comprobante->setDireccion($_POST['direccion']);
-                    !$comprobante->setEmail($_POST['email']);
-                    !$comprobante->setTelefono($_POST['telefono']);
-                    !$comprobante->setDui($_POST['dui']);
-                    !$comprobante->setFechaEmision($_POST['fechaEmision']); \
-                    // Ejecutar la creación del comprobante
-                    ) {
-                        $result['error'] = $comprobante->getDataError();
-                    } elseif ($comprobante->createRow()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Comprobante creado correctamente';
-                    } else {
-                        $result['error'] = 'Ocurrió un problema al crear el comprobante';
-                    }
-                    break;
-                
-                
+            case 'createRow':
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$usuario->setTipoServicio($_POST['tipoServicio']) or
+                    !$usuario->setMonto($_POST['monto']) or
+                    !$usuario->setFecha($_POST['fechaEmision']) or
+                    !$usuario->setDescripcion($_POST['descripcion']) or
+                    !$usuario->setIdCliente($_POST['id_cliente']) or
+                    !$usuario->setIdServicio($_POST['id_servicio']) or
+                    !$usuario->setNcr($_POST['nrc_credito_fiscal ']) or
+                    !$usuario->setGiro($_POST['giro_credito_fiscal  ']) or
+                    !$usuario->setActEconomica($_POST['actividad_economica'])
+                ) {
+                    $result['error'] = $usuario->getDataError();
+                } elseif ($usuario->createRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Usuario creado correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al crear el usuario';
+                }
+                break;
             case 'readAll':
-                $result['dataset'] = $comprobante->readAll();
+                $result['dataset'] = $usuario->readAll();
                 if ($result['dataset']) {
                     $result['status'] = 1;
                     $result['message'] = 'Mostrando ' . count($result['dataset']) . ' registros';
                 } else {
-                    $result['error'] = 'No existen comprobantes registrados';
+                    $result['error'] = 'No existen usuarios registrados';
+                }
+                break;
+            case 'readAllservicio':
+                $result['dataset'] = $usuario->readAllservicio();
+                if ($result['dataset']) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Mostrando ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existen usuarios registrados';
+                }
+                break;
+            case 'readAllclientes':
+                $result['dataset'] = $usuario->readAllclientes();
+                if ($result['dataset']) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Mostrando ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existen usuarios registrados';
                 }
                 break;
             case 'readOne':
-                if (!$comprobante->setId($_POST['id_comprobante'])) {
+                if (!$usuario->setId($_POST['id_factura'])) {
                     $result['error'] = 'ID es inválido';
                 } else {
-                    $result['dataset'] = $comprobante->readOne();
+                    $result['dataset'] = $usuario->readOne();
                     if ($result['dataset']) {
                         $result['status'] = 1;
                     } else {
-                        $result['error'] = 'Comprobante inexistente';
+                        $result['error'] = 'Usuario inexistente';
                     }
                 }
                 break;
-                case 'updateRow':
-                    $_POST = Validator::validateForm($_POST);
-                    if (
-                        !isset($_POST['id_comprobante']) or
-                        !$comprobante->setId($_POST['id_comprobante']) or
-                        !$comprobante->setCliente($_POST['id_cliente']) or
-                        !$comprobante->setServicio($_POST['id_servicio']) or
-                        !$comprobante->setNit($_POST['nit']) or
-                        !$comprobante->setNombre($_POST['nombre']) or
-                        !$comprobante->setNrc($_POST['nrc']) or
-                        !$comprobante->setGiro($_POST['giro']) or
-                        !$comprobante->setDireccion($_POST['direccion']) or
-                        !$comprobante->setEmail($_POST['email']) or
-                        !$comprobante->setTelefono($_POST['telefono']) or
-                        !$comprobante->setDui($_POST['dui']) or
-                        !$comprobante->setFechaEmision($_POST['fechaEmision'])
-                    ) {
-                        $result['error'] = $comprobante->getDataError();
-                    } elseif ($comprobante->updateRow()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Comprobante modificado correctamente';
-                    } else {
-                        $result['error'] = 'Ocurrió un problema al modificar el comprobante';
-                    }
-                    break;
-                
-            case 'deleteRow':
-                if (!$comprobante->setId($_POST['id_comprobante'])) {
-                    $result['error'] = 'ID de comprobante inválido';
+            case 'updateRow':
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$usuario->setId($_POST['id_factura']) or
+                    !$usuario->setMonto($_POST['monto']) or
+                    !$usuario->setFecha($_POST['fechaEmision']) or
+                    !$usuario->setDescripcion($_POST['descripcion']) or
+                    !$usuario->setIdCliente($_POST['id_cliente']) or
+                    !$usuario->setIdServicio($_POST['id_servicio']) or
+                    !$usuario->setNcr($_POST['nrc_credito_fiscal ']) or
+                    !$usuario->setGiro($_POST['giro_credito_fiscal  ']) or
+                    !$usuario->setActEconomica($_POST['actividad_economica'])
+                ) {
+                    $result['error'] = $usuario->getDataError();
+                } elseif ($usuario->updateRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Usuario modificado correctamente';
                 } else {
-                    if ($comprobante->deleteRow()) {
+                    $result['error'] = 'Ocurrió un problema al modificar el usuario';
+                }
+                break;
+            case 'deleteRow':
+                if (!$usuario->setId($_POST['id_factura'])) {
+                    $result['error'] = 'ID de cliente inválido';
+                } else {
+                    if ($usuario->deleteRow()) {
                         $result['status'] = 1;
-                        $result['message'] = 'Comprobante eliminado correctamente';
+                        $result['message'] = 'Usuario eliminado correctamente';
                     } else {
-                        $result['error'] = 'Ocurrió un problema al eliminar el comprobante';
+                        $result['error'] = 'Ocurrió un problema al eliminar el usuario';
                     }
                 }
                 break;
@@ -119,11 +126,10 @@ if (isset($_GET['action'])) {
         // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
         header('Content-type: application/json; charset=utf-8');
         // Se imprime el resultado en formato JSON y se retorna al controlador.
-        print(json_encode($result));
+        print (json_encode($result));
     } else {
-        print(json_encode(array('error' => 'Acceso denegado')));
+        print (json_encode('Acceso denegado'));
     }
 } else {
-    print(json_encode(array('error' => 'Recurso no disponible')));
+    print (json_encode('Recurso no disponible'));
 }
-?>

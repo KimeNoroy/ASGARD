@@ -55,12 +55,6 @@ const loadTemplate = async () => {
             </a>
         </li>
         <li>
-            <a href="usuariocreditofiscal.html" class="d-flex grid gap-2">
-                <ion-icon name="star-outline"></ion-icon>
-                <span>Credito fiscal</span>
-            </a>
-        </li>
-        <li>
             <a href="consumidorfinal.html" class="d-flex grid gap-2">
                 <ion-icon name="paper-plane-outline"></ion-icon>
                 <span>Consumidor final</span>
@@ -74,7 +68,7 @@ const loadTemplate = async () => {
             </a>
         </li>
         <li>
-            <a href="comprobantecreditofiscal.html" class="d-flex grid gap-2">
+            <a href="comprobante_credito_fiscal.html" class="d-flex grid gap-2">
                 <ion-icon name="bookmark-outline"></ion-icon>
                 <span>Comprobante de credito fiscal</span>
             </a>
@@ -104,6 +98,12 @@ const loadTemplate = async () => {
             <a href="empleados.html" class="d-flex grid gap-2">
             <ion-icon name="person-add-outline"></ion-icon>
                 <span>Empleados</span>
+            </a>
+        </li>
+        <li>
+            <a href="mi_perfil.html" class="d-flex grid gap-2">
+            <ion-icon name="person-add-outline"></ion-icon>
+                <span>Mi perfil</span>
             </a>
         </li>
           <li>

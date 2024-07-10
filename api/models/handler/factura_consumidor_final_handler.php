@@ -10,23 +10,13 @@ class FacturaConsumidorFinalHandler
     /*
      *   Declaración de atributos para el manejo de datos.
      */
-
-    protected $id_factura = null;
+    protected $id= null;
     protected $id_cliente = null;
-    protected $nit_cliente = null;
-    protected $nombre_cliente = null;
-    protected $direccion_cliente = null;
-    protected $departamento_cliente = null;
-    protected $municipio_cliente = null;
-    protected $email_cliente = null;
-    protected $telefono_cliente = null;
-    protected $dui_cliente = null;
     protected $id_servicio = null;
-    protected $id_empleado = null;
+    protected $tipo_servicio = null;
     protected $monto = null;
-    protected $fecha_emision = null;
-    
-
+    protected $descripcion = null;
+    protected $fecha = null;
 
     /*
      *   Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
@@ -36,34 +26,27 @@ class FacturaConsumidorFinalHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_factura, id_cliente, nit_cliente, nombre_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, id_servicio, id_empleado,monto, fecha_emision
+        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
                 FROM tb_factura_consumidor_final
-                WHERE nombre_cliente LIKE ?
+                WHERE nombre_cliente LIKE ? OR apellido_cliente LIKE ?
                 ORDER BY nombre_cliente';
-        $params = array($value);
+        $params = array($value, $value);
         return Database::getRows($sql, $params);
     }
 
     // Método para crear un nuevo usuario.
     public function createRow()
     {
-        $sql = 'INSERT INTO tb_factura_consumidor_final(id_cliente, nit_cliente, nombre_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, id_servicio, id_empleado,monto, fecha_emision)
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO tb_factura_consumidor_final(tipo_servicio, monto, fecha_emision, descripcion, id_administrador, id_cliente, id_servicio)
+                VALUES(?, ?, ?, ?, ?, ?, ?)';
         $params = array(
-
-            $this->id_cliente,
-            $this->nit_cliente,
-            $this->nombre_cliente,
-            $this->direccion_cliente,
-            $this->departamento_cliente,
-            $this->municipio_cliente,
-            $this->email_cliente,
-            $this->telefono_cliente,
-            $this->dui_cliente,
-            $this->id_servicio,
-            $this->id_empleado,
+            $this->tipo_servicio,
             $this->monto,
-            $this->fecha_emision
+            $this->fecha,
+            $this->descripcion,
+            $_SESSION['idAdministrador'],
+            $this->id_cliente,
+            $this->id_servicio
         );
         return Database::executeRow($sql, $params);
     }
@@ -71,19 +54,34 @@ class FacturaConsumidorFinalHandler
     // Método para leer todos los usuarios.
     public function readAll()
     {
-        $sql = 'SELECT a.*, b.nombre_servicio
-                FROM tb_factura_consumidor_final a, tb_servicios b WHERE a.id_servicio = b.id_servicio
-                ORDER BY a.nombre_cliente';
+        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision
+                FROM vista_tb_factura_consumidor_final
+                ORDER BY nombre_cliente';
+        return Database::getRows($sql);
+    }
+
+    // Método para leer todos los clientes.
+    public function readAllclientes()
+    {
+        $sql = 'SELECT id_cliente, nombre_cliente
+                FROM tb_clientes';
+        return Database::getRows($sql);
+    }
+    // Método para leer todos los servicios.
+    public function readAllservicio()
+    {
+        $sql = 'SELECT id_servicio, nombre_servicio
+                FROM tb_servicios';
         return Database::getRows($sql);
     }
 
     // Método para leer un usuario específico.
     public function readOne()
     {
-        $sql = 'SELECT id_factura, id_cliente, nit_cliente, nombre_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, id_servicio, id_empleado,monto,  fecha_emision
-                FROM tb_factura_consumidor_final
+        $sql = 'SELECT id_factura, id_cliente, id_servicio, tipo_servicio, monto, fecha_emision, descripcion
+                FROM vista_tb_factura_consumidor_final
                 WHERE id_factura = ?';
-        $params = array($this->id_factura);
+        $params = array($this->id);
         return Database::getRow($sql, $params);
     }
 
@@ -91,38 +89,17 @@ class FacturaConsumidorFinalHandler
     public function updateRow()
     {
         $sql = 'UPDATE tb_factura_consumidor_final
-                SET
-                id_cliente = ?,
-                nit_cliente = ?,
-                nombre_cliente = ?,
-                direccion_cliente = ?,
-                departamento_cliente = ?,
-                municipio_cliente = ?,
-                email_cliente = ?,
-                telefono_cliente = ?,
-                dui_cliente = ?,
-                id_servicio = ?,
-                id_empleado = ?,
-                monto = ?,
-                fecha_emision = ?
-                WHERE id_factura = ?;
-                ';
+                SET tipo_servicio = ?, monto = ?, fecha_emision = ?, descripcion = ?, id_administrador = ?, id_cliente = ?, id_servicio = ?
+                WHERE id_factura = ?';
         $params = array(
-
-            $this->id_cliente,
-            $this->nit_cliente,
-            $this->nombre_cliente,
-            $this->direccion_cliente,
-            $this->departamento_cliente,
-            $this->municipio_cliente,
-            $this->email_cliente,
-            $this->telefono_cliente,
-            $this->dui_cliente,
-            $this->id_servicio,
-            $this->id_empleado,
+            $this->tipo_servicio,
             $this->monto,
-            $this->fecha_emision,
-            $this->id_factura
+            $this->fecha,
+            $this->descripcion,
+            $_SESSION['idAdministrador'],
+            $this->id_cliente,
+            $this->id_servicio,
+            $this->id
         );
         return Database::executeRow($sql, $params);
     }
@@ -132,9 +109,10 @@ class FacturaConsumidorFinalHandler
     {
         $sql = 'DELETE FROM tb_factura_consumidor_final
                 WHERE id_factura = ?';
-        $params = array($this->id_factura);
+        $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+
 
 }
 
