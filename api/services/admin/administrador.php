@@ -99,7 +99,7 @@ if (isset($_GET['action'])) {
             case 'getUser':
                 if (isset($_SESSION['emailAdministrador'])) {
                     $result['status'] = 1;
-                    $result['username'] = $_SESSION['emailAdministrador'];
+                    $result['username'] = [$_SESSION['emailAdministrador'], $_SESSION['nombre_administrador'], $_SESSION['apellido_administrador']];
                 } else {
                     $result['error'] = 'Email de administrador indefinido';
                 }
@@ -130,7 +130,7 @@ if (isset($_GET['action'])) {
                 } elseif ($administrador->editProfile()) {
                     $result['status'] = 1;
                     $result['message'] = 'Perfil modificado correctamente';
-                    $_SESSION['emailAdministrador'] = $_POST['emailAdministrador'];
+                    $_SESSION['aliasAdministrador'] = $_POST['aliasAdministrador'];
                 } else {
                     $result['error'] = 'Ocurrió un problema al modificar el perfil';
                 }

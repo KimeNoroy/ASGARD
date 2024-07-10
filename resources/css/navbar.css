@@ -184,6 +184,7 @@ body{
     text-decoration: none;
     border-radius: 10px;
     color: var(--color-texto-menu);
+    padding-left: 10px;
 }
 .barra-lateral .navegacion a:hover{
     background-color: var(--color-menu-hover);
@@ -259,12 +260,18 @@ body{
 .barra-lateral .usuario{
     width: 100%;
     display: flex;
+    padding-left: 20PX;
 }
+.barra-lateral .usuario a{
+    text-decoration: none;
+}
+
 .barra-lateral .usuario img{
     width: 50px;
     min-width: 50px;
     border-radius: 10px;
 }
+
 .barra-lateral .usuario .info-usuario{
     width: 100%;
     display: flex;

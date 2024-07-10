@@ -18,7 +18,6 @@ document.querySelector('title').textContent = 'ASGARD';
 const loadTemplate = async () => {
     // Petición para obtener en nombre del usuario que ha iniciado sesión.
     const DATA = await fetchData(USER_API, 'getUser');
-    console.log("hola");
     // Se verifica si el usuario está autenticado, de lo contrario se envía a iniciar sesión.
     if (DATA.session) {
         // Se comprueba si existe un alias definido para el usuario, de lo contrario se muestra un mensaje con la excepción.
@@ -44,44 +43,44 @@ const loadTemplate = async () => {
 <nav class="navegacion">
     <ul>
     <li>
-    <a href="inicio.html">
+    <a href="inicio.html" class="d-flex grid gap-2">
     <ion-icon name="home-outline"></ion-icon>
         <span>Inicio</span>
     </a>
 </li>
      <li>
-            <a id="" href="usuariofacturacion.html">
+            <a id="" href="usuariofacturacion.html" class="d-flex grid gap-2">
                 <ion-icon name="mail-unread-outline"></ion-icon>
                 <span>Fanturación</span>
             </a>
         </li>
         <li>
-            <a href="usuariocreditofiscal.html">
+            <a href="usuariocreditofiscal.html" class="d-flex grid gap-2">
                 <ion-icon name="star-outline"></ion-icon>
                 <span>Credito fiscal</span>
             </a>
         </li>
         <li>
-            <a href="consumidorfinal.html">
+            <a href="consumidorfinal.html" class="d-flex grid gap-2">
                 <ion-icon name="paper-plane-outline"></ion-icon>
                 <span>Consumidor final</span>
             </a>
         </li>
         <li>
-            <a href="sujeto_excluido.html">
+            <a href="sujeto_excluido.html" class="d-flex grid gap-2">
                 <ion-icon name="document-text-outline"></ion-icon>
                 <span>Sujeto excluido electronico
                 </span>
             </a>
         </li>
         <li>
-            <a href="comprobantecreditofiscal.html">
+            <a href="comprobantecreditofiscal.html" class="d-flex grid gap-2">
                 <ion-icon name="bookmark-outline"></ion-icon>
                 <span>Comprobante de credito fiscal</span>
             </a>
         </li>
         <li>
-            <a href="facturanormal.html">
+            <a href="facturanormal.html" class="d-flex grid gap-2">
             <ion-icon name="albums-outline"></ion-icon>
                 <span>factura normal</span>
             </a>
@@ -90,19 +89,19 @@ const loadTemplate = async () => {
     <div class="linea"></div>
     <ul>
     <li>
-            <a href="#">
+            <a href="#" class="d-flex grid gap-2">
             <ion-icon name="book-outline"></ion-icon>
                 <span>Factura emitidas</span>
             </a>
         </li>
         <li>
-            <a href="clientes.html">
+            <a href="clientes.html" class="d-flex grid gap-2">
             <ion-icon name="person-outline"></ion-icon>
                 <span>Clientes</span>
             </a>
         </li>
         <li>
-            <a href="empleados.html">
+            <a href="empleados.html" class="d-flex grid gap-2">
             <ion-icon name="person-add-outline"></ion-icon>
                 <span>Empleados</span>
             </a>
@@ -112,12 +111,6 @@ const loadTemplate = async () => {
 
 <div>
     <div class="linea"></div>
-
-    <div class="modo-oscuro">
-        <div class="info">
-            <ion-icon name="moon-outline"></ion-icon>
-            <span>Dark Mode</span>
-        </div>
         <div class="switch">
             <div class="base">
                 <div class="circulo">
@@ -128,11 +121,13 @@ const loadTemplate = async () => {
     </div>
 
     <div class="usuario">
-        <a href="mi_perfil.html">
-            <img src="../../resources/img/usuario.png" alt="">
+        <a href="mi_perfil.html" class="d-flex justify-content-center align-items-center">
+            <div class="name-container-decorator">
+                <span>${DATA.username[1][0]}${DATA.username[2][0]}</span>
+            </div>
             <div class="info-usuario">
                 <div class="nombre-email">
-                    <span class="nombre">Mi perfil</span>
+                    <span class="nombre">${DATA.username[1] + " " + DATA.username[2]}</span>
                 </div>
                 <ion-icon name="ellipsis-vertical-outline"></ion-icon>
             </div>
