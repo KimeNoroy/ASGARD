@@ -2,23 +2,19 @@
 <html lang="es">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- Metadatos de la página -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título del documento -->
     <title>Clientes</title>
-
-    <!-- Link para el uso de iconos de boostrap -->
-    <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css"
-        rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link type="text/css" rel="stylesheet" href="../../resources/css/navbar.css">
-    <link type="text/css" rel="stylesheet" href="../../resources/css/Inicio.css">
-    <link type="text/css" rel="stylesheet" href="../../resources/css/usuariofacturacion.css">
-    
-
-    <!-- Link para el uso de las librerias de css de boostrap -->
-    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
-
+    <!-- Mandar a llamar el framework -->
+    <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Css de un boton naranja -->
+    <link href="../../resources/css/color_de_botones.css">
+    <!-- Css para la tabla responsive -->
+    <link rel="stylesheet" href="../../resources/css/navbar.css">
+    <link rel="stylesheet" href="../../resources/css/Inicio.css">
+    <link rel="stylesheet" href="../../resources/css/usuariofacturacion.css">
 </head>
 
 <body>
@@ -186,31 +182,37 @@
                                     </div>                                   
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-warning" id="AgregarUsuario">Guardar</button>
-                            </div>
+                             <!-- Footer del modal -->
+                        <div class="modal-footer d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-warning" id="btnAccion">Guardar</button>
+                        </div>
                         </form>
                     </div>
                 </div>
             </div>
-        
-        </main>
-        <!-- End Main -->
     </div>
     <!-- End div grid-container -->
 
-        <!-- JavaScript -->
-        <!-- archivo de js para las librerias del uso correcto de boostrap -->
-        <script  type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
-
-        <!-- archivo de js para libreria de alertas -->
-        <script  type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-        <!-- archivo de js para libreria de iconos para el navbar -->
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-
-        <!-- Custom JS -->
-        <script  type="text/javascript" src="../../controllers/admin/cliente.js"></script>
-        <script  type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+</main>
+<!-- IMPORTANDO ARCHIVOS JAVASCRIPT -->
+<!-- Mandar a llamar el controlador de la página privada -->
+<script type="text/javascript" src="../../controllers/utils/admin.js"></script>
+<!-- Mandar a llamar el framework -->
+<script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+<!-- Mandar a llamar el controlador de sujeto excluido -->
+<script src="../../controllers/admin/cliente.js"></script>
+<!-- Llamada al controlador -->
+<script src="../../controllers/utils/componentes.js"></script>
+<!-- Validar número de teléfono -->
+<script src="../../resources/js/validar_telefono.js"></script>
+<!-- Validar número de DUI -->
+<script src="../../resources/js/validar_dui.js"></script>
+<!-- Validar número de NIT -->
+<script src="../../resources/js/validar_nit.js"></script>
+<!-- archivo de js para libreria de iconos para el navbar -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<!-- Mandar a llamar la librería de alertas -->
+<script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
 </body>
 </html>

@@ -44,28 +44,35 @@ document.addEventListener('DOMContentLoaded', () => {
 });*/
 
 // Método del evento para cuando se envía el formulario de guardar.
-SAVE_FORM.addEventListener('submit', async (event) => {
+FORM_SUJETO.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
     (ID_CLIENTE.value) ? action = 'updateRow' : action = 'createRow';
+    console.log(ID_CLIENTE.value);
+    console.log(action);
     // Constante tipo objeto con los datos del formulario.
-    const FORM = new FormData(SAVE_FORM);
+    const FORM = new FormData(FORM_CLIENTE);
     // Petición para guardar los datos del formulario.
     const DATA = await fetchData(CLIENTE_API, action, FORM);
+    console.log(DATA);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se cierra la caja de diálogo.
-        SAVE_MODAL.hide();
+        MODALCLIENTE.hide();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, DATA.message, true);
         // Se carga nuevamente la tabla para visualizar los cambios.
+        loadTemplate();
         fillTable();
+        // Se resetea el formulario.
+        FORM_CLIENTE.reset();
+        // Limpiar el valor de ID_FACTURA.
+        ID_CLIENTE.value = '';
     } else {
         sweetAlert(2, DATA.error, false);
     }
 });
-
 /*
 *   Función asíncrona para llenar la tabla con los registros disponibles.
 *   Parámetros: form (objeto opcional con los datos de búsqueda).
