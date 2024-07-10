@@ -65,7 +65,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readOne':
-                if (!isset($_POST['id_cliente']) || !$facturaConsumidorFinal->setId($_POST['id_cliente'])) {
+                if (!$facturaConsumidorFinal->setIdFactura($_POST['idFactura'])) {
                     $result['error'] = 'ID de cliente inválido';
                 } else {
                     $result['dataset'] = $facturaConsumidorFinal->readOne();
@@ -104,7 +104,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'deleteRow':
-                if (!isset($_POST['id_cliente']) || !$facturaConsumidorFinal->setId($_POST['id_cliente'])) {
+                if (!$facturaConsumidorFinal->setIdFactura($_POST['idFactura'])) {
                     $result['error'] = 'ID de cliente inválido';
                 } else {
                     if ($facturaConsumidorFinal->deleteRow()) {

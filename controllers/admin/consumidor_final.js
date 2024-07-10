@@ -19,12 +19,16 @@ MAIN_TITLE = document.getElementById("tituloModal")
 
 // Constantes para establecer los elementos del formulario.
 const FORM_SUJETO = document.getElementById('formSujeto'),
-    ID_FACTURA = document.getElementById('id_factura'),
+    ID_FACTURA = document.getElementById('idFactura'),
     DESCRIPCION = document.getElementById('descripcionServicio'),
     ID_CLIENTE = document.getElementById('id_cliente'),
     TIPO_SERVICIO = document.getElementById('tipoServicio'),
     ID_SERVICIO = document.getElementById('id_servicio'),
-    FECHA_EMISION = document.getElementById('fechaEmision');
+    FECHA_EMISION = document.getElementById('fechaEmision'),
+    MONTO = document.getElementById('monto'),
+    NIT = document.getElementById('nitCliente'); 
+    NOMBRE_CLIENTE =document.getElementById('nombreCliente'),
+    
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
@@ -38,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Función para abrir el modal crear o editar.
-const abrirModal = (tituloModal, idFactura = null) => {
+const abrirModal = async (tituloModal, idFactura = null) => {
     // Se configura el título del modal.
     TITULO_MODAL.textContent = tituloModal;
 
@@ -61,9 +65,9 @@ const abrirModal = (tituloModal, idFactura = null) => {
         // Se define una constante tipo objeto que almacenará el idFactura
         const FORM = new FormData();
         // Se almacena el nombre del campo y el valor (idFactura) en el formulario.
-        FORM.append('id_factura', idFactura);
+        FORM.append('idFactura', idFactura);
         // Petición para obtener los datos del registro solicitado.
-        const DATA = fetchData(FACTURA_API, 'readOne', FORM);
+        const DATA = await fetchData(FACTURA_API, 'readOne', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se configura el título del modal.
@@ -80,13 +84,11 @@ const abrirModal = (tituloModal, idFactura = null) => {
             const ROW = DATA.dataset;
             // Se carga el id del usuario en el input idUsuario.
             ID_FACTURA.value = ROW.id_factura;
+            NIT.value = ROW.nit_cliente;
             // Se carga el nombre del cliente en el input nombreSujeto.
-            fillSelect(FACTURA_API, 'readAllclientes', 'id_cliente', ROW.id_cliente);
-            fillSelect(FACTURA_API, 'readAllservicio', 'id_servicio', ROW.id_servicio);
-            TIPO_SERVICIO.value = ROW.tipo_servicio;
+            fillSelect(FACTURA_API, 'readAll', 'idCliente', ROW.id_cliente);
             MONTO.value = ROW.monto;
             FECHA_EMISION.value = ROW.fecha_emision;
-            DESCRIPCION.value = ROW.descripcion;
             // Se abre el modal editar.
             MODALSUJETO.show();
         } else {
@@ -111,17 +113,17 @@ const eliminarServicio = async (id_factura) => {
     // Se define una constante tipo objeto donde se almacenará el idFactura.
     const FORM = new FormData();
     // Se almacena el nombre del campo y el valor (idFactura).
-    FORM.append('id_factura', id_factura);
+    FORM.append('idFactura', id_factura);
     // Petición para eliminar el registro seleccionado.
     const DATA = await fetchData(FACTURA_API, 'deleteRow', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         //Se oculta el modal
         MODALBSUJETO.hide();
+        // Se carga nuevamente la tabla para visualizar los cambios.
+        fillTable();
         // Se muestra un mensaje de éxito.
         await sweetAlert(1, DATA.message, true);
-        // Se carga nuevamente la tabla para visualizar los cambios.
-        loadTemplate();
     } else {
         sweetAlert(2, DATA.error, false);
     }
