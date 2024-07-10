@@ -160,6 +160,7 @@ body{
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    user-select: none;
 }
 .barra-lateral .navegacion::-webkit-scrollbar{
     width: 5px;
@@ -185,6 +186,7 @@ body{
     border-radius: 10px;
     color: var(--color-texto-menu);
     padding-left: 10px;
+    user-select: none;
 }
 .barra-lateral .navegacion a:hover{
     background-color: var(--color-menu-hover);

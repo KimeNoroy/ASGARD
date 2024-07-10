@@ -106,6 +106,12 @@ const loadTemplate = async () => {
                 <span>Empleados</span>
             </a>
         </li>
+          <li>
+            <a onclick="logOut()" class="d-flex grid gap-2">
+            <ion-icon name="log-out-outline"></ion-icon>
+                <span >LogOut</span>
+            </a>
+        </li>
     </ul>
 </nav>
 
@@ -119,22 +125,7 @@ const loadTemplate = async () => {
             </div>
         </div>
     </div>
-
     <div class="usuario">
-        <a href="mi_perfil.html" class="d-flex justify-content-center align-items-center">
-            <div class="name-container-decorator">
-                <span>${DATA.username[1][0]}${DATA.username[2][0]}</span>
-            </div>
-            <div class="info-usuario">
-                <div class="nombre-email">
-                    <span class="nombre">${DATA.username[1] + " " + DATA.username[2]}</span>
-                </div>
-                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-            </div>
-        </a>
-    </div>
-</div>
-
 </div>
 
             `);

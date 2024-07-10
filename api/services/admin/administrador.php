@@ -99,7 +99,7 @@ if (isset($_GET['action'])) {
             case 'getUser':
                 if (isset($_SESSION['emailAdministrador'])) {
                     $result['status'] = 1;
-                    $result['username'] = [$_SESSION['emailAdministrador'], $_SESSION['nombre_administrador'], $_SESSION['apellido_administrador']];
+                    $result['username'] = $_SESSION['emailAdministrador'];
                 } else {
                     $result['error'] = 'Email de administrador indefinido';
                 }
