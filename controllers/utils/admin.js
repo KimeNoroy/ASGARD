@@ -48,12 +48,6 @@ const loadTemplate = async () => {
         <span>Inicio</span>
     </a>
 </li>
-     <li>
-            <a id="" href="usuariofacturacion.html" class="d-flex grid gap-2">
-                <ion-icon name="mail-unread-outline"></ion-icon>
-                <span>Fanturación</span>
-            </a>
-        </li>
         <li>
             <a href="consumidorfinal.html" class="d-flex grid gap-2">
                 <ion-icon name="paper-plane-outline"></ion-icon>
@@ -73,21 +67,9 @@ const loadTemplate = async () => {
                 <span>Comprobante de credito fiscal</span>
             </a>
         </li>
-        <li>
-            <a href="facturanormal.html" class="d-flex grid gap-2">
-            <ion-icon name="albums-outline"></ion-icon>
-                <span>factura normal</span>
-            </a>
-        </li>
     </ul>
     <div class="linea"></div>
     <ul>
-    <li>
-            <a href="#" class="d-flex grid gap-2">
-            <ion-icon name="book-outline"></ion-icon>
-                <span>Factura emitidas</span>
-            </a>
-        </li>
         <li>
             <a href="clientes.html" class="d-flex grid gap-2">
             <ion-icon name="person-outline"></ion-icon>
@@ -98,6 +80,12 @@ const loadTemplate = async () => {
             <a href="empleados.html" class="d-flex grid gap-2">
             <ion-icon name="person-add-outline"></ion-icon>
                 <span>Empleados</span>
+            </a>
+        </li>
+        <li>
+            <a href="administradores.html" class="d-flex grid gap-2">
+            <ion-icon name="person-add-outline"></ion-icon>
+                <span>Administradores</span>
             </a>
         </li>
         <li>

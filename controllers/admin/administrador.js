@@ -1,10 +1,10 @@
 // Constante para completar la ruta de la API.
 const ADMINISTRADOR_API = 'services/admin/administrador.php';
 // Constante para establecer el formulario de buscar.
-const FORM_BUSCAR = document.getElementById('formBuscar');
+const SEARCH_FORM = document.getElementById('searchForm');
 // Constantes para establecer los elementos de la tabla.
-const FILAS_ENCONTRADAS = document.getElementById('filasEncontradas'),
-    CUERPO_TABLA = document.getElementById('cuerpoTabla');
+const TABLE_BODY = document.getElementById('tableBody'),
+    ROWS_FOUND = document.getElementById('rowsFound');
 // Constantes para establecer los elementos del componente Modal.
 const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
     MODAL_TITLE = document.getElementById('modalTitle');
@@ -14,8 +14,8 @@ const SAVE_FORM = document.getElementById('saveForm'),
     NOMBRE_ADMINISTRADOR = document.getElementById('nombreAdministrador'),
     APELLIDO_ADMINISTRADOR = document.getElementById('apellidoAdministrador'),
     EMAIL_ADMINISTRADOR = document.getElementById('emailAdministrador'),
-    CONTRASEÑA_ADMINISTRADOR = document.getElementById('claveAdministrador'),
-    CONFIRMAR_CONTRASEÑA = document.getElementById('confirmarClave');
+    CLAVE_ADMINISTRADOR = document.getElementById('claveAdministrador'),
+    CONFIRMAR_CLAVE = document.getElementById('confirmarClave');
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
@@ -28,11 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Método del evento para cuando se envía el formulario de buscar.
-FORM_BUSCAR.addEventListener('submit', (event) => {
+SEARCH_FORM.addEventListener('submit', (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Constante tipo objeto con los datos del formulario.
-    const FORM = new FormData(FORM_BUSCAR);
+    const FORM = new FormData(SEARCH_FORM);
     // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
     fillTable(FORM);
 });
@@ -67,8 +67,8 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 */
 const fillTable = async (form = null) => {
     // Se inicializa el contenido de la tabla.
-    FILAS_ENCONTRADAS.textContent = '';
-    CUERPO_TABLA.innerHTML = '';
+    ROWS_FOUND.textContent = '';
+    TABLE_BODY.innerHTML = '';
     // Se verifica la acción a realizar.
     (form) ? action = 'searchRows' : action = 'readAll';
     // Petición para obtener los registros disponibles.
@@ -78,10 +78,10 @@ const fillTable = async (form = null) => {
         // Se recorre el conjunto de registros fila por fila.
         DATA.dataset.forEach(row => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
-            CUERPO_TABLA.innerHTML += `
+            TABLE_BODY.innerHTML += `
                 <tr>
-                    <td>${row.nombre_administrador}</td>
                     <td>${row.apellido_administrador}</td>
+                    <td>${row.nombre_administrador}</td>
                     <td>${row.email_administrador}</td>
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_administrador})">
@@ -95,7 +95,7 @@ const fillTable = async (form = null) => {
             `;
         });
         // Se muestra un mensaje de acuerdo con el resultado.
-        FILAS_ENCONTRADAS.textContent = DATA.message;
+        ROWS_FOUND.textContent = DATA.message;
     } else {
         sweetAlert(4, DATA.error, true);
     }
@@ -112,7 +112,8 @@ const openCreate = () => {
     MODAL_TITLE.textContent = 'Crear administrador';
     // Se prepara el formulario.
     SAVE_FORM.reset();
-    CONTRASEÑA_ADMINISTRADOR.disabled = false;
+    //EMAIL_ADMINISTRADOR.disabled = false;
+    CLAVE_ADMINISTRADOR.disabled = false;
     CONFIRMAR_CLAVE.disabled = false;
 }
 
@@ -134,7 +135,8 @@ const openUpdate = async (id) => {
         MODAL_TITLE.textContent = 'Actualizar administrador';
         // Se prepara el formulario.
         SAVE_FORM.reset();
-        CONTRASEÑA_ADMINISTRADOR.disabled = true;
+        EMAIL_ADMINISTRADOR.disabled = true;
+        CLAVE_ADMINISTRADOR.disabled = true;
         CONFIRMAR_CLAVE.disabled = true;
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;

@@ -2,12 +2,12 @@
 // Se incluye la clase para validar los datos de entrada.
 require_once('../../helpers/validator.php');
 // Se incluye la clase padre.
-require_once('../../models/handler/factura_sujeto_excluido_admin_handler.php');
+require_once('../../models/handler/comprobante_credito_fiscal_handler.php');
 
 /*
  *  Clase para manejar el encapsulamiento de los datos de la tabla SUJETO EXCLUIDO.
  */
-class factura_sujeto_excluido extends factura_sujeto_excluido_handler
+class ComprobanteCreditoFiscal extends ComprobanteCreditoFiscalHandler
 {
     /*
      *  Atributos adicionales.
