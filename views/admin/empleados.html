@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Título del documento -->
-    <title>Consumidor Final</title>
+    <title>Empleados</title>
     <!-- Mandar a llamar el framework -->
     <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
     <!-- Css de un boton naranja -->
@@ -32,9 +32,8 @@
                             required>
                     </div>
                     <div class="col-6">
-                        <button type="submit" class="btn btn-success">
-                            <i class="bi bi-search"></i>
-                        </button>
+                        <button class="btn" type="submit"><img src="../../resources/img/lupa.png" class="img-fluid"
+                            width="35px" height="35px" alt="buscando"></button>
                         <button type="reset" class="btn btn-secondary" onclick="fillTable()">
                             <i class="bi bi-x-square-fill"></i>
                         </button>
@@ -45,9 +44,8 @@
             <br>
             <!-- Botón para crear -->
             <div class="col-12 col-sm-auto ms-auto">
-                <button type="button" class="btn btn-primary  me-2 mb-2 mb-sm-0" onclick="openCreate()">
-                    <i class="bi bi-plus-square-fill"></i>
-                </button>
+                <button type="button" class="btn btn-warning float-start" data-bs-toggle="modal"
+                data-bs-target="#crearModal" onclick="openCreate()"><i class="bi bi-file-earmark-plus"></i> Agregar Cliente</button>
             </div>
         </div>
 
@@ -61,8 +59,8 @@
                 </tr>
                 <!-- Títulos de las columnas -->
                 <tr>
-                    <th>Nombre del usuario</th>
-                    <th>Apellido del usuario</th>
+                    <th>Nombre del empleado</th>
+                    <th>Apellido del empleado</th>
                     <th>Correo electrónico</th>
                     <th>Acciones</th>
                 </tr>
@@ -108,7 +106,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-warning" id="btnAccion">Guardar</button>
                         </div>
                     </form>
                 </div>
