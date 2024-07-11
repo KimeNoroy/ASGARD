@@ -34,8 +34,8 @@ if (isset($_GET['action'])) {
                     !$usuario->setDescripcion($_POST['descripcion']) or
                     !$usuario->setIdCliente($_POST['id_cliente']) or
                     !$usuario->setIdServicio($_POST['id_servicio']) or
-                    !$usuario->setNcr($_POST['nrc_credito_fiscal ']) or
-                    !$usuario->setGiro($_POST['giro_credito_fiscal  ']) or
+                    !$usuario->setNcr($_POST['nrc_credito_fiscal']) or
+                    !$usuario->setGiro($_POST['giro_credito_fiscal']) or
                     !$usuario->setActEconomica($_POST['actividad_economica'])
                 ) {
                     $result['error'] = $usuario->getDataError();
@@ -94,8 +94,8 @@ if (isset($_GET['action'])) {
                     !$usuario->setDescripcion($_POST['descripcion']) or
                     !$usuario->setIdCliente($_POST['id_cliente']) or
                     !$usuario->setIdServicio($_POST['id_servicio']) or
-                    !$usuario->setNcr($_POST['nrc_credito_fiscal ']) or
-                    !$usuario->setGiro($_POST['giro_credito_fiscal  ']) or
+                    !$usuario->setNcr($_POST['nrc_credito_fiscal']) or
+                    !$usuario->setGiro($_POST['giro_credito_fiscal']) or
                     !$usuario->setActEconomica($_POST['actividad_economica'])
                 ) {
                     $result['error'] = $usuario->getDataError();
