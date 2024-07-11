@@ -103,7 +103,7 @@ FORM_BUSCAR.addEventListener('submit', (event) => {
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(FORM_BUSCAR);
     // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
-    loadTemplate(FORM);
+    fillTable(FORM);
 });
 
 // Función para abrir el modal de eliminar.
