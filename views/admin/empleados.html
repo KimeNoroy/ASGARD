@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- Definir idioma de la página -->
 <html lang="es">
 
 <head>
@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Título del documento -->
-    <title>Empleados</title>
+    <title>Consumidor Final</title>
     <!-- Mandar a llamar el framework -->
     <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
     <!-- Css de un boton naranja -->
@@ -18,168 +18,121 @@
 </head>
 
 <body>
-    <div class="grid-container">
-        <!-- Navbar -->
-        <aside></aside>
-
-        <!-- Main -->
-        <main class="main-container">
-            <div class="main-title">
-                <h3 class="fw-bold fs-4 mb-3">Empleados</h3>
-
-                <!-- Boton para agregar a nuevo empleado -->
-                <button type="button" class="btn btn-warning float-start" data-bs-toggle="modal"
-                    data-bs-target="#crearModal"><i class="bi bi-file-earmark-plus" onclick="openCreate()"></i> Agregar
-                    Empleado</button>
-            </div>
-
-            <!-- Tabla de registros: Empleados  -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-12">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <td colspan="6" id="rowsFound"></td>
-                                    </tr>
-                                    <tr class="highlight">
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Apellido</th>
-                                        <th scope="col">Dui</th>
-                                    </tr>
-                                </thead>
-                                <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-                                <tbody id="tableBodyEmpleados"></tbody>
-                            </table>
-                        </div>
+    <!-- Espacio vertical -->
+    <br>
+    <main>
+        <!-- Título del contenido principal -->
+        <h3 id="mainTitle"></h3>
+        <div class="row">
+            <!-- Formulario de búsqueda -->
+            <form class="col-sm-12 col-md-6" id="searchForm">
+                <div class="row">
+                    <div class="col-6">
+                        <input type="search" class="form-control" name="search" placeholder="Buscar por nombre de admin"
+                            required>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-search"></i>
+                        </button>
+                        <button type="reset" class="btn btn-secondary" onclick="fillTable()">
+                            <i class="bi bi-x-square-fill"></i>
+                        </button>
                     </div>
                 </div>
+            </form>
+            <br>
+            <br>
+            <!-- Botón para crear -->
+            <div class="col-12 col-sm-auto ms-auto">
+                <button type="button" class="btn btn-primary  me-2 mb-2 mb-sm-0" onclick="openCreate()">
+                    <i class="bi bi-plus-square-fill"></i>
+                </button>
             </div>
+        </div>
 
-            <!-- Modal para editar empleado -->
-            <div class="modal fade" id="modificarModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Editar usuario</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <!-- Formulario para crear o actualizar un registro -->
-                        <form id="saveForm">
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="nombres_empleado" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="nombres_empleado"
-                                            name="nombres_empleado" placeholder="Nombre">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="apellidos_empleado" class="form-label">Apellido</label>
-                                        <input type="text" class="form-control" id="apellidos_empleado"
-                                            name="apellidos_empleado" placeholder="Apellido">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="dui_empleado" class="form-label">DUI</label>
-                                        <input type="text" class="form-control" id="dui_empleado" name="dui_empleado"
-                                            placeholder="12345678-9" maxlength="10">
-                                        <small id="duiHelp" class="form-text text-muted">Debe tener el formato
-                                            12345678-9</small>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="email_empleado" class="form-label">Correo</label>
-                                        <input type="email" class="form-control" id="email_empleado"
-                                            name="email_empleado" placeholder="usuario@dominio.com">
-                                    </div>
+        <!-- Tabla para mostrar los registros existentes -->
+        <table class="table table-hover">
+            <!-- Encabezado de la tabla -->
+            <thead>
+                <tr>
+                    <!-- Cantidad de registros encontrados -->
+                    <td colspan="5" id="rowsFound"></td>
+                </tr>
+                <!-- Títulos de las columnas -->
+                <tr>
+                    <th>Nombre del usuario</th>
+                    <th>Apellido del usuario</th>
+                    <th>Correo electrónico</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
 
-                                    <div class="col-md-6 mb-3">
-                                        <label for="contrasena" class="form-label">Contraseña</label>
-                                        <input type="number" class="form-control" id="contrasena" name="contrasena"
-                                            placeholder="Teléfono">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-warning" id="guardarUsuario">Guardar</button>
-                            </div>
-                        </form>
+            <!-- Cuerpo de la tabla -->
+            <tbody id="tableBody"></tbody>
+        </table>
+
+        <!-- Modal para guardar un registro -->
+        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <!-- Formulario para guardar un registro -->
+                    <form id="saveForm">
+                        <div class="modal-body row g-3">
+                            <!-- Campo oculto para el ID -->
+                            <input type="number" class="d-none" id="idAdmin" name="idAdmin">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="NAdmin" class="form-label">Nombre</label>
+                                <input id="NAdmin" type="text" name="NAdmin" class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="ApAdmin" class="form-label">Apellido</label>
+                                <input id="ApAdmin" type="text" name="ApAdmin" class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="CorreoAd" class="form-label">Correo electrónico</label>
+                                <input id="CorreoAd" type="email" name="CorreoAd" class="form-control">
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="ContraAd" class="form-label">Contraseña</label>
+                                <input id="ContraAd" type="password" name="ContraAd" class="form-control">
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="confirmarClaveA" class="form-label">Confirmar contraseña</label>
+                                <input id="confirmarClaveA" type="password" name="confirmarClaveA" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            <!-- Modal para agregar un nuevo empleado -->
-            <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Agregar usuario</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <!-- Formulario para crear o actualizar un registro -->
-                        <form id="saveForm">
-                            <div class="modal-body">
-                                <div class="row">
-                                    <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                                    <input type="number" class="d-none" id="id_empleado" name="id_empleado">
-
-                                    <div class="col-md-6 mb-3">
-                                        <label for="nombres_empleado" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="nombres_empleado"
-                                            name="nombres_empleado" placeholder="Nombre">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="apellidos_empleado" class="form-label">Apellido</label>
-                                        <input type="text" class="form-control" id="apellidos_empleado"
-                                            name="apellidos_empleado" placeholder="Apellido">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="dui_empleado" class="form-label">DUI</label>
-                                        <input type="text" class="form-control" id="dui_empleado" name="dui_empleado"
-                                            placeholder="12345678-9" maxlength="10">
-                                        <small id="duiHelp" class="form-text text-muted">Debe el formato
-                                            12345678-9</small>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <label for="contrasena" class="form-label">Contraseña</label>
-                                        <input type="text" class="form-control" id="contrasena" name="contrasena"
-                                            placeholder="Contraseña">
-                                    </div>
-                                </div>
-                            </div>
-                              <!-- Footer del modal -->
-                        <div class="modal-footer d-flex justify-content-end">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-warning" id="btnAccion">Guardar</button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </main>
-        <!-- End Main -->
-    </div>
-    <!-- End div grid-container -->
-    <!-- Mandar a llamar el framework -->
-    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
-    <!-- Mandar a llamar la librería de alertas -->
-    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
-    <!-- Llamada al controlador general de la aplicación -->
-    <script type="text/javascript" src="../../controllers/utils/componentes.js"></script>
+        </div>
+    </main>
+    <!-- IMPORTANDO ARCHIVOS JAVASCRIPT -->
     <!-- Mandar a llamar el controlador de la página privada -->
     <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
-    <!-- archivo de js para libreria de alertas -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Mandar a llamar el framework -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <!-- Mandar a llamar el controlador de sujeto excluido -->
+    <script src="../../controllers/admin/empleado.js"></script>
+    <!-- Llamada al controlador -->
+    <script src="../../controllers/utils/componentes.js"></script>
+    <!-- Validar número de teléfono -->
+    <script src="../../resources/js/validar_telefono.js"></script>
+    <!-- Validar número de DUI -->
+    <script src="../../resources/js/validar_dui.js"></script>
+    <!-- Validar número de NIT -->
+    <script src="../../resources/js/validar_nit.js"></script>
     <!-- archivo de js para libreria de iconos para el navbar -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-
-    <!-- archivo de js para libreria de alertas -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <!-- Custom JS -->
-    <script type="text/javascript" src="../../controllers/admin/empleado.js"></script>
+    <!-- Mandar a llamar la librería de alertas -->
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
 </body>
 
