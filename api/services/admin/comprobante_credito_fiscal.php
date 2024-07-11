@@ -90,6 +90,7 @@ if (isset($_GET['action'])) {
                     !$usuario->setFecha($_POST['fechaEmision']) or
                     !$usuario->setDescripcion($_POST['descripcion']) or
                     !$usuario->setIdCliente($_POST['id_cliente']) or
+                    !$usuario->setTipoServicio($_POST['tipoServicio']) or
                     !$usuario->setIdServicio($_POST['id_servicio'])
                 ) {
                     $result['error'] = $usuario->getDataError();
