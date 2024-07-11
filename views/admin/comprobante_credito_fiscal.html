@@ -24,7 +24,7 @@
         <!-- CREAMOS FILAS Y COLUMNAS (ROW = FILAS, COL = COLUMNAS) -->
         <!-- CREAMOS EL CONTENEDOR PADRE DE LOS ELEMENTOS  BOTON AGREGAR Y LA BARRA DE BUSQUEDA-->
         <div class="container-fluid">
-            <h3>Usuarios para factura Comprobante Crédito Fiscal</h3>
+            <h3>Usuarios para comprobante de credito fiscal</h3>
             <!-- CREAMOS LA FILA Y COLUMNA DONDE COLOCAMOS EL BOTON "AGREGAR" Y LA "BARRA DE BUSQUEDA"-->
             <div class="row mt-5 row-gap-3">
                 <div class="col-12 col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -37,8 +37,7 @@
                 </div>
                 <div class="col-12 col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <!-- Botón para abrir el modal -->
-                    <button type="button" class="btn btn-dark ms-5" onclick="abrirModal('Agregar usuario')"
-                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar
+                    <button type="button" class="btn btn-dark ms-5" onclick="abrirModal('Agregar usuario')">Agregar
                         Usuario</button>
                 </div>
             </div>
@@ -48,11 +47,10 @@
                     <!-- CREAMOS LA CABECERA DE LA TABLA COLORES -->
                     <thead>
                         <tr>
-                            <td colspan="15" id="filasEncontradas"></td>
+                            <td colspan="12" id="filasEncontradas"></td>
                         </tr>
                         <tr>
                             <th class="text-center">Nombres</th>
-                            <th class="text-center">Apellidos</th>
                             <th class="text-center">Email</th>
                             <th class="text-center">Teléfono</th>
                             <th class="text-center">DUI</th>
@@ -60,12 +58,9 @@
                             <th class="text-center">Dirección</th>
                             <th class="text-center">Departamento</th>
                             <th class="text-center">Municipio</th>
-                            <th class="text-center">NCR</th>
-                            <th class="text-center">Giro</th>
-                            <th class="text-center">Actividad económica</th>
                             <th class="text-center">Tipo de servicio</th>
-                            <th class="text-center">Fecha de emisión</th>
                             <th class="text-center">Monto</th>
+                            <th class="text-center">Fecha de emisión</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
@@ -80,12 +75,8 @@
                             <td>Avenida avenida</td>
                             <td>San Salvador</td>
                             <td>Santa Tecla</td>
-                            <td>Ncr</td>
-                            <td>Giro</td>
-                            <td>Actividad económica</td>
                             <td>Credito fiscal</td>
                             <td>01/01/2022</td>
-                            <td>$1000</td>
                             <td id="celda-agregar-eliminar" class="text-center"></td>
                         </tr>
                     </tbody>
@@ -93,99 +84,77 @@
             </div>
         </div>
 
-        <!-- Modal agregar -->
-        <div class="modal fade" id="modalSujeto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="tituloModal" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <!-- Encabezado del modal -->
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="tituloModal"></h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form id="formSujeto">
-                        <!-- Cuerpo del modal -->
-                        <input type="hidden" id="id_factura" name="id_factura">
-                        <div class="modal-body">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="mb-md">
-                                            <label for="descripcionServicio" class="col-form-label">Descripción del
-                                                servicio:</label>
-                                            <input type="text" class="form-control" id="descripcionServicio"
-                                                name="descripcion" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-md">
-                                            <label for="ncr" class="col-form-label">NCR:</label>
-                                            <input type="text" class="form-control" id="ncr"
-                                                name="ncr" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-md">
-                                            <label for="giro" class="col-form-label">Giro:</label>
-                                            <input type="text" class="form-control" id="giro"
-                                                name="giro" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-md">
-                                            <label for="actEconomica" class="col-form-label">Actividad económica:</label>
-                                            <input type="text" class="form-control" id="actEconomica"
-                                                name="actEconomica" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-md">
-                                            <label for="monto" class="col-form-label">Monto del servicio:</label>
-                                            <input type="number" class="form-control" id="monto" name="monto" required>
-                                        </div>
-                                        <div class="mb-md">
-                                            <label for="tipoServicio" class="col-form-label">Tipo de servicio:</label>
-                                            <select class="form-select" id="tipoServicio" name="tipoServicio" required>
-                                                <option value="" selected>Selecciona una opción</option>
-                                                <option value="Credito Fiscal">Crédito Fiscal</option>
-                                                <option value="Factura Consumidor Final">Factura Consumidor Final
-                                                </option>
-                                                <option value="Factura Sujeto Excluido">Factura Sujeto Excluido</option>
-                                                <option value="Otro">Otro</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-md">
-                                            <label for="id_servicio" class="col-form-label">Servicio:</label>
-                                            <select class="form-select" id="id_servicio" name="id_servicio" required>
-                                                <!-- Opciones del select -->
-                                            </select>
-                                        </div>
-                                        <div class="mb-md">
-                                            <label for="id_cliente" class="col-form-label">Clientes:</label>
-                                            <select class="form-select" id="id_cliente" name="id_cliente" required>
-                                                <!-- Opciones del select -->
-                                            </select>
-                                        </div>
-                                        <div class="mb-md">
-                                            <label for="fechaEmision" class="col-form-label">Fecha de emisión:</label>
-                                            <input type="date" class="form-control" id="fechaEmision"
-                                                name="fechaEmision" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+       <!-- Modal agregar -->
+       <div class="modal fade" id="modalSujeto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+       aria-labelledby="tituloModal" aria-hidden="true">
+       <div class="modal-dialog modal-dialog-centered modal-lg">
+           <div class="modal-content">
+               <!-- Encabezado del modal -->
+               <div class="modal-header">
+                   <h1 class="modal-title fs-5" id="tituloModal"></h1>
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <form id="formSujeto">
+                   <!-- Cuerpo del modal -->
+                   <input type="hidden" id="id_factura" name="id_factura">
+                   <div class="modal-body">
+                       <div class="container">
+                           <div class="row">
+                               <div class="col-md-6">
+                                   <div class="mb-md">
+                                       <label for="descripcionServicio" class="col-form-label">Descripción del
+                                           servicio:</label>
+                                       <input type="text" class="form-control" id="descripcionServicio"
+                                           name="descripcion" required>
+                                   </div>
+                               </div>
+                               <div class="col-md-6">
+                                   <div class="mb-md">
+                                       <label for="monto" class="col-form-label">Monto del servicio:</label>
+                                       <input type="number" class="form-control" id="monto" name="monto" required>
+                                   </div>
+                                   <div class="mb-md">
+                                       <label for="tipoServicio" class="col-form-label">Tipo de servicio:</label>
+                                       <select class="form-select" id="tipoServicio" name="tipoServicio" required>
+                                           <option value="" selected>Selecciona una opción</option>
+                                           <option value="Credito Fiscal">Crédito Fiscal</option>
+                                           <option value="Factura Consumidor Final">Factura Consumidor Final
+                                           </option>
+                                           <option value="Factura Sujeto Excluido">Factura Sujeto Excluido</option>
+                                           <option value="Otro">Otro</option>
+                                       </select>
+                                   </div>
+                                   <div class="mb-md">
+                                       <label for="id_servicio" class="col-form-label">Servicio:</label>
+                                       <select class="form-select" id="id_servicio" name="id_servicio" required>
+                                           <!-- Opciones del select -->
+                                       </select>
+                                   </div>
+                                   <div class="mb-md">
+                                       <label for="id_cliente" class="col-form-label">Clientes:</label>
+                                       <select class="form-select" id="id_cliente" name="id_cliente" required>
+                                           <!-- Opciones del select -->
+                                       </select>
+                                   </div>
+                                   <div class="mb-md">
+                                       <label for="fechaEmision" class="col-form-label">Fecha de emisión:</label>
+                                       <input type="date" class="form-control" id="fechaEmision"
+                                           name="fechaEmision" required>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
 
-                        <!-- Footer del modal -->
-                        <div class="modal-footer d-flex justify-content-end">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-warning" id="btnAccion">Guardar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
+                   <!-- Footer del modal -->
+                   <div class="modal-footer d-flex justify-content-end">
+                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                       <button type="submit" class="btn btn-warning" id="btnAccion">Guardar</button>
+                   </div>
+               </form>
+           </div>
+       </div>
+   </div>
 
         <!-- Modal eliminar -->
         <div class="modal fade" id="borrarModalSujeto">

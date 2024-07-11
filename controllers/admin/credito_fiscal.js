@@ -24,10 +24,7 @@ const FORM_SUJETO = document.getElementById('formSujeto'),
     TIPO_SERVICIO = document.getElementById('tipoServicio'),
     ID_SERVICIO = document.getElementById('id_servicio'),
     MONTO = document.getElementById('monto'),
-    FECHA_EMISION = document.getElementById('fechaEmision'),
-    NCR = document.getElementById('ncr'),
-    GIRO = document.getElementById('giro'),
-    ACTECONOMICA = document.getElementById('actEconomica');
+    FECHA_EMISION = document.getElementById('fechaEmision');
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
@@ -91,9 +88,6 @@ const abrirModal = async (tituloModal, idFactura) => {
             MONTO.value = ROW.monto;
             FECHA_EMISION.value = ROW.fecha_emision;
             DESCRIPCION.value = ROW.descripcion;
-            NCR.value = ROW.nrc_credito_fiscal;
-            GIRO.value = ROW.giro_credito_fiscal ;
-            ACTECONOMICA.value =ROW.actividad_economica;
             // Se abre el modal editar.
             MODALSUJETO.show();
         } else {
@@ -184,9 +178,6 @@ const fillTable = async (form = null) => {
                     <td class="text-center">${row.direccion_cliente}</td>
                     <td class="text-center">${row.departamento_cliente}</td>
                     <td class="text-center">${row.municipio_cliente}</td>
-                    <td class="text-center">${row.nrc_credito_fiscal}</td>
-                    <td class="text-center">${row.giro_credito_fiscal }</td>
-                    <td class="text-center">${row.actividad_economica }</td>
                     <td class="text-center">${row.email_cliente}</td>
                     <td class="text-center">${row.telefono_cliente}</td>
                     <td class="text-center">${row.dui_cliente}</td>
