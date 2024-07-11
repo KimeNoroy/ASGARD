@@ -158,6 +158,8 @@ FORM_SUJETO.addEventListener('submit', async (event) => {
 });
 
 const fillTable = async (form = null) => {
+    FILAS_ENCONTRADAS.textContent = '';
+    CUERPO_TABLA.innerHTML = '';
     // Se verifica la acción a realizar.
     (form) ? action = 'searchRows' : action = 'readAll';
     // Petición para obtener los registros disponibles.
@@ -165,8 +167,7 @@ const fillTable = async (form = null) => {
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se inicializa el contenido de la tabla.
-        FILAS_ENCONTRADAS.textContent = '';
-        CUERPO_TABLA.innerHTML = '';
+        console.log('Datos recibidooos:', DATA);
         // Se recorre el conjunto de registros fila por fila.
         DATA.dataset.forEach(row => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
@@ -197,6 +198,7 @@ const fillTable = async (form = null) => {
             `;
         });
         // Se muestra un mensaje de acuerdo con el resultado.
+        console.log('Datos recibidos:', DATA);
         FILAS_ENCONTRADAS.textContent = DATA.message;
     } else {
         // En caso de que no existan usuarios registrados o no se encuentren coincidencias de búsqeuda. 
