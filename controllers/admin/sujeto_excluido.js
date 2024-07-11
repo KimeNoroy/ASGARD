@@ -187,7 +187,7 @@ const fillTable = async (form = null) => {
                     <td class="text-center">${row.fecha_emision}</td>
                     <td class="text-center">${row.descripcion}</td>
                     <td class="celda-agregar-eliminar text-right text-center">
-                        <button type="button" class="btn btn-success text-center" onclick="abrirModal('Editar factura',${row.id_factura})">
+                        <button type="button" class="btn btn-primary text-center" onclick="abrirModal('Editar factura',${row.id_factura})">
                             <img src="../../resources/img/lapiz.png" alt="lapizEditar" width="30px">
                         </button>
                         <button type="button" class="btn btn-danger text-center" onclick="eliminarServicio(${row.id_factura})">

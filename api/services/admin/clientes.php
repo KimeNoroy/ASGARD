@@ -29,8 +29,8 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$cliente->setNombre($_POST['nombreCliente']) or
-                    !$cliente->setApellido($_POST['apellidoClienter']) or
-                    !$cliente->setEmail($_POST['emailCliente']) or
+                    !$cliente->setApellido($_POST['apellidoCliente']) or
+                    !$cliente->setCorreo($_POST['emailCliente']) or
                     !$cliente->setNit($_POST['nitCliente']) or
                     !$cliente->setDireccion($_POST['direccionCliente']) or
                     !$cliente->setDepartamento($_POST['departamentoCliente']) or
@@ -39,8 +39,6 @@ if (isset($_GET['action'])) {
                     !$cliente->setDui($_POST['duiCliente'])
                 ) {
                     $result['error'] = $cliente->getDataError();
-                } elseif ($_POST['claveCliente'] != $_POST['confirmarClave']) {
-                    $result['error'] = 'Contraseñas diferentes';
                 } elseif ($cliente->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Cliente creado correctamente';

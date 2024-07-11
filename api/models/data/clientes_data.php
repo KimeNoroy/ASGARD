@@ -138,6 +138,20 @@ public function setMunicipio($value, $min = 2, $max = 100)
         }
     }
 
+    public function setNit($value)
+    {
+        if (!Validator::validateNaturalNumber($value)) {
+            $this->data_error = 'El DUI debe tener el formato ########-#';
+            return false;
+        } elseif($this->checkDuplicate($value)) {
+            $this->data_error = 'El DUI ingresado ya existe';
+            return false;
+        } else {
+            $this->nit = $value;
+            return true;
+        }
+    }
+
     // Método para obtener el error de los datos.
     public function getDataError()
     {

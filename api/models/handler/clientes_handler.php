@@ -113,9 +113,9 @@ class ClienteHandler
 
     public function createRow()
     {
-        $sql = 'INSERT INTO tb_clientes(nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono, dui_cliente, nit_cliente)
-                VALUES(?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre, $this->apellido, $this->correo, $this->clave, $this->direccion, $this->departamento, $this->municipio,$this->telefono, $this->dui, $this->nit);
+        $sql = 'INSERT INTO tb_clientes(nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente, dui_cliente, nit_cliente)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre, $this->apellido, $this->correo, $this->direccion, $this->departamento, $this->municipio,$this->telefono, $this->dui, $this->nit);
         return Database::executeRow($sql, $params);
     }
 
