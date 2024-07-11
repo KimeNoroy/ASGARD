@@ -43,14 +43,32 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al crear el administrador';
                 }
                 break;
-            case 'readAll':
-                if ($result['dataset'] = $administrador->readAll()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
-                } else {
-                    $result['error'] = 'No existen administradores registrados';
-                }
-                break;
+                case 'createTrabajadores':
+                    $_POST = Validator::validateForm($_POST);
+                    if (
+                    !$administrador->setNombre($_POST['NAdmin']) or
+                    !$administrador->setApellido($_POST['ApAdmin']) or
+                    !$administrador->setEmail($_POST['CorreoAd']) or
+                    !$administrador->setContraseña($_POST['ContraAd'])
+                    ) {
+                        $result['error'] = $administrador->getDataError();
+                    } elseif ($_POST['ContraAd'] != $_POST['confirmarClaveA']) {
+                        $result['error'] = 'Contraseñas diferentes';
+                    } elseif ($administrador->createRow()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Administrador creado correctamente';
+                    } else {
+                        $result['error'] = 'Ocurrió un problema al crear el administrador';
+                    }
+                    break;
+                    case 'readAll':
+                        if ($result['dataset'] = $administrador->readAll()) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                        } else {
+                            $result['error'] = 'No existen administradores registrados';
+                        }
+                        break;
             case 'readDashboardStats':
                 if ($result['dataset'] = $administrador->readDashboardStats()) {
                     $result['status'] = 1;
@@ -60,7 +78,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readOne':
-                if (!$administrador->setId($_POST['idAdministrador'])) {
+                if (!$administrador->setId($_POST['idAdmin'])) {
                     $result['error'] = 'Administrador incorrecto';
                 } elseif ($result['dataset'] = $administrador->readOne()) {
                     $result['status'] = 1;
@@ -71,10 +89,10 @@ if (isset($_GET['action'])) {
             case 'updateRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$administrador->setId($_POST['idAdministrador']) or
-                    !$administrador->setNombre($_POST['nombreAdministrador']) or
-                    !$administrador->setApellido($_POST['apellidoAdministrador']) or
-                    !$administrador->setEmail($_POST['emailAdministrador'])
+                    !$administrador->setId($_POST['idAdmin']) or
+                    !$administrador->setNombre($_POST['NAdmin']) or
+                    !$administrador->setApellido($_POST['ApAdmin']) or
+                    !$administrador->setEmail($_POST['CorreoAd'])
                 ) {
                     $result['error'] = $administrador->getDataError();
                 } elseif ($administrador->updateRow()) {
@@ -85,13 +103,13 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'deleteRow':
-                if ($_POST['idAdministrador'] == $_SESSION['idAdministrador']) {
+                if ($_POST['idAdmin'] == $_SESSION['idAdministrador']) {
                     $result['error'] = 'No se puede eliminar a sí mismo';
-                } elseif (!$administrador->setId($_POST['idAdministrador'])) {
+                } elseif (!$administrador->setId($_POST['idAdmin'])) {
                     $result['error'] = $administrador->getDataError();
                 } elseif ($administrador->deleteRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Administrador eliminado correctamente';
+                    $result['message'] = 'Empleado eliminado correctamente';
                 } else {
                     $result['error'] = 'Ocurrió un problema al eliminar el administrador';
                 }
