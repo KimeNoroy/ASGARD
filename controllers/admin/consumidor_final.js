@@ -1,10 +1,9 @@
 // Constante para completar la ruta de la API.
-const FACTURA_API = 'services/admin/factura_sujeto_excluido.php';
-// Constante para almacenar el modal de editar.
+const FACTURA_API = 'services/admin/factura_consumidor_final.php';
 // Constante para almacenar el modal de editar.
 const MODALSUJETO = new bootstrap.Modal('#modalSujeto');
 // Constante que almacena el form de búsqueda.
-const FORM_BUSCAR = document.getElementById('formBuscar');
+const SEARCH_FORM = document.getElementById('formBuscar');
 // Constante para almacenar el modal de eliminar.
 const MODALBSUJETO = new bootstrap.Modal('#borrarModalSujeto');
 // Constantes para cargar los elementos de la tabla.
@@ -13,8 +12,10 @@ const FILAS_ENCONTRADAS = document.getElementById('filasEncontradas'),
 // Constante para definir el título del modal y botón.
 const TITULO_MODAL = document.getElementById('tituloModal'),
     BOTON_ACCION = document.getElementById('btnAccion');
+
     // MODALS
 MAIN_TITLE = document.getElementById("tituloModal")
+
 // Constantes para establecer los elementos del formulario.
 const FORM_SUJETO = document.getElementById('formSujeto'),
     ID_FACTURA = document.getElementById('id_factura'),
@@ -24,19 +25,23 @@ const FORM_SUJETO = document.getElementById('formSujeto'),
     ID_SERVICIO = document.getElementById('id_servicio'),
     MONTO = document.getElementById('monto'),
     FECHA_EMISION = document.getElementById('fechaEmision');
+
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
+
     // Se establece el título del contenido principal.
     MAIN_TITLE.textContent = 'Gestionar usuarios';
     // Llamada a la función para llenar la tabla con los registros existentes.
     fillTable();
 });
+
 // Función para abrir el modal crear o editar.
 const abrirModal = async (tituloModal, idFactura) => {
     // Se configura el título del modal.
     TITULO_MODAL.textContent = tituloModal;
+
     if (idFactura == null) {
         // Se remueve el antiguo color del botón.
         BOTON_ACCION.classList.remove('btn-success');
@@ -48,6 +53,7 @@ const abrirModal = async (tituloModal, idFactura) => {
         FORM_SUJETO.reset();
         // Limpiar el valor de ID_FACTURA.
         ID_FACTURA.value = '';
+
         await fillSelect(FACTURA_API, 'readAllclientes', 'id_cliente');
         await fillSelect(FACTURA_API, 'readAllservicio', 'id_servicio');
         // Se abre el modal agregar.
@@ -91,13 +97,13 @@ const abrirModal = async (tituloModal, idFactura) => {
 }
 
 // Método del evento para cuando se envía el formulario de buscar.
-FORM_BUSCAR.addEventListener('submit', (event) => {
+SEARCH_FORM.addEventListener('submit', (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Constante tipo objeto con los datos del formulario.
-    const FORM = new FormData(FORM_BUSCAR);
+    const FORM = new FormData(SEARCH_FORM);
     // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
-    loadTemplate(FORM);
+    fillTable(FORM);
 });
 
 // Función para abrir el modal de eliminar.
@@ -119,6 +125,7 @@ const eliminarServicio = async (id_factura) => {
         sweetAlert(2, DATA.error, false);
     }
 }
+
 // Método del evento para cuando se envía el formulario de guardar.
 FORM_SUJETO.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
@@ -149,6 +156,7 @@ FORM_SUJETO.addEventListener('submit', async (event) => {
         sweetAlert(2, DATA.error, false);
     }
 });
+
 const fillTable = async (form = null) => {
     // Se verifica la acción a realizar.
     (form) ? action = 'searchRows' : action = 'readAll';
