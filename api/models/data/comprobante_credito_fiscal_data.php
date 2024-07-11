@@ -107,7 +107,7 @@ class ComprobanteCreditoFiscal extends ComprobanteCreditoFiscalHandler
 
     public function setNcr($value)
     {
-        if (Validator::validateDate($value)) {
+        if (Validator::validateString($value)) {
             $this->ncr = $value;
             return true;
         } else {
@@ -118,7 +118,7 @@ class ComprobanteCreditoFiscal extends ComprobanteCreditoFiscalHandler
 
     public function setGiro($value)
     {
-        if (Validator::validateDate($value)) {
+        if (Validator::validateString($value)) {
             $this->giro = $value;
             return true;
         } else {
@@ -129,7 +129,7 @@ class ComprobanteCreditoFiscal extends ComprobanteCreditoFiscalHandler
 
     public function setActEconomica($value)
     {
-        if (Validator::validateDate($value)) {
+        if (Validator::validateString($value)) {
             $this->actEconomica = $value;
             return true;
         } else {

@@ -18,9 +18,6 @@ class ComprobanteCreditoFiscalHandler
     protected $monto = null;
     protected $descripcion = null;
     protected $fecha = null;
-    protected $ncr = null;
-    protected $giro = null;
-    protected $actEconomica = null;
 
     /*
      *   Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
@@ -30,7 +27,7 @@ class ComprobanteCreditoFiscalHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, nrc_credito_fiscal, giro_credito_fiscal, actividad_economica, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
+        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
                 FROM tb_comprobante_credito_fiscal
                 WHERE nombre_cliente LIKE ? OR apellido_cliente LIKE ?
                 ORDER BY nombre_cliente';
@@ -41,9 +38,8 @@ class ComprobanteCreditoFiscalHandler
     // Método para crear un nuevo usuario.
     public function createRow()
     {
-        $sql = 'INSERT INTO tb_comprobante_credito_fiscal(tipo_servicio, monto, fecha_emision, descripcion, id_administrador, id_cliente, id_servicio, nrc_credito_fiscal, giro_credito_fiscal, actividad_economica)
-                VALUES(?, ?, ?, ?, ?, ?, ?, ? ,?, ?)';
-
+        $sql = 'INSERT INTO tb_comprobante_credito_fiscal(tipo_servicio, monto, fecha_emision, descripcion, id_administrador, id_cliente, id_servicio)
+                VALUES(?, ?, ?, ?, ?, ?, ?)';
         $params = array(
             $this->tipo_servicio,
             $this->monto,
@@ -51,10 +47,7 @@ class ComprobanteCreditoFiscalHandler
             $this->descripcion,
             $_SESSION['idAdministrador'],
             $this->id_cliente,
-            $this->id_servicio,
-            $this->ncr,
-            $this->giro,
-            $this->actEconomica
+            $this->id_servicio
         );
         return Database::executeRow($sql, $params);
     }
@@ -62,7 +55,7 @@ class ComprobanteCreditoFiscalHandler
     // Método para leer todos los usuarios.
     public function readAll()
     {
-        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, nrc_credito_fiscal, giro_credito_fiscal, actividad_economica, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision
+        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision
                 FROM vista_tb_comprobante_credito_fiscal
                 ORDER BY nombre_cliente';
         return Database::getRows($sql);
@@ -86,7 +79,7 @@ class ComprobanteCreditoFiscalHandler
     // Método para leer un usuario específico.
     public function readOne()
     {
-        $sql = 'SELECT id_factura, id_cliente, id_servicio, tipo_servicio, monto, fecha_emision, descripcion, nrc_credito_fiscal, giro_credito_fiscal, actividad_economica
+        $sql = 'SELECT id_factura, id_cliente, id_servicio, tipo_servicio, monto, fecha_emision, descripcion
                 FROM vista_tb_comprobante_credito_fiscal
                 WHERE id_factura = ?';
         $params = array($this->id);
@@ -107,10 +100,7 @@ class ComprobanteCreditoFiscalHandler
             $_SESSION['idAdministrador'],
             $this->id_cliente,
             $this->id_servicio,
-            $this->id,
-            $this->ncr,
-            $this->giro,
-            $this->actEconomica
+            $this->id
         );
         return Database::executeRow($sql, $params);
     }

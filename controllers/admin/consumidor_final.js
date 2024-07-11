@@ -3,7 +3,7 @@ const FACTURA_API = 'services/admin/factura_sujeto_excluido.php';
 // Constante para almacenar el modal de editar.
 const MODALSUJETO = new bootstrap.Modal('#modalSujeto');
 // Constante que almacena el form de búsqueda.
-const FORM_BUSCAR = document.getElementById('formBuscar');
+const SEARCH_FORM = document.getElementById('searchForm');
 // Constante para almacenar el modal de eliminar.
 const MODALBSUJETO = new bootstrap.Modal('#borrarModalSujeto');
 // Constantes para cargar los elementos de la tabla.
@@ -97,13 +97,13 @@ const abrirModal = async (tituloModal, idFactura) => {
 }
 
 // Método del evento para cuando se envía el formulario de buscar.
-FORM_BUSCAR.addEventListener('submit', (event) => {
+SEARCH_FORM.addEventListener('submit', (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Constante tipo objeto con los datos del formulario.
-    const FORM = new FormData(FORM_BUSCAR);
+    const FORM = new FormData(SEARCH_FORM);
     // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
-    loadTemplate(FORM);
+    fillTable(FORM);
 });
 
 // Función para abrir el modal de eliminar.

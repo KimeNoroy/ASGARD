@@ -33,10 +33,7 @@ if (isset($_GET['action'])) {
                     !$usuario->setFecha($_POST['fechaEmision']) or
                     !$usuario->setDescripcion($_POST['descripcion']) or
                     !$usuario->setIdCliente($_POST['id_cliente']) or
-                    !$usuario->setIdServicio($_POST['id_servicio']) or
-                    !$usuario->setNcr($_POST['nrc_credito_fiscal']) or
-                    !$usuario->setGiro($_POST['giro_credito_fiscal']) or
-                    !$usuario->setActEconomica($_POST['actividad_economica'])
+                    !$usuario->setIdServicio($_POST['id_servicio'])
                 ) {
                     $result['error'] = $usuario->getDataError();
                 } elseif ($usuario->createRow()) {
@@ -93,10 +90,7 @@ if (isset($_GET['action'])) {
                     !$usuario->setFecha($_POST['fechaEmision']) or
                     !$usuario->setDescripcion($_POST['descripcion']) or
                     !$usuario->setIdCliente($_POST['id_cliente']) or
-                    !$usuario->setIdServicio($_POST['id_servicio']) or
-                    !$usuario->setNcr($_POST['nrc_credito_fiscal']) or
-                    !$usuario->setGiro($_POST['giro_credito_fiscal']) or
-                    !$usuario->setActEconomica($_POST['actividad_economica'])
+                    !$usuario->setIdServicio($_POST['id_servicio'])
                 ) {
                     $result['error'] = $usuario->getDataError();
                 } elseif ($usuario->updateRow()) {

@@ -4,7 +4,8 @@ const ADMINISTRADOR_API = 'services/admin/administrador.php';
 const SEARCH_FORM = document.getElementById('searchForm');
 // Constantes para establecer los elementos de la tabla.
 const TABLE_BODY = document.getElementById('tableBody'),
-    ROWS_FOUND = document.getElementById('rowsFound');
+    ROWS_FOUND = document.getElementById('rowsFound'),
+    MAIN_TITLE = document.getElementById('mainTitle');
 // Constantes para establecer los elementos del componente Modal.
 const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
     MODAL_TITLE = document.getElementById('modalTitle');
@@ -13,9 +14,11 @@ const SAVE_FORM = document.getElementById('saveForm'),
     ID_ADMINISTRADOR = document.getElementById('idAdministrador'),
     NOMBRE_ADMINISTRADOR = document.getElementById('nombreAdministrador'),
     APELLIDO_ADMINISTRADOR = document.getElementById('apellidoAdministrador'),
-    EMAIL_ADMINISTRADOR = document.getElementById('emailAdministrador'),
+    EMAIL_ADMINISTRADOR = document.getElementById('correoAdministrador'),
     CLAVE_ADMINISTRADOR = document.getElementById('claveAdministrador'),
-    CONFIRMAR_CLAVE = document.getElementById('confirmarClave');
+    CONFIRMAR_CLAVE = document.getElementById('confirmarClave'),
+    DIV_CONTRA = document.getElementById('idcontra'),
+    DIV_CONTRAR = document.getElementById('idcontraR');
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
@@ -42,7 +45,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (ID_ADMINISTRADOR.value) ? action = 'updateRow' : action = 'createRow';
+    (ID_ADMINISTRADOR.value) ? action = 'updateRow2' : action = 'createRow';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM);
     // Petición para guardar los datos del formulario.
@@ -74,6 +77,7 @@ const fillTable = async (form = null) => {
     // Petición para obtener los registros disponibles.
     const DATA = await fetchData(ADMINISTRADOR_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    console.log('Esstoy en el try ', DATA);
     if (DATA.status) {
         // Se recorre el conjunto de registros fila por fila.
         DATA.dataset.forEach(row => {
@@ -98,6 +102,8 @@ const fillTable = async (form = null) => {
         ROWS_FOUND.textContent = DATA.message;
     } else {
         sweetAlert(4, DATA.error, true);
+        console.log(DATA.error);
+        console.log(DATA);
     }
 }
 
@@ -112,9 +118,11 @@ const openCreate = () => {
     MODAL_TITLE.textContent = 'Crear administrador';
     // Se prepara el formulario.
     SAVE_FORM.reset();
-    //EMAIL_ADMINISTRADOR.disabled = false;
+    EMAIL_ADMINISTRADOR.disabled = false;
     CLAVE_ADMINISTRADOR.disabled = false;
     CONFIRMAR_CLAVE.disabled = false;
+    DIV_CONTRA.classList.remove('d-none');
+    DIV_CONTRAR.classList.remove('d-none');
 }
 
 /*
@@ -125,25 +133,29 @@ const openCreate = () => {
 const openUpdate = async (id) => {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
-    FORM.append('idAdministrador', id);
+    FORM.append('idAdmin', id);
     // Petición para obtener los datos del registro solicitado.
     const DATA = await fetchData(ADMINISTRADOR_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    console.log(DATA);
     if (DATA.status) {
+        DIV_CONTRA.classList.add('d-none');
+        DIV_CONTRAR.classList.add('d-none');
         // Se muestra la caja de diálogo con su título.
         SAVE_MODAL.show();
         MODAL_TITLE.textContent = 'Actualizar administrador';
         // Se prepara el formulario.
         SAVE_FORM.reset();
-        EMAIL_ADMINISTRADOR.disabled = true;
-        CLAVE_ADMINISTRADOR.disabled = true;
-        CONFIRMAR_CLAVE.disabled = true;
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
         ID_ADMINISTRADOR.value = ROW.id_administrador;
         NOMBRE_ADMINISTRADOR.value = ROW.nombre_administrador;
         APELLIDO_ADMINISTRADOR.value = ROW.apellido_administrador;
         EMAIL_ADMINISTRADOR.value = ROW.email_administrador;
+
+        EMAIL_ADMINISTRADOR.disabled = true;
+        CLAVE_ADMINISTRADOR.disabled = true;
+        CONFIRMAR_CLAVE.disabled = true;
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -161,7 +173,7 @@ const openDelete = async (id) => {
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM = new FormData();
-        FORM.append('idAdministrador', id);
+        FORM.append('idAdmin', id);
         // Petición para eliminar el registro seleccionado.
         const DATA = await fetchData(ADMINISTRADOR_API, 'deleteRow', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
