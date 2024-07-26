@@ -1,7 +1,9 @@
 // Constante para completar la ruta de la API.
 const ADMINISTRADOR_API = 'services/admin/administrador.php';
+
 // Constante para establecer el formulario de buscar.
 const SEARCH_FORM = document.getElementById('searchForm');
+
 // Constantes para establecer los elementos de la tabla.
 const TABLE_BODY = document.getElementById('tableBody'),
     ROWS_FOUND = document.getElementById('rowsFound'),

@@ -12,7 +12,7 @@
     <!-- Css de un boton naranja -->
     <link href="../../resources/css/color_de_botones.css">
     <!-- Css para la tabla responsive -->
-    <link rel="stylesheet" href="../../resources/css/navbar.css">
+    <link rel="stylesheet" href="../../resources/css/sidebar.css">
     <link rel="stylesheet" href="../../resources/css/Inicio.css">
     <link rel="stylesheet" href="../../resources/css/usuariofacturacion.css">
 </head>
@@ -29,7 +29,8 @@
 
                 <!-- Boton para agregar a nuevo usuario -->
                 <button type="button" class="btn btn-warning float-start" data-bs-toggle="modal"
-                    data-bs-target="#crearModal" onclick="openCreate()"><i class="bi bi-file-earmark-plus"></i> Agregar Cliente</button>
+                    data-bs-target="#crearModal" onclick="openCreate()"><i class="bi bi-file-earmark-plus"></i> Agregar
+                    Cliente</button>
             </div>
 
             <!-- Tabla de registros: Clientes -->
@@ -46,13 +47,13 @@
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Apellido</th>
                                         <th scope="col">Dui</th>
-                                        <th scope="col">NIT</th>                                     
+                                        <th scope="col">NIT</th>
                                         <th scope="col">Correo</th>
                                         <th scope="col">Telefono</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
-                                
+
                                 <!-- Cuerpo de la tabla para mostrar un registro por fila -->
                                 <tbody id="tableBodyClientes"></tbody>
                             </table>
@@ -74,63 +75,72 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="nombre_cliente" class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre_cliente" name="nombreCliente" placeholder="Nombre">
+                                    <input type="text" class="form-control" id="nombre_cliente" name="nombreCliente"
+                                        placeholder="Nombre">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="apellido_cliente" class="form-label">Apellido</label>
-                                    <input type="text" class="form-control" id="apellido_cliente" name="apellidoCliente" placeholder="Apellido">
+                                    <input type="text" class="form-control" id="apellido_cliente" name="apellidoCliente"
+                                        placeholder="Apellido">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="dui_cliente" class="form-label">DUI</label>
-                                    <input type="text" class="form-control" id="dui_cliente" name="duiCliente" placeholder="12345678-9"
-                                        maxlength="10">
-                                    <small id="duiHelp" class="form-text text-muted">Debe tener el formato ########-#</small>
+                                    <input type="text" class="form-control" id="dui_cliente" name="duiCliente"
+                                        placeholder="12345678-9" maxlength="10">
+                                    <small id="duiHelp" class="form-text text-muted">Debe tener el formato
+                                        ########-#</small>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="nit_cliente" class="form-label">NIT</label>
-                                    <input type="text" class="form-control" id="nit_cliente" name="nitCliente" placeholder="1234-567890-123"
-                                        maxlength="13">
+                                    <input type="text" class="form-control" id="nit_cliente" name="nitCliente"
+                                        placeholder="1234-567890-123" maxlength="13">
                                     <small id="nitHelp" class="form-text text-muted">Debe tener 13 dígitos
                                         numéricos.</small>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="direccion_cliente" class="form-label">Direccion</label>
-                                    <input type="text" class="form-control" id="direccion_cliente" name="direccionCliente" placeholder="direccion">
+                                    <input type="text" class="form-control" id="direccion_cliente"
+                                        name="direccionCliente" placeholder="direccion">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="departamento_cliente class="form-label">Departamento</label>
-                                    <input type="text" class="form-control" id="departamento_cliente" name="departamentoCliente" placeholder="departamento">
+                                    <label for="departamento_cliente class=" form-label">Departamento</label>
+                                    <input type="text" class="form-control" id="departamento_cliente"
+                                        name="departamentoCliente" placeholder="departamento">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="municipio_cliente" class="form-label">Municipio</label>
-                                    <input type="text" class="form-control" id="municipio_cliente" name="municipioCliente" placeholder="municipio">
+                                    <input type="text" class="form-control" id="municipio_cliente"
+                                        name="municipioCliente" placeholder="municipio">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="email_cliente" class="form-label">Correo</label>
-                                    <input type="email" class="form-control" id="email_cliente" name="emailCliente" placeholder="usuario@dominio.com">
+                                    <input type="email" class="form-control" id="email_cliente" name="emailCliente"
+                                        placeholder="usuario@dominio.com">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="telefono" class="form-label">Teléfono</label>
-                                    <input type="number" class="form-control" id="telefono" name="telefonoCliente" placeholder="Teléfono">
-                                </div>  
+                                    <input type="number" class="form-control" id="telefono" name="telefonoCliente"
+                                        placeholder="Teléfono">
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-warning" id= "guardarUsuario">Guardar</button>
+                            <button type="submit" class="btn btn-warning" id="guardarUsuario">Guardar</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Modal para agregar un nuevo cliente -->
-            <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Agregar cliente</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        
+
                         <!-- Formulario para crear o actualizar un registro -->
                         <form id="saveForm">
                             <div class="modal-body">
@@ -140,53 +150,62 @@
 
                                     <div class="col-md-6 mb-3">
                                         <label for="nombre_cliente" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="nombre_cliente" name="nombreCliente" placeholder="Nombre">
+                                        <input type="text" class="form-control" id="nombre_cliente" name="nombreCliente"
+                                            placeholder="Nombre">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="apellido_cliente" class="form-label">Apellido</label>
-                                        <input type="text" class="form-control" id="apellido_cliente" name="apellidoCliente" placeholder="Apellido">
+                                        <input type="text" class="form-control" id="apellido_cliente"
+                                            name="apellidoCliente" placeholder="Apellido">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="dui_cliente" class="form-label">DUI</label>
-                                        <input type="text" class="form-control" id="dui_cliente" name="duiCliente" placeholder="12345678-9"
-                                            maxlength="10">
-                                        <small id="duiHelp" class="form-text text-muted">Debe tener el formato ########-#</small>
+                                        <input type="text" class="form-control" id="dui_cliente" name="duiCliente"
+                                            placeholder="12345678-9" maxlength="10">
+                                        <small id="duiHelp" class="form-text text-muted">Debe tener el formato
+                                            ########-#</small>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="nit_cliente" class="form-label">NIT</label>
-                                        <input type="text" class="form-control" id="nit_cliente" name="nitCliente" placeholder="1234-567890-123"
-                                            maxlength="13">
+                                        <input type="text" class="form-control" id="nit_cliente" name="nitCliente"
+                                            placeholder="1234-567890-123" maxlength="13">
                                         <small id="nitHelp" class="form-text text-muted">Debe tener 13 dígitos
                                             numéricos.</small>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="direccion_cliente" class="form-label">Direccion</label>
-                                        <input type="text" class="form-control" id="direccion_cliente" name="direccionCliente" placeholder="direccion">
+                                        <input type="text" class="form-control" id="direccion_cliente"
+                                            name="direccionCliente" placeholder="direccion">
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="departamento_cliente class="form-label">Departamento</label>
-                                        <input type="text" class="form-control" id="departamento_cliente" name="departamentoCliente" placeholder="departamento">
+                                        <label for="departamento_cliente class=" form-label">Departamento</label>
+                                        <input type="text" class="form-control" id="departamento_cliente"
+                                            name="departamentoCliente" placeholder="departamento">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="municipio_cliente" class="form-label">Municipio</label>
-                                        <input type="text" class="form-control" id="municipio_cliente" name="municipioCliente" placeholder="municipio">
+                                        <input type="text" class="form-control" id="municipio_cliente"
+                                            name="municipioCliente" placeholder="municipio">
                                     </div>
 
                                     <div class="col-md-6 mb-3">
                                         <label for="email_cliente" class="form-label">Correo</label>
-                                        <input type="email" class="form-control" id="email_cliente" name="emailCliente" placeholder="usuario@dominio.com">
+                                        <input type="email" class="form-control" id="email_cliente" name="emailCliente"
+                                            placeholder="usuario@dominio.com">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="telefono" class="form-label">Teléfono</label>
-                                        <input type="" class="form-control" id="telefono" name="telefonoCliente" placeholder="Teléfono">
-                                    </div>                                   
+                                        <input type="" class="form-control" id="telefono" name="telefonoCliente"
+                                            placeholder="Teléfono">
+                                    </div>
                                 </div>
                             </div>
-                             <!-- Footer del modal -->
-                        <div class="modal-footer d-flex justify-content-end">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-warning" id="btnAccion">Guardar</button>
-                        </div>
+                            <!-- Footer del modal -->
+                            <div class="modal-footer d-flex justify-content-end">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-warning" id="btnAccion">Guardar</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -194,25 +213,26 @@
     </div>
     <!-- End div grid-container -->
 
-</main>
-<!-- IMPORTANDO ARCHIVOS JAVASCRIPT -->
-<!-- Mandar a llamar el controlador de la página privada -->
-<script type="text/javascript" src="../../controllers/utils/admin.js"></script>
-<!-- Mandar a llamar el framework -->
-<script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
-<!-- Mandar a llamar el controlador de sujeto excluido -->
-<script src="../../controllers/admin/cliente.js"></script>
-<!-- Llamada al controlador -->
-<script src="../../controllers/utils/componentes.js"></script>
-<!-- Validar número de teléfono -->
-<script src="../../resources/js/validar_telefono.js"></script>
-<!-- Validar número de DUI -->
-<script src="../../resources/js/validar_dui.js"></script>
-<!-- Validar número de NIT -->
-<script src="../../resources/js/validar_nit.js"></script>
-<!-- archivo de js para libreria de iconos para el navbar -->
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<!-- Mandar a llamar la librería de alertas -->
-<script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    </main>
+    <!-- IMPORTANDO ARCHIVOS JAVASCRIPT -->
+    <!-- Mandar a llamar el controlador de la página privada -->
+    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
+    <!-- Mandar a llamar el framework -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <!-- Mandar a llamar el controlador de sujeto excluido -->
+    <script src="../../controllers/admin/cliente.js"></script>
+    <!-- Llamada al controlador -->
+    <script src="../../controllers/utils/componentes.js"></script>
+    <!-- Validar número de teléfono -->
+    <script src="../../resources/js/validar_telefono.js"></script>
+    <!-- Validar número de DUI -->
+    <script src="../../resources/js/validar_dui.js"></script>
+    <!-- Validar número de NIT -->
+    <script src="../../resources/js/validar_nit.js"></script>
+    <!-- archivo de js para libreria de iconos para el navbar -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <!-- Mandar a llamar la librería de alertas -->
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
 </body>
+
 </html>
