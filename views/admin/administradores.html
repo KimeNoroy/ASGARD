@@ -15,99 +15,123 @@
     <!-- Css para la tabla responsive -->
     <link rel="stylesheet" href="../../resources/css/sidebar.css">
     <link rel="stylesheet" href="../../resources/css/Inicio.css">
-    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css"> 
+    <link href="../../resources/css/estilos_cruds.css" rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="d-flex">
     <!-- Contenido principal del documento -->
     <main>
-        <!-- Título del contenido principal -->
-        <h3 id="mainTitle"></h3>
-        <div class="row">
-            <!-- Formulario de búsqueda -->
-            <form class="col-sm-12 col-md-6" id="searchForm">
-                <div class="row">
-                    <div class="col-6">
-                        <input type="search" class="form-control" name="search" placeholder="Buscar" required>
-                    </div>
-                    <div class="col-6">
-                        <button type="submit" class="btn btn-success">
-                            <i class="bi bi-search"></i>
-                        </button>
-                        <button type="reset" class="btn btn-secondary" onclick="fillTable()">
-                            <i class="bi bi-arrow-clockwise"></i>
-                        </button>
+        <div class="container-fluid px-5">
+            <div class="row mb-3 row-gap-3 pe-2 ps-2 d-flex align-items-center mt-4">
+                <h3 id="mainTitle"></h3>
+                <div class="col-12 col-lg-9">
+                    <div class="row d-flex contenedor-form">
+                        <form id="searchForm" class="d-flex">
+                            <!-- Este div contiene la barra de búsqueda -->
+                            <div class="col d-flex container-fluid" id="container_busqueda">
+                                <div class="d-flex">
+                                    <button type="submit" class="input-group-text elemento-form"><i
+                                            class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                                <!-- Este input crea la barra de búsqueda -->
+                                <input type="search" class="form-control elemento-form"
+                                    placeholder="Buscar administradores por nombre, apellido o correo..." name="search">
+                                <div class="d-flex">
+                                    <button type="reset" class="input-group-text elemento-form" onclick="fillTable()">
+                                        <i class="bi bi-arrow-clockwise"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
-            </form>
-            <div class="col-sm-12 col-md-6 text-end">
-                <!-- Botón para abrir una caja de diálogo al momento de crear un nuevo registro -->
-                <button type="button" class="btn btn-primary" onclick="openCreate()">
-                    <i class="bi bi-plus-square-fill">Agregar</i>
-                </button>
+                <div class="col-12 col-lg-3 d-flex justify-content-center">
+                    <div class="btn btn-warning  h-100 w-100 d-flex align-items-center justify-content-center gap-2 contenedor-form"
+                        type="submit" onclick="openCreate()">
+                        Agregar administradores <i class="bi bi-plus h3 agregar-icono"></i>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mb-5">
+            <div class="table-responsive-lg">
+                <!-- Tabla para mostrar los registros existentes -->
+                <table class="table table-hover caption-top">
+                    <!-- Cabeza de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
+                    <thead>
+                        <tr>
+                            <td colspan="5" id="rowsFound"></td>
+                        </tr>
+                        <tr class="text-center">
+                            <th>Nombres</th>
+                            <th>Apellido</th>
+                            <th>Correo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+                    <tbody id="tableBody" class="text-center"></tbody>
+                </table>
             </div>
         </div>
 
-        <!-- Tabla para mostrar los registros existentes -->
-        <table class="table table-hover">
-            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
-            <thead>
-                <tr>
-                    <td colspan="5" id="rowsFound"></td>
-                </tr>
-                <tr>
-                    <th>APELLIDO</th>
-                    <th>NOMBRE</th>
-                    <th>CORREO</th>
-                    <th>ACCIONES</th>
-                </tr>
-            </thead>
-            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-            <tbody id="tableBody"></tbody>
-        </table>
-
         <!-- Componente Modal para guardar un registro -->
-        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false"
             aria-labelledby="modalTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-header ">
+                        <h1 class="modal-title fs-5 text-dark" id="modalTitle"></h1>
+                        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal" tabindex="-1"
+                            aria-label="Close"></button>
                     </div>
-                    <!-- Formulario para guardar un registro -->
+                    <!-- Formulario para crear o actualizar un registro -->
                     <form id="saveForm">
-                        <div class="modal-body row g-3">
+                        <div class="modal-body row g-3 justify-content-center">
                             <!-- Campo oculto para asignar el id del registro al momento de modificar -->
                             <input type="number" class="d-none" id="idAdministrador" name="idAdministrador">
                             <div class="col-sm-12 col-md-6">
-                                <label for="nombreAdministrador" class="form-label">Nombre</label>
+                                <label for="nombreAdministrador" class="form-label fw-semibold">Nombre</label>
                                 <input id="nombreAdministrador" type="text" name="nombreAdministrador"
-                                    class="form-control" required>
+                                    class="form-control" placeholder="Ingrese el nombre del administrador"
+                                    autocomplete="off" required>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <label for="apellidoAdministrador" class="form-label">Apellido</label>
+                                <label for="apellidoAdministrador" class="form-label fw-semibold">Apellido</label>
                                 <input id="apellidoAdministrador" type="text" name="apellidoAdministrador"
-                                    class="form-control" required>
+                                    class="form-control" placeholder="Ingrese el apellido del administrador"
+                                    autocomplete="off" required>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <label for="correoAdministrador" class="form-label">Correo</label>
+                                <label for="correoAdministrador" class="form-label fw-semibold">Correo</label>
                                 <input id="correoAdministrador" type="email" name="correoAdministrador"
-                                    class="form-control" required>
+                                    class="form-control" placeholder="Ingrese el correo de administrador"
+                                    autocomplete="off" required>
                             </div>
                             <div class="col-sm-12 col-md-6" id="idcontra">
-                                <label for="claveAdministrador" class="form-label">Contraseña</label>
+                                <label for="claveAdministrador" class="form-label fw-semibold">Contraseña</label>
                                 <input id="claveAdministrador" type="password" name="claveAdministrador"
-                                    class="form-control">
+                                    class="form-control" placeholder="Ingrese la clave del administrador"
+                                    autocomplete="off" required>
                             </div>
                             <div class="col-sm-12 col-md-6" id="idcontraR">
-                                <label for="confirmarClave" class="form-label">Confirmar contraseña</label>
+                                <label for="confirmarClave" class="form-label fw-semibold">Repetir
+                                    contraseña</label>
                                 <input id="confirmarClave" type="password" name="confirmarClave" class="form-control"
-                                    >
+                                    placeholder="Repita la clave del administrador" autocomplete="off" required>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        <div class="modal-footer col-sm-12 col-md-12 col-lg-12 justify-content-center">
+                            <button type="submit" id="btnAgregar" class="btn btn-warning"><i class="bi bi-plus"></i>  Agregar administrador</button>
+
+                            <button type="submit" class="btn bg-success text-white d-none" id="btnActualizar">
+                                <i class="bi bi-pencil-fill"></i>
+                                Actualizar administrador
+                            </button>
                         </div>
                     </form>
                 </div>

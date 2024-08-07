@@ -28,13 +28,14 @@ class ComprobanteCreditoFiscalHandler
     {
         $value = '%' . Validator::getSearchValue() . '%';
         $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
-                FROM tb_comprobante_credito_fiscal
-                WHERE nombre_cliente LIKE ? OR apellido_cliente LIKE ?
+                FROM vista_tb_comprobante_credito_fiscal
+                WHERE nombre_cliente LIKE ? OR apellido_cliente LIKE ? OR nit_cliente LIKE ?  OR departamento_cliente LIKE ? OR email_cliente LIKE ? OR telefono_cliente LIKE ? OR dui_cliente LIKE ? OR tipo_servicio LIKE ?
                 ORDER BY nombre_cliente';
-        $params = array($value, $value);
+        $params = array($value, $value, $value, $value, $value, $value, $value, $value);
         return Database::getRows($sql, $params);
     }
-
+    
+    
     // Método para crear un nuevo usuario.
     public function createRow()
     {

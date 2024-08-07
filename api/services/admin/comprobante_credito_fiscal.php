@@ -18,7 +18,7 @@ if (isset($_GET['action'])) {
             case 'searchRows':
                 if (!Validator::validateSearch($_POST['buscarUsuario'])) {
                     $result['error'] = Validator::getSearchError();
-                } elseif ($result['dataset'] = $clientes->searchRows()) {
+                } elseif ($result['dataset'] = $usuario->searchRows()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } else {
@@ -70,6 +70,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No existen usuarios registrados';
                 }
                 break;
+               
             case 'readOne':
                 if (!$usuario->setId($_POST['id_factura'])) {
                     $result['error'] = 'ID es inválido';

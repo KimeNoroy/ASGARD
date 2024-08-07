@@ -20,7 +20,9 @@ const SAVE_FORM = document.getElementById('saveForm'),
     CLAVE_ADMINISTRADOR = document.getElementById('claveAdministrador'),
     CONFIRMAR_CLAVE = document.getElementById('confirmarClave'),
     DIV_CONTRA = document.getElementById('idcontra'),
-    DIV_CONTRAR = document.getElementById('idcontraR');
+    DIV_CONTRAR = document.getElementById('idcontraR'),
+    BOTON_ACTUALIZAR = document.getElementById('btnAgregar'),
+    BOTON_AGREGAR = document.getElementById('btnActualizar');
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
@@ -86,14 +88,14 @@ const fillTable = async (form = null) => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
-                    <td>${row.apellido_administrador}</td>
                     <td>${row.nombre_administrador}</td>
+                    <td>${row.apellido_administrador}</td>
                     <td>${row.email_administrador}</td>
                     <td>
-                        <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_administrador})">
+                        <button type="button" class="btn btn-outline-primary" onclick="openUpdate(${row.id_administrador})">
                             <i class="bi bi-pencil-fill"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_administrador})">
+                        <button type="button" class="btn btn-outline-danger" onclick="openDelete(${row.id_administrador})">
                             <i class="bi bi-trash-fill"></i>
                         </button>
                     </td>
@@ -125,6 +127,9 @@ const openCreate = () => {
     CONFIRMAR_CLAVE.disabled = false;
     DIV_CONTRA.classList.remove('d-none');
     DIV_CONTRAR.classList.remove('d-none');
+      // Se muestra el botón de agregar y se oculta el de actualizar.
+      BOTON_ACTUALIZAR.classList.remove('d-none');
+      BOTON_AGREGAR.classList.add('d-none');
 }
 
 /*
@@ -141,8 +146,8 @@ const openUpdate = async (id) => {
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     console.log(DATA);
     if (DATA.status) {
-        DIV_CONTRA.classList.add('d-none');
-        DIV_CONTRAR.classList.add('d-none');
+        DIV_CONTRA.disabled = true;
+        DIV_CONTRAR.disabled = true;
         // Se muestra la caja de diálogo con su título.
         SAVE_MODAL.show();
         MODAL_TITLE.textContent = 'Actualizar administrador';
@@ -158,6 +163,9 @@ const openUpdate = async (id) => {
         EMAIL_ADMINISTRADOR.disabled = true;
         CLAVE_ADMINISTRADOR.disabled = true;
         CONFIRMAR_CLAVE.disabled = true;
+          // Se muestra el botón de actualizar y se oculta el de agregar.
+          BOTON_AGREGAR.classList.remove('d-none');
+          BOTON_ACTUALIZAR.classList.add('d-none');
     } else {
         sweetAlert(2, DATA.error, false);
     }

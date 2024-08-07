@@ -15,7 +15,9 @@ const SAVE_FORM = document.getElementById('saveForm'),
     APELLIDO_ADMINISTRADOR = document.getElementById('ApAdmin'),
     CORREO_ADMINISTRADOR = document.getElementById('CorreoAd'),
     CONTRASEÑA_ADMINISTRADOR = document.getElementById('ContraAd'),
-    CONTRASEÑA_CONFIRMAR_ADMINISTRADOR = document.getElementById('confirmarClaveA');
+    CONTRASEÑA_CONFIRMAR_ADMINISTRADOR = document.getElementById('confirmarClaveA'),
+    BOTON_ACTUALIZAR = document.getElementById('btnAgregar'),
+    BOTON_AGREGAR = document.getElementById('btnActualizar');
 document.querySelector('title').textContent = 'Empleados';
 
 // Método del evento para cuando el documento ha cargado.
@@ -84,10 +86,10 @@ const fillTable = async (form = null) => {
                     <td>${row.apellido_administrador}</td>
                     <td>${row.email_administrador}</td>
                     <td>
-                        <button type="button" class="btn btn-info rounded me-2 mb-2 mb-sm-2" onclick="openUpdate(${row.id_administrador})">
+                        <button type="button" class="btn btn-outline-primary" onclick="openUpdate(${row.id_administrador})">
                             <i class="bi bi-pencil-fill"></i>
                         </button>
-                        <button type="button" class="btn btn-danger rounded me-2 mb-2 mb-sm-2 " onclick="openDelete(${row.id_administrador})">
+                        <button type="button" class="btn btn-outline-danger" onclick="openDelete(${row.id_administrador})">
                             <i class="bi bi-trash-fill"></i>
                         </button>
                     </td>
@@ -115,6 +117,9 @@ const openCreate = () => {
     ALIAS_ADMINISTRADOR.disabled = false;
     CLAVE_ADMINISTRADOR.disabled = false;
     CONFIRMAR_CLAVE.disabled = false;
+
+    BOTON_ACTUALIZAR.classList.remove('d-none');
+    BOTON_AGREGAR.classList.add('d-none');
 }
 
 /*
@@ -143,6 +148,9 @@ const openUpdate = async (id) => {
         NOMBRE_ADMINISTRADOR.value = ROW.nombre_administrador;
         APELLIDO_ADMINISTRADOR.value = ROW.apellido_administrador;
         CORREO_ADMINISTRADOR.value = ROW.email_administrador;
+
+        BOTON_AGREGAR.classList.remove('d-none');
+        BOTON_ACTUALIZAR.classList.add('d-none');
     } else {
         sweetAlert(2, DATA.error, false);
     }

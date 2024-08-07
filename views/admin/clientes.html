@@ -15,30 +15,52 @@
     <link rel="stylesheet" href="../../resources/css/sidebar.css">
     <link rel="stylesheet" href="../../resources/css/Inicio.css">
     <link rel="stylesheet" href="../../resources/css/usuariofacturacion.css">
+    <link href="../../resources/css/estilos_cruds.css" rel="stylesheet">
+
 </head>
 
-<body>
-    <div class="grid-container">
-        <!-- Navbar -->
-        <aside></aside>
+<body class="d-flex">
+    <main>
+        <div class="container-fluid px-5">
+            <div class="row mb-3 row-gap-3 pe-2 ps-2 d-flex align-items-center mt-4">
+                <h3>Clientes</h3>
+                <div class="col-12 col-lg-9">
+                    <div class="row d-flex contenedor-form">
+                        <form id="searchForm" class="d-flex">
+                            <!-- Este div contiene la barra de búsqueda -->
+                            <div class="col d-flex container-fluid" id="container_busqueda">
+                                <div class="d-flex">
+                                    <button type="submit" class="input-group-text elemento-form"><i
+                                            class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                                <!-- Este input crea la barra de búsqueda -->
+                                <input type="search" class="form-control elemento-form"
+                                    placeholder="Buscar administradores por nombre, apellido o correo..." name="search">
+                                <div class="d-flex">
+                                    <button type="reset" class="input-group-text elemento-form" onclick="fillTable()">
+                                        <i class="bi bi-arrow-clockwise"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
 
-        <!-- Main -->
-        <main class="main-container">
-            <div class="main-title">
-                <h3 class="fw-bold fs-4 mb-3">Clientes</h3>
-
+                    </div>
+                </div>
                 <!-- Boton para agregar a nuevo usuario -->
-                <button type="button" class="btn btn-warning float-start" data-bs-toggle="modal"
-                    data-bs-target="#crearModal" onclick="openCreate()"><i class="bi bi-file-earmark-plus"></i> Agregar
-                    Cliente</button>
+                <div class="col-12 col-lg-3 d-flex justify-content-center">
+                    <div class="btn btn-warning  h-100 w-100 d-flex align-items-center justify-content-center gap-2 contenedor-form"
+                        type="submit" onclick="openCreate()">
+                        Agregar Cliente <i class="bi bi-plus h3 agregar-icono"></i>
+                    </div>
+                </div>
             </div>
-
+            <hr class="mb-5">
             <!-- Tabla de registros: Clientes -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-12">
-                            <table class="table table-striped">
+            <div class="table-responsive-lg">
+                <!-- Tabla para mostrar los registros existentes -->
+                <table class="table table-hover caption-top">
+                    <!-- Cabeza de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
                                 <thead>
                                     <tr>
                                         <td colspan="6" id="rowsFound"></td>
@@ -146,7 +168,7 @@
                             <div class="modal-body">
                                 <div class="row">
                                     <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                                    <input type="number" class="d-none" id="id_cliente" name="id_cliente">
+                                    <input type="number" class="d-none" id="idCliente" name="idCliente">
 
                                     <div class="col-md-6 mb-3">
                                         <label for="nombre_cliente" class="form-label">Nombre</label>
@@ -210,9 +232,11 @@
                     </div>
                 </div>
             </div>
+    </main>
     </div>
     <!-- End div grid-container -->
-
+    <!-- Inclusión de la librería de mascaras. Para más información https://github.com/text-mask/text-mask -->
+    <script type="text/javascript" src="../../resources/js/vanillaTextMask.js"></script>
     </main>
     <!-- IMPORTANDO ARCHIVOS JAVASCRIPT -->
     <!-- Mandar a llamar el controlador de la página privada -->

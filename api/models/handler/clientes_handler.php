@@ -21,28 +21,6 @@ class ClienteHandler
     protected $telefono = null;
    // protected $clave = null;
 
-    /*
-     *  Métodos para gestionar la cuenta del administrador.
-     */
-    public function checkUser($email, $password)
-    {
-        $sql = 'SELECT id_cliente, email_cliente, contraseña_cliente
-                FROM tb_clientes 
-                WHERE  email_cliente = ?';
-        $params = array($email);
-        if (!($data = Database::getRow($sql, $params))) {
-            return false;
-        } elseif (password_verify($password, $data['clave_cliente'])) {
-            $this ->id = $data['id_cliente'];
-            $this->clave = $data['contraseña_cliente'];
-            $this->correo = $data['email_cliente'];
-           // $this->estado = $data['estado_cliente'];
-
-            return true;
-        } else {
-            return false;
-        }
-    }
 
  /*   public function checkStatus()
     {
@@ -88,14 +66,6 @@ class ClienteHandler
         return Database::getRow($sql, $params);
     }
 
-   /* public function updateRow()
-    {
-        $sql = 'UPDATE tb_clientes
-                SET nombre_cliente = ?, apellido_cliente = ?, email_cliente = ?, telefono = ?, dui_cliente = ?, nit_cliente = ?
-                WHERE id_cliente = ?';
-        $params = array($this->nombre, $this->apellido, $this->correo, $_SESSION['idAdministrador']);
-        return Database::executeRow($sql, $params);
-    }*/
 
     /*
      *  Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
@@ -115,7 +85,7 @@ class ClienteHandler
     {
         $sql = 'INSERT INTO tb_clientes(nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente, dui_cliente, nit_cliente)
                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre, $this->apellido, $this->correo, $this->direccion, $this->departamento, $this->municipio,$this->telefono, $this->dui, $this->nit);
+        $params = array($this->nombre, $this->apellido, $this->correo, $this->direccion, $this->departamento, $this->municipio, $this->telefono, $this->dui, $this->nit);
         return Database::executeRow($sql, $params);
     }
 
@@ -129,9 +99,9 @@ class ClienteHandler
 
     public function readOne()
     {
-        $sql = 'SELECT id_cliente, nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente , telefono, dui_cliente, nit_cliente
-                FROM tb_clientes
-                WHERE id_cliente = ?';
+        $sql = ' SELECT id_cliente, nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente, dui_cliente, nit_cliente
+            FROM tb_clientes
+            WHERE id_cliente = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
