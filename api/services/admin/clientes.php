@@ -31,12 +31,12 @@ if (isset($_GET['action'])) {
                     !$cliente->setNombre($_POST['nombreCliente']) or
                     !$cliente->setApellido($_POST['apellidoCliente']) or
                     !$cliente->setCorreo($_POST['emailCliente']) or
-                    !$cliente->setNit($_POST['nitCliente']) or
+                    !$cliente->setDUI($_POST['nitCliente']) or
                     !$cliente->setDireccion($_POST['direccionCliente']) or
                     !$cliente->setDepartamento($_POST['departamentoCliente']) or
                     !$cliente->setMunicipio($_POST['municipioCliente']) or
                     !$cliente->setTelefono($_POST['telefonoCliente']) or
-                    !$cliente->setDui($_POST['duiCliente'])
+                    !$cliente->setDUI($_POST['duiCliente'])
                 ) {
                     $result['error'] = $cliente->getDataError();
                 } elseif ($cliente->createRow()) {
@@ -121,21 +121,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
-            case 'changePassword':
-                $_POST = Validator::validateForm($_POST);
-                if (!$administrador->checkPassword($_POST['claveActual'])) {
-                    $result['error'] = 'Contraseña actual incorrecta';
-                } elseif ($_POST['claveNueva'] != $_POST['confirmarClave']) {
-                    $result['error'] = 'Confirmación de contraseña diferente';
-                } elseif (!$administrador->setContraseña($_POST['claveNueva'])) {
-                    $result['error'] = $administrador->getDataError();
-                } elseif ($administrador->changePassword()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Contraseña cambiada correctamente';
-                } else {
-                    $result['error'] = 'Ocurrió un problema al cambiar la contraseña';
-                }
-                break;
+           
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }

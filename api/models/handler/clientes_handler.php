@@ -19,53 +19,8 @@ class ClienteHandler
     protected $dui = null;
     protected $nit = null;
     protected $telefono = null;
-   // protected $clave = null;
 
-
- /*   public function checkStatus()
-    {
-        if ($this->estado) {
-            $_SESSION['idCliente'] = $this->id;
-            $_SESSION['emailCliente'] = $this->correo;
-            return true;
-        } else {
-            return false;
-        }
-    } */
-
-   /* public function checkPassword($password)
-    {
-        $sql = 'SELECT contraseña_cliente
-                FROM tb_clientes
-                WHERE id_cliente = ?';
-        $params = array($_SESSION['idCliente']);
-        $data = Database::getRow($sql, $params);
-        // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
-        if (password_verify($password, $data['contraseña_cliente'])) {
-            return true;
-        } else {
-            return false;
-        }
-    } */
-
-     /*public function changePassword()
-    {
-        $sql = 'UPDATE tb_clientes
-                SET contraseña_cliente = ?
-                WHERE id_cliente = ?';
-        $params = array($this->clave, $_SESSION['idCliente']);
-        return Database::executeRow($sql, $params);
-    } */
-
-    public function readProfile()
-    {
-        $sql = 'SELECT id_cliente, nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente
-                FROM tb_clientes
-                WHERE id_cliente = ?';
-        $params = array($_SESSION['idCliente']);
-        return Database::getRow($sql, $params);
-    }
-
+ 
 
     /*
      *  Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
@@ -118,7 +73,7 @@ class ClienteHandler
     public function checkDuplicate($value)
     {
         $sql = 'SELECT id_cliente
-                FROM tb_cliente
+                FROM tb_clientes
                 WHERE dui_cliente = ? OR email_cliente = ?';
         $params = array($value, $value);
         return Database::getRow($sql, $params);

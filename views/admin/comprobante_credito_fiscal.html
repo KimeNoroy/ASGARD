@@ -33,7 +33,7 @@
                     <div class="row d-flex contenedor-form">
                         <!-- CREAMOS LA FILA Y COLUMNA DONDE COLOCAMOS EL BOTON "AGREGAR" Y LA "BARRA DE BUSQUEDA"-->
 
-                        <form class="d-flex" id="formBuscar">
+                        <form class="d-flex" id="searchForm">
                             <!-- Este div contiene la barra de búsqueda -->
                             <div class="col d-flex container-fluid" id="container_busqueda">
                                 <div class="d-flex">
@@ -56,7 +56,7 @@
                 <div class="col-12 col-lg-3 d-flex justify-content-center">
                     <!-- Botón para abrir el modal -->
                     <div class="btn btn-warning  h-100 w-100 d-flex align-items-center justify-content-center gap-2 contenedor-form"
-                        type="submit" onclick="abrirModal()">
+                        type="submit" onclick="openCreate()">
                         Agregar comprobante de credito fiscal <i class="bi bi-plus h3 agregar-icono"></i>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                     <!-- CREAMOS LA CABECERA DE LA TABLA COLORES -->
                     <thead>
                         <tr>
-                            <td colspan="12" id="filasEncontradas"></td>
+                            <td colspan="12" id="rowsFound"></td>
                         </tr>
                         <tr class="text-center">
                             <th>Nombre</th>
@@ -84,28 +84,27 @@
                             <th>Tipo de servicio</th>
                             <th>Monto</th>
                             <th>Fecha de emisión</th>
-                            <th>Descripción</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="cuerpoTabla">
+                    <tbody id="tableBody">
                 </table>
             </div>
         </div>
 
         <!-- Modal agregar -->
-        <div class="modal fade" id="modalSujeto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="tituloModal" aria-hidden="true">
+        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <!-- Encabezado del modal -->
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="tituloModal"></h1>
+                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form id="formSujeto">
+                    <form id="saveForm">
                         <!-- Cuerpo del modal -->
-                        <input type="hidden" id="id_factura" name="id_factura">
+                        <input type="number" class="d-none" id="id_factura" name="id_factura">
                         <div class="modal-body">
                             <div class="container">
                                 <div class="row">
@@ -125,12 +124,6 @@
                                         <div class="mb-md">
                                             <label for="tipoServicio" class="col-form-label">Tipo de servicio:</label>
                                             <select class="form-select" id="tipoServicio" name="tipoServicio" required>
-                                                <option value="" selected>Selecciona una opción</option>
-                                                <option value="Credito Fiscal">Crédito Fiscal</option>
-                                                <option value="Factura Consumidor Final">Factura Consumidor Final
-                                                </option>
-                                                <option value="Factura Sujeto Excluido">Factura Sujeto Excluido</option>
-                                                <option value="Otro">Otro</option>
                                             </select>
                                         </div>
                                         <div class="mb-md">
@@ -165,24 +158,6 @@
             </div>
         </div>
 
-        <!-- Modal eliminar -->
-        <div class="modal fade" id="borrarModalSujeto">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form id="formEliminar">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="tituloModalEliminar"></h1>
-                            <input type="number" class="d-none" id="idFactura" name="idFactura">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-                            <button type="button" class="btn btn-primary" onclick="eliminarServicio()">Eliminar</button>
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
     </main>
     <!-- IMPORTANDO ARCHIVOS JAVASCRIPT -->

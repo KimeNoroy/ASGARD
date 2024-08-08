@@ -30,8 +30,13 @@ vanillaTextMask.maskInput({
 
 // Llamada a la función para establecer la mascara del campo DUI.
 vanillaTextMask.maskInput({
-    inputElement: document.getElementById('dui_cliente'),
+    inputElement: document.getElementById('dui_cliente_crear'),
     mask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/]
+});
+
+vanillaTextMask.maskInput({
+    inputElement: document.getElementById('nit_cliente'),
+    mask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/ ,/\d/, '-', /\d/] 
 });
 
 // Método del evento para cuando el documento ha cargado.

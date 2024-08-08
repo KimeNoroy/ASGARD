@@ -123,28 +123,24 @@ public function setMunicipio($value, $min = 2, $max = 100)
     }
 }
 
-
-    public function setDUI($value)
-    {
-        if (!Validator::validateDUI($value)) {
-            $this->data_error = 'El DUI debe tener el formato ########-#';
-            return false;
-        } elseif($this->checkDuplicate($value)) {
-            $this->data_error = 'El DUI ingresado ya existe';
-            return false;
-        } else {
-            $this->dui = $value;
-            return true;
-        }
+public function setDUI($value)
+{
+    if (!Validator::validateDUI($value)) {
+        $this->data_error = 'El DUI debe tener el formato ########-#';
+        return false;
+    } else {
+        $this->dui = $value;
+        return true;
     }
+}
 
     public function setNit($value)
     {
         if (!Validator::validateNaturalNumber($value)) {
-            $this->data_error = 'El DUI debe tener el formato ########-#';
+            $this->data_error = 'El Nit debe tener el formato ########-#';  
             return false;
         } elseif($this->checkDuplicate($value)) {
-            $this->data_error = 'El DUI ingresado ya existe';
+            $this->data_error = 'El NIT ingresado ya existe';
             return false;
         } else {
             $this->nit = $value;
