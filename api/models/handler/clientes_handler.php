@@ -46,7 +46,7 @@ class ClienteHandler
 
     public function readAll()
     {
-        $sql = 'SELECT *
+        $sql = 'SELECT id_cliente, nombre_cliente, apellido_cliente, email_cliente, dui_cliente, nit_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente
                 FROM tb_clientes
                 ORDER BY apellido_cliente';
         return Database::getRows($sql);

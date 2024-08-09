@@ -62,22 +62,7 @@ class ComprobanteCreditoFiscalHandler
         return Database::getRows($sql);
     }
 
-    // Método para leer todos los clientes.
-    public function readAllclientes()
-    {
-        $sql = 'SELECT id_cliente, nombre_cliente
-                FROM tb_clientes';
-        return Database::getRows($sql);
-    }
-    // Método para leer todos los servicios.
-    public function readAllservicio()
-    {
-        $sql = 'SELECT id_servicio, nombre_servicio
-                FROM tb_servicios';
-        return Database::getRows($sql);
-    }
-
-    // Método para leer un usuario específico.
+  
     public function readOne()
     {
         $sql = 'SELECT id_factura, id_cliente, id_servicio, tipo_servicio, monto, fecha_emision, descripcion
@@ -85,6 +70,13 @@ class ComprobanteCreditoFiscalHandler
                 WHERE id_factura = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
+    }
+
+    public function readAllservicio()
+    {
+        $sql = 'SELECT id_servicio, nombre_servicio
+                FROM tb_servicios';
+        return Database::getRows($sql);
     }
 
     // Método para actualizar un usuario.

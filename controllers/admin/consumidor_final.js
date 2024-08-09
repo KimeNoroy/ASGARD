@@ -56,6 +56,7 @@ const abrirModal = async (tituloModal, idFactura) => {
 
         await fillSelect(FACTURA_API, 'readAllclientes', 'id_cliente');
         await fillSelect(FACTURA_API, 'readAllservicio', 'id_servicio');
+        
         // Se abre el modal agregar.
         MODALSUJETO.show();
     } else {

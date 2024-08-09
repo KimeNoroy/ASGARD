@@ -61,15 +61,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No existen usuarios registrados';
                 }
                 break;
-            case 'readAllclientes':
-                $result['dataset'] = $usuario->readAllclientes();
-                if ($result['dataset']) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Mostrando ' . count($result['dataset']) . ' registros';
-                } else {
-                    $result['error'] = 'No existen usuarios registrados';
-                }
-                break;
+       
             case 'readOne':
                 if (!$usuario->setId($_POST['id_factura'])) {
                     $result['error'] = 'ID es inválido';

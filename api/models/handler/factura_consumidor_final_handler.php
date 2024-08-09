@@ -60,6 +60,8 @@ class FacturaConsumidorFinalHandler
         return Database::getRows($sql);
     }
 
+   
+
     // Método para leer todos los clientes.
     public function readAllclientes()
     {

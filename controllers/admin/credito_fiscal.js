@@ -1,12 +1,11 @@
 // Constante para completar la ruta de la API.
 const FACTURA_API = 'services/admin/comprobante_credito_fiscal.php';
-const CLIENTE_API = 'services/admin/clentes.php';
-// Constante para almacenar el modal de editar.
-const MODALSUJETO = new bootstrap.Modal('#modalSujeto');
+const CLIENTE_API = 'services/admin/clientes.php';
+
 // Constante que almacena el form de búsqueda.
 const SEARCH_FORM = document.getElementById('searchForm');
 // Constantes para cargar los elementos de la tabla.
-const TABLE_BODY = document.getElementById('filasEncontradas'),
+const TABLE_BODY = document.getElementById('tableBody'),
 ROWS_FOUND = document.getElementById('rowsFound');
 
 const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
@@ -27,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     loadTemplate();
 
     // Se establece el título del contenido principal.
-    MAIN_TITLE.textContent = 'Gestionar usuarios';
     // Llamada a la función para llenar la tabla con los registros existentes.
     fillTable();
 });
@@ -118,6 +116,10 @@ const openCreate = () => {
     MODAL_TITLE.textContent = 'Crear factura';
     // Se prepara el formulario.
     SAVE_FORM.reset();
+    fillSelect(CLIENTE_API, 'readAll', 'id_cliente');
+    fillSelect(FACTURA_API, 'readAllservicio', 'id_servicio');
+    fillSelect(FACTURA_API, 'readTipoServicio', 'tipoServicio');
+   
 }
 
 const openUpdate = async (id) => {
@@ -141,9 +143,6 @@ const openUpdate = async (id) => {
         TIPO_SERVICIO.value = ROW.tipo_servicio;
         FECHA_EMISION.value = ROW.fecha_emision;
         DESCRIPCION.value = ROW.descripcion;
-        fillSelect(FACTURA_API, 'readAll', 'readAllclientes', parseInt(ROW.id_cliente));
-        fillSelect(FACTURA_API, 'readAll', 'readAllservicio', parseInt(ROW.id_cliente));
-
     } else {
         sweetAlert(2, DATA.error, false);
     }
