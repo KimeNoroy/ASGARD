@@ -15,93 +15,97 @@
     <!-- Css para la tabla responsive -->
     <link rel="stylesheet" href="../../resources/css/sidebar.css">
     <link rel="stylesheet" href="../../resources/css/Inicio.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../../resources/css/usuariofacturacion.css">
+    <link href="../../resources/css/estilos_cruds.css" rel="stylesheet">
+
 </head>
 
 <!-- Cuerpo de la página -->
 
-<body>
+<body class="d-flex">
     <!-- Contenido principal de la página -->
     <main>
         <!-- CREAMOS FILAS Y COLUMNAS (ROW = FILAS, COL = COLUMNAS) -->
         <!-- CREAMOS EL CONTENEDOR PADRE DE LOS ELEMENTOS  BOTON AGREGAR Y LA BARRA DE BUSQUEDA-->
-        <div class="container-fluid">
+        <div class="container-fluid px-5">
+            <div class="row mb-3 row-gap-3 pe-2 ps-2 d-flex align-items-center mt-4">
             <h3>Usuarios para factura sujeto excluido electrónico</h3>
             <!-- CREAMOS LA FILA Y COLUMNA DONDE COLOCAMOS EL BOTON "AGREGAR" Y LA "BARRA DE BUSQUEDA"-->
-            <div class="row mt-5 row-gap-3">
-                <div class="col-12 col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <form class="d-flex" id="formBuscar">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar nombre del cliente..."
-                            name="buscarUsuario" id="buscarUsuario" oninput="verificarReset()">
-                        <button class="btn" type="submit"><img src="../../resources/img/lupa.png" class="img-fluid"
-                                width="35px" height="35px" alt="buscando"></button>
+            <div class="col-12 col-lg-9">
+                <div class="row d-flex contenedor-form">
+                    <!-- CREAMOS LA FILA Y COLUMNA DONDE COLOCAMOS EL BOTON "AGREGAR" Y LA "BARRA DE BUSQUEDA"-->
+
+                    <form class="d-flex" id="searchForm">
+                        <!-- Este div contiene la barra de búsqueda -->
+                        <div class="col d-flex container-fluid" id="container_busqueda">
+                            <div class="d-flex">
+                                <button type="submit" class="input-group-text elemento-form"><i
+                                        class="bi bi-search"></i>
+                                </button>
+                            </div>
+                            <!-- Este input crea la barra de búsqueda -->
+                            <input type="search" class="form-control elemento-form" name="buscarUsuario" id="buscarUsuario"
+                            placeholder="Buscar usuario por nombre, apellido o correo...">
+                            <div class="d-flex">
+                                <button type="reset" class="input-group-text elemento-form" onclick="fillTable()">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                </button>
+                            </div>
+                        </div>
                     </form>
                 </div>
-                <div class="col-12 col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <!-- Botón para abrir el modal -->
-                    <button type="button" class="btn btn-dark ms-5" onclick="abrirModal('Agregar usuario')"
-                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar
-                        Usuario</button>
+            </div>
+            <div class="col-12 col-lg-3 d-flex justify-content-center">
+                <!-- Botón para abrir el modal -->
+                <div class="btn btn-warning  h-100 w-100 d-flex align-items-center justify-content-center gap-2 contenedor-form"
+                    type="submit" onclick="openCreate()">
+                    Agregar factura sujeto excluido electronico <i class="bi bi-plus h3 agregar-icono"></i>
                 </div>
             </div>
+        </div>
             <!-- CREAMOS LA FILA DONDE COLOCAMOS LA TABLA DE LOS ELEMENTOS -->
-            <div class="table-responsive-md mt-5" id="contenedorTabla">
-                <table class="table" class="table table-striped">
+            <hr class="mb-5">
+            <div class="table-responsive-lg">
+             <table class="table table-hover caption-top">
                     <!-- CREAMOS LA CABECERA DE LA TABLA COLORES -->
                     <thead>
                         <tr>
-                            <td colspan="12" id="filasEncontradas"></td>
+                            <td colspan="13" id="rowsFound"></td>
                         </tr>
-                        <tr>
-                            <th class="text-center">Nombre</th>
-                            <th class="text-center">Apellido</th>
-                            <th class="text-center">NIT</th>
-                            <th class="text-center">Dirección</th>
-                            <th class="text-center">Departamento</th>
-                            <th class="text-center">Municipio</th>
-                            <th class="text-center">Email</th>
-                            <th class="text-center">Teléfono</th>
-                            <th class="text-center">DUI</th>
-                            <th class="text-center">Tipo de servicio</th>
-                            <th class="text-center">Monto</th>
-                            <th class="text-center">Fecha de emisión</th>
-                            <th class="text-center">Acciones</th>
-                        </tr>
+                            <tr class="text-center">
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Dirección</th>
+                                <th>Departamento</th>
+                                <th>Municipio</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>DUI</th>
+                                <th>Tipo de servicio</th>
+                                <th>Monto</th>
+                                <th>Fecha de emisión</th>
+                                <th>Acciones</th>
+                            </tr>
                     </thead>
-                    <tbody id="cuerpoTabla">
-                        <tr>
-                            <th scope="row">Ana</th>
-                            <td>Rodríguez</td>
-                            <td>anarodriguez@gmail.com</td>
-                            <td>70123456</td>
-                            <td>001234567-8</td>
-                            <td>001-234567-123-4</td>
-                            <td>Avenida avenida</td>
-                            <td>San Salvador</td>
-                            <td>Santa Tecla</td>
-                            <td>Credito fiscal</td>
-                            <td>01/01/2022</td>
-                            <td>$1000</td>
-                            <td id="celda-agregar-eliminar" class="text-center"></td>
-                        </tr>
-                    </tbody>
+                    <tbody id="tableBody">
                 </table>
             </div>
         </div>
 
         <!-- Modal agregar -->
-        <div class="modal fade" id="modalSujeto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="tituloModal" aria-hidden="true">
+        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <!-- Encabezado del modal -->
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="tituloModal"></h1>
+                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form id="formSujeto">
+                    <form id="saveForm">
                         <!-- Cuerpo del modal -->
-                        <input type="hidden" id="id_factura" name="id_factura">
+                        <input type="number" class="d-none" id="id_factura" name="id_factura">
                         <div class="modal-body">
                             <div class="container">
                                 <div class="row">
@@ -116,7 +120,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-md">
                                             <label for="monto" class="col-form-label">Monto del servicio:</label>
-                                            <input type="number" class="form-control" id="monto" name="monto" required>
+                                            <input type="number" class="form-control" id="monto" min="1" name="monto" required>
                                         </div>
                                         <div class="mb-md">
                                             <label for="tipoServicio" class="col-form-label">Tipo de servicio:</label>
@@ -152,35 +156,16 @@
                         </div>
 
                         <!-- Footer del modal -->
-                        <div class="modal-footer d-flex justify-content-end">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-warning" id="btnAccion">Guardar</button>
-                        </div>
+                        <div class="modal-footer col-sm-12 col-md-12 col-lg-12 justify-content-center">
+                            <button type="submit" id="btnAgregar" class="btn btn-warning"><i class="bi bi-plus"></i> Agregar factura</button>
+                            <button type="submit" class="btn bg-success text-white d-none" id="btnActualizar">
+                                <i class="bi bi-pencil-fill"></i>
+                                Actualizar factura
+                            </button>
                     </form>
                 </div>
             </div>
         </div>
-
-
-        <!-- Modal eliminar -->
-        <div class="modal fade" id="borrarModalSujeto">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form id="formEliminar">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="tituloModalEliminar"></h1>
-                            <input type="number" class="d-none" id="idFactura" name="idFactura">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-                            <button type="button" class="btn btn-primary" onclick="eliminarServicio()">Eliminar</button>
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
     </main>
     <!-- IMPORTANDO ARCHIVOS JAVASCRIPT -->
     <!-- Mandar a llamar el controlador de la página privada -->

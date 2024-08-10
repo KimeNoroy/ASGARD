@@ -18,14 +18,15 @@ const SAVE_FORM = document.getElementById('saveForm'),
     TIPO_SERVICIO = document.getElementById('tipoServicio'),
     ID_SERVICIO = document.getElementById('id_servicio'),
     MONTO = document.getElementById('monto'),
-    FECHA_EMISION = document.getElementById('fechaEmision');
+    FECHA_EMISION = document.getElementById('fechaEmision'),
+     
+    BOTON_ACTUALIZAR = document.getElementById('btnAgregar'),
+    BOTON_AGREGAR = document.getElementById('btnActualizar');
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
-
-    // Se establece el título del contenido principal.
     // Llamada a la función para llenar la tabla con los registros existentes.
     fillTable();
 });
@@ -46,7 +47,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (ID_PRODUCTO.value) ? action = 'updateRow' : action = 'createRow';
+    (ID_FACTURA.value) ? action = 'updateRow' : action = 'createRow';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM);
     // Petición para guardar los datos del formulario.
@@ -82,7 +83,6 @@ const fillTable = async (form = null) => {
                 <tr>
                     <td class="text-center">${row.nombre_cliente}</td>
                     <td class="text-center">${row.apellido_cliente}</td>
-                    <td class="text-center">${row.nit_cliente}</td>
                     <td class="text-center">${row.direccion_cliente}</td>
                     <td class="text-center">${row.departamento_cliente}</td>
                     <td class="text-center">${row.municipio_cliente}</td>
@@ -118,7 +118,9 @@ const openCreate = () => {
     SAVE_FORM.reset();
     fillSelect(CLIENTE_API, 'readAll', 'id_cliente');
     fillSelect(FACTURA_API, 'readAllservicio', 'id_servicio');
-    fillSelect(FACTURA_API, 'readTipoServicio', 'tipoServicio');
+
+    BOTON_ACTUALIZAR.classList.remove('d-none');
+    BOTON_AGREGAR.classList.add('d-none');
    
 }
 
@@ -143,6 +145,9 @@ const openUpdate = async (id) => {
         TIPO_SERVICIO.value = ROW.tipo_servicio;
         FECHA_EMISION.value = ROW.fecha_emision;
         DESCRIPCION.value = ROW.descripcion;
+        
+        BOTON_ACTUALIZAR.classList.add('d-none');
+        BOTON_AGREGAR.classList.remove('d-none');
     } else {
         sweetAlert(2, DATA.error, false);
     }
