@@ -7,6 +7,19 @@ require_once('../../helpers/database.php');
 */
 class ServiciosHandler
 {
+
+
+
+    public function readAll()
+    {
+        $sql = 'SELECT id_servicio, nombre_servicio, descripcion, id_cliente
+                FROM tb_servicios
+                ORDER BY nombre_servicio';
+        return Database::getRows($sql);
+    }
+
+    
+
     public function serviciosOfrecidos()
     {
         $sql = 'SELECT 

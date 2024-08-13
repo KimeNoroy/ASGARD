@@ -14,16 +14,17 @@ if (isset($_GET['action'])) {
     if (isset($_SESSION['idAdministrador'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
-            case 'searchRows':
-                if (!Validator::validateSearch($_POST['search'])) {
-                    $result['error'] = Validator::getSearchError();
-                } elseif ($result['dataset'] = $servicios->searchRows()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
-                } else {
-                    $result['error'] = 'No hay coincidencias';
-                }
-                break;
+            
+            // case 'searchRows':
+            //     if (!Validator::validateSearch($_POST['search'])) {
+            //         $result['error'] = Validator::getSearchError();
+            //     } elseif ($result['dataset'] = $servicios->searchRows()) {
+            //         $result['status'] = 1;
+            //         $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
+            //     } else {
+            //         $result['error'] = 'No hay coincidencias';
+            //     }
+            //     break;
         
             case 'serviciosOfrecidos':
                 if ($result['dataset'] = $servicios->serviciosOfrecidos()) {
@@ -32,6 +33,16 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No hay datos disponibles';
                 }
                 break;
+
+                case 'readAll':
+                    if ($result['dataset'] = $servicios->readAll()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                    } else {
+                        $result['error'] = 'No existen servicios creados';
+                    }
+                    break;
+              
            
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
