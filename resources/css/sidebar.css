@@ -1,69 +1,79 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap');
-*{
+
+* {
     margin: 0;
     padding: 0;
     font-family: 'Outfit', sans-serif;
-
 }
 
-body{
+body {
     display: flex;
 }
 
-main{
+main {
     width: 100vw;
     margin-left: 300px;
 }
 
-#SIDEBAR{
+#SIDEBAR {
     background-color: whitesmoke;
     height: 100vh;
     width: 300px;
     position: absolute;
+    overflow-x: hidden; /* Oculta la barra de desplazamiento horizontal del contenedor */
 }
 
 /* LOGO */
-
-#SIDEBAR .logo-container{
+#SIDEBAR .logo-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#SIDEBAR .logo-container img{
+#SIDEBAR .logo-container img {
     object-fit: contain;
     width: 260px;
     height: 100%;
 }
 
 /* CARTAS */
-
-#SIDEBAR .main-container .main-cards-container {
+#SIDEBAR .main-container {
     display: flex;
     flex-direction: column;
     margin-left: 30px;
     gap: 15px;
     height: calc(100% - 60px);
+    overflow-x: hidden; /* Oculta el overflow horizontal */
 }
 
-/* Ocultar scrollbar vertical en navegadores basados en WebKit */
-#SIDEBAR .main-container .main-cards-container::-webkit-scrollbar {
-    width: 0px; /* Ocultar scrollbar */
-    background: transparent; /* Fondo transparente */
+#SIDEBAR .main-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 100%;
+    overflow-y: auto; /* Permite el scroll vertical si es necesario */
+    overflow-x: hidden; /* Asegura que no haya scroll horizontal */
 }
 
-/* Ocultar scrollbar vertical en Firefox */
-#SIDEBAR .main-container .main-cards-container {
-    scrollbar-width: none; /* Ocultar scrollbar */
+/* Ocultar scrollbar en navegadores basados en WebKit */
+#SIDEBAR .main-cards-container::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
 }
 
-/* Ocultar scrollbar vertical en Internet Explorer y Edge */
-#SIDEBAR .main-container .main-cards-container {
-    -ms-overflow-style: none; /* Ocultar scrollbar */
+/* Ocultar scrollbar en Firefox */
+#SIDEBAR .main-cards-container {
+    scrollbar-width: none;
 }
 
-#SIDEBAR .main-container .main-cards-container .main-card,
-.main-container .logout-card{
+/* Ocultar scrollbar en Internet Explorer y Edge */
+#SIDEBAR .main-cards-container {
+    -ms-overflow-style: none;
+    width: 300px;
+}
+
+#SIDEBAR .main-cards-container .main-card,
+.main-container .logout-card {
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -76,11 +86,11 @@ main{
     border-radius: 10px 0px 0px 10px;
 }
 
-#SIDEBAR .main-container .main-cards-container .main-card:hover{
+#SIDEBAR .main-cards-container .main-card:hover {
     background-color: rgb(224, 224, 224);
 }
 
-#SIDEBAR .main-container .main-cards-container .main-card.selected{
+#SIDEBAR .main-cards-container .main-card.selected {
     width: 265px;
     background-color: #FF790D;
     color: white;
@@ -89,36 +99,34 @@ main{
     border-radius: 10px;
 }
 
-#SIDEBAR .main-container .main-cards-container .main-card.selected:hover{
+#SIDEBAR .main-cards-container .main-card.selected:hover {
     box-shadow: 0px 0px 10px 3px #FF790Db7;
 }
 
-#SIDEBAR .main-container .main-cards-container .main-card.selected svg path{
+#SIDEBAR .main-cards-container .main-card.selected svg path {
     fill: white;
 }
 
-#SIDEBAR .main-container .logout-card{
+#SIDEBAR .main-cards-container .logout-card {
     width: 265px;
-    margin-left: 40px;
     background-color: #565656;
     color: white;
     border-radius: 10px;
 }
 
-#SIDEBAR .main-container .logout-card:hover{
+#SIDEBAR .main-cards-container .logout-card:hover {
     box-shadow: 0px 0px 10px 3px #565656b7;
 }
 
 /* USER */
-
-#SIDEBAR .user-container{
+#SIDEBAR .user-container {
     display: flex;
     justify-content: center;
     align-items: center;
     user-select: none;
 }
 
-#SIDEBAR .user-container .image{
+#SIDEBAR .user-container .image {
     border-radius: 50%;
     background-color: #FF790D;
     width: 50px;
@@ -132,83 +140,80 @@ main{
     transition: all .3s ease;
 }
 
-#SIDEBAR .user-container .info{
+#SIDEBAR .user-container .info {
     display: flex;
     flex-direction: column;
     margin-left: 10px;
 }
 
-#SIDEBAR .user-container .info .name-text{
+#SIDEBAR .user-container .info .name-text {
     font-size: 20px;
 }
 
 /* ANIMAR INFO SOBRE USUARIO */
-
-#SIDEBAR .user-container .image svg{
+#SIDEBAR .user-container .image svg {
     position: absolute;
     display: none;
 }
 
-#SIDEBAR .user-container .image:hover{
+#SIDEBAR .user-container .image:hover {
     background-color: #99561f;
     color: gray;
 }
 
-#SIDEBAR .user-container .image:hover svg{
+#SIDEBAR .user-container .image:hover svg {
     display: block;
 }
 
 /* ICONO PARA ABRIR EL SIDEBAR */
-#SIDEBAR-ACTIVATOR{
+#SIDEBAR-ACTIVATOR {
     display: none;
 }
 
 /* PORCENTAJES */
-
-#SIDEBAR .logo-container{
+#SIDEBAR .logo-container {
     height: 20%;
 }
 
-#SIDEBAR .main-container{
+#SIDEBAR .main-container {
     height: 68%;
 }
 
-#SIDEBAR .user-container{
+#SIDEBAR .user-container {
     height: 12%;
 }
 
-@media screen and (width < 600px){
-
-    main{
+@media screen and (max-width: 600px) {
+    main {
         margin-left: 0px;
     }
 
-    main.blur{
+    main.blur {
         filter: blur(5px);
     }
 
-    #SIDEBAR{
+    #SIDEBAR {
         z-index: 998;
         left: -100%;
         width: 85%;
         transition: left 0.3s ease;
     }
 
-    #SIDEBAR *{
-       font-size: 15px;
+    #SIDEBAR * {
+        font-size: 15px;
     }
 
-    #SIDEBAR.active{
+    #SIDEBAR.active {
         position: absolute;
         left: 0;
     }
 
-    #SIDEBAR .main-container .main-cards-container .main-card,
-    .main-container .logout-card{
-    padding: 12px 0px 12px 15px;
+    #SIDEBAR .main-cards-container .main-card,
+    .main-container .logout-card {
+        padding: 12px 0px 12px 15px;
     }
 
-    #SIDEBAR-ACTIVATOR{
+    #SIDEBAR-ACTIVATOR {
         position: absolute;
         display: block;
         width: 30px;
@@ -221,51 +226,93 @@ main{
         background-color: #565656;
     }
 
-    #SIDEBAR .main-container .main-cards-container .main-card.selected{
-        width: 260px;
-    }
-    
-    #SIDEBAR .main-container .logout-card{
+    #SIDEBAR .main-cards-container .main-card.selected {
         width: 260px;
     }
 
-    #SIDEBAR .main-container .main-cards-container {
+    #SIDEBAR .main-cards-container .logout-card {
+        width: 260px;
+    }
+
+    #SIDEBAR .main-cards-container {
         gap: 8px;
     }
 
-    #SIDEBAR .main-container .main-cards-container .main-card:hover{
+    #SIDEBAR .main-cards-container .main-card:hover {
         background-color: initial;
     }
-    
-    #SIDEBAR .main-container .main-cards-container .main-card.selected:hover{
+
+    #SIDEBAR .main-cards-container .main-card.selected:hover {
         box-shadow: initial;
     }
 
-    #SIDEBAR .user-container .info .name-text{
+    #SIDEBAR .user-container .info .name-text {
         font-size: 18px;
     }
 
     /* PORCENTAJES */
-
-    #SIDEBAR .logo-container{
+    #SIDEBAR .logo-container {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    
-    #SIDEBAR .logo-container img{
+
+    #SIDEBAR .logo-container img {
         object-fit: contain;
         width: 200px;
     }
 
-    #SIDEBAR .logo-container{
+    #SIDEBAR .logo-container {
         height: 18%;
     }
 
-    #SIDEBAR .main-container{
+    #SIDEBAR .main-container {
         height: 72%;
     }
 
-    #SIDEBAR .user-container{
+    #SIDEBAR .user-container {
         height: 11%;
-}}
+    }
+
+    
+}
+
+#SIDEBAR .logout-card {
+    width: 265px;
+    margin-right: 100px;
+    background-color: #000000; /* Cambiar el fondo a negro */
+    color: white;
+    border-radius: 10px;
+    transition: background-color .3s ease; /* Añadir una transición para el color de fondo */
+}
+
+#SIDEBAR .logout-card:hover {
+    background-color: #333333; /* Cambiar el color de fondo al pasar el cursor para indicar interacción */
+    box-shadow: 0px 0px 10px 3px #000000b7; /* Añadir sombra en el hover si es necesario */
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
