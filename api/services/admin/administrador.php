@@ -64,6 +64,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al crear el administrador';
                 }
                 break;
+
             case 'readAll':
                 if ($result['dataset'] = $administrador->readAll()) {
                     $result['status'] = 1;
@@ -72,6 +73,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No existen administradores registradoss';
                 }
                 break;
+
             case 'readDashboardStats':
                 if ($result['dataset'] = $administrador->readDashboardStats()) {
                     $result['status'] = 1;
@@ -80,6 +82,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No existen administradores registrados';
                 }
                 break;
+                
             case 'readOne':
                 if (!$administrador->setId($_POST['idAdmin'])) {
                     $result['error'] = 'Administrador incorrecto';

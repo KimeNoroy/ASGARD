@@ -1,5 +1,5 @@
 // Constante para completar la ruta de la API.
-const SERVICIOS_API = 'services/admin/servicios.php';
+const SERVICIO_API = 'services/admin/servicios.php';
 
 // Constante que almacena el form de búsqueda.
 const SEARCH_FORM = document.getElementById('searchForm');
@@ -11,13 +11,9 @@ const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
     MODAL_TITLE = document.getElementById('modalTitle');
 // Constantes para establecer los elementos del formulario.
 const SAVE_FORM = document.getElementById('saveForm'),
-    ID_FACTURA = document.getElementById('id_factura'),
+    ID_SERVICIO = document.getElementById('idServicio'),
+    SERVICIO = document.getElementById('nombreServico'),
     DESCRIPCION = document.getElementById('descripcionServicio'),
-    ID_CLIENTE = document.getElementById('id_cliente'),
-    TIPO_SERVICIO = document.getElementById('tipoServicio'),
-    ID_SERVICIO = document.getElementById('id_servicio'),
-    MONTO = document.getElementById('monto'),
-    FECHA_EMISION = document.getElementById('fechaEmision'),
     
     BOTON_ACTUALIZAR = document.getElementById('btnAgregar'),
     BOTON_AGREGAR = document.getElementById('btnActualizar');
@@ -46,11 +42,11 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (ID_FACTURA.value) ? action = 'updateRow' : action = 'createRow';
+    (ID_SERVICIO.value) ? action = 'updateRow' : action = 'createRow';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM);
     // Petición para guardar los datos del formulario.
-    const DATA = await fetchData(FACTURA_API, action, FORM);
+    const DATA = await fetchData(SERVICIO_API, action, FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se cierra la caja de diálogo.
@@ -72,7 +68,7 @@ const fillTable = async (form = null) => {
     // Se verifica la acción a realizar.
     (form) ? action = 'searchRows' : action = 'readAll';
     // Petición para obtener los registros disponibles.
-    const DATA = await fetchData(FACTURA_API, action, form);
+    const DATA = await fetchData(SERVICIO_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se recorre el conjunto de registros fila por fila.
@@ -80,22 +76,14 @@ const fillTable = async (form = null) => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
-                    <td class="text-center">${row.nombre_cliente}</td>
-                    <td class="text-center">${row.apellido_cliente}</td>
-                    <td class="text-center">${row.direccion_cliente}</td>
-                    <td class="text-center">${row.departamento_cliente}</td>
-                    <td class="text-center">${row.municipio_cliente}</td>
-                    <td class="text-center">${row.email_cliente}</td>
-                    <td class="text-center">${row.telefono_cliente}</td>
-                    <td class="text-center">${row.dui_cliente}</td>
-                    <td class="text-center">${row.tipo_servicio}</td>
-                    <td class="text-center">${row.monto}</td>
-                    <td class="text-center">${row.fecha_emision}</td>
+                    <td class="text-center">${row.nombre_servicio}</td>
+                    <td class="text-center">${row.descripcion}</td>
+                
                     <td class="celda-agregar-eliminar text-right text-center">
-                        <button type="button" class="btn btn-outline-primary" onclick="openUpdate(${row.id_factura})">
+                        <button type="button" class="btn btn-outline-primary" onclick="openUpdate(${row.id_servicio})">
                             <i class="bi bi-pencil-fill"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-danger" onclick="openDelete(${row.id_factura})">
+                        <button type="button" class="btn btn-outline-danger" onclick="openDelete(${row.id_servicio})">
                             <i class="bi bi-trash-fill"></i>
                         </button>
                     </td>
@@ -115,9 +103,6 @@ const openCreate = () => {
     MODAL_TITLE.textContent = 'Crear servicio';
     // Se prepara el formulario.
     SAVE_FORM.reset();
-    fillSelect(CLIENTE_API, 'readAll', 'id_cliente');
-    fillSelect(FACTURA_API, 'readAllservicio', 'id_servicio');
-
     BOTON_ACTUALIZAR.classList.remove('d-none');
     BOTON_AGREGAR.classList.add('d-none');
    
@@ -126,27 +111,23 @@ const openCreate = () => {
 const openUpdate = async (id) => {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
-    FORM.append('id_factura', id);
+    FORM.append('idServicio', id);
     // Petición para obtener los datos del registro solicitado.
-    const DATA = await fetchData(FACTURA_API, 'readOne', FORM);
+    const DATA = await fetchData(SERVICIO_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con el error.
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
         SAVE_MODAL.show();
-        MODAL_TITLE.textContent = 'Actualizar factura';
+        MODAL_TITLE.textContent = 'Actualizar servicio';
         // Se prepara el formulario.
         SAVE_FORM.reset();
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
-        ID_FACTURA.value = ROW.id_factura;
-        DESCRIPCION.value = ROW.descripcion;
-        MONTO.value = ROW.monto;
-        TIPO_SERVICIO.value = ROW.tipo_servicio;
-        FECHA_EMISION.value = ROW.fecha_emision;
+        ID_SERVICIO.value = ROW.id_servicio;
+        SERVICIO.value = ROW.descripcion;
         DESCRIPCION.value = ROW.descripcion;
         
         BOTON_ACTUALIZAR.classList.add('d-none');
-
         BOTON_AGREGAR.classList.remove('d-none');
     } else {
         sweetAlert(2, DATA.error, false);
@@ -155,14 +136,14 @@ const openUpdate = async (id) => {
 
 const openDelete = async (id) => {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Desea eliminar la factura de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar el servicio de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM = new FormData();
-        FORM.append('id_factura', id);
+        FORM.append('idServicio', id);
         // Petición para eliminar el registro seleccionado.
-        const DATA = await fetchData(FACTURA_API, 'deleteRow', FORM);
+        const DATA = await fetchData(SERVICIO_API, 'deleteRow', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se muestra un mensaje de éxito.

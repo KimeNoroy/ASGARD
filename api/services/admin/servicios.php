@@ -15,16 +15,16 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             
-            // case 'searchRows':
-            //     if (!Validator::validateSearch($_POST['search'])) {
-            //         $result['error'] = Validator::getSearchError();
-            //     } elseif ($result['dataset'] = $servicios->searchRows()) {
-            //         $result['status'] = 1;
-            //         $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
-            //     } else {
-            //         $result['error'] = 'No hay coincidencias';
-            //     }
-            //     break;
+            case 'searchRows':
+                if (!Validator::validateSearch($_POST['search'])) {
+                    $result['error'] = Validator::getSearchError();
+                } elseif ($result['dataset'] = $servicios->searchRows()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
+                } else {
+                    $result['error'] = 'No hay coincidencias';
+                }
+                break;
         
             case 'serviciosOfrecidos':
                 if ($result['dataset'] = $servicios->serviciosOfrecidos()) {
@@ -42,7 +42,64 @@ if (isset($_GET['action'])) {
                         $result['error'] = 'No existen servicios creados';
                     }
                     break;
-              
+                    case 'createRow':
+                        $_POST = Validator::validateForm($_POST);
+                        if (
+                            !$servicios->setNombre($_POST['nombreServico']) or
+                            !$servicios->setDescripcion($_POST['descripcionServicio']) 
+                        ) {
+                            $result['error'] = $servicios->getDataError();
+                        } elseif ($servicios->createRow()) {
+                            $result['status'] = 1;
+                            $result['message'] = 'El servicio fue creado correctamente';
+                        } else {
+                            $result['error'] = 'Ocurrió un problema al crear el servicio';
+                        }
+                        break;
+
+                        case 'updateRow':
+                            $_POST = Validator::validateForm($_POST);
+                            if (
+                                
+                                !$servicios->setId($_POST['idServicio']) or
+                                !$servicios->setNombre($_POST['nombreServico']) or
+                                !$servicios->setDescripcion($_POST['descripcionServicio']) 
+                   
+                            ) {
+                                $result['error'] = $servicios->getDataError();
+                            } elseif ($servicios->updateRow()) {
+                                $result['status'] = 1;
+                                $result['message'] = 'El servicio fue modificado correctamente';
+                            } else {
+                                $result['error'] = 'Ocurrió un problema al modificar el servicio';
+                            }
+                            break;
+
+                            case 'deleteRow':
+                                // Agregar depuración para verificar la recepción de datos
+                                error_log('Datos recibidos en deleteRow: ' . json_encode($_POST));
+                                if (!isset($_POST['idServicio'])) {
+                                    $result['error'] = 'El idCliente no está definido';
+                                } elseif (!$servicios->setId($_POST['idServicio'])) {
+                                    $result['error'] = $servicios->getDataError();
+                                } elseif ($servicios->deleteRow()) {
+                                    $result['status'] = 1;
+                                    $result['message'] = 'Servicio eliminado correctamente';
+                                } else {
+                                    $result['error'] = 'Ocurrió un problema al eliminar el servicio';
+                                }
+                                break;
+
+                        
+                                case 'readOne':
+                                    if (!$servicios->setId($_POST['idServicio'] )) {
+                                        $result['error'] = 'Servicio incorrecto';
+                                    } elseif ($result['dataset'] = $servicios->readOne()) {
+                                        $result['status'] = 1;
+                                    } else {
+                                        $result['error'] = 'Servicio inexistente';
+                                    }
+                                    break;
            
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';

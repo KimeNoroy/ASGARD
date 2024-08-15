@@ -70,6 +70,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No existen usuarios registrados';
                 }
                 break;
+                
             case 'readOne':
                 if (!$usuario->setId($_POST['id_factura'])) {
                     $result['error'] = 'ID es inválido';
