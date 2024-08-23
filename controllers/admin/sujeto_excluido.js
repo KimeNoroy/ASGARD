@@ -5,7 +5,7 @@ const CLIENTE_API = 'services/admin/clientes.php';
 const SEARCH_FORM = document.getElementById('searchForm');
 // Constantes para cargar los elementos de la tabla.
 const TABLE_BODY = document.getElementById('tableBody'),
-ROWS_FOUND = document.getElementById('rowsFound');
+    ROWS_FOUND = document.getElementById('rowsFound');
 
 const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
     MODAL_TITLE = document.getElementById('modalTitle');
@@ -18,7 +18,7 @@ const SAVE_FORM = document.getElementById('saveForm'),
     ID_SERVICIO = document.getElementById('id_servicio'),
     MONTO = document.getElementById('monto'),
     FECHA_EMISION = document.getElementById('fechaEmision'),
-    
+
     BOTON_ACTUALIZAR = document.getElementById('btnAgregar'),
     BOTON_AGREGAR = document.getElementById('btnActualizar');
 
@@ -66,9 +66,9 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 
 
 const fillTable = async (form = null) => {
-     // Se inicializa el contenido de la tabla.
-     ROWS_FOUND.textContent = '';
-     TABLE_BODY.innerHTML = '';
+    // Se inicializa el contenido de la tabla.
+    ROWS_FOUND.textContent = '';
+    TABLE_BODY.innerHTML = '';
     // Se verifica la acción a realizar.
     (form) ? action = 'searchRows' : action = 'readAll';
     // Petición para obtener los registros disponibles.
@@ -120,7 +120,7 @@ const openCreate = () => {
 
     BOTON_ACTUALIZAR.classList.remove('d-none');
     BOTON_AGREGAR.classList.add('d-none');
-   
+
 }
 
 const openUpdate = async (id) => {
@@ -144,7 +144,7 @@ const openUpdate = async (id) => {
         TIPO_SERVICIO.value = ROW.tipo_servicio;
         FECHA_EMISION.value = ROW.fecha_emision;
         DESCRIPCION.value = ROW.descripcion;
-        
+
         BOTON_ACTUALIZAR.classList.add('d-none');
 
         BOTON_AGREGAR.classList.remove('d-none');
@@ -173,4 +173,11 @@ const openDelete = async (id) => {
             sweetAlert(2, DATA.error, false);
         }
     }
+}
+
+const openReport = () => {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/admin/reporte_sujeto_excluido.php`);
+    // Se abre el reporte en una nueva pestaña.
+    window.open(PATH.href);
 }

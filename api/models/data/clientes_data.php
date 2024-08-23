@@ -137,7 +137,7 @@ public function setDUI($value)
     public function setNit($value)
     {
         if (!Validator::validateNaturalNumber($value)) {
-            $this->data_error = 'El Nit debe tener el formato ########-#';  
+            $this->data_error = 'El Nit debe tener el formato ####-######-#';  
             return false;
         } elseif($this->checkDuplicate($value)) {
             $this->data_error = 'El NIT ingresado ya existe';

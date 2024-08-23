@@ -9,16 +9,17 @@ require_once('../../libraries/fpdf185/fpdf.php');
 class Report extends FPDF
 {
     // Constante para definir la ruta de las vistas del sitio privado.
-    const CLIENT_URL = 'http://localhost/coffeeshop/views/admin/';
+    const CLIENT_URL = 'http://localhost/ASGARD/views/admin/';
     // Propiedad para guardar el título del reporte.
     private $title = null;
+    private $orientation = null;
 
     /*
     *   Método para iniciar el reporte con el encabezado del documento.
     *   Parámetros: $title (título del reporte).
     *   Retorno: ninguno.
     */
-    public function startReport($title)
+    public function startReport($title, $orientation = 'p')
     {
         // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en los reportes.
         session_start();
@@ -26,12 +27,13 @@ class Report extends FPDF
         if (isset($_SESSION['idAdministrador'])) {
             // Se asigna el título del documento a la propiedad de la clase.
             $this->title = $title;
+            $this->orientation = $orientation;
             // Se establece el título del documento (true = utf-8).
-            $this->setTitle('CoffeeShop - Reporte', true);
+            $this->setTitle('ASGARD - Reporte', true);
             // Se establecen los margenes del documento (izquierdo, superior y derecho).
             $this->setMargins(15, 15, 15);
             // Se añade una nueva página al documento con orientación vertical y formato carta, llamando implícitamente al método header()
-            $this->addPage('p', 'letter');
+            $this->addPage($orientation, 'letter');
             // Se define un alias para el número total de páginas que se muestra en el pie del documento.
             $this->aliasNbPages();
         } else {
@@ -56,15 +58,16 @@ class Report extends FPDF
     public function header()
     {
         // Se establece el logo.
-        $this->image('../../images/logo.png', 15, 15, 20);
+        $this->image('../../resources/img/logo.png', 15, 15, 20);
         // Se ubica el título.
         $this->cell(20);
         $this->setFont('Arial', 'B', 15);
-        $this->cell(166, 10, $this->encodeString($this->title), 0, 1, 'C');
+        ($this->orientation == 'p') ? $ancho = 166 : $ancho = 229;
+        $this->cell($ancho, 10, $this->encodeString($this->title), 0, 1, 'C');
         // Se ubica la fecha y hora del servidor.
         $this->cell(20);
         $this->setFont('Arial', '', 10);
-        $this->cell(166, 10, 'Fecha/Hora: ' . date('d-m-Y H:i:s'), 0, 1, 'C');
+        $this->cell($ancho, 10, 'Fecha/Hora: ' . date('d-m-Y H:i:s'), 0, 1, 'C');
         // Se agrega un salto de línea para mostrar el contenido principal del documento.
         $this->ln(10);
     }

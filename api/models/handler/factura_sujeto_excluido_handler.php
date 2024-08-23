@@ -114,4 +114,8 @@ class factura_sujeto_excluido_handler
     }
 
 
+    //Metodo para generar reporte
+    
+
+
 }
