@@ -184,6 +184,57 @@ const pieGraph = (canvas, legends, values, title) => {
 }
 
 /*
+*   Función para generar un gráfico de líneas.
+*   Requiere la librería chart.js para funcionar.
+*   Parámetros: canvas (identificador de la etiqueta canvas), xAxis (datos para el eje X), yAxis (datos para el eje Y), legend (etiqueta para los datos) y title (título del gráfico).
+*   Retorno: ninguno.
+*/
+const lineGraph = (canvas, xAxis, yAxis, legend, title) => {
+    // Se crea una instancia para generar el gráfico con los datos recibidos.
+    new Chart(document.getElementById(canvas), {
+        type: 'line',
+        data: {
+            labels: xAxis,  // Eje X (meses)
+            datasets: [{
+                label: legend,
+                data: yAxis,  // Eje Y (cantidad de clientes)
+                borderColor: '#4caf50',  // Color de la línea
+                backgroundColor: 'rgba(76, 175, 80, 0.2)',  // Color de fondo debajo de la línea
+                fill: true,  // Rellenar debajo de la línea
+                tension: 0.1  // Curvatura de la línea
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: title  // Título del gráfico
+                },
+                legend: {
+                    display: true  // Mostrar la leyenda
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Meses'  // Título del eje X
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Cantidad de Clientes'  // Título del eje Y
+                    }
+                }
+            }
+        }
+    });
+}
+
+/*
 *   Función asíncrona para cerrar la sesión del usuario.
 *   Parámetros: ninguno.
 *   Retorno: ninguno.

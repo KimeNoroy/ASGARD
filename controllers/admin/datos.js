@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //  graficoBarrasServicios();
     graficoPastelServicios();
     readDashboardStats();
+    graficoPrediccionClientes();
 });
 
 
@@ -90,5 +91,49 @@ const graficoPastelServicios = async () => {
         }
     } catch (error) {
         console.error('Error al obtener datos:', error);
+    }
+}
+
+//Función para predecir los clientes del siguiente mes
+const graficoPrediccionClientes = async () => {
+    // Petición para obtener los datos históricos de clientes.
+    const DATA = await fetchData(CLIENTE_API, 'historicoClientes');
+    
+    // Se comprueba si la respuesta es satisfactoria.
+    if (DATA.status) {
+        // Se declaran los arreglos para guardar los datos a graficar.
+        let meses = [];
+        let clientes = [];
+        
+        // Se recorre el conjunto de registros fila por fila a través del objeto row.
+        DATA.dataset.forEach(row => {
+            // Se agregan los datos a los arreglos.
+            meses.push(row.mes);
+            clientes.push(row.cantidad);
+        });
+
+        // Lógica para realizar la predicción utilizando regresión lineal simple.
+        const n = clientes.length;
+        const sumX = meses.reduce((acc, val, i) => acc + (i + 1), 0); // Suma de índices de meses (1, 2, 3, ...)
+        const sumY = clientes.reduce((acc, val) => acc + val, 0); // Suma de cantidades de clientes
+        const sumXY = clientes.reduce((acc, val, i) => acc + (val * (i + 1)), 0); // Suma de productos de clientes y su índice
+        const sumX2 = meses.reduce((acc, val, i) => acc + Math.pow(i + 1, 2), 0); // Suma de cuadrados de índices
+
+        // Calcular la pendiente (m) y la intersección (b) de la recta.
+        const m = (n * sumXY - sumX * sumY) / (n * sumX2 - Math.pow(sumX, 2));
+        const b = (sumY - m * sumX) / n;
+
+        // Predicción para el próximo mes
+        const prediccionClientes = Math.round(m * (n + 1) + b);
+
+        // Agregar el próximo mes y su predicción al gráfico
+        meses.push('Próximo Mes');
+        clientes.push(prediccionClientes);
+
+        // Llamada a la función para generar y mostrar un gráfico de líneas.
+        lineGraph('chart3', meses, clientes, 'Predicción de Clientes para el Próximo Mes');
+    } else {
+        document.getElementById('carouselChart3').remove();
+        console.log(DATA.error);
     }
 }

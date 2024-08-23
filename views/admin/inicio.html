@@ -54,7 +54,34 @@
                 </div>
             </div>
 
-            <!-- Importación de la librería para generar los gráficos. Para más información https://www.chartjs.org/ -->
+            <!-- Contenedor del carrusel -->
+            <div class="row">
+                <!-- Carrusel con los gráficos -->
+                <div id="carruselGraficos" class="carousel slide">
+                    <!-- Contenedor de gráficos -->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" id="carouselChart3">
+                            <div class="contenedor-grafico d-flex justify-content-center">
+                                <!-- Se muestra el gráfico de... -->
+                                <canvas id="chart3" class="col-lg-4"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Flecha de navegación izquierda-->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carruselGraficos"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <!-- Flecha de navegación derecha -->
+                    <button class="carousel-control-next" type="button" data-bs-target="#carruselGraficos"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>    <!-- Importación de la librería para generar los gráficos. Para más información https://www.chartjs.org/ -->
     </main>
     <!-- Custom JS -->
     <script type="text/javascript" src="../../resources/js/chart.umd.min.js"></script>

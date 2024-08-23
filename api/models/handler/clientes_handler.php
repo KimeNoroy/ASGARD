@@ -20,7 +20,7 @@ class ClienteHandler
     protected $nit = null;
     protected $telefono = null;
 
- 
+
 
     /*
      *  Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
@@ -66,7 +66,7 @@ class ClienteHandler
         $sql = 'UPDATE tb_clientes
                 SET nombre_cliente = ?, apellido_cliente = ?, email_cliente = ?, dui_cliente = ?, telefono = ?, nit_cliente = ?
                 WHERE id_cliente = ?';
-        $params = array($this->nombre, $this->apellido, $this->correo, $this->dui, $this->direccion, $this->departamento, $this->municipio,$this->telefono, $this->nit, $this->id);
+        $params = array($this->nombre, $this->apellido, $this->correo, $this->dui, $this->direccion, $this->departamento, $this->municipio, $this->telefono, $this->nit, $this->id);
         return Database::executeRow($sql, $params);
     }
 
@@ -86,5 +86,48 @@ class ClienteHandler
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
-}
 
+    // Función para predecir la cantidad de clientes por mes
+    public function predecirClientesProximoMes()
+    {
+        // Consulta para obtener la cantidad de clientes por mes
+        $sql = 'SELECT EXTRACT(YEAR_MONTH FROM fecha_registro) as mes, COUNT(id_cliente) as cantidad
+            FROM tb_clientes
+            GROUP BY mes
+            ORDER BY mes DESC
+            LIMIT 12';  // Limitamos a los últimos 12 meses para la predicción
+
+        // Obtener los datos desde la base de datos
+        $datos = Database::getRows($sql);
+
+        // Preparar variables para la predicción
+        $meses = [];
+        $cantidades = [];
+
+        foreach ($datos as $fila) {
+            $meses[] = count($meses) + 1;  // Asignamos un índice secuencial a cada mes
+            $cantidades[] = $fila['cantidad'];
+        }
+
+        // Variables para la tendencia lineal
+        $sumX = array_sum($meses);
+        $sumY = array_sum($cantidades);
+        $sumXY = 0;
+        $sumX2 = 0;
+
+        for ($i = 0; $i < count($meses); $i++) {
+            $sumXY += $meses[$i] * $cantidades[$i];
+            $sumX2 += $meses[$i] * $meses[$i];
+        }
+
+        $n = count($meses);
+        $m = ($n * $sumXY - $sumX * $sumY) / ($n * $sumX2 - $sumX * $sumX);
+        $b = ($sumY - $m * $sumX) / $n;
+
+        // Predicción para el próximo mes
+        $mesProximo = $n + 1;
+        $clientesPrediccion = $m * $mesProximo + $b;
+
+        return round($clientesPrediccion);
+    }
+}

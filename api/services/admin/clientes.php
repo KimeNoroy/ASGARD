@@ -55,14 +55,14 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
-            // case 'readDashboardStats':
-            //     if ($result['dataset'] = $cliente->readDashboardStats()) {
-            //         $result['status'] = 1;
-            //         $result['message'] = 'Chido';
-            //     } else {
-            //         $result['error'] = 'No existen cliente registrados';
-            //     }
-            //     break;
+                // case 'readDashboardStats':
+                //     if ($result['dataset'] = $cliente->readDashboardStats()) {
+                //         $result['status'] = 1;
+                //         $result['message'] = 'Chido';
+                //     } else {
+                //         $result['error'] = 'No existen cliente registrados';
+                //     }
+                //     break;
 
             case 'readOne':
                 if (!isset($_POST['idCliente']) || !$cliente->setId($_POST['idCliente'])) {
@@ -74,28 +74,28 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
-                case 'updateRow':
-                    $_POST = Validator::validateForm($_POST);
-                    if (
-                        !$cliente->setId($_POST['idCliente']) or
-                        !$cliente->setNombre($_POST['nombreCliente']) or
-                        !$cliente->setApellido($_POST['apellidoCliente']) or
-                        !$cliente->setCorreo($_POST['emailCliente']) or
-                        !$cliente->setNit($_POST['nitCliente']) or
-                        !$cliente->setDireccion($_POST['direccionCliente']) or
-                        !$cliente->setDepartamento($_POST['departamentoCliente']) or
-                        !$cliente->setMunicipio($_POST['municipioCliente']) or
-                        !$cliente->setTelefono($_POST['telefonoCliente']) or
-                        !$cliente->setDui($_POST['duiCliente'])
-                    ) {
-                        $result['error'] = $cliente->getDataError();
-                    } elseif ($cliente->updateRow()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Cliente modificado correctamente';
-                    } else {
-                        $result['error'] = 'Ocurrió un problema al modificar el cliente';
-                    }
-                    break;
+            case 'updateRow':
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$cliente->setId($_POST['idCliente']) or
+                    !$cliente->setNombre($_POST['nombreCliente']) or
+                    !$cliente->setApellido($_POST['apellidoCliente']) or
+                    !$cliente->setCorreo($_POST['emailCliente']) or
+                    !$cliente->setNit($_POST['nitCliente']) or
+                    !$cliente->setDireccion($_POST['direccionCliente']) or
+                    !$cliente->setDepartamento($_POST['departamentoCliente']) or
+                    !$cliente->setMunicipio($_POST['municipioCliente']) or
+                    !$cliente->setTelefono($_POST['telefonoCliente']) or
+                    !$cliente->setDui($_POST['duiCliente'])
+                ) {
+                    $result['error'] = $cliente->getDataError();
+                } elseif ($cliente->updateRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Cliente modificado correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al modificar el cliente';
+                }
+                break;
 
             case 'deleteRow':
                 // Agregar depuración para verificar la recepción de datos
@@ -111,7 +111,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al eliminar el Cliente';
                 }
                 break;
-                
+
             case 'getUser':
                 if (isset($_SESSION['emailCliente'])) {
                     $result['status'] = 1;
@@ -120,8 +120,18 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Email de cliente indefinido';
                 }
                 break;
-
-           
+            //Case para predecir los clientes del siguiente mes    
+            case 'predecirClientesProximoMes':
+                $result['action'] = $action;
+                $result['status'] = 1;
+                // Llamar a la función que realiza la predicción
+                if ($prediccion = $cliente->predecirClientesProximoMes()) {
+                    $result['status'] = 1;
+                    $result['prediccion'] = $prediccion;
+                } else {
+                    $result['error'] = 'No se pudo realizar la predicción';
+                }
+                break;
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }
