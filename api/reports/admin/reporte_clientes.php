@@ -2,15 +2,15 @@
 // Se incluye la clase con las plantillas para generar reportes.
 require_once('../../helpers/report.php');
 // Se incluyen las clases para la transferencia y acceso a datos.
-require_once('../../models/data/factura_sujeto_excluido_data.php');
+require_once('../../models/data/factura_consumidor_final_data.php');
 
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Facturas sujeto excluido', 'l');
+$pdf->startReport('Registros de facturas de consumidor final', 'l');
 
 // Se instancia el modelo Categoría para obtener los datos.
-$factura = new factura_sujeto_excluido;
+$factura = new FacturaConsumidorFinalData;
 
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
 if ($dataFactura = $factura->readAll()) {
@@ -54,5 +54,5 @@ if ($dataFactura = $factura->readAll()) {
     $pdf->cell(0, 10, $pdf->encodeString('No hay registros para mostrar'), 1, 1);
 }
 // Se llama implícitamente al método footer() y se envía el documento al navegador web.
-$pdf->output('I', 'FacturaSE.pdf');
+$pdf->output('I', 'FacturaCF.pdf');
 

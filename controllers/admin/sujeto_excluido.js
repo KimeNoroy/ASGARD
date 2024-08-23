@@ -98,6 +98,9 @@ const fillTable = async (form = null) => {
                         <button type="button" class="btn btn-outline-danger" onclick="openDelete(${row.id_factura})">
                             <i class="bi bi-trash-fill"></i>
                         </button>
+                        <button type="button" class="btn btn-outline-info" onclick="openBill(${row.id_factura})">
+                        <i class="bi bi-file-earmark-pdf-fill"></i>
+                    </button>
                     </td>
                 </tr>
             `;

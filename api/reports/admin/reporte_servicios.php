@@ -2,47 +2,37 @@
 // Se incluye la clase con las plantillas para generar reportes.
 require_once('../../helpers/report.php');
 // Se incluyen las clases para la transferencia y acceso a datos.
-require_once('../../models/data/factura_sujeto_excluido_data.php');
+require_once('../../models/data/servicios_data.php');
 
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Facturas sujeto excluido', 'l');
+$pdf->startReport('Registro de servicios', 'p');
 
 // Se instancia el modelo Categoría para obtener los datos.
-$factura = new factura_sujeto_excluido;
+$servicios = new ServiciosData;
 
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
-if ($dataFactura = $factura->readAll()) {
+if ($dataServicios = $servicios->readAll()) {
     // Se establece un color de relleno para los encabezados.
     $pdf->setFillColor(200);
     // Se establece la fuente para los encabezados.
     $pdf->setFont('Arial', 'B', 11);
 
     // Se imprimen las celdas con los encabezados.
-    $pdf->cell(22, 10, 'Nombre', 1, 0, 'C', 1);
-    $pdf->cell(22, 10, 'Apellido', 1, 0, 'C', 1);
-    $pdf->cell(45, 10, 'Dirección', 1, 0, 'C', 1);
-    $pdf->cell(65, 10, 'Correo', 1, 0, 'C', 1);
-    $pdf->cell(25, 10, 'Teléfono', 1, 0, 'C', 1);
-    $pdf->cell(25, 10, 'DUI', 1, 0, 'C', 1);
-    $pdf->cell(35, 10, 'Fecha de emisión', 1, 1, 'C', 1);
-
+    $pdf->cell(95, 10, 'Servicio', 1, 0, 'C', 1);
+    $pdf->cell(95, 10, 'Descripcion', 1, 1, 'C', 1);
+   
     // Se establece un color de relleno para mostrar el nombre de la categoría.
     $pdf->setFillColor(240);
     // Se establece la fuente para los datos de las facturas.
     $pdf->setFont('Arial', '', 11);
 
     // Se recorren los registros fila por fila.
-    foreach ($dataFactura as $rowFactura) {
+    foreach ($dataServicios as $rowServicio) {
         // Se imprimen las celdas con los datos de las facturas.
-        $pdf->cell(22, 10, $pdf->encodeString($rowFactura['nombre_cliente']), 1, 0);
-        $pdf->cell(22, 10, $rowFactura['apellido_cliente'], 1, 0);
-        $pdf->cell(45, 10, $pdf->encodeString($rowFactura['direccion_cliente']), 1, 0);
-        $pdf->cell(65, 10, $pdf->encodeString($rowFactura['email_cliente']), 1, 0);
-        $pdf->cell(25, 10, $rowFactura['telefono_cliente'], 1, 0);
-        $pdf->cell(25, 10, $rowFactura['dui_cliente'], 1, 0);
-        $pdf->cell(35, 10, $rowFactura['fecha_emision'], 1, 1);
+        $pdf->cell(95, 10, $pdf->encodeString($rowServicio['nombre_servicio']), 1, 0);
+        $pdf->cell(95, 10, $rowServicio['descripcion'], 1, 1);
     }
     
     // Mostrar el nombre del administrador al final del reporte.
@@ -54,5 +44,5 @@ if ($dataFactura = $factura->readAll()) {
     $pdf->cell(0, 10, $pdf->encodeString('No hay registros para mostrar'), 1, 1);
 }
 // Se llama implícitamente al método footer() y se envía el documento al navegador web.
-$pdf->output('I', 'FacturaSE.pdf');
-
+$pdf->output('I', 'Servicios.pdf');
+?>

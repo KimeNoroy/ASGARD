@@ -23,7 +23,7 @@ class PDF extends FPDF
             // Se asigna el título del documento a la propiedad de la clase.
             $this->title = $title;
             // Se establece el título del documento (true = utf-8).
-            $this->setTitle('CoffeeShop - Reporte', true);
+            $this->setTitle('ASGARD - Reporte', true);
             // Se establecen los margenes del documento (izquierdo, superior y derecho).
             $this->setMargins(15, 15, 15);
             // Se añade una nueva página al documento con orientación vertical y formato carta, llamando implícitamente al método header()
@@ -57,9 +57,9 @@ class PDF extends FPDF
         $this->SetFont('Arial', 'B', 12);
         $this->Cell(100, 10, 'MULTINACIONAL GONZALES', 0, 1, 'C');
         $this->SetFont('Arial', '', 10);
-        $this->Cell(100, 5, 'Direccion: Calle cualquiera 123, Cualquier lugar', 0, 1, 'C');
-        $this->Cell(100, 5, 'Email: Hola@sitioincreible.com', 0, 1, 'C');
-        $this->Cell(100, 5, 'Tel: (55) 1234-5678', 0, 1, 'C');
+        $this->Cell(100, 5, 'Direccion:', 0, 1, 'C');
+        $this->Cell(100, 5, 'Email: ', 0, 1, 'C');
+        $this->Cell(100, 5, 'Tel: ', 0, 1, 'C');
         $this->Ln(20);
     }
 
@@ -81,8 +81,6 @@ class PDF extends FPDF
         $this->SetFont('Arial', 'B', 10);
         $this->Cell(30, 10, 'Cantidad', 1);
         $this->Cell(70, 10, 'Descripcion', 1);
-        $this->Cell(30, 10, 'Abono', 1);
-        $this->Cell(30, 10, 'Resta', 1);
         $this->Cell(30, 10, 'Total', 1);
         $this->Ln();
 
@@ -104,16 +102,9 @@ class PDF extends FPDF
         $this->SetFont('Arial', 'B', 10);
         $this->Cell(190, 10, 'OBSERVACIONES', 1, 1, 'L');
         $this->SetFont('Arial', '', 10);
-        $this->MultiCell(190, 10, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 1);
+        $this->MultiCell(190, 10, '', 1);
     }
 
-    // Add Service and Signature section
-    function ServiceSignature()
-    {
-        $this->Ln(10);
-        $this->Cell(100, 10, 'SERVICIO A DOMICILIO', 0, 0, 'L');
-        $this->Cell(90, 10, 'FIRMA CLIENTE', 0, 1, 'R');
-    }
 }
 
 // Instantiation of inherited class
@@ -137,7 +128,6 @@ $pdf->InvoiceTable();
 $pdf->Ln(5);
 $pdf->Observations();
 
-// Service and Signature
-$pdf->ServiceSignature();
+
 
 $pdf->Output();

@@ -135,6 +135,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al eliminar el administrador';
                 }
                 break;
+
             case 'getUser':
                 if (isset($_SESSION['emailAdministrador'])) {
                     $result['status'] = 1;
@@ -143,6 +144,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Email de administrador indefinido';
                 }
                 break;
+                
             case 'logOut':
                 if (session_destroy()) {
                     $result['status'] = 1;

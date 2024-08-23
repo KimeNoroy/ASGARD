@@ -105,38 +105,38 @@ class ComprobanteCreditoFiscal extends ComprobanteCreditoFiscalHandler
         }
     }
 
-    public function setNcr($value)
-    {
-        if (Validator::validateString($value)) {
-            $this->ncr = $value;
-            return true;
-        } else {
-            $this->data_error = 'El ncr es incorrecto';
-            return false;
-        }
-    }
+    // public function setNcr($value)
+    // {
+    //     if (Validator::validateString($value)) {
+    //         $this->ncr = $value;
+    //         return true;
+    //     } else {
+    //         $this->data_error = 'El ncr es incorrecto';
+    //         return false;
+    //     }
+    // }
 
-    public function setGiro($value)
-    {
-        if (Validator::validateString($value)) {
-            $this->giro = $value;
-            return true;
-        } else {
-            $this->data_error = 'El giro es incorrecto';
-            return false;
-        }
-    }
+    // public function setGiro($value)
+    // {
+    //     if (Validator::validateString($value)) {
+    //         $this->giro = $value;
+    //         return true;
+    //     } else {
+    //         $this->data_error = 'El giro es incorrecto';
+    //         return false;
+    //     }
+    // }
 
-    public function setActEconomica($value)
-    {
-        if (Validator::validateString($value)) {
-            $this->actEconomica = $value;
-            return true;
-        } else {
-            $this->data_error = 'La actividad económica es incorrecta';
-            return false;
-        }
-    }
+    // public function setActEconomica($value)
+    // {
+    //     if (Validator::validateString($value)) {
+    //         $this->actEconomica = $value;
+    //         return true;
+    //     } else {
+    //         $this->data_error = 'La actividad económica es incorrecta';
+    //         return false;
+    //     }
+    // }
     
     // Método para obtener el mensaje de error.
     public function getDataError()
