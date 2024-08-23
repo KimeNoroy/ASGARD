@@ -173,4 +173,13 @@ const openDelete = async (id) => {
             sweetAlert(2, DATA.error, false);
         }
     }
+    
 }
+
+const openReport = () => {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/admin/reporte_sujeto_comprobante_credito_fiscal.php`);
+    // Se abre el reporte en una nueva pestaña.
+    window.open(PATH.href);
+}
+
