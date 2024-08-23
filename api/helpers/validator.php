@@ -246,13 +246,14 @@ class Validator
 
     public static function validateNIT($value)
     {
-        // Se verifica que el número tenga el formato 00000000-0.
-        if (preg_match('/^[0-9]{8}[-][0-9]{1}$/', $value)) {
+        // Se verifica que el número tenga el formato 0000-000000-000-0.
+        if (preg_match('/^[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}$/', $value)) {
             return true;
         } else {
             return false;
         }
     }
+    
 
     /*
     *   Método para validar un número telefónico.
