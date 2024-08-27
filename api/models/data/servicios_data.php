@@ -42,13 +42,14 @@ class ServiciosData extends ServiciosHandler{
             $this->data_error = 'la descripcion debe ser un valor alfabético';
             return false;
         } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->nombre = $value;
+            $this->descripcion = $value; // Corregido aquí
             return true;
         } else {
             $this->data_error = 'la descripcion debe tener una longitud entre ' . $min . ' y ' . $max;
             return false;
         }
     }
+    
 
     
 

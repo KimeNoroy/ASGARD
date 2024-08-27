@@ -100,6 +100,18 @@ if (isset($_GET['action'])) {
                                         $result['error'] = 'Servicio inexistente';
                                     }
                                     break;
+
+                                    case 'facturasPorMes':
+                                        $data = $servicios->facturasPorMes();
+                                        error_log('Datos devueltos de facturasPorMes: ' . print_r($data, true)); // Depura los datos devueltos
+                                        if ($result['dataset'] = $data) {
+                                            $result['status'] = 1;
+                                        } else {
+                                            $result['error'] = 'No hay datos disponibles';
+                                        }
+                                        break;
+                                    
+                                    
            
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';

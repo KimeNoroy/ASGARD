@@ -3,15 +3,13 @@
 require_once('../../helpers/database.php');
 
 /*
-*	Clase para manejar el comportamiento de los datos de la tabla SERVICIOS
+*   Clase para manejar el comportamiento de los datos de la tabla SERVICIOS
 */
 class ServiciosHandler
 {
     protected $id = null;
     protected $nombre = null;
     protected $descipcion = null;
-
-
 
     public function searchRows()
     {
@@ -23,6 +21,7 @@ class ServiciosHandler
         $params = array($value);
         return Database::getRows($sql, $params);
     }
+
     public function createRow()
     {
         $sql = 'INSERT INTO tb_servicios(nombre_servicio, descripcion)
@@ -38,7 +37,6 @@ class ServiciosHandler
                 ORDER BY nombre_servicio';
         return Database::getRows($sql);
     }
-
 
     public function readOne()
     {
@@ -65,18 +63,35 @@ class ServiciosHandler
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
-    
 
     public function serviciosOfrecidos()
     {
         $sql = 'SELECT 
-    tipo_servicio,
-    COUNT(*) AS cantidad
-FROM 
-    tb_servicios
-GROUP BY 
-    tipo_servicio;
-';
+                    tipo_servicio,
+                    COUNT(*) AS cantidad
+                FROM 
+                    tb_servicios
+                GROUP BY 
+                    tipo_servicio';
+        return Database::getRows($sql);
+    }
+
+    // Nuevo método para obtener la cantidad de facturas emitidas por mes
+    public function facturasPorMes()
+    {
+        $sql = 'SELECT 
+                    MONTH(fecha_emision) AS mes, 
+                    COUNT(*) AS total_facturas 
+                FROM (
+                    SELECT fecha_emision FROM tb_comprobante_credito_fiscal
+                    UNION ALL
+                    SELECT fecha_emision FROM tb_factura_sujeto_excluido
+                    UNION ALL
+                    SELECT fecha_emision FROM tb_factura_consumidor_final
+                ) AS todas_facturas
+                GROUP BY mes
+                ORDER BY mes';
         return Database::getRows($sql);
     }
 }
+?>
