@@ -92,6 +92,7 @@ class ClienteData extends ClienteHandler
     } else {
         $this->data_error = 'La dirección debe tener una longitud entre ' . $min . ' y ' . $max;
         return false;
+<<<<<<< HEAD
     }
 }
 
@@ -136,11 +137,68 @@ public function setMunicipio($value, $min = 2, $max = 100)
             $this->dui = $value;
             return true;
         }
+=======
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
+    }
+}
+
+<<<<<<< HEAD
+=======
+public function setDepartamento($value, $min = 2, $max = 250)
+{
+    if (!Validator::validateAlphabetic($value)) {
+        $this->data_error = 'El departamento debe ser un valor alfabético';
+        return false;
+    } elseif (Validator::validateLength($value, $min, $max)) {
+        $this->departamento = $value;
+        return true;
+    } else {
+        $this->data_error = 'El departamento debe tener una longitud entre ' . $min . ' y ' . $max;
+        return false;
+    }
+}
+
+public function setMunicipio($value, $min = 2, $max = 100)
+{
+    if (!Validator::validateAlphabetic($value)) {
+        $this->data_error = 'El municipio debe ser un valor alfabético';
+        return false;
+    } elseif (Validator::validateLength($value, $min, $max)) {
+        $this->municipio = $value;
+        return true;
+    } else {
+        $this->data_error = 'El municipio debe tener una longitud entre ' . $min . ' y ' . $max;
+        return false;
+    }
+}
+
+public function setDUI($value)
+{
+    if (!Validator::validateDUI($value)) {
+        $this->data_error = 'El DUI debe tener el formato ########-#';
+        return false;
+    } else {
+        $this->dui = $value;
+        return true;
+    }
+}
+
+    public function setNit($value)
+    {
+        if (!Validator::validateNIT($value)) {
+            $this->data_error = 'El Nit debe tener el formato ####-######-#';  
+            return false;
+        } else {
+            $this->nit = $value;
+            return true;
+        }
     }
 
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
     // Método para obtener el error de los datos.
     public function getDataError()
     {
         return $this->data_error;
     }
 }
+

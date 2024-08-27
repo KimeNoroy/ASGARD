@@ -8,10 +8,17 @@ const TABLE_BODY = document.getElementById('tableBodyClientes'),
     ROWS_FOUND = document.getElementById('rowsFound');
 // Constantes para establecer los elementos del componente Modal.
 const SAVE_MODAL = new bootstrap.Modal('#crearModal');
+<<<<<<< HEAD
    // MODAL_TITLE = document.getElementById('modalTitle');
 // Constantes para establecer los elementos del formulario de guardar.
 const SAVE_FORM = document.getElementById('saveForm'),
     ID_CLIENTE = document.getElementById('id_cliente'),
+=======
+// MODAL_TITLE = document.getElementById('modalTitle');
+// Constantes para establecer los elementos del formulario de guardar.
+const SAVE_FORM = document.getElementById('saveForm'),
+    ID_CLIENTE = document.getElementById('idCliente'),
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
     NOMBRE_CLIENTE = document.getElementById('nombre_cliente'),
     APELLIDO_CLIENTE = document.getElementById('apellido_cliente'),
     DUI_CLIENTE = document.getElementById('dui_cliente'),
@@ -21,12 +28,36 @@ const SAVE_FORM = document.getElementById('saveForm'),
     MUNICIPIO_CLIENTE = document.getElementById('municipio_cliente')
     EMAIL_CLIENTE = document.getElementById('email_cliente');
     TELEFONO_CLIENTE = document.getElementById('telefono');
+<<<<<<< HEAD
     //PASSWORD_CLIENTE = document.getElementById('password_cliente');
+=======
+
+// Llamada a la función para establecer la mascara del campo teléfono.
+vanillaTextMask.maskInput({
+    inputElement: document.getElementById('telefono'),
+    mask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+});
+
+// Llamada a la función para establecer la mascara del campo DUI.
+vanillaTextMask.maskInput({
+    inputElement: document.getElementById('dui_cliente_crear'),
+    mask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/]
+});
+
+vanillaTextMask.maskInput({
+    inputElement: document.getElementById('nit_cliente'),
+    mask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/ ,/\d/, '-', /\d/] 
+});
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
+<<<<<<< HEAD
     //loadTemplate();
+=======
+    loadTemplate();
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
     // Se establece el título del contenido principal.
     //MAIN_TITLE.textContent = 'Gestionar clientes';
     // Llamada a la función para llenar la tabla con los registros existentes.
@@ -49,10 +80,18 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     event.preventDefault();
     // Se verifica la acción a realizar.
     (ID_CLIENTE.value) ? action = 'updateRow' : action = 'createRow';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM);
     // Petición para guardar los datos del formulario.
     const DATA = await fetchData(CLIENTE_API, action, FORM);
+<<<<<<< HEAD
+=======
+    console.log(DATA);
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se cierra la caja de diálogo.
@@ -65,6 +104,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
         sweetAlert(2, DATA.error, false);
     }
 });
+<<<<<<< HEAD
 
 /*
 *   Función asíncrona para llenar la tabla con los registros disponibles.
@@ -75,17 +115,32 @@ const fillTable = async (form = null) => {
     // Se inicializa el contenido de la tabla.
     ROWS_FOUND.textContent = '';
     TABLE_BODY.innerHTML = '';
+=======
+/*
+*   Función asíncrona para llenar la tabla con los registros disponibles.
+*   Parámetros: form (objeto opci   onal con los datos de búsqueda).
+*   Retorno: ninguno.
+*/
+const fillTable = async (form = null) => {
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
     // Se verifica la acción a realizar.
     (form) ? action = 'searchRows' : action = 'readAll';
     // Petición para obtener los registros disponibles.
     const DATA = await fetchData(CLIENTE_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
+<<<<<<< HEAD
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
         DATA.dataset.forEach(row => {
             // Se establece un icono para el estado del producto.
             //(row.estado_producto) ? icon = 'bi bi-eye-fill' : icon = 'bi bi-eye-slash-fill';
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+=======
+        ROWS_FOUND.textContent = '';
+        TABLE_BODY.innerHTML = '';
+        // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
+        DATA.dataset.forEach(row => {
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
             TABLE_BODY.innerHTML += `
                 <tr>
                     <td>${row.nombre_cliente}</td>
@@ -93,7 +148,11 @@ const fillTable = async (form = null) => {
                     <td>${row.dui_cliente}</td>
                     <td>${row.nit_cliente}</td>
                     <td>${row.email_cliente}</td>
+<<<<<<< HEAD
                     <td>${row.telefono}</td>
+=======
+                    <td>${row.telefono_cliente}</td>
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_cliente})">
                             <i class="bi bi-pencil-fill"></i>
@@ -108,10 +167,29 @@ const fillTable = async (form = null) => {
         // Se muestra un mensaje de acuerdo con el resultado.
         ROWS_FOUND.textContent = DATA.message;
     } else {
+<<<<<<< HEAD
         sweetAlert(4, DATA.error, true);
     }
 }
 
+=======
+        // En caso de que no existan usuarios registrados o no se encuentren coincidencias de búsqeuda. 
+        if (DATA.error == 'No existen usuarios registrados' || DATA.error == 'No hay coincidencias') {
+            // Se muestra el mensaje de la API.
+            sweetAlert(4, DATA.error, true);
+            // Se restablece el contenido de la tabla.
+            ROWS_FOUND.textContent = '';
+            TABLE_BODY.innerHTML = '';
+        } else if (DATA.error == 'Ingrese un valor para buscar') {
+            // Se muestra el mensaje de la API.
+            sweetAlert(4, DATA.error, true);
+        } else {
+            // Se muestra el error de la API.
+            sweetAlert(2, DATA.error, true);
+        }
+    }
+}
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
 /*
 *   Función para preparar el formulario al momento de insertar un registro.
 *   Parámetros: ninguno.
@@ -135,7 +213,11 @@ const openCreate = () => {
 const openUpdate = async (id) => {
     // Se define un objeto con los datos del registro seleccionado.
     const FORM = new FormData();
+<<<<<<< HEAD
     FORM.append('id_cliente', id);
+=======
+    FORM.append('idCliente', id);
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
     // Petición para obtener los datos del registro solicitado.
     const DATA = await fetchData(CLIENTE_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -158,8 +240,11 @@ const openUpdate = async (id) => {
         MUNICIPIO_CLIENTE.value = ROW.municipio_cliente;
         EMAIL_CLIENTE.checked = ROW.email_cliente;
         TELEFONO_CLIENTE.checked = ROW.telefono;
+<<<<<<< HEAD
         //PASSWORD_CLIENTE.checked = ROW.password_cliente;
         //fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto', ROW.id_categoria);
+=======
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -170,6 +255,10 @@ const openUpdate = async (id) => {
 *   Parámetros: id (identificador del registro seleccionado).
 *   Retorno: ninguno.
 */
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
 const openDelete = async (id) => {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
     const RESPONSE = await confirmAction('¿Desea eliminar el cliente de forma permanente?');
@@ -177,7 +266,11 @@ const openDelete = async (id) => {
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM = new FormData();
+<<<<<<< HEAD
         FORM.append('id_cliente', id);
+=======
+        FORM.append('idCliente', id);
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
         // Petición para eliminar el registro seleccionado.
         const DATA = await fetchData(CLIENTE_API, 'deleteRow', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -190,4 +283,8 @@ const openDelete = async (id) => {
             sweetAlert(2, DATA.error, false);
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62

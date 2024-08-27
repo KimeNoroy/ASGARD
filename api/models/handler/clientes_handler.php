@@ -19,6 +19,7 @@ class ClienteHandler
     protected $dui = null;
     protected $nit = null;
     protected $telefono = null;
+<<<<<<< HEAD
    // protected $clave = null;
 
     /*
@@ -96,6 +97,10 @@ class ClienteHandler
         $params = array($this->nombre, $this->apellido, $this->correo, $_SESSION['idAdministrador']);
         return Database::executeRow($sql, $params);
     }*/
+=======
+
+
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
 
     /*
      *  Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
@@ -113,15 +118,25 @@ class ClienteHandler
 
     public function createRow()
     {
+<<<<<<< HEAD
         $sql = 'INSERT INTO tb_clientes(nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono, dui_cliente, nit_cliente)
                 VALUES(?, ?, ?, ?, ?, ?, ?)';
         $params = array($this->nombre, $this->apellido, $this->correo, $this->clave, $this->direccion, $this->departamento, $this->municipio,$this->telefono, $this->dui, $this->nit);
+=======
+        $sql = 'INSERT INTO tb_clientes(nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente, dui_cliente, nit_cliente)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre, $this->apellido, $this->correo, $this->direccion, $this->departamento, $this->municipio, $this->telefono, $this->dui, $this->nit);
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
         return Database::executeRow($sql, $params);
     }
 
     public function readAll()
     {
+<<<<<<< HEAD
         $sql = 'SELECT id_cliente, nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente ,telefono, dui_cliente, nit_cliente
+=======
+        $sql = 'SELECT id_cliente, nombre_cliente, apellido_cliente, email_cliente, dui_cliente, nit_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
                 FROM tb_clientes
                 ORDER BY apellido_cliente';
         return Database::getRows($sql);
@@ -129,9 +144,15 @@ class ClienteHandler
 
     public function readOne()
     {
+<<<<<<< HEAD
         $sql = 'SELECT id_cliente, nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente , telefono, dui_cliente, nit_cliente
                 FROM tb_clientes
                 WHERE id_cliente = ?';
+=======
+        $sql = ' SELECT id_cliente, nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente, dui_cliente, nit_cliente
+            FROM tb_clientes
+            WHERE id_cliente = ?';
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
@@ -141,14 +162,18 @@ class ClienteHandler
         $sql = 'UPDATE tb_clientes
                 SET nombre_cliente = ?, apellido_cliente = ?, email_cliente = ?, dui_cliente = ?, telefono = ?, nit_cliente = ?
                 WHERE id_cliente = ?';
+<<<<<<< HEAD
         $params = array($this->nombre, $this->apellido, $this->correo, $this->dui, $this->direccion, $this->departamento, $this->municipio,$this->telefono, $this->nit, $this->id);
+=======
+        $params = array($this->nombre, $this->apellido, $this->correo, $this->dui, $this->direccion, $this->departamento, $this->municipio, $this->telefono, $this->nit, $this->id);
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
         return Database::executeRow($sql, $params);
     }
 
     public function checkDuplicate($value)
     {
         $sql = 'SELECT id_cliente
-                FROM tb_cliente
+                FROM tb_clientes
                 WHERE dui_cliente = ? OR email_cliente = ?';
         $params = array($value, $value);
         return Database::getRow($sql, $params);
@@ -161,4 +186,51 @@ class ClienteHandler
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+<<<<<<< HEAD
+=======
+
+    // Función para predecir la cantidad de clientes por mes
+    public function predecirClientesProximoMes()
+    {
+        // Consulta para obtener la cantidad de clientes por mes
+        $sql = 'SELECT EXTRACT(YEAR_MONTH FROM fecha_registro) as mes, COUNT(id_cliente) as cantidad
+            FROM tb_clientes
+            GROUP BY mes
+            ORDER BY mes DESC
+            LIMIT 12';  // Limitamos a los últimos 12 meses para la predicción
+
+        // Obtener los datos desde la base de datos
+        $datos = Database::getRows($sql);
+
+        // Preparar variables para la predicción
+        $meses = [];
+        $cantidades = [];
+
+        foreach ($datos as $fila) {
+            $meses[] = count($meses) + 1;  // Asignamos un índice secuencial a cada mes
+            $cantidades[] = $fila['cantidad'];
+        }
+
+        // Variables para la tendencia lineal
+        $sumX = array_sum($meses);
+        $sumY = array_sum($cantidades);
+        $sumXY = 0;
+        $sumX2 = 0;
+
+        for ($i = 0; $i < count($meses); $i++) {
+            $sumXY += $meses[$i] * $cantidades[$i];
+            $sumX2 += $meses[$i] * $meses[$i];
+        }
+
+        $n = count($meses);
+        $m = ($n * $sumXY - $sumX * $sumY) / ($n * $sumX2 - $sumX * $sumX);
+        $b = ($sumY - $m * $sumX) / $n;
+
+        // Predicción para el próximo mes
+        $mesProximo = $n + 1;
+        $clientesPrediccion = $m * $mesProximo + $b;
+
+        return round($clientesPrediccion);
+    }
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
 }

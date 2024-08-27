@@ -96,17 +96,17 @@ class Database
             case '1045':
                 self::$error = 'Acceso denegado';
                 break;
-            case '42S02':
-                self::$error = 'Tabla no encontrada';
-                break;
+           // case '42S02':
+             //   self::$error = 'Tabla no encontrada';
+               // break;
             case '42S22':
-                self::$error = 'Columna no encontrada';
+                self::$error = $message;
                 break;
             case '23000':
-                self::$error = 'Violación de restricción de integridad';
+                self::$error = $message;
                 break;
             default:
-                self::$error = 'Ocurrió un problema en la base de datos';
+              //  self::$error = 'Ocurrió un problema en la base de datos';
         }
     }
 

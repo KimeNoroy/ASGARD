@@ -1,110 +1,111 @@
 <?php
 
-//import de clase database
-require_once("../../helpers/database.php");
+// Se incluye la clase para trabajar con la base de datos.
+require_once ('../../helpers/database.php');
 
-//crear handler
-class ComprobanteCreditoHandler
+/*
+ *  Clase para manejar el comportamiento de los datos de la tabla Comprobante de Crédito Fiscal.
+ */
+class ComprobanteCreditoFiscalHandler
 {
-    //campos de la tabla
-
-    protected $id = null;
+    /*
+     *   Declaración de atributos para el manejo de datos.
+     */
+    protected $id= null;
     protected $id_cliente = null;
     protected $id_servicio = null;
-    protected $nit = null;
-    protected $nombre = null;
-    protected $nrc = null;
-    protected $giro = null;
-    protected $direccion = null;
-    protected $email = null;
-    protected $telefono = null;
-    protected $dui = null;
+    protected $tipo_servicio = null;
+    protected $monto = null;
+    protected $descripcion = null;
+    protected $fecha = null;
 
+    /*
+     *   Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
+     */
+
+    // Método para buscar usuarios.
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_comprobante, id_cliente, id_servicio, nit_credito_fiscal, nombre_credito_fiscal, nrc_credito_fiscal, giro_credito_fiscal, direccion_credito_fiscal, email_credito_fiscal, telefono_credito_fiscal, dui_credito_fiscal
-                FROM tb_comprobante_credito_fiscal
-                WHERE nombre_credito_fiscal LIKE ? 
-                ORDER BY id_comprobante';
-        $params = array($value, $value);
+        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
+                FROM vista_tb_comprobante_credito_fiscal
+                WHERE nombre_cliente LIKE ? OR apellido_cliente LIKE ? OR nit_cliente LIKE ?  OR departamento_cliente LIKE ? OR email_cliente LIKE ? OR telefono_cliente LIKE ? OR dui_cliente LIKE ? OR tipo_servicio LIKE ?
+                ORDER BY nombre_cliente';
+        $params = array($value, $value, $value, $value, $value, $value, $value, $value);
         return Database::getRows($sql, $params);
     }
-
+    
+    
+    // Método para crear un nuevo usuario.
     public function createRow()
     {
-        $sql = 'INSERT INTO tb_comprobante_credito_fiscal(id_cliente, id_servicio, nit_credito_fiscal, nombre_credito_fiscal, nrc_credito_fiscal, giro_credito_fiscal, direccion_credito_fiscal, email_credito_fiscal, telefono_credito_fiscal, dui_credito_fiscal)
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->id_cliente, $this->id_servicio, $this->nit, $this->nombre, $this->nrc, $this->giro, $this->direccion, $_SESSION['idAdministrador']);
+        $sql = 'INSERT INTO tb_comprobante_credito_fiscal(tipo_servicio, monto, fecha_emision, descripcion, id_administrador, id_cliente, id_servicio)
+                VALUES(?, ?, ?, ?, ?, ?, ?)';
+        $params = array(
+            $this->tipo_servicio,
+            $this->monto,
+            $this->fecha,
+            $this->descripcion,
+            $_SESSION['idAdministrador'],
+            $this->id_cliente,
+            $this->id_servicio
+        );
         return Database::executeRow($sql, $params);
     }
 
+    // Método para leer todos los usuarios.
     public function readAll()
     {
-        $sql = 'SELECT id_comprobante, id_cliente, id_servicio, nit_credito_fiscal, nombre_credito_fiscal, nrc_credito_fiscal, giro_credito_fiscal, direccion_credito_fiscal, email_credito_fiscal, telefono_credito_fiscal, dui_credito_fiscal
-                FROM tb_comprobante_credito_fiscal
-                ORDER BY nombre_credito_fiscal';
+        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision
+                FROM vista_tb_comprobante_credito_fiscal
+                ORDER BY nombre_cliente';
         return Database::getRows($sql);
     }
 
+  
     public function readOne()
     {
-        $sql = 'SELECT id_comprobante, id_cliente, id_servicio, nit_credito_fiscal, nombre_credito_fiscal, ncr_credito_fiscal, gito_credito_fiscal, direccion_credito_fiscal, email_credito_fiscal, telefono_credito_fiscal, dui_credito_fiscal
-                FROM tb_comprobante_credito_fiscal
-                WHERE id_comprobante = ?';
+        $sql = 'SELECT id_factura, id_cliente, id_servicio, tipo_servicio, monto, fecha_emision, descripcion
+                FROM vista_tb_comprobante_credito_fiscal
+                WHERE id_factura = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
 
+    public function readAllservicio()
+    {
+        $sql = 'SELECT id_servicio, nombre_servicio
+                FROM tb_servicios';
+        return Database::getRows($sql);
+    }
+
+    // Método para actualizar un usuario.
     public function updateRow()
     {
         $sql = 'UPDATE tb_comprobante_credito_fiscal
-                SET nit_credito_fiscal = ?, nombre_credito_fiscal = ?, nrc_credito_fiscal = ?, giro_credito_fiscal = ?, direccion_credito_fiscal = ?, email_credito_fiscal = ?, telefono_credito_fiscal = ?, dui_credito_fiscal = ?
-                WHERE id_comprobante = ?';
-        $params = array($this->nit, $this->nombre, $this->nrc, $this->giro, $this->direccion, $this->email, $this->direccion, $this->id);
+                SET tipo_servicio = ?, monto = ?, fecha_emision = ?, descripcion = ?, id_administrador = ?, id_cliente = ?, id_servicio = ?
+                WHERE id_factura = ?';
+        $params = array(
+            $this->tipo_servicio,
+            $this->monto,
+            $this->fecha,
+            $this->descripcion,
+            $_SESSION['idAdministrador'],
+            $this->id_cliente,
+            $this->id_servicio,
+            $this->id
+        );
         return Database::executeRow($sql, $params);
     }
 
+    // Método para eliminar un usuario.
     public function deleteRow()
     {
         $sql = 'DELETE FROM tb_comprobante_credito_fiscal
-                WHERE id_comprobante = ?';
+                WHERE id_factura = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
 
-    // /*
-    // *   Métodos para generar gráficos.
-    // */
-    // public function cantidadProductosCategoria()
-    // {
-    //     $sql = 'SELECT nombre_categoria, COUNT(id_producto) cantidad
-    //             FROM producto
-    //             INNER JOIN categoria USING(id_categoria)
-    //             GROUP BY nombre_categoria ORDER BY cantidad DESC LIMIT 5';
-    //     return Database::getRows($sql);
-    // }
 
-    // public function porcentajeProductosCategoria()
-    // {
-    //     $sql = 'SELECT nombre_categoria, ROUND((COUNT(id_producto) * 100.0 / (SELECT COUNT(id_producto) FROM producto)), 2) porcentaje
-    //             FROM producto
-    //             INNER JOIN categoria USING(id_categoria)
-    //             GROUP BY nombre_categoria ORDER BY porcentaje DESC';
-    //     return Database::getRows($sql);
-    // }
-
-    // /*
-    // *   Métodos para generar reportes.
-    // */
-    // public function productosCategoria()
-    // {
-    //     $sql = 'SELECT nombre_producto, precio_producto, estado_producto
-    //             FROM producto
-    //             INNER JOIN categoria USING(id_categoria)
-    //             WHERE id_categoria = ?
-    //             ORDER BY nombre_producto';
-    //     $params = array($this->categoria);
-    //     return Database::getRows($sql, $params);
-    // }
 }

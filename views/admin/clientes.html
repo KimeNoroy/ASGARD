@@ -2,9 +2,12 @@
 <html lang="es">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- Metadatos de la página -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título del documento -->
     <title>Clientes</title>
+<<<<<<< HEAD
 
     <!-- Link para el uso de iconos de boostrap -->
     <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css"
@@ -18,20 +21,51 @@
 
     <!-- Link para el uso de las librerias de css de boostrap -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+=======
+    <!-- Mandar a llamar el framework -->
+    <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Css de un boton naranja -->
+    <link href="../../resources/css/color_de_botones.css">
+    <!-- Css para la tabla responsive -->
+    <link rel="stylesheet" href="../../resources/css/sidebar.css">
+    <link rel="stylesheet" href="../../resources/css/Inicio.css">
+    <link rel="stylesheet" href="../../resources/css/usuariofacturacion.css">
+    <link href="../../resources/css/estilos_cruds.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
 
 </head>
 
-<body>
-    <div class="grid-container">
-        <!-- Navbar -->
-        <aside></aside>
+<body class="d-flex">
+    <main>
+        <div class="container-fluid px-5">
+            <div class="row mb-3 row-gap-3 pe-2 ps-2 d-flex align-items-center mt-4">
+                <h3>Clientes</h3>
+                <div class="col-12 col-lg-9">
+                    <div class="row d-flex contenedor-form">
+                        <form id="searchForm" class="d-flex">
+                            <!-- Este div contiene la barra de búsqueda -->
+                            <div class="col d-flex container-fluid" id="container_busqueda">
+                                <div class="d-flex">
+                                    <button type="submit" class="input-group-text elemento-form"><i
+                                            class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                                <!-- Este input crea la barra de búsqueda -->
+                                <input type="search" class="form-control elemento-form"
+                                    placeholder="Buscar administradores por nombre, apellido o correo..." name="search">
+                                <div class="d-flex">
+                                    <button type="reset" class="input-group-text elemento-form" onclick="fillTable()">
+                                        <i class="bi bi-arrow-clockwise"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
 
-        <!-- Main -->
-        <main class="main-container">
-            <div class="main-title">
-                <h3 class="fw-bold fs-4 mb-3">Clientes</h3>
-
+                    </div>
+                </div>
                 <!-- Boton para agregar a nuevo usuario -->
+<<<<<<< HEAD
                 <button type="button" class="btn btn-warning float-start" data-bs-toggle="modal"
                     data-bs-target="#crearModal" onclick="openCreate()"><i class="bi bi-file-earmark-plus"></i> Agregar Cliente</button>
             </div>
@@ -42,6 +76,21 @@
                     <div class="row">
                         <div class="col-12">
                             <table class="table table-striped">
+=======
+                <div class="col-12 col-lg-3 d-flex justify-content-center">
+                    <div class="btn btn-warning  h-100 w-100 d-flex align-items-center justify-content-center gap-2 contenedor-form"
+                        type="submit" onclick="openCreate()">
+                        Agregar Cliente <i class="bi bi-plus h3 agregar-icono"></i>
+                    </div>
+                </div>
+            </div>
+            <hr class="mb-5">
+            <!-- Tabla de registros: Clientes -->
+            <div class="table-responsive-lg">
+                <!-- Tabla para mostrar los registros existentes -->
+                <table class="table table-hover caption-top">
+                    <!-- Cabeza de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
                                 <thead>
                                     <tr>
                                         <td colspan="6" id="rowsFound"></td>
@@ -50,13 +99,17 @@
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Apellido</th>
                                         <th scope="col">Dui</th>
-                                        <th scope="col">NIT</th>                                     
+                                        <th scope="col">NIT</th>
                                         <th scope="col">Correo</th>
                                         <th scope="col">Telefono</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
                                 <!-- Cuerpo de la tabla para mostrar un registro por fila -->
                                 <tbody id="tableBodyClientes"></tbody>
                             </table>
@@ -65,6 +118,7 @@
                 </div>
             </div>
 
+<<<<<<< HEAD
             <!-- Modal para editar cliente -->
             <div class="modal fade" id="modificarModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -128,18 +182,30 @@
 
             <!-- Modal para agregar un nuevo cliente -->
             <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+=======
+            
+
+            <!-- Modal para agregar un nuevo cliente -->
+            <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Agregar cliente</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+<<<<<<< HEAD
                         
+=======
+
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
                         <!-- Formulario para crear o actualizar un registro -->
                         <form id="saveForm">
                             <div class="modal-body">
                                 <div class="row">
                                     <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+<<<<<<< HEAD
                                     <input type="number" class="d-none" id="id_cliente" name="id_cliente">
 
                                     <div class="col-md-6 mb-3">
@@ -160,11 +226,35 @@
                                         <label for="nit_cliente" class="form-label">NIT</label>
                                         <input type="text" class="form-control" id="nit_cliente" name="nit_cliente" placeholder="1234-567890-123"
                                             maxlength="13">
+=======
+                                    <input type="number" class="d-none" id="idCliente" name="idCliente">
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nombre_cliente" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" id="nombre_cliente" name="nombreCliente"
+                                            placeholder="Nombre">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="apellido_cliente" class="form-label">Apellido</label>
+                                        <input type="text" class="form-control" id="apellido_cliente"
+                                            name="apellidoCliente" placeholder="Apellido">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="dui_cliente_crear" class="form-label">DUI</label>
+                                        <input type="text" class="form-control" id="dui_cliente_crear" name="duiCliente"
+                                            placeholder="12345678-9">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nit_cliente" class="form-label">NIT</label>
+                                        <input type="text" class="form-control" id="nit_cliente" name="nitCliente"
+                                            placeholder="1234-567890-123">
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
                                         <small id="nitHelp" class="form-text text-muted">Debe tener 13 dígitos
                                             numéricos.</small>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="direccion_cliente" class="form-label">Direccion</label>
+<<<<<<< HEAD
                                         <input type="text" class="form-control" id="direccion_cliente" name="direccion_cliente" placeholder="direccion">
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -192,11 +282,45 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-warning" id="AgregarUsuario">Guardar</button>
+=======
+                                        <input type="text" class="form-control" id="direccion_cliente"
+                                            name="direccionCliente" placeholder="direccion">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="departamento_cliente class=" form-label">Departamento</label>
+                                        <input type="text" class="form-control" id="departamento_cliente"
+                                            name="departamentoCliente" placeholder="departamento">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="municipio_cliente" class="form-label">Municipio</label>
+                                        <input type="text" class="form-control" id="municipio_cliente"
+                                            name="municipioCliente" placeholder="municipio">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email_cliente" class="form-label">Correo</label>
+                                        <input type="email" class="form-control" id="email_cliente" name="emailCliente"
+                                            placeholder="usuario@dominio.com">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="telefono" class="form-label">Teléfono</label>
+                                        <input type="" class="form-control" id="telefono" name="telefonoCliente"
+                                            placeholder="Teléfono">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Footer del modal -->
+                            <div class="modal-footer d-flex justify-content-end">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-warning" id="btnAccion">Guardar</button>
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
         
         </main>
         <!-- End Main -->
@@ -216,5 +340,28 @@
         <!-- Custom JS -->
         <script  type="text/javascript" src="../../controllers/admin/cliente.js"></script>
         <script  type="text/javascript" src="../../resources/js/alertas.js"></script>
+=======
+    </main>
+    </div>
+    <!-- End div grid-container -->
+    <!-- Inclusión de la librería de mascaras. Para más información https://github.com/text-mask/text-mask -->
+    <script type="text/javascript" src="../../resources/js/vanillaTextMask.js"></script>
+    </main>
+    <!-- IMPORTANDO ARCHIVOS JAVASCRIPT -->
+    <!-- Mandar a llamar el framework -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <!-- Mandar a llamar la librería de alertas -->
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <!-- Mandar a llamar el controlador de la página privada -->
+    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
+    <!-- Mandar a llamar el controlador de sujeto excluido -->
+    <script src="../../controllers/admin/cliente.js"></script>
+    <!-- Llamada al controlador -->
+    <script src="../../controllers/utils/componentes.js"></script>
+    <!-- archivo de js para libreria de iconos para el navbar -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
 </body>
+
 </html>

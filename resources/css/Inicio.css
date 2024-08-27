@@ -136,3 +136,7 @@
     display: none;
   }
 }
+
+.contenedor-grafico{
+  height: 50vh;
+}

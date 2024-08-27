@@ -1,10 +1,13 @@
-<!DOCTYPE html>
+<!-- Definir idioma de la página -->
 <html lang="es">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- Metadatos de la página -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título del documento -->
     <title>Empleados</title>
+<<<<<<< HEAD
 
     <!-- Link para el uso de iconos de boostrap -->
     <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css"
@@ -18,9 +21,22 @@
 
     <!-- Link para el uso de las librerias de css de boostrap -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+=======
+    <!-- Mandar a llamar el framework -->
+    <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Css de un boton naranja -->
+    <link href="../../resources/css/color_de_botones.css">
+    <!-- Css para la tabla responsive -->
+    <link rel="stylesheet" href="../../resources/css/sidebar.css">
+    <link rel="stylesheet" href="../../resources/css/Inicio.css">
+    <link rel="stylesheet" href="../../resources/css/usuariofacturacion.css">
+    <link href="../../resources/css/estilos_cruds.css" rel="stylesheet">
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
+<<<<<<< HEAD
 <body>
     <div class="grid-container">
         <!-- Navbar -->
@@ -58,10 +74,45 @@
                                 <tbody id="tableBodyEmpleados"></tbody>
                             </table>
                         </div>
+=======
+<body class="d-flex">
+    <main>
+        <div class="container-fluid px-5">
+            <div class="row mb-3 row-gap-3 pe-2 ps-2 d-flex align-items-center mt-4">
+                <h3>Empleados</h3>
+                <div class="col-12 col-lg-9">
+                    <div class="row d-flex contenedor-form">
+                        <!-- Formulario de búsqueda -->
+                        <form class="d-flex" id="searchForm">
+                            <div class="col d-flex container-fluid" id="container_busqueda">
+                                <div class="d-flex">
+                                    <button type="submit" class="input-group-text elemento-form"><i
+                                            class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                                <!-- Este input crea la barra de búsqueda -->
+                                <input type="search" class="form-control elemento-form"
+                                    placeholder="Buscar administradores por nombre, apellido o correo..." name="search">
+                                <div class="d-flex">
+                                    <button type="reset" class="input-group-text elemento-form" onclick="fillTable()">
+                                        <i class="bi bi-arrow-clockwise"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Botón para crear -->
+                <div class="col-12 col-lg-3 d-flex justify-content-center">
+                    <div class="btn btn-warning  h-100 w-100 d-flex align-items-center justify-content-center gap-2 contenedor-form"
+                        type="submit" onclick="openCreate()">
+                        Agregar Empleados <i class="bi bi-plus h3 agregar-icono"></i>
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
                     </div>
                 </div>
             </div>
 
+<<<<<<< HEAD
             <!-- Modal para editar empleado -->
             <div class="modal fade" id="modificarModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -168,5 +219,99 @@
         <!-- Custom JS -->
         <script type="text/javascript"  src="../../controllers/admin/empleado.js"></script>
         <script  type="text/javascript" src="../../resources/js/alertas.js"></script>
+=======
+            <hr class="mb-5">
+            <div class="table-responsive-lg">
+                <!-- Tabla para mostrar los registros existentes -->
+                <table class="table table-hover caption-top">
+
+                    <thead>
+                        <tr>
+                            <td colspan="5" id="rowsFound"></td>
+                        </tr>
+                        <tr class="text-center">
+                            <th>Nombres</th>
+                            <th>Apellido</th>
+                            <th>Correo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+                    <tbody id="tableBody" class="text-center"></tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Cuerpo de la tabla -->
+        <tbody id="tableBody"></tbody>
+        </table>
+
+        <!-- Modal para guardar un registro -->
+        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Formulario para guardar un registro -->
+                    <form id="saveForm">
+                        <div class="modal-body row g-3">
+                            <!-- Campo oculto para el ID -->
+                            <input type="number" class="d-none" id="idAdmin" name="idAdmin">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="NAdmin" class="form-label">Nombre</label>
+                                <input id="NAdmin" type="text" name="NAdmin" placeholder="Ingrese el nombre del empleado" class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="ApAdmin" class="form-label">Apellido</label>
+                                <input id="ApAdmin" type="text" name="ApAdmin" placeholder="Ingrese el apellido del empleado" class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="CorreoAd" class="form-label">Correo electrónico</label>
+                                <input id="CorreoAd" type="email" name="CorreoAd" placeholder="Ingrese el correo del empleado" class="form-control">
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="ContraAd" class="form-label">Contraseña</label>
+                                <input id="ContraAd" type="password" name="ContraAd" placeholder="Ingrese la clave del administrador" class="form-control">
+                            </div>
+                            <div class="col-sm-12 col-md-6 ">
+                                <label for="confirmarClaveA" class="form-label">Confirmar contraseña</label>
+                                <input id="confirmarClaveA" type="password" name="confirmarClaveA" placeholder="Repite la contraseña del administrador" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer col-sm-12 col-md-12 col-lg-12 justify-content-center">
+                            <button type="submit" id="btnAgregar" class="btn btn-warning"><i class="bi bi-plus"></i>  Agregar empleado</button>
+                            <button type="submit" class="btn bg-success text-white d-none" id="btnActualizar">
+                                <i class="bi bi-pencil-fill"></i>
+                                Actualizar empleado
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- IMPORTANDO ARCHIVOS JAVASCRIPT -->
+    <!-- Mandar a llamar el controlador de la página privada -->
+    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
+    <!-- Mandar a llamar el framework -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <!-- Mandar a llamar el controlador de sujeto excluido -->
+    <script src="../../controllers/admin/empleado.js"></script>
+    <!-- Llamada al controlador -->
+    <script src="../../controllers/utils/componentes.js"></script>
+    <!-- Validar número de teléfono -->
+    <script src="../../resources/js/validar_telefono.js"></script>
+    <!-- Validar número de DUI -->
+    <script src="../../resources/js/validar_dui.js"></script>
+    <!-- Validar número de NIT -->
+    <script src="../../resources/js/validar_nit.js"></script>
+    <!-- archivo de js para libreria de iconos para el navbar -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <!-- Mandar a llamar la librería de alertas -->
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
 </body>
+
 </html>

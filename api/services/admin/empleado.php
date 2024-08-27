@@ -33,4 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $conn->close();
 }
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> 0a0e6f8a12de6d32de4b089eb059952920947d62
