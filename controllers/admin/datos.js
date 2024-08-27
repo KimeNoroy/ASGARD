@@ -7,7 +7,7 @@ const DATA_FACTURAS = document.getElementById("cantidadFacturas");
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
     // Llamada a la funciones que generan los gráficos en la página web.
@@ -76,7 +76,7 @@ const graficoPastelServicios = async () => {
             // Se declaran los arreglos para guardar los datos a graficar.
             let legends = [];
             let values = [];
-            
+
             // Se recorre el conjunto de registros fila por fila.
             DATA.dataset.forEach(row => {
                 legends.push(row.tipo_servicio);
@@ -99,13 +99,13 @@ const graficoPastelServicios = async () => {
 const graficoPrediccionClientes = async () => {
     // Petición para obtener los datos históricos de clientes.
     const DATA = await fetchData(CLIENTE_API, 'historicoClientes');
-    
+
     // Se comprueba si la respuesta es satisfactoria.
     if (DATA.status) {
         // Se declaran los arreglos para guardar los datos a graficar.
         let meses = [];
         let clientes = [];
-        
+
         // Se recorre el conjunto de registros fila por fila a través del objeto row.
         DATA.dataset.forEach(row => {
             // Se agregan los datos a los arreglos.

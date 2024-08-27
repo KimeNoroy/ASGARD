@@ -14,7 +14,7 @@ if (isset($_GET['action'])) {
     if (isset($_SESSION['idAdministrador'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
-            
+
             case 'searchRows':
                 if (!Validator::validateSearch($_POST['search'])) {
                     $result['error'] = Validator::getSearchError();
@@ -32,7 +32,7 @@ if (isset($_GET['action'])) {
                         $result['error'] = 'No hay datos disponibles';
                     }
                     break;
-        
+
             case 'serviciosOfrecidos':
                 if ($result['dataset'] = $servicios->serviciosOfrecidos()) {
                     $result['status'] = 1;
@@ -67,11 +67,11 @@ if (isset($_GET['action'])) {
                         case 'updateRow':
                             $_POST = Validator::validateForm($_POST);
                             if (
-                                
+
                                 !$servicios->setId($_POST['idServicio']) or
                                 !$servicios->setNombre($_POST['nombreServico']) or
                                 !$servicios->setDescripcion($_POST['descripcionServicio']) 
-                   
+
                             ) {
                                 $result['error'] = $servicios->getDataError();
                             } elseif ($servicios->updateRow()) {
@@ -97,7 +97,7 @@ if (isset($_GET['action'])) {
                                 }
                                 break;
 
-                        
+
                                 case 'readOne':
                                     if (!$servicios->setId($_POST['idServicio'] )) {
                                         $result['error'] = 'Servicio incorrecto';
@@ -107,7 +107,7 @@ if (isset($_GET['action'])) {
                                         $result['error'] = 'Servicio inexistente';
                                     }
                                     break;
-           
+
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }
