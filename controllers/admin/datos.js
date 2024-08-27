@@ -14,6 +14,7 @@
         graficoLineasFacturasPorMes(); // Asegúrate de que esta función esté llamada
         readDashboardStats();
         graficoPrediccionClientes();
+        graficoMontoTotalPorServicios();
     });
 
     // Función para obtener los datos de facturas por mes
@@ -107,6 +108,27 @@
             }
         } catch (error) {
             console.error('Error al obtener datos:', error);
+        }
+    };
+ // Función para mostrar un gráfico de barras del monto total por servicios
+    const graficoMontoTotalPorServicios = async () => {
+        // Petición para obtener los datos del gráfico.
+        const DATA = await fetchData(SERVICIOS_API, 'montoTotalPorServicios');
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
+        if (DATA.status) {
+            // Se declaran los arreglos para guardar los datos a gráficar.
+            let montoTotal = [];
+            let servicios = [];
+            // Se recorre el conjunto de registros fila por fila a través del objeto row.
+            DATA.dataset.forEach(row => {
+                // Se agregan los datos a los arreglos.
+                montoTotal.push(row.MontoTotal);
+                servicios.push(row.nombre_servicio);
+            });
+            // Llamada a la función para generar y mostrar un gráfico de barra. Se encuentra en el archivo components.js.
+            barGraph('chartMontoSrv', servicios, montoTotal, 'Monto total por Servicios', 'Monto total por Servicios');
+        } else {
+            console.log(DATA.error);
         }
     };
 

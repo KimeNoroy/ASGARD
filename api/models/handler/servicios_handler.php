@@ -94,4 +94,19 @@ class ServiciosHandler
         return Database::getRows($sql);
     }
 }
+
+  /*
+    Función con la consulta para obtener los datos del grafico Monto total por Servicios
+    */
+    public function montoTotalPorServicios() 
+    {
+        $sql = 'SELECT (SUM(CCF.monto) + SUM(FSE.monto) + SUM(FCF.monto)) AS MontoTotal, SRV.nombre_servicio
+                FROM tb_servicios AS SRV
+                INNER JOIN tb_comprobante_credito_fiscal AS CCF USING(id_servicio)
+                INNER JOIN tb_factura_sujeto_excluido AS FSE USING(id_servicio)
+                INNER JOIN tb_factura_consumidor_final AS FCF USING(id_servicio)
+                GROUP BY SRV.nombre_servicio
+                ';
+        return Database::getRows($sql);
+}
 ?>

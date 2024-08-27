@@ -25,6 +25,13 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No hay coincidencias';
                 }
                 break;
+                case 'montoTotalPorServicios':
+                    if ($result['dataset'] = $servicios->montoTotalPorServicios()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['error'] = 'No hay datos disponibles';
+                    }
+                    break;
         
             case 'serviciosOfrecidos':
                 if ($result['dataset'] = $servicios->serviciosOfrecidos()) {
