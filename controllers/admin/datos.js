@@ -259,7 +259,7 @@ const graficoClientesPorDepartamento = async () => {
         });
         
         // Llamada a la función para generar y mostrar un gráfico de barra. Se encuentra en el archivo components.js.
-        barGraph('chartClientesDept', departamentos, clientes, 'Número de Clientes por Departamento', 'Clientes');
+        barGraph('chart6', departamentos, clientes, 'Número de Clientes por Departamento', 'Clientes');
     } else {
         console.log(DATA.error);
     }
