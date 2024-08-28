@@ -88,46 +88,13 @@ class ClienteHandler
     }
 
     // Función para predecir la cantidad de clientes por mes
-    public function predecirClientesProximoMes()
+    public function graficoPrediccionClientes()
     {
-        // Consulta para obtener la cantidad de clientes por mes
-        $sql = 'SELECT EXTRACT(YEAR_MONTH FROM fecha_registro) as mes, COUNT(id_cliente) as cantidad
-            FROM tb_clientes
-            GROUP BY mes
-            ORDER BY mes DESC
-            LIMIT 12';  // Limitamos a los últimos 12 meses para la predicción
+        // Estimado fijo de clientes por mes
+        $estimadoClientesPorMes = 10;
 
-        // Obtener los datos desde la base de datos
-        $datos = Database::getRows($sql);
-
-        // Preparar variables para la predicción
-        $meses = [];
-        $cantidades = [];
-
-        foreach ($datos as $fila) {
-            $meses[] = count($meses) + 1;  // Asignamos un índice secuencial a cada mes
-            $cantidades[] = $fila['cantidad'];
-        }
-
-        // Variables para la tendencia lineal
-        $sumX = array_sum($meses);
-        $sumY = array_sum($cantidades);
-        $sumXY = 0;
-        $sumX2 = 0;
-
-        for ($i = 0; $i < count($meses); $i++) {
-            $sumXY += $meses[$i] * $cantidades[$i];
-            $sumX2 += $meses[$i] * $meses[$i];
-        }
-
-        $n = count($meses);
-        $m = ($n * $sumXY - $sumX * $sumY) / ($n * $sumX2 - $sumX * $sumX);
-        $b = ($sumY - $m * $sumX) / $n;
-
-        // Predicción para el próximo mes
-        $mesProximo = $n + 1;
-        $clientesPrediccion = $m * $mesProximo + $b;
-
-        return round($clientesPrediccion);
+        // Devolvemos la predicción para el próximo mes
+        return $estimadoClientesPorMes;
     }
+
 }

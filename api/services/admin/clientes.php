@@ -121,11 +121,10 @@ if (isset($_GET['action'])) {
                 }
                 break;
             //Case para predecir los clientes del siguiente mes    
-            case 'predecirClientesProximoMes':
-                $result['action'] = $action;
-                $result['status'] = 1;
+            case 'graficoPrediccionClientes':
+                $result['action'] = $_GET['action'];
                 // Llamar a la función que realiza la predicción
-                if ($prediccion = $cliente->predecirClientesProximoMes()) {
+                if ($prediccion = $cliente->graficoPrediccionClientes()) {
                     $result['status'] = 1;
                     $result['prediccion'] = $prediccion;
                 } else {

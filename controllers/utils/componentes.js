@@ -190,14 +190,13 @@ const pieGraph = (canvas, legends, values, title) => {
 *   Retorno: ninguno.
 */
 const lineGraph = (canvas, xAxis, yAxis, legend, title) => {
-    // Se crea una instancia para generar el gráfico con los datos recibidos.
     new Chart(document.getElementById(canvas), {
         type: 'line',
         data: {
-            labels: xAxis,  // Eje X (meses)
+            labels: xAxis,  // Etiquetas para el eje X
             datasets: [{
-                label: legend,
-                data: yAxis,  // Eje Y (cantidad de clientes)
+                label: legend,  // Leyenda de los datos
+                data: yAxis,  // Datos para el eje Y
                 borderColor: '#4caf50',  // Color de la línea
                 backgroundColor: 'rgba(76, 175, 80, 0.2)',  // Color de fondo debajo de la línea
                 fill: true,  // Rellenar debajo de la línea
@@ -219,14 +218,14 @@ const lineGraph = (canvas, xAxis, yAxis, legend, title) => {
                 x: {
                     title: {
                         display: true,
-                        text: 'Meses'  // Título del eje X
+                        text: 'Meses'  // Título del eje X (cambiar según datos)
                     }
                 },
                 y: {
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: 'Cantidad de Clientes'  // Título del eje Y
+                        text: 'Valores'  // Título del eje Y (cambiar según datos)
                     }
                 }
             }

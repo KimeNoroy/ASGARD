@@ -107,6 +107,16 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
+            //Case para el gráfico predictivo de este servicio
+            case 'predictNextMonthRecords1':
+                $result['dataset'] = $usuario->predictNextMonthRecords1();
+                if ($result['dataset'] !== null) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Predicción realizada con éxito';
+                } else {
+                    $result['error'] = 'No se pudo realizar la predicción';
+                }
+                break;      
             default:
                 $result['error'] = 'Acción no disponible';
         }
