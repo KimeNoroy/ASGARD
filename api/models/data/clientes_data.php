@@ -10,6 +10,8 @@ class ClienteData extends ClienteHandler
 {
     // Atributo genérico para manejo de errores.
     private $data_error = null;
+    private $filename = null;
+
 
     /*
     *   Métodos para validar y establecer los datos.
@@ -134,21 +136,31 @@ public function setDUI($value)
     }
 }
 
-    public function setNit($value)
-    {
-        if (!Validator::validateNIT($value)) {
-            $this->data_error = 'El Nit debe tener el formato ####-######-#';  
-            return false;
-        } else {
-            $this->nit = $value;
-            return true;
-        }
+public function setImagen($file, $filename = null)
+{
+    if (Validator::validateImageFile($file, 1000)) {
+        $this->imagen = Validator::getFilename();
+        return true;
+    } elseif (Validator::getFileError()) {
+        $this->data_error = Validator::getFileError();
+        return false;
+    } elseif ($filename) {
+        $this->imagen = $filename;
+        return true;
+    } else {
+        $this->imagen = 'default.png';
+        return true;
     }
+}
 
     // Método para obtener el error de los datos.
     public function getDataError()
     {
         return $this->data_error;
+    }
+    public function getFilename()
+    {
+        return $this->filename;
     }
 }
 

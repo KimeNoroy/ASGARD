@@ -66,6 +66,19 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
+                case 'readFactura':
+                    if (!$usuario->setId($_POST['id_factura'])) {
+                        $result['error'] = 'ID es inválido';
+                    } else {
+                        $result['dataset'] = $usuario->readOne();
+                        if ($result['dataset']) {
+                            $result['status'] = 1;
+                        } else {
+                            $result['error'] = 'Usuario inexistente';
+                        }
+                    }
+                    break;
+
                 case 'readAllservicio':
                     $result['dataset'] = $usuario->readAllservicio();
                     if ($result['dataset']) {

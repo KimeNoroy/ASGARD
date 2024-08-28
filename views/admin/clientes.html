@@ -67,10 +67,10 @@
                                         <td colspan="6" id="rowsFound"></td>
                                     </tr>
                                     <tr class="highlight">
+                                        <th scope="col">Imagen</th>
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Apellido</th>
                                         <th scope="col">Dui</th>
-                                        <th scope="col">NIT</th>
                                         <th scope="col">Correo</th>
                                         <th scope="col">Telefono</th>
                                         <th scope="col">Acciones</th>
@@ -120,13 +120,6 @@
                                             placeholder="12345678-9">
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="nit_cliente" class="form-label">NIT</label>
-                                        <input type="text" class="form-control" id="nit_cliente" name="nitCliente"
-                                            placeholder="1234-567890-123">
-                                        <small id="nitHelp" class="form-text text-muted">Debe tener 13 dígitos
-                                            numéricos.</small>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
                                         <label for="direccion_cliente" class="form-label">Direccion</label>
                                         <input type="text" class="form-control" id="direccion_cliente"
                                             name="direccionCliente" placeholder="direccion">
@@ -151,6 +144,11 @@
                                         <label for="telefono" class="form-label">Teléfono</label>
                                         <input type="" class="form-control" id="telefono" name="telefonoCliente"
                                             placeholder="Teléfono">
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="imagenCliente" class="form-label">Imagen</label>
+                                        <input id="imagenCliente" type="file" name="imagenCliente" class="form-control"
+                                            accept=".png, .jpg">
                                     </div>
                                 </div>
                             </div>

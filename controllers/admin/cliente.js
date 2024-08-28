@@ -15,7 +15,6 @@ const SAVE_FORM = document.getElementById('saveForm'),
     NOMBRE_CLIENTE = document.getElementById('nombre_cliente'),
     APELLIDO_CLIENTE = document.getElementById('apellido_cliente'),
     DUI_CLIENTE = document.getElementById('dui_cliente'),
-    NIT_CLIENTE = document.getElementById('nit_cliente'),
     DIRECCION_CLIENTE = document.getElementById('direccion_cliente')
     DEPARTAMENTO_CLIENTE = document.getElementById('departamento_cliente')
     MUNICIPIO_CLIENTE = document.getElementById('municipio_cliente')
@@ -34,10 +33,7 @@ vanillaTextMask.maskInput({
     mask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/]
 });
 
-vanillaTextMask.maskInput({
-    inputElement: document.getElementById('nit_cliente'),
-    mask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/ ,/\d/, '-', /\d/] 
-});
+
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
@@ -101,10 +97,10 @@ const fillTable = async (form = null) => {
         DATA.dataset.forEach(row => {
             TABLE_BODY.innerHTML += `
                 <tr>
+                    <td><img src="${SERVER_URL}image/clientes/${row.imagen_cliente}" height="50"></td>
                     <td>${row.nombre_cliente}</td>
                     <td>${row.apellido_cliente}</td>
                     <td>${row.dui_cliente}</td>
-                    <td>${row.nit_cliente}</td>
                     <td>${row.email_cliente}</td>
                     <td>${row.telefono_cliente}</td>
                     <td>
@@ -114,6 +110,10 @@ const fillTable = async (form = null) => {
                         <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_cliente})">
                             <i class="bi bi-trash-fill"></i>
                         </button>
+                        </button>
+                             <button type="button" class="btn btn-outline-info" onclick="openFacturasClientes(${row.id_cliente})">
+                        <i class="bi bi-file-earmark-pdf-fill"></i>
+                    </button>
                     </td>
                 </tr>
             `;
@@ -148,8 +148,6 @@ const openCreate = () => {
     //MODAL_TITLE.textContent = 'Crear cliente';
     // Se prepara el formulario.
     SAVE_FORM.reset();
-    //EXISTENCIAS_PRODUCTO.disabled = false;
-    //fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto');
 }
 
 /*
@@ -167,7 +165,6 @@ const openUpdate = async (id) => {
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
         SAVE_MODAL.show();
-        MODAL_TITLE.textContent = 'Actualizar cliente';
         // Se prepara el formulario.
         SAVE_FORM.reset();
         //EXISTENCIAS_PRODUCTO.disabled = true;
@@ -177,7 +174,6 @@ const openUpdate = async (id) => {
         NOMBRE_CLIENTE.value = ROW.nombre_cliente;
         APELLIDO_CLIENTE.value = ROW.apellido_cliente;
         DUI_CLIENTE.value = ROW.dui_cliente;
-        NIT_CLIENTE.value = ROW.nit_cliente;
         DIRECCION_CLIENTE.value = ROW.direccion_cliente;
         DEPARTAMENTO_CLIENTE.value = ROW.departamento_cliente;
         MUNICIPIO_CLIENTE.value = ROW.municipio_cliente;
@@ -214,4 +210,13 @@ const openDelete = async (id) => {
             sweetAlert(2, DATA.error, false);
         }
     }
+}
+
+const openFacturasClientes = (id) => {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/admin/facturas_clientes.php`);
+    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+    PATH.searchParams.append('id_factura', id);
+    // Se abre el reporte en una nueva pestaña.
+    window.open(PATH.href);
 }

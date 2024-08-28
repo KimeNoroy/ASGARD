@@ -42,6 +42,7 @@ class factura_sujeto_excluido extends factura_sujeto_excluido_handler
         }
     }
 
+
     public function setIdServicio($value)
     {
         if (Validator::validateNaturalNumber($value)) {

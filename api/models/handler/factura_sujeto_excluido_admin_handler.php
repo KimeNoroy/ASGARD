@@ -26,7 +26,7 @@ class factura_sujeto_excluido_handler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
+        $sql = 'SELECT id_factura, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
                 FROM tb_factura_sujeto_excluido
                 WHERE nombre_cliente LIKE ? OR apellido_cliente LIKE ?
                 ORDER BY nombre_cliente';
@@ -54,7 +54,7 @@ class factura_sujeto_excluido_handler
     // Método para leer todos los usuarios.
     public function readAll()
     {
-        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision
+        $sql = 'SELECT id_factura, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision
                 FROM vista_tb_factura_sujeto_excluido
                 ORDER BY nombre_cliente';
         return Database::getRows($sql);
