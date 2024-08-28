@@ -111,9 +111,6 @@ const fillTable = async (form = null) => {
                             <i class="bi bi-trash-fill"></i>
                         </button>
                         </button>
-                             <button type="button" class="btn btn-outline-info" onclick="openFacturasClientes(${row.id_cliente})">
-                        <i class="bi bi-file-earmark-pdf-fill"></i>
-                    </button>
                     </td>
                 </tr>
             `;
@@ -210,13 +207,4 @@ const openDelete = async (id) => {
             sweetAlert(2, DATA.error, false);
         }
     }
-}
-
-const openFacturasClientes = (id) => {
-    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/admin/facturas_clientes.php`);
-    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
-    PATH.searchParams.append('id_factura', id);
-    // Se abre el reporte en una nueva pestaña.
-    window.open(PATH.href);
 }

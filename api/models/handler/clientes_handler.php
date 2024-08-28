@@ -39,7 +39,7 @@ class ClienteHandler
 
     public function createRow()
     {
-        $sql = 'INSERT INTO tb_clientes(imagen_cliente, nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente, dui_cliente)
+        $sql = 'INSERT INTO tb_clientes(nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente, dui_cliente,imagen_cliente)
                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $params = array($this->imagen,$this->nombre, $this->apellido, $this->correo, $this->direccion, $this->departamento, $this->municipio, $this->telefono, $this->dui);
         return Database::executeRow($sql, $params);
@@ -47,7 +47,7 @@ class ClienteHandler
 
     public function readAll()
     {
-        $sql = 'SELECT id_cliente, imagen_cliente, nombre_cliente, apellido_cliente, email_cliente, dui_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente
+        $sql = 'SELECT id_cliente, nombre_cliente, imagen_cliente, apellido_cliente, email_cliente, dui_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente
                 FROM tb_clientes
                 ORDER BY apellido_cliente';
         return Database::getRows($sql);

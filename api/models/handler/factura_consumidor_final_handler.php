@@ -80,7 +80,7 @@ class FacturaConsumidorFinalHandler
     // Método para leer un usuario específico.
     public function readOne()
     {
-        $sql = 'SELECT id_factura, id_cliente, id_servicio, tipo_servicio, monto, fecha_emision, descripcion
+        $sql = 'SELECT id_factura, id_cliente,nombre_cliente, id_servicio, tipo_servicio, monto, fecha_emision, descripcion
                 FROM vista_tb_factura_consumidor_final
                 WHERE id_factura = ?';
         $params = array($this->id);
@@ -126,5 +126,6 @@ class FacturaConsumidorFinalHandler
         return Database::executeRow($sql, $params);
     }
 
+    
 
 }

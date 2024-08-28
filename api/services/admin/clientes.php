@@ -48,6 +48,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al crear el Cliente';
                 }
                 break;
+
             case 'readAll':
                 if ($result['dataset'] = $cliente->readAll()) {
                     $result['status'] = 1;
