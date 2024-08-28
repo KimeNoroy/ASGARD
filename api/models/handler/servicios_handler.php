@@ -93,7 +93,20 @@ class ServiciosHandler
                 ORDER BY mes';
         return Database::getRows($sql);
     }
-}
+    /*
+    Función con la consulta para obtener los datos del gráfico Clientes por Departamento
+*/
+    public function clientesPorDepartamento() 
+    {
+        $sql = 'SELECT COUNT(CLI.id_cliente) AS CantidadClientes, DEP.nombre_departamento
+            FROM tb_clientes AS CLI
+            INNER JOIN tb_departamentos AS DEP ON CLI.id_departamento = DEP.id_departamento
+            GROUP BY DEP.nombre_departamento
+            ';
+    return Database::getRows($sql);
+    }
+
+
 
   /*
     Función con la consulta para obtener los datos del grafico Monto total por Servicios
@@ -107,6 +120,6 @@ class ServiciosHandler
                 INNER JOIN tb_factura_consumidor_final AS FCF USING(id_servicio)
                 GROUP BY SRV.nombre_servicio
                 ';
-        return Database::getRows($sql);
-}
+        return Database::getRows($sql);      
+    }
 ?>

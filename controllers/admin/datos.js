@@ -6,6 +6,7 @@ const FACTURAS_API = 'services/admin/factura_sujeto_excluido.php';
 const DATA_EMPLEADOS = document.getElementById("cantidadEmpleados");
 const DATA_CLIENTES = document.getElementById("cantidadClientes");
 const DATA_FACTURAS = document.getElementById("cantidadFacturas");
+const DEPARTAMENTOS_API =document.getElementById("clientesPorDepartamento");
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     graficoMontoTotalPorServicios();
     predictNextMonthRecords();
     predictNextMonthRecords1();
+    graficoClientesPorDepartamento();
 });
 
 // Función para obtener los datos de facturas por mes
@@ -238,3 +240,27 @@ const predictNextMonthRecords1 = async () => {
         console.error('Error al obtener datos:', error);
     }
 }
+// Función para mostrar un gráfico de barras del número de clientes por departamento
+const graficoClientesPorDepartamento = async () => {
+    // Petición para obtener los datos del gráfico.
+    const DATA = await fetchData(DEPARTAMENTOS_API, 'clientesPorDepartamento');
+    
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
+    if (DATA.status) {
+        // Se declaran los arreglos para guardar los datos a gráficar.
+        let clientes = [];
+        let departamentos = [];
+        
+        // Se recorre el conjunto de registros fila por fila a través del objeto row.
+        DATA.dataset.forEach(row => {
+            // Se agregan los datos a los arreglos.
+            clientes.push(row.NumeroClientes);
+            departamentos.push(row.nombre_departamento);
+        });
+        
+        // Llamada a la función para generar y mostrar un gráfico de barra. Se encuentra en el archivo components.js.
+        barGraph('chartClientesDept', departamentos, clientes, 'Número de Clientes por Departamento', 'Clientes');
+    } else {
+        console.log(DATA.error);
+    }
+};

@@ -117,7 +117,15 @@ if (isset($_GET['action'])) {
                                             $result['error'] = 'No hay datos disponibles';
                                         }
                                         break;
-                                    
+
+
+                                case 'clientesPorDepartamento':
+                                    if ($result['dataset'] = $departamentos->clientesPorDepartamento()) {
+                                        $result['status'] = 1;
+                                    } else {
+                                        $result['error'] = 'No hay datos disponibles';
+                                    }
+                                     break;
                                     
            
             default:
