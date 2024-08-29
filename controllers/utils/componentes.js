@@ -99,9 +99,9 @@ const fillSelect = async (filename, action, select, filter = undefined) => {
             // Se verifica el valor del filtro para enlistar las opciones.
             const SELECTED = (typeof (filter) == 'number') ? filter : null;
             if (value != SELECTED) {
-                content += <option value="${value}">${text}</option>;
-            } else {
-                content += <option value="${value}" selected>${text}</option>;
+                content += `<option value="${value}">${text}</option>`;
+                        } else {
+               content += `<option value="${value}" selected>${text}</option>`;
             }
         });
     } else {
