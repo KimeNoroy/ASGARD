@@ -1,256 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Outfit', sans-serif;
-}
-
-body {
-    display: flex;
-}
-
-main {
-    width: 100vw;
-    margin-left: 300px;
-}
-
-#SIDEBAR {
-    background-color: whitesmoke;
-    height: 100vh;
-    width: 300px;
-    position: absolute;
-    overflow-x: hidden; /* Oculta la barra de desplazamiento horizontal del contenedor */
-}
-
-/* LOGO */
-#SIDEBAR .logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#SIDEBAR .logo-container img {
-    object-fit: contain;
-    width: 260px;
-    height: 100%;
-}
-
-/* CARTAS */
-#SIDEBAR .main-container {
-    display: flex;
-    flex-direction: column;
-    margin-left: 30px;
-    gap: 15px;
-    height: calc(100% - 60px);
-    overflow-x: hidden; /* Oculta el overflow horizontal */
-}
-
-#SIDEBAR .main-cards-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    height: 100%;
-    overflow-y: auto; /* Permite el scroll vertical si es necesario */
-    overflow-x: hidden; /* Asegura que no haya scroll horizontal */
-}
-
-/* Ocultar scrollbar en navegadores basados en WebKit */
-#SIDEBAR .main-cards-container::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
-}
-
-/* Ocultar scrollbar en Firefox */
-#SIDEBAR .main-cards-container {
-    scrollbar-width: none;
-}
-
-/* Ocultar scrollbar en Internet Explorer y Edge */
-#SIDEBAR .main-cards-container {
-    -ms-overflow-style: none;
-    width: 300px;
-}
-
-#SIDEBAR .main-cards-container .main-card,
-.main-container .logout-card {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: center;
-    color: #565656;
-    font-size: 18px;
-    user-select: none;
-    padding: 15px 0px 15px 15px;
-    transition: all .2s ease;
-    border-radius: 10px 0px 0px 10px;
-}
-
-#SIDEBAR .main-cards-container .main-card:hover {
-    background-color: rgb(224, 224, 224);
-}
-
-#SIDEBAR .main-cards-container .main-card.selected {
-    width: 265px;
-    background-color: #FF790D;
-    color: white;
-    font-weight: 500;
-    margin-left: 10px;
-    border-radius: 10px;
-}
-
-#SIDEBAR .main-cards-container .main-card.selected:hover {
-    box-shadow: 0px 0px 10px 3px #FF790Db7;
-}
-
-#SIDEBAR .main-cards-container .main-card.selected svg path {
-    fill: white;
-}
-
-#SIDEBAR .main-cards-container .logout-card {
-    width: 265px;
-    background-color: #565656;
-    color: white;
-    border-radius: 10px;
-}
-
-#SIDEBAR .main-cards-container .logout-card:hover {
-    box-shadow: 0px 0px 10px 3px #565656b7;
-}
-
-/* USER */
-#SIDEBAR .user-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-}
-
-#SIDEBAR .user-container .image {
-    border-radius: 50%;
-    background-color: #FF790D;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 20px;
-    position: relative;
-    transition: all .3s ease;
-}
-
-#SIDEBAR .user-container .info {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-}
-
-#SIDEBAR .user-container .info .name-text {
-    font-size: 20px;
-}
-
-/* ANIMAR INFO SOBRE USUARIO */
-#SIDEBAR .user-container .image svg {
-    position: absolute;
-    display: none;
-}
-
-#SIDEBAR .user-container .image:hover {
-    background-color: #99561f;
-    color: gray;
-}
-
-#SIDEBAR .user-container .image:hover svg {
-    display: block;
-}
-
-/* ICONO PARA ABRIR EL SIDEBAR */
-#SIDEBAR-ACTIVATOR {
-    display: none;
-}
-
-/* PORCENTAJES */
-#SIDEBAR .logo-container {
-    height: 20%;
-}
-
-#SIDEBAR .main-container {
-    height: 68%;
-}
-
-#SIDEBAR .user-container {
-    height: 12%;
-}
-
-@media screen and (max-width: 600px) {
-    main {
-        margin-left: 0px;
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Outfit', sans-serif;
     }
 
-    main.blur {
-        filter: blur(5px);
+    body {
+        display: flex;
+    }
+
+    main {
+        width: 100vw;
+        margin-left: 300px;
     }
 
     #SIDEBAR {
-        z-index: 998;
-        left: -100%;
-        width: 85%;
-        transition: left 0.3s ease;
-    }
-
-    #SIDEBAR * {
-        font-size: 15px;
-    }
-
-    #SIDEBAR.active {
+        background-color: whitesmoke;
+        height: 100vh;
+        width: 300px;
         position: absolute;
-        left: 0;
+        overflow-x: hidden; /* Oculta la barra de desplazamiento horizontal del contenedor */
     }
 
-    #SIDEBAR .main-cards-container .main-card,
-    .main-container .logout-card {
-        padding: 12px 0px 12px 15px;
-    }
-
-    #SIDEBAR-ACTIVATOR {
-        position: absolute;
-        display: block;
-        width: 30px;
-        height: 30px;
-        padding: 15px;
-        border-radius: 15px;
-        top: 15px;
-        right: 15px;
-        z-index: 999;
-        background-color: #565656;
-    }
-
-    #SIDEBAR .main-cards-container .main-card.selected {
-        width: 260px;
-    }
-
-    #SIDEBAR .main-cards-container .logout-card {
-        width: 260px;
-    }
-
-    #SIDEBAR .main-cards-container {
-        gap: 8px;
-    }
-
-    #SIDEBAR .main-cards-container .main-card:hover {
-        background-color: initial;
-    }
-
-    #SIDEBAR .main-cards-container .main-card.selected:hover {
-        box-shadow: initial;
-    }
-
-    #SIDEBAR .user-container .info .name-text {
-        font-size: 18px;
-    }
-
-    /* PORCENTAJES */
+    /* LOGO */
     #SIDEBAR .logo-container {
         display: flex;
         justify-content: center;
@@ -259,60 +32,289 @@ main {
 
     #SIDEBAR .logo-container img {
         object-fit: contain;
-        width: 200px;
+        width: 260px;
+        height: 100%;
     }
 
+    /* CARTAS */
+    #SIDEBAR .main-container {
+        display: flex;
+        flex-direction: column;
+        margin-left: 30px;
+        gap: 15px;
+        height: calc(100% - 60px);
+        overflow-x: hidden; /* Oculta el overflow horizontal */
+    }
+
+    #SIDEBAR .main-cards-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        height: 100%;
+        overflow-y: auto; /* Permite el scroll vertical si es necesario */
+        overflow-x: hidden; /* Asegura que no haya scroll horizontal */
+    }
+
+    /* Ocultar scrollbar en navegadores basados en WebKit */
+    #SIDEBAR .main-cards-container::-webkit-scrollbar {
+        width: 0;
+        background: transparent;
+    }
+
+    /* Ocultar scrollbar en Firefox */
+    #SIDEBAR .main-cards-container {
+        scrollbar-width: none;
+    }
+
+    /* Ocultar scrollbar en Internet Explorer y Edge */
+    #SIDEBAR .main-cards-container {
+        -ms-overflow-style: none;
+        width: 300px;
+    }
+
+    #SIDEBAR .main-cards-container .main-card,
+    .main-container .logout-card {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: center;
+        color: #565656;
+        font-size: 18px;
+        user-select: none;
+        padding: 15px 0px 15px 15px;
+        transition: all .2s ease;
+        border-radius: 10px 0px 0px 10px;
+    }
+
+    #SIDEBAR .main-cards-container .main-card:hover {
+        background-color: rgb(224, 224, 224);
+    }
+
+    #SIDEBAR .main-cards-container .main-card.selected {
+        width: 265px;
+        background-color: #FF790D;
+        color: white;
+        font-weight: 500;
+        margin-left: 10px;
+        border-radius: 10px;
+    }
+
+    #SIDEBAR .main-cards-container .main-card.selected:hover {
+        box-shadow: 0px 0px 10px 3px #FF790Db7;
+    }
+
+    #SIDEBAR .main-cards-container .main-card.selected svg path {
+        fill: white;
+    }
+
+    #SIDEBAR .main-cards-container .logout-card {
+        width: 265px;
+        background-color: #565656;
+        color: white;
+        border-radius: 10px;
+    }
+
+    #SIDEBAR .main-cards-container .logout-card:hover {
+        box-shadow: 0px 0px 10px 3px #565656b7;
+    }
+
+    /* USER */
+    #SIDEBAR .user-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+    }
+
+    #SIDEBAR .user-container .image {
+        border-radius: 50%;
+        background-color: #FF790D;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 20px;
+        position: relative;
+        transition: all .3s ease;
+    }
+
+    #SIDEBAR .user-container .info {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+    }
+
+    #SIDEBAR .user-container .info .name-text {
+        font-size: 20px;
+    }
+
+    /* ANIMAR INFO SOBRE USUARIO */
+    #SIDEBAR .user-container .image svg {
+        position: absolute;
+        display: none;
+    }
+
+    #SIDEBAR .user-container .image:hover {
+        background-color: #99561f;
+        color: gray;
+    }
+
+    #SIDEBAR .user-container .image:hover svg {
+        display: block;
+    }
+
+    /* ICONO PARA ABRIR EL SIDEBAR */
+    #SIDEBAR-ACTIVATOR {
+        display: none;
+    }
+
+    /* PORCENTAJES */
     #SIDEBAR .logo-container {
-        height: 18%;
+        height: 20%;
     }
 
     #SIDEBAR .main-container {
-        height: 72%;
+        height: 68%;
     }
 
     #SIDEBAR .user-container {
-        height: 11%;
+        height: 12%;
     }
 
-    
-}
+    @media screen and (max-width: 600px) {
+        main {
+            margin-left: 0px;
+        }
 
-#SIDEBAR .logout-card {
-    width: 265px;
-    margin-right: 100px;
-    background-color: #000000; /* Cambiar el fondo a negro */
-    color: white;
-    border-radius: 10px;
-    transition: background-color .3s ease; /* Añadir una transición para el color de fondo */
-}
+        main.blur {
+            filter: blur(5px);
+        }
 
-#SIDEBAR .logout-card:hover {
-    background-color: #333333; /* Cambiar el color de fondo al pasar el cursor para indicar interacción */
-    box-shadow: 0px 0px 10px 3px #000000b7; /* Añadir sombra en el hover si es necesario */
-}
+        #SIDEBAR {
+            z-index: 998;
+            left: -100%;
+            width: 85%;
+            transition: left 0.3s ease;
+        }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-.dropdown-content a:hover {background-color: #f1f1f1}
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-.dropdown:hover .dropbtn {
-    background-color: #3e8e41;
-}
+        #SIDEBAR * {
+            font-size: 15px;
+        }
+
+        #SIDEBAR.active {
+            position: absolute;
+            left: 0;
+        }
+
+        #SIDEBAR .main-cards-container .main-card,
+        .main-container .logout-card {
+            padding: 12px 0px 12px 15px;
+        }
+
+        #SIDEBAR-ACTIVATOR {
+            position: absolute;
+            display: block;
+            width: 30px;
+            height: 30px;
+            padding: 15px;
+            border-radius: 15px;
+            top: 15px;
+            right: 15px;
+            z-index: 999;
+            background-color: #565656;
+        }
+
+        #SIDEBAR .main-cards-container .main-card.selected {
+            width: 260px;
+        }
+
+        #SIDEBAR .main-cards-container .logout-card {
+            width: 260px;
+        }
+
+        #SIDEBAR .main-cards-container {
+            gap: 8px;
+        }
+
+        #SIDEBAR .main-cards-container .main-card:hover {
+            background-color: initial;
+        }
+
+        #SIDEBAR .main-cards-container .main-card.selected:hover {
+            box-shadow: initial;
+        }
+
+        #SIDEBAR .user-container .info .name-text {
+            font-size: 18px;
+        }
+
+        /* PORCENTAJES */
+        #SIDEBAR .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #SIDEBAR .logo-container img {
+            object-fit: contain;
+            width: 200px;
+        }
+
+        #SIDEBAR .logo-container {
+            height: 18%;
+        }
+
+        #SIDEBAR .main-container {
+            height: 72%;
+        }
+
+        #SIDEBAR .user-container {
+            height: 11%;
+        }
+
+        
+    }
+
+    #SIDEBAR .logout-card {
+        width: 265px;
+        margin-right: 100px;
+        background-color: #000000; /* Cambiar el fondo a negro */
+        color: white;
+        border-radius: 10px;
+        transition: background-color .3s ease; /* Añadir una transición para el color de fondo */
+    }
+
+    #SIDEBAR .logout-card:hover {
+        background-color: #333333; /* Cambiar el color de fondo al pasar el cursor para indicar interacción */
+        box-shadow: 0px 0px 10px 3px #000000b7; /* Añadir sombra en el hover si es necesario */
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+    .dropdown-content a:hover {background-color: #f1f1f1}
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+
+  

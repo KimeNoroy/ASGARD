@@ -185,10 +185,19 @@ const openReport = () => {
     window.open(PATH.href);
 }
 
+const openBill = (id) => {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/admin/factura_sujeto_excluido.php`);
+    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+    PATH.searchParams.append('id_factura', id);
+    // Se abre el reporte en una nueva pestaña.
+    window.open(PATH.href);
+}
+
 //Para reporte predictivo de este servicio
 const openReport1 = () => {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/reporte_predictivo_sujeto_excluido.php`);
+    const PATH = new URL(`${SERVER_URL}reports/admin/reporte_predictivo_sujeto_excluido.php`);
     // Se abre el reporte en una nueva pestaña.
     window.open(PATH.href);
 }

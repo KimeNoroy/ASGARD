@@ -27,11 +27,11 @@ class ComprobanteCreditoFiscalHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
+        $sql = 'SELECT id_factura, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
                 FROM vista_tb_comprobante_credito_fiscal
-                WHERE nombre_cliente LIKE ? OR apellido_cliente LIKE ? OR nit_cliente LIKE ?  OR departamento_cliente LIKE ? OR email_cliente LIKE ? OR telefono_cliente LIKE ? OR dui_cliente LIKE ? OR tipo_servicio LIKE ?
+                WHERE nombre_cliente LIKE ? OR apellido_cliente LIKE ? OR LIKE ?  OR departamento_cliente LIKE ? OR email_cliente LIKE ? OR telefono_cliente LIKE ? OR dui_cliente LIKE ? OR tipo_servicio LIKE ?
                 ORDER BY nombre_cliente';
-        $params = array($value, $value, $value, $value, $value, $value, $value, $value);
+        $params = array($value, $value, $value, $value, $value, $value, $value);
         return Database::getRows($sql, $params);
     }
     
@@ -56,7 +56,7 @@ class ComprobanteCreditoFiscalHandler
     // Método para leer todos los usuarios.
     public function readAll()
     {
-        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision
+        $sql = 'SELECT id_factura,nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision
                 FROM vista_tb_comprobante_credito_fiscal
                 ORDER BY nombre_cliente';
         return Database::getRows($sql);
@@ -71,6 +71,17 @@ class ComprobanteCreditoFiscalHandler
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
+
+    public function readFactura()
+    {
+        $sql = 'SELECT fse.id_factura, c.imagen_cliente, c.nombre_cliente, c.apellido_cliente, fse.id_cliente, fse.id_servicio, c.email_cliente, fse.tipo_servicio, fse.monto, fse.fecha_emision, fse.descripcion
+                FROM tb_factura_sujeto_excluido fse
+                INNER JOIN  tb_clientes c ON fse.id_cliente = c.id_cliente
+                WHERE id_factura = ?';
+        $params = array($this->id);
+        return Database::getRow($sql, $params);
+    }
+
 
     public function readAllservicio()
     {
@@ -136,6 +147,16 @@ class ComprobanteCreditoFiscalHandler
 
         // Asegurarse de que la predicción no sea negativa.
         return max($predicted_total, 0);
+    }
+    public function predictNextMonthRecords1_parte1()
+    {
+        // Obtener los registros por mes en el último año.
+        $sql = 'SELECT DATE_FORMAT(fecha_emision, "%Y-%m") AS mes, COUNT(*) AS total
+                FROM tb_comprobante_credito_fiscal
+                WHERE fecha_emision >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
+                GROUP BY mes
+                ORDER BY mes ASC';
+        return Database::getRows($sql);;
     }
 
     // Función para contar clientes del mes actual

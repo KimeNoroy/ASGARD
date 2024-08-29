@@ -14,8 +14,8 @@ $factura = new factura_sujeto_excluido;
 
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
 if ($dataFactura = $factura->readAll()) {
-    // Se establece un color de relleno para los encabezados.
-    $pdf->setFillColor(200);
+    // Se establece el color de relleno para los encabezados.
+    $pdf->setFillColor(255, 121, 13); // Color naranja para los encabezados
     // Se establece la fuente para los encabezados.
     $pdf->setFont('Arial', 'B', 11);
 
@@ -29,7 +29,7 @@ if ($dataFactura = $factura->readAll()) {
     $pdf->cell(35, 10, 'Fecha de emisión', 1, 1, 'C', 1);
 
     // Se establece un color de relleno para mostrar el nombre de la categoría.
-    $pdf->setFillColor(240);
+    $pdf->setFillColor(255, 255, 255); // Color blanco para los datos
     // Se establece la fuente para los datos de las facturas.
     $pdf->setFont('Arial', '', 11);
 
@@ -55,4 +55,3 @@ if ($dataFactura = $factura->readAll()) {
 }
 // Se llama implícitamente al método footer() y se envía el documento al navegador web.
 $pdf->output('I', 'FacturaSE.pdf');
-

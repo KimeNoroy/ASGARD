@@ -83,7 +83,6 @@ const fillTable = async (form = null) => {
                 <tr>
                     <td class="text-center">${row.nombre_cliente}</td>
                     <td class="text-center">${row.apellido_cliente}</td>
-                    <td class="text-center">${row.nit_cliente}</td>
                     <td class="text-center">${row.direccion_cliente}</td>
                     <td class="text-center">${row.departamento_cliente}</td>
                     <td class="text-center">${row.municipio_cliente}</td>
@@ -100,6 +99,9 @@ const fillTable = async (form = null) => {
                         <button type="button" class="btn btn-outline-danger" onclick="openDelete(${row.id_factura})">
                             <i class="bi bi-trash-fill"></i>
                         </button>
+                             <button type="button" class="btn btn-outline-info" onclick="openBill(${row.id_factura})">
+                        <i class="bi bi-file-earmark-pdf-fill"></i>
+                    </button>
                     </td>
                 </tr>
             `;
@@ -176,6 +178,15 @@ const openDelete = async (id) => {
 const openReport = () => {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
     const PATH = new URL(`${SERVER_URL}reports/admin/reporte_consumidor_final.php`);
+    // Se abre el reporte en una nueva pestaña.
+    window.open(PATH.href);
+}
+
+const openBill = (id) => {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/admin/factura_consumidor_final.php`);
+    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+    PATH.searchParams.append('id_factura', id);
     // Se abre el reporte en una nueva pestaña.
     window.open(PATH.href);
 }

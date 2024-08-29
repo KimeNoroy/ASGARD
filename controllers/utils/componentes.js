@@ -100,8 +100,8 @@ const fillSelect = async (filename, action, select, filter = undefined) => {
             const SELECTED = (typeof (filter) == 'number') ? filter : null;
             if (value != SELECTED) {
                 content += `<option value="${value}">${text}</option>`;
-            } else {
-                content += `<option value="${value}" selected>${text}</option>`;
+                        } else {
+               content += `<option value="${value}" selected>${text}</option>`;
             }
         });
     } else {
@@ -117,37 +117,60 @@ const fillSelect = async (filename, action, select, filter = undefined) => {
 *   Parámetros: canvas (identificador de la etiqueta canvas), xAxis (datos para el eje X), yAxis (datos para el eje Y), legend (etiqueta para los datos) y title (título del gráfico).
 *   Retorno: ninguno.
 */
+let graph = null;
+
 const barGraph = (canvas, xAxis, yAxis, legend, title) => {
-    // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
-    let colors = [];
-    // Se generan códigos hexadecimales de 6 cifras de acuerdo con el número de datos a mostrar y se agregan al arreglo.
-    xAxis.forEach(() => {
-        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
-    });
-    // Se crea una instancia para generar el gráfico con los datos recibidos.
-    new Chart(document.getElementById(canvas), {
+    // Se declaran códigos hexadecimales únicos para cada barra
+    let colors = xAxis.map(() => '#' + Math.random().toString(16).slice(2, 8).padEnd(6, '0'));
+
+    // Verifica si ya existe un gráfico y lo destruye si es necesario
+    if (graph) {
+        graph.destroy();
+    }
+
+    // Se crea una instancia para generar el gráfico con los datos recibidos
+    graph = new Chart(document.getElementById(canvas), {
         type: 'bar',
         data: {
             labels: xAxis,
             datasets: [{
                 label: legend,
                 data: yAxis,
-                backgroundColor: colors
+                backgroundColor: colors,
+                borderColor: colors.map(color => color.replace(/^[#]/, '#')), // Añade borde para mejor visibilidad
+                borderWidth: 1
             }]
         },
         options: {
+            responsive: true,
             plugins: {
                 title: {
                     display: true,
                     text: title
                 },
                 legend: {
-                    display: false
+                    display: true
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return `${tooltipItem.label}: ${tooltipItem.raw}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true
+                },
+                y: {
+                    beginAtZero: true
                 }
             }
         }
     });
-}
+};
+
 
 /*
 *   Función para generar un gráfico de pastel.
@@ -155,6 +178,7 @@ const barGraph = (canvas, xAxis, yAxis, legend, title) => {
 *   Parámetros: canvas (identificador de la etiqueta canvas), legends (valores para las etiquetas), values (valores de los datos) y title (título del gráfico).
 *   Retorno: ninguno.
 */
+let graph2 = null;
 const pieGraph = (canvas, legends, values, title) => {
     // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
     let colors = [];
@@ -162,8 +186,12 @@ const pieGraph = (canvas, legends, values, title) => {
     values.forEach(() => {
         colors.push('#' + (Math.random().toString(16)).substring(2, 8));
     });
+
+    if (graph2) {
+        graph2.destroy();
+    }
     // Se crea una instancia para generar el gráfico con los datos recibidos.
-    new Chart(document.getElementById(canvas), {
+    graph2 = new Chart(document.getElementById(canvas), {
         type: 'pie',
         data: {
             labels: legends,
@@ -189,8 +217,12 @@ const pieGraph = (canvas, legends, values, title) => {
 *   Parámetros: canvas (identificador de la etiqueta canvas), xAxis (datos para el eje X), yAxis (datos para el eje Y), legend (etiqueta para los datos) y title (título del gráfico).
 *   Retorno: ninguno.
 */
+let graph3 = null;
 const lineGraph = (canvas, xAxis, yAxis, legend, title) => {
-    new Chart(document.getElementById(canvas), {
+    if (graph3) {
+        graph3.destroy();
+    }
+    graph3 = new Chart(document.getElementById(canvas), {
         type: 'line',
         data: {
             labels: xAxis,  // Etiquetas para el eje X
@@ -233,6 +265,100 @@ const lineGraph = (canvas, xAxis, yAxis, legend, title) => {
     });
 }
 
+let graph9 = null;
+const lineGraph2 = (canvas, xAxis, yAxis, legend, title) => {
+    if (graph9) {
+        graph9.destroy();
+    }
+    graph9 = new Chart(document.getElementById(canvas), {
+        type: 'line',
+        data: {
+            labels: xAxis,  // Etiquetas para el eje X
+            datasets: [{
+                label: legend,  // Leyenda de los datos
+                data: yAxis,  // Datos para el eje Y
+                borderColor: '#4caf50',  // Color de la línea
+                backgroundColor: 'rgba(76, 175, 80, 0.2)',  // Color de fondo debajo de la línea
+                fill: true,  // Rellenar debajo de la línea
+                tension: 0.1  // Curvatura de la línea
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: title  // Título del gráfico
+                },
+                legend: {
+                    display: true  // Mostrar la leyenda
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Meses'  // Título del eje X (cambiar según datos)
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Valores'  // Título del eje Y (cambiar según datos)
+                    }
+                }
+            }
+        }
+    });
+}
+let graph4 = null;
+const lineGraph4 = (canvas, xAxis, yAxis, legend, title) => {
+    if (graph4) {
+        graph4.destroy();
+    }
+    graph4 = new Chart(document.getElementById(canvas), {
+        type: 'line',
+        data: {
+            labels: xAxis,  // Etiquetas para el eje X
+            datasets: [{
+                label: legend,  // Leyenda de los datos
+                data: yAxis,  // Datos para el eje Y
+                borderColor: '#4caf50',  // Color de la línea
+                backgroundColor: 'rgba(76, 175, 80, 0.2)',  // Color de fondo debajo de la línea
+                fill: true,  // Rellenar debajo de la línea
+                tension: 0.1  // Curvatura de la línea
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: title  // Título del gráfico
+                },
+                legend: {
+                    display: true  // Mostrar la leyenda
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Meses'  // Título del eje X (cambiar según datos)
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Valores'  // Título del eje Y (cambiar según datos)
+                    }
+                }
+            }
+        }
+    });
+}
 /*
 *   Función asíncrona para cerrar la sesión del usuario.
 *   Parámetros: ninguno.

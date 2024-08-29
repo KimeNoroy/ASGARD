@@ -26,7 +26,7 @@ class factura_sujeto_excluido_handler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
+        $sql = 'SELECT id_factura, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
                 FROM tb_factura_sujeto_excluido
                 WHERE nombre_cliente LIKE ? OR apellido_cliente LIKE ?
                 ORDER BY nombre_cliente';
@@ -54,7 +54,7 @@ class factura_sujeto_excluido_handler
     // Método para leer todos los usuarios.
     public function readAll()
     {
-        $sql = 'SELECT id_factura, nit_cliente, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision
+        $sql = 'SELECT id_factura, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision
                 FROM vista_tb_factura_sujeto_excluido
                 ORDER BY nombre_cliente';
         return Database::getRows($sql);
@@ -139,9 +139,20 @@ class factura_sujeto_excluido_handler
         // Obtener el total del último mes y predecir el siguiente.
         $last_month_total = end($result)['total'];
         $predicted_total = round($last_month_total + $average_change);
-
+        
         // Asegurarse de que la predicción no sea negativa.
         return max($predicted_total, 0);
+    }
+    public function predictNextMonthRecords_parte1()
+    {
+        // Obtener los registros por mes en el último año.
+        $sql = 'SELECT DATE_FORMAT(fecha_emision, "%Y-%m") AS mes, COUNT(*) AS total
+                FROM tb_factura_sujeto_excluido
+                WHERE fecha_emision >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
+                GROUP BY mes
+                ORDER BY mes ASC';
+        $result = Database::getRows($sql);
+        return $result;
     }
 
     //Función para reporte predictivo
