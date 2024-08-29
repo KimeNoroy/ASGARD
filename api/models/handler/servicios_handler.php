@@ -66,13 +66,28 @@ class ServiciosHandler
 
     public function serviciosOfrecidos()
     {
-        $sql = 'SELECT 
-                    tipo_servicio,
-                    COUNT(*) AS cantidad
-                FROM 
-                    tb_servicios
-                GROUP BY 
-                    tipo_servicio';
+        $sql = 'SELECT
+    s.id_servicio,
+    s.nombre_servicio,
+    COALESCE(fc.count_comprobante_credito_fiscal, 0) +
+    COALESCE(fs.count_factura_sujeto_excluido, 0) +
+    COALESCE(fcf.count_factura_consumidor_final, 0) AS total_usos
+FROM tb_servicios s
+LEFT JOIN (
+    SELECT id_servicio, COUNT(*) AS count_comprobante_credito_fiscal
+    FROM tb_comprobante_credito_fiscal
+    GROUP BY id_servicio
+) fc ON s.id_servicio = fc.id_servicio
+LEFT JOIN (
+    SELECT id_servicio, COUNT(*) AS count_factura_sujeto_excluido
+    FROM tb_factura_sujeto_excluido
+    GROUP BY id_servicio
+) fs ON s.id_servicio = fs.id_servicio
+LEFT JOIN (
+    SELECT id_servicio, COUNT(*) AS count_factura_consumidor_final
+    FROM tb_factura_consumidor_final
+    GROUP BY id_servicio
+) fcf ON s.id_servicio = fcf.id_servicio;';
         return Database::getRows($sql);
     }
 

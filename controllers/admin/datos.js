@@ -99,12 +99,12 @@ const graficoPastelServicios = async () => {
             let values = [];
             // Se recorre el conjunto de registros fila por fila.
             DATA.dataset.forEach(row => {
-                legends.push(row.tipo_servicio);
-                values.push(row.cantidad);
+                legends.push(row.nombre_servicio);
+                values.push(row.total_usos);
             });
-            pieGraph('chart2', legends, values, 'Porcentaje de productos servicios');
+            pieGraph('chart8', legends, values, 'Porcentaje de productos servicios');
         } else {
-            document.getElementById('chart2').remove();
+            document.getElementById('chart8').remove();
             console.error(DATA.error);
         }
     } catch (error) {

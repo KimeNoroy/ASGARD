@@ -149,6 +149,8 @@ const openUpdate = async (id) => {
         TIPO_SERVICIO.value = ROW.tipo_servicio;
         FECHA_EMISION.value = ROW.fecha_emision;
         DESCRIPCION.value = ROW.descripcion;
+        fillSelect(CLIENTE_API, 'readAll', 'id_cliente');
+        fillSelect(FACTURA_API, 'readAllservicio', 'id_servicio');
         
         BOTON_ACTUALIZAR.classList.add('d-none');
         BOTON_AGREGAR.classList.remove('d-none');
