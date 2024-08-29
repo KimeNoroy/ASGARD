@@ -4,17 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title></title>
+    <title>Inicio</title>
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <!-- Custom CSS -->
-
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../resources/css/outfit.css">
     <link rel="stylesheet" href="../../resources/css/sidebar.css">
     <link rel="stylesheet" href="../../resources/css/Inicio.css">
-    <!-- Link para el uso de las librerias de css de boostrap -->
 </head>
 
 <body>
@@ -47,47 +45,51 @@
                     <span class="text font-weight-bold" id="cantidadEmpleados">Cargando...</span>
                 </div>
             </div>
-            <!-- Se muestra un gráfico con el porcentaje de productos por categoría -->
-            <div class="charts">
-                <div class="charts-card">
-                    <canvas id="facturasPorMes"></canvas>
-                </div>
-            </div>
-            <div class="charts">
-                <div class="charts-card">
-                    <canvas id="chart4"></canvas>
-                </div>
-            </div> 
-            <div class="charts">
-                <div class="charts-card">
-                    <canvas id="chart5"></canvas>
-                </div>
-            </div>
             <!-- Contenedor de gráficos -->
-            <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-4 d-flex">
-                    <!-- Se muestra el gráfico de... -->
-                    <canvas id="facturasPorMes" class="col-lg-4"></canvas>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 d-flex">
-                    <!-- Se muestra un gráfico con el monto total por servicios -->
-                    <canvas id="chartMontoSrv" class="col-lg-4"></canvas>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 d-flex">
-                    <!-- Se muestra gráfico predictivo sujeto excluido -->
-                    <canvas id="chart5" class="col-lg-4"></canvas>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 d-flex">
-                    <!-- Se muestra gráfico de clientes por departamento -->
-                    <canvas id="chart6" class="col-lg-4"></canvas>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <!-- Gráfico 1 -->
+                        <div class="charts-card">
+                            <canvas id="facturasPorMes"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <!-- Gráfico 2 -->
+                        <div class="charts-card">
+                            <canvas id="chart4"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <!-- Gráfico 3 -->
+                        <div class="charts-card">
+                            <canvas id="chart5"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <!-- Gráfico 4 -->
+                        <div class="charts-card">
+                            <canvas id="chartMontoSrv"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <!-- Gráfico 5 -->
+                        <div class="charts-card">
+                            <canvas id="chart6"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <!-- Gráfico 6 -->
+                        <div class="charts-card">
+                            <canvas id="chart7"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
     <!-- Custom JS -->
-    <!-- Importación de la librería para generar los gráficos. Para más información https://www.chartjs.org/ -->
     <script type="text/javascript" src="../../resources/js/chart.umd.min.js"></script>
-
     <script src="../../resources/js/sweetalert.min.js"></script>
     <script src="../../controllers/utils/componentes.js"></script>
     <script src="../../controllers/utils/admin.js"></script>

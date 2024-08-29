@@ -118,20 +118,17 @@ const fillSelect = async (filename, action, select, filter = undefined) => {
 *   Retorno: ninguno.
 */
 let graph = null;
-const barGraph = (canvas, xAxis, yAxis, legend, title) => {
-    // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
-    let colors = [];
-    // Se generan códigos hexadecimales de 6 cifras de acuerdo con el número de datos a mostrar y se agregan al arreglo.
-    xAxis.forEach(() => {
-        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
-    });
 
-    //Verifica si la variable graph cuenta con una grafica previamente creada, si es si entonces la va destruir
+const barGraph = (canvas, xAxis, yAxis, legend, title) => {
+    // Se declaran códigos hexadecimales únicos para cada barra
+    let colors = xAxis.map(() => '#' + Math.random().toString(16).slice(2, 8).padEnd(6, '0'));
+
+    // Verifica si ya existe un gráfico y lo destruye si es necesario
     if (graph) {
         graph.destroy();
     }
 
-    // Se crea una instancia para generar el gráfico con los datos recibidos.
+    // Se crea una instancia para generar el gráfico con los datos recibidos
     graph = new Chart(document.getElementById(canvas), {
         type: 'bar',
         data: {
@@ -139,22 +136,41 @@ const barGraph = (canvas, xAxis, yAxis, legend, title) => {
             datasets: [{
                 label: legend,
                 data: yAxis,
-                backgroundColor: colors
+                backgroundColor: colors,
+                borderColor: colors.map(color => color.replace(/^[#]/, '#')), // Añade borde para mejor visibilidad
+                borderWidth: 1
             }]
         },
         options: {
+            responsive: true,
             plugins: {
                 title: {
                     display: true,
                     text: title
                 },
                 legend: {
-                    display: false
+                    display: true
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return `${tooltipItem.label}: ${tooltipItem.raw}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true
+                },
+                y: {
+                    beginAtZero: true
                 }
             }
         }
     });
-}
+};
+
 
 /*
 *   Función para generar un gráfico de pastel.
