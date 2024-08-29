@@ -199,7 +199,7 @@ const openReport = () => {
 //Para reporte predictivo de este servicio
 const openReport1 = () => {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/reporte_predictivo_credito_fiscal.php`);
+    const PATH = new URL(`${SERVER_URL}reports/admin/reporte_predictivo_credito_fiscal.php`);
     // Se abre el reporte en una nueva pestaña.
     window.open(PATH.href);
 }

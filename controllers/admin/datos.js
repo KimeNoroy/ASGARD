@@ -2,7 +2,7 @@
 const SERVICIOS_API = 'services/admin/servicios.php';
 const CLIENTES_API = 'services/admin/clientes.php';
 const FACTURAS_API = 'services/admin/factura_sujeto_excluido.php';
-
+const COMPROBANTES_API = 'services/admin/comprobante_credito_fiscal.php';
 const DATA_EMPLEADOS = document.getElementById("cantidadEmpleados");
 const DATA_CLIENTES = document.getElementById("cantidadClientes");
 const DATA_FACTURAS = document.getElementById("cantidadFacturas");
@@ -184,9 +184,11 @@ const graficoPrediccionClientes = async () => {
 // Función asíncrona para mostrar un gráfico lineal predictivo de registros de sujetos excluidos para el siguiente mes.
 const predictNextMonthRecords = async () => {
     try {
+        console.log('Entro a la función');
         // Petición para obtener los datos del gráfico.
-        const DATA = await fetchData(FACTURA_API, 'predictNextMonthRecords');
-
+        const DATA = await fetchData(FACTURAS_API, 'predictNextMonthRecords');
+        console.log('No entro aqui bro');
+        console.log(DATA.dataset2);
         // Se comprueba si la respuesta es satisfactoria.
         if (DATA.status) {
             // Se declaran los arreglos para guardar los datos a graficar.
@@ -194,13 +196,16 @@ const predictNextMonthRecords = async () => {
             let registros = [];
 
             // Se recorre el conjunto de registros fila por fila.
-            DATA.dataset.forEach(row => {
+            DATA.dataset2.forEach(row => {
                 meses.push(row.mes);
-                registros.push(row.cantidad);
+                registros.push(row.total);
             });
-
+            meses.push('Próximo Mes');
+            registros.push(DATA.dataset);
+            console.log(meses);
+            console.log(registros);
             // Llamada a la función generalizada para generar y mostrar un gráfico lineal.
-            lineGraph('chart4', meses, registros, 'Registros de Sujetos Excluidos', 'Predicción de Registros para el Siguiente Mes');
+            lineGraph4('chart4', meses, registros, 'Registros de Sujetos Excluidos', 'Predicción de Registros para el Siguiente Mes');
         } else {
             // En caso de error, se remueve el canvas del gráfico.
             document.getElementById('chart4').remove(); // Remover el gráfico si no hay datos
@@ -215,7 +220,7 @@ const predictNextMonthRecords = async () => {
 const predictNextMonthRecords1 = async () => {
     try {
         // Petición para obtener los datos del gráfico.
-        const DATA = await fetchData(FACTURA_API, 'predictNextMonthRecords1');
+        const DATA = await fetchData(COMPROBANTES_API, 'predictNextMonthRecords1');
 
         // Se comprueba si la respuesta es satisfactoria.
         if (DATA.status) {
@@ -224,13 +229,16 @@ const predictNextMonthRecords1 = async () => {
             let registros = [];
 
             // Se recorre el conjunto de registros fila por fila.
-            DATA.dataset.forEach(row => {
+            DATA.dataset2.forEach(row => {
                 meses.push(row.mes);
-                registros.push(row.cantidad);
+                registros.push(row.total);
             });
-
+            meses.push('Próximo Mes');
+            registros.push(DATA.dataset);
+            console.log(meses);
+            console.log(registros);
             // Llamada a la función generalizada para generar y mostrar un gráfico lineal.
-            lineGraph('chart5', meses, registros, 'Registros de Sujetos Excluidos', 'Predicción de Registros para el Siguiente Mes');
+            lineGraph2('chart5', meses, registros, 'Registros de comprobante de credito fiscal', 'Predicción de Registros para el Siguiente Mes');
         } else {
             // En caso de error, se remueve el canvas del gráfico.
             document.getElementById('chart5').remove(); // Remover el gráfico si no hay datos

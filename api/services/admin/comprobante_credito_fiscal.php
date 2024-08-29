@@ -9,7 +9,7 @@ if (isset($_GET['action'])) {
     // Se instancia la clase correspondiente.
     $usuario = new ComprobanteCreditoFiscal;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null, 'fileStatus' => null);
+    $result = array('status' => 0, 'message' => null, 'dataset' => null, 'dataset2' => null, 'error' => null, 'exception' => null, 'fileStatus' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['idAdministrador'])) {
         $result['session'] = 1;
@@ -123,7 +123,7 @@ if (isset($_GET['action'])) {
             //Case para el gráfico predictivo de este servicio
             case 'predictNextMonthRecords1':
                 $result['dataset'] = $usuario->predictNextMonthRecords1();
-                if ($result['dataset'] !== null) {
+                if ($result['dataset2'] = $usuario->predictNextMonthRecords1_parte1()) {
                     $result['status'] = 1;
                     $result['message'] = 'Predicción realizada con éxito';
                 } else {

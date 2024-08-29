@@ -148,6 +148,16 @@ class ComprobanteCreditoFiscalHandler
         // Asegurarse de que la predicción no sea negativa.
         return max($predicted_total, 0);
     }
+    public function predictNextMonthRecords1_parte1()
+    {
+        // Obtener los registros por mes en el último año.
+        $sql = 'SELECT DATE_FORMAT(fecha_emision, "%Y-%m") AS mes, COUNT(*) AS total
+                FROM tb_comprobante_credito_fiscal
+                WHERE fecha_emision >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
+                GROUP BY mes
+                ORDER BY mes ASC';
+        return Database::getRows($sql);;
+    }
 
     // Función para contar clientes del mes actual
     public function countClientsCurrentMonth()

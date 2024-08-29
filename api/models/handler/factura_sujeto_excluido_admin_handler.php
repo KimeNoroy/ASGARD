@@ -139,9 +139,20 @@ class factura_sujeto_excluido_handler
         // Obtener el total del último mes y predecir el siguiente.
         $last_month_total = end($result)['total'];
         $predicted_total = round($last_month_total + $average_change);
-
+        
         // Asegurarse de que la predicción no sea negativa.
         return max($predicted_total, 0);
+    }
+    public function predictNextMonthRecords_parte1()
+    {
+        // Obtener los registros por mes en el último año.
+        $sql = 'SELECT DATE_FORMAT(fecha_emision, "%Y-%m") AS mes, COUNT(*) AS total
+                FROM tb_factura_sujeto_excluido
+                WHERE fecha_emision >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
+                GROUP BY mes
+                ORDER BY mes ASC';
+        $result = Database::getRows($sql);
+        return $result;
     }
 
     //Función para reporte predictivo
