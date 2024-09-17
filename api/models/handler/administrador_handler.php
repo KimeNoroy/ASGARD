@@ -13,6 +13,7 @@ class AdministradorHandler
     protected $nombre = null;
     protected $apellido = null;
     protected $email = null;
+    protected $clave = null;
     protected $contraseña = null;
 
     /*
@@ -152,4 +153,26 @@ class AdministradorHandler
         (SELECT COUNT(*) FROM tb_clientes) AS total_clientes;';
         return Database::getRow($sql);
     }
+    public function verifyExistingEmail()
+    {
+        $sql = 'SELECT COUNT(*) as count
+                FROM tb_administrador
+                WHERE email_administrador = ?';
+        $params = array($this->email);
+        $result = Database::getRow($sql, $params);
+    
+        if ($result['count'] > 0) {
+            return true; // Hay resultados
+        } else {
+            return false; // No hay resultados
+        }
+    }
+    
+    public function changePasswordFromEmail()
+    {
+        $sql = 'UPDATE tb_administrador SET contraseña_administrador = ? WHERE email_administrador = ?';
+        $params = array($this->clave, $_SESSION['usuario_correo_vcc']['correo']);
+        return Database::executeRow($sql, $params);
+    }
+
 }
