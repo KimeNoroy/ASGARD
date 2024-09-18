@@ -33,6 +33,22 @@ class Database
         }
     }
 
+    public static function executeSingleRow($query)
+    {
+        try {
+            // Se crea la conexión mediante la clase PDO con el controlador para MariaDB.
+            self::$connection = new PDO('mysql:host=' . SERVER . ';dbname=' . DATABASE, USERNAME, PASSWORD);
+            // Se prepara la sentencia SQL.
+            self::$statement = self::$connection->prepare($query);
+            // Se ejecuta la sentencia preparada y se retorna el resultado.
+            return self::$statement->execute();
+        } catch (PDOException $error) {
+            // Se obtiene el código y el mensaje de la excepción para establecer un error personalizado.
+            self::setException($error->getCode(), $error->getMessage());
+            return false;
+        }
+    }
+
     /*
      *   Método para obtener el valor de la llave primaria del último registro insertado.
      *   Parámetros: $query (sentencia SQL) y $values (arreglo con los valores para la sentencia SQL).

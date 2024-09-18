@@ -8,7 +8,8 @@ CREATE TABLE tb_administrador (
   nombre_administrador VARCHAR(50) NOT NULL,
   apellido_administrador VARCHAR(50) NOT NULL,
   email_administrador VARCHAR(100) NOT NULL,
-  contraseña_administrador VARCHAR(100) NOT NULL
+  contraseña_administrador VARCHAR(100) NOT NULL,
+  validator DATETIME
 );
 
 
@@ -316,4 +317,26 @@ VALUES
 (9, 'Factura consumidor final por gestión de proyectos', 9, 9, 9, 'Factura Consumidor Final', 1500.00, '2024-08-23'),
 (10, 'Factura consumidor final por optimización de procesos', 10, 10, 10, 'Factura Consumidor Final', 1900.00, '2024-08-24');
 
+DELIMITER $$
+CREATE FUNCTION set_validator(
+    p_id_administrador INT
+) RETURNS BOOLEAN
+BEGIN
+    DECLARE v_current_datetime DATETIME;
+    SET v_current_datetime = NOW();
+    UPDATE tb_administrador
+    SET validator = DATE_ADD(v_current_datetime, INTERVAL 1 DAY)
+    WHERE id_administrador = p_id_administrador;
+    RETURN TRUE;
+END $$
+DELIMITER ;
 
+DELIMITER $$
+CREATE FUNCTION clear_past_validators() RETURNS BOOLEAN
+BEGIN
+    UPDATE tb_administrador
+    SET validator = NULL
+    WHERE validator <= NOW();
+    RETURN TRUE;
+END $$
+DELIMITER ;

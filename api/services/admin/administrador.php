@@ -423,15 +423,36 @@ if (isset($_GET['action'])) {
                             }
                             break;
                     
-            case 'logIn':
-                $_POST = Validator::validateForm($_POST);
-                if ($administrador->checkUser($_POST['email'], $_POST['clave'])) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Autenticación correcta';
-                } else {
-                    $result['error'] = 'Credenciales incorrectas';
-                }
-                break;
+                            case 'logIn':
+                                $_POST = Validator::validateForm($_POST);
+                            
+                                // Inicializar la variable de sesión 'loginCounts' si no está definida.
+                                if (!isset($_SESSION['loginCounts'])) {
+                                    $_SESSION['loginCounts'] = 0;
+                                }
+                            
+                                // Incrementar el contador de intentos de inicio de sesión.
+                                $_SESSION['loginCounts'] += 1;
+                            
+                                // Verificar si el número de intentos está dentro del límite permitido (0 a 3).
+                                if ($_SESSION['loginCounts'] <= 3) {
+                                    // Comprobar las credenciales del usuario.
+                                    if ($administrador->checkUser($_POST['email'], $_POST['clave'])) {
+                                        $result['status'] = 1;
+                                        $result['message'] = 'Autenticación correcta';
+                                        
+                                        // Reiniciar el contador de intentos en caso de autenticación correcta.
+                                        $_SESSION['loginCounts'] = 0;
+                                    } else {
+                                        $result['error'] = 'Credenciales incorrectas';
+                                    }
+                                } else {
+                                    // Mensaje de error si se superó el número de intentos permitidos.
+                                    $result['error'] = 'Cantidad de intentos acabados';
+                                }
+                            
+                                break;
+                            
             default:
                 $result['error'] = 'Acción no disponible fuera de la sesión';
         }

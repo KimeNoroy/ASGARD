@@ -16,6 +16,20 @@ class AdministradorHandler
     protected $clave = null;
     protected $contraseña = null;
 
+    public function banValidator()
+    {
+        $sql = 'SELECT set_validator(1);';
+        $params = array($_SESSION['idAdministrador']);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function updateValidator()
+    {
+        $sql = 'SELECT clear_past_validators();';
+        return Database::executeSingleRow($sql);
+    }
+
+
     /*
      *  Métodos para gestionar la cuenta del administrador.
      */
