@@ -29,6 +29,15 @@ class AdministradorHandler
         return Database::executeSingleRow($sql);
     }
 
+    public function updateValidatorCount()
+    {
+        $sql = 'UPDATE tb_administradores
+                SET validatorcount = validatorcount+1
+                WHERE email_administrador = ?';
+        $params = array($this->email);
+        return Database::executeRow($sql, $params);
+    }
+
 
     /*
      *  Métodos para gestionar la cuenta del administrador.
