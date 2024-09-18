@@ -182,8 +182,8 @@ if (isset($_GET['action'])) {
                             $result['message'] = 'Perfil modificado correctamente';
                 
                             // Verifica si 'aliasAdministrador' fue enviado en $_POST
-                            if (isset($_POST['aliasAdministrador'])) {
-                                $_SESSION['aliasAdministrador'] = $_POST['aliasAdministrador'];
+                            if (isset($_POST['emailAdministrador'])) {
+                                $_SESSION['emailAdministrador'] = $_POST['emailAdministrador'];
                             } else {
                                 $result['error'] = "El alias del administrador no fue proporcionado.";
                             }
