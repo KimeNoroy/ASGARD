@@ -175,6 +175,38 @@ if (isset($_GET['action'])) {
                         !$administrador->setApellido($_POST['apellidoAdministrador']) or
                         !$administrador->setEmail($_POST['emailAdministrador'])
                     ) {
+<<<<<<< HEAD
+=======
+                        $result['error'] = 'Datos incompletos. Faltan campos requeridos.';
+                    } else {
+                        if (
+                            !$administrador->setNombre($_POST['nombreAdministrador']) or
+                            !$administrador->setApellido($_POST['apellidoAdministrador']) or
+                            !$administrador->setEmail($_POST['emailAdministrador'])
+                        ) {
+                            $result['error'] = $administrador->getDataError();
+                        } elseif ($administrador->editProfile()) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Perfil modificado correctamente';
+                
+                            // Verifica si 'aliasAdministrador' fue enviado en $_POST
+                            if (isset($_POST['emailAdministrador'])) {
+                                $_SESSION['emailAdministrador'] = $_POST['emailAdministrador'];
+                            } else {
+                                $result['error'] = "El alias del administrador no fue proporcionado.";
+                            }
+                        } else {
+                            $result['error'] = 'Ocurrió un problema al modificar el perfil';
+                        }
+                    }
+                    break;
+                
+                case 'emailPasswordSender':
+                    $_POST = Validator::validateForm($_POST);
+                
+                    // Validar y establecer el email
+                    if (!$administrador->setEmail($_POST['emailAdministrador'])) {
+>>>>>>> 1e3a561251aee7c5c76223c4b0f79e51fd00f2e8
                         $result['error'] = $administrador->getDataError();
                     } elseif ($administrador->editProfile()) {
                         $result['status'] = 1;
