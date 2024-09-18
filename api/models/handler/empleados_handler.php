@@ -97,11 +97,12 @@ class EmpleadoHandler
 
     public function readAll()
     {
-        $sql = 'SELECT id_empleado, nombres_empleado, apellidos_empleado, email_empleados, dui_empleado
+        $sql = 'SELECT id_empleado, nombres_empleado, apellidos_empleado, dui_empleado
                 FROM tb_empleados
                 ORDER BY apellidos_empleado';
         return Database::getRows($sql);
     }
+    
 
     public function readOne()
     {

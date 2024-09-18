@@ -160,24 +160,39 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['error'] = 'Ocurrió un problema al leer el perfil';
                 }
-                break;
-            case 'editProfile':
-                $_POST = Validator::validateForm($_POST);
-                if (
-                    !$administrador->setNombre($_POST['nombreAdministrador']) or
-                    !$administrador->setApellido($_POST['apellidoAdministrador']) or
-                    !$administrador->setEmail($_POST['emailAdministrador'])
-                ) {
-                    $result['error'] = $administrador->getDataError();
-                } elseif ($administrador->editProfile()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Perfil modificado correctamente';
-                    $_SESSION['aliasAdministrador'] = $_POST['aliasAdministrador'];
-                } else {
-                    $result['error'] = 'Ocurrió un problema al modificar el perfil';
-                }
-                break;
-
+                case 'editProfile':
+                    $_POST = Validator::validateForm($_POST);
+                
+                    // Verifica si los datos esperados están presentes en $_POST
+                    if (
+                        !isset($_POST['nombreAdministrador']) ||
+                        !isset($_POST['apellidoAdministrador']) ||
+                        !isset($_POST['emailAdministrador'])
+                    ) {
+                        $result['error'] = 'Datos incompletos. Faltan campos requeridos.';
+                    } else {
+                        if (
+                            !$administrador->setNombre($_POST['nombreAdministrador']) or
+                            !$administrador->setApellido($_POST['apellidoAdministrador']) or
+                            !$administrador->setEmail($_POST['emailAdministrador'])
+                        ) {
+                            $result['error'] = $administrador->getDataError();
+                        } elseif ($administrador->editProfile()) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Perfil modificado correctamente';
+                
+                            // Verifica si 'aliasAdministrador' fue enviado en $_POST
+                            if (isset($_POST['aliasAdministrador'])) {
+                                $_SESSION['aliasAdministrador'] = $_POST['aliasAdministrador'];
+                            } else {
+                                $result['error'] = "El alias del administrador no fue proporcionado.";
+                            }
+                        } else {
+                            $result['error'] = 'Ocurrió un problema al modificar el perfil';
+                        }
+                    }
+                    break;
+                
                 case 'emailPasswordSender':
                     $_POST = Validator::validateForm($_POST);
                 
