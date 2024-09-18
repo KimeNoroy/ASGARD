@@ -167,12 +167,27 @@ class AdministradorHandler
             return false; // No hay resultados
         }
     }
-    
+
     public function changePasswordFromEmail()
     {
+        // SQL para actualizar la contraseña
         $sql = 'UPDATE tb_administrador SET contraseña_administrador = ? WHERE email_administrador = ?';
-        $params = array($this->clave, $_SESSION['usuario_correo_vcc']['correo']);
-        return Database::executeRow($sql, $params);
+        
+        // Parámetros: contraseña encriptada y el correo del administrador
+        $params = array($this->contraseña, $_SESSION['usuario_correo_vcc']['correo']);
+        
+        // Verificar el valor de la contraseña antes del UPDATE
+        error_log("Valor de la contraseña encriptada antes del UPDATE: " . $this->contraseña);
+        
+        // Ejecutar la consulta SQL
+        if ($result = Database::executeRow($sql, $params)) {
+            // Registrar si la contraseña fue actualizada correctamente
+            error_log("Contraseña actualizada correctamente para el email: " . $_SESSION['usuario_correo_vcc']['correo']);
+            return true;
+        } else {
+            // Registrar en caso de error en la actualización
+            error_log("Error al actualizar la contraseña.");
+            return false;
+        }
     }
-
 }
