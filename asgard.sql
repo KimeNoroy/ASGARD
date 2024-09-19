@@ -10,9 +10,9 @@ CREATE TABLE tb_administrador (
   email_administrador VARCHAR (100) UNIQUE,
   contraseña_administrador VARCHAR(100) NOT NULL,
   validator DATETIME,
-  validatorcount INT DEFAULT 0
+  validatorcount INT DEFAULT 0,
+  cambio_contraseña DATETIME DEFAULT (NOW() + INTERVAL 90 DAY)
 );
-
 
 -- Tabla de Clientes
 CREATE TABLE tb_clientes(
@@ -245,5 +245,25 @@ BEGIN
         CALL set_validator(p_email_administrador);
     END IF;
 END $$
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE FUNCTION verificar_cambio_contraseña(id INT)
+RETURNS INT
+BEGIN
+    DECLARE fecha_cambio DATETIME;
+
+    SELECT cambio_contraseña INTO fecha_cambio
+    FROM tb_administrador
+    WHERE id_administrador = id;
+
+    IF fecha_cambio <= NOW() THEN
+        RETURN 1;
+    ELSE
+        RETURN 0;
+    END IF;
+END //
 
 DELIMITER ;
