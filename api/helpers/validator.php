@@ -356,7 +356,11 @@ class Validator
         }
     }
 
-    
+        /*
+    *   Método para generar una cadena aleatoria de una longitud específica.
+    *   Parámetros: $length (entero, longitud de la cadena aleatoria, por defecto es 8).
+    *   Retorno: string (cadena aleatoria que contiene números, letras minúsculas y letras mayúsculas).
+    */
     public static function generateRandomString($length = 24) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);

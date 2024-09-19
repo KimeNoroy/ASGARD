@@ -222,40 +222,40 @@ if (isset($_GET['action'])) {
                     }           
                     break;
     
-            case 'emailPasswordSender':
-                $_POST = Validator::validateForm($_POST);
+            // case 'emailPasswordSender':
+            //     $_POST = Validator::validateForm($_POST);
             
-                // Validar y establecer el email
-                if (!$administrador->setEmail($_POST['emailAdministrador'])) {
-                    $result['error'] = $administrador->getDataError();
-                } elseif ($administrador->verifyExistingEmail()) {
-                    // Generar código de cambio de contraseña y token
-                    $secret_change_password_code = mt_rand(10000000, 99999999);
-                    $token = Validator::generateRandomString(64);
+            //     // Validar y establecer el email
+            //     if (!$administrador->setEmail($_POST['emailAdministrador'])) {
+            //         $result['error'] = $administrador->getDataError();
+            //     } elseif ($administrador->verifyExistingEmail()) {
+            //         // Generar código de cambio de contraseña y token
+            //         $secret_change_password_code = mt_rand(10000000, 99999999);
+            //         $token = Validator::generateRandomString(64);
             
-                    // Almacenar código y token en sesión con tiempo de expiración
-                    $_SESSION['secret_change_password_code'] = [
-                        'code' => $secret_change_password_code,
-                        'token' => $token,
-                        'expiration_time' => time() + (60 * 15) // Expira en 15 minutos
-                    ];
+            //         // Almacenar código y token en sesión con tiempo de expiración
+            //         $_SESSION['secret_change_password_code'] = [
+            //             'code' => $secret_change_password_code,
+            //             'token' => $token,
+            //             'expiration_time' => time() + (60 * 15) // Expira en 15 minutos
+            //         ];
             
-                    $_SESSION['usuario_correo_vcc'] = [
-                        'correo' => $_POST['emailAdministrador'],
-                        'expiration_time' => time() + (60 * 25) // Expira en 25 minutos
-                    ];
+            //         $_SESSION['usuario_correo_vcc'] = [
+            //             'correo' => $_POST['emailAdministrador'],
+            //             'expiration_time' => time() + (60 * 25) // Expira en 25 minutos
+            //         ];
             
-                    // Enviar correo de verificación
-                    sendVerificationEmail($_POST['emailAdministrador'], $secret_change_password_code, $token);
+            //         // Enviar correo de verificación
+            //         sendVerificationEmail($_POST['emailAdministrador'], $secret_change_password_code, $token);
             
-                    $result['status'] = 1;
-                    $result['message'] = 'Correo enviado';
-                    $result['dataset'] = $token;
-                } else {
-                    $result['error'] = 'El correo indicado no existe';
-                } // Cierre de if-elseif-else
+            //         $result['status'] = 1;
+            //         $result['message'] = 'Correo enviado';
+            //         $result['dataset'] = $token;
+            //     } else {
+            //         $result['error'] = 'El correo indicado no existe';
+            //     } // Cierre de if-elseif-else
             
-                break; // Cierre del case
+            //     break; // Cierre del case
                     
     
             case 'emailPasswordValidator':
@@ -465,6 +465,16 @@ if (isset($_GET['action'])) {
                 } elseif ($administrador->checkUser($_POST['email'], $_POST['clave'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
+                    if($administrador->validatePassword()){
+                        $result['dataset'] = "change";
+
+                        $token = Validator::generateRandomString(64);
+    
+                        $_SESSION['secret_change_password_code'] = [
+                            'token' => $token,
+                            'expiration_time' => time() + (60 * 15) # (x*y) y=minutos de vida 
+                        ];
+                    }
                 } elseif($administrador->setValidator($_POST['email'])) {
                     $result['error'] = 'Credenciales incorrectas';
                 }

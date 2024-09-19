@@ -36,6 +36,13 @@ class AdministradorHandler
         return $result['date'] != null;
     }
 
+      public function validatePassword()
+    {
+        $sql = 'SELECT verificar_cambio_contraseña(?) AS date;';
+        $params = array($_SESSION['idAdministrador']);
+        $result = Database::getRow($sql, $params);
+        return $result['date'] == 1;
+    }
 
     /*
      *  Métodos para gestionar la cuenta del administrador.
