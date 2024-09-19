@@ -69,14 +69,27 @@ class AdministradorData extends AdministradorHandler
 
     public function setContraseña($value)
     {
-        if (Validator::validatePassword($value)) {
+        // Validación de la contraseña
+        $hasLetter = preg_match('/[A-Za-z]/', $value);
+        $hasDigit = preg_match('/\d/', $value);
+        $hasSpecialChar = preg_match('/[\W_]/', $value); // Caracteres especiales
+        $noSpaces = !preg_match('/\s/', $value); // Sin espacios
+    
+        // Validación de secuencias numéricas
+        $noSequentialNumbers = !preg_match('/(0123456789|123456789|23456789|3456789|456789)/', $value);
+    
+        if ($hasLetter && $hasDigit && $hasSpecialChar && $noSpaces && $noSequentialNumbers) {
             $this->contraseña = password_hash($value, PASSWORD_DEFAULT);
             return true;
         } else {
-            $this->data_error = Validator::getPasswordError();
+            $this->data_error = "La contraseña debe contener al menos un carácter alfanumérico, un carácter especial, no debe tener espacios y no debe contener secuencias numéricas consecutivas.";
             return false;
         }
     }
+    
+    
+    
+    
 
     // Método para obtener el error de los datos.
     public function getDataError()
