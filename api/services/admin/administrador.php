@@ -159,6 +159,7 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['error'] = 'Ocurrió un problema al leer el perfil';
                 }
+
             case 'editProfile':
                 $_POST = Validator::validateForm($_POST);
 
@@ -175,8 +176,7 @@ if (isset($_GET['action'])) {
                         !$administrador->setApellido($_POST['apellidoAdministrador']) or
                         !$administrador->setEmail($_POST['emailAdministrador'])
                     ) {
-<<<<<<< HEAD
-=======
+
                         $result['error'] = 'Datos incompletos. Faltan campos requeridos.';
                     } else {
                         if (
@@ -198,15 +198,14 @@ if (isset($_GET['action'])) {
                         } else {
                             $result['error'] = 'Ocurrió un problema al modificar el perfil';
                         }
-                    }
+                    } 
+                }   
                     break;
-                
-                case 'emailPasswordSender':
+            case 'emailPasswordSender':
                     $_POST = Validator::validateForm($_POST);
                 
                     // Validar y establecer el email
                     if (!$administrador->setEmail($_POST['emailAdministrador'])) {
->>>>>>> 1e3a561251aee7c5c76223c4b0f79e51fd00f2e8
                         $result['error'] = $administrador->getDataError();
                     } elseif ($administrador->editProfile()) {
                         $result['status'] = 1;
@@ -220,13 +219,12 @@ if (isset($_GET['action'])) {
                         }
                     } else {
                         $result['error'] = 'Ocurrió un problema al modificar el perfil';
-                    }
-                }
-                break;
-
+                    }           
+                    break;
+    
             case 'emailPasswordSender':
                 $_POST = Validator::validateForm($_POST);
-
+            
                 // Validar y establecer el email
                 if (!$administrador->setEmail($_POST['emailAdministrador'])) {
                     $result['error'] = $administrador->getDataError();
@@ -234,29 +232,32 @@ if (isset($_GET['action'])) {
                     // Generar código de cambio de contraseña y token
                     $secret_change_password_code = mt_rand(10000000, 99999999);
                     $token = Validator::generateRandomString(64);
-
+            
                     // Almacenar código y token en sesión con tiempo de expiración
                     $_SESSION['secret_change_password_code'] = [
                         'code' => $secret_change_password_code,
                         'token' => $token,
                         'expiration_time' => time() + (60 * 15) // Expira en 15 minutos
                     ];
-
+            
                     $_SESSION['usuario_correo_vcc'] = [
                         'correo' => $_POST['emailAdministrador'],
                         'expiration_time' => time() + (60 * 25) // Expira en 25 minutos
                     ];
-
+            
                     // Enviar correo de verificación
                     sendVerificationEmail($_POST['emailAdministrador'], $secret_change_password_code, $token);
-
+            
                     $result['status'] = 1;
                     $result['message'] = 'Correo enviado';
                     $result['dataset'] = $token;
                 } else {
                     $result['error'] = 'El correo indicado no existe';
-                }
-                break;
+                } // Cierre de if-elseif-else
+            
+                break; // Cierre del case
+                    
+    
             case 'emailPasswordValidator':
                 $_POST = Validator::validateForm($_POST);
 
@@ -287,6 +288,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = "El código es incorrecto";
                 }
                 break;
+
             case 'changePasswordByEmail':
                 $_POST = Validator::validateForm($_POST);
                 if (!$administrador->setContraseña($_POST['nuevaClave'])) {
@@ -332,8 +334,8 @@ if (isset($_GET['action'])) {
                 break;
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
-        }
-    } else {
+            }
+    }else {
         // Se compara la acción a realizar cuando el administrador no ha iniciado sesión.
         switch ($_GET['action']) {
             case 'readUsers':
@@ -455,12 +457,15 @@ if (isset($_GET['action'])) {
                 break;
 
             case 'logIn':
-                $_POST = Validator::validateForm($_POST);
 
-                if ($administrador->checkUser($_POST['email'], $_POST['clave'])) {
+                $_POST = Validator::validateForm($_POST);
+                $administrador->clearValidator();
+                if($administrador->getValidator($_POST['email'])){
+                    $result['error'] = 'Su cuenta se ha suspendido temporalmente';
+                } elseif ($administrador->checkUser($_POST['email'], $_POST['clave'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
-                } else {
+                } elseif($administrador->setValidator($_POST['email'])) {
                     $result['error'] = 'Credenciales incorrectas';
                 }
                 break;
