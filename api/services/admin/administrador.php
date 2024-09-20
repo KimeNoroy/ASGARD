@@ -364,6 +364,8 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al registrar el administrador';
                 }
                 break;
+            
+            
 
             case 'emailPasswordSender':
                 $_POST = Validator::validateForm($_POST);
@@ -457,7 +459,6 @@ if (isset($_GET['action'])) {
                 break;
 
             case 'logIn':
-
                 $_POST = Validator::validateForm($_POST);
                 $administrador->clearValidator();
                 if($administrador->getValidator($_POST['email'])){
@@ -466,14 +467,14 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
                     if($administrador->validatePassword()){
-                        $result['dataset'] = "change";
-
+                        
                         $token = Validator::generateRandomString(64);
-    
                         $_SESSION['secret_change_password_code'] = [
                             'token' => $token,
                             'expiration_time' => time() + (60 * 15) # (x*y) y=minutos de vida 
                         ];
+
+                        $result['dataset'] = ["change", $token];
                     }
                 } elseif($administrador->setValidator($_POST['email'])) {
                     $result['error'] = 'Credenciales incorrectas';

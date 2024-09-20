@@ -71,7 +71,7 @@ class AdministradorData extends AdministradorHandler
     {
         // Validación de la contraseña
         $hasLetter = preg_match('/[A-Za-z]/', $value);
-        $hasDigit = preg_match('/\d/', $value);
+        $hasDigit = preg_match('/\d/', $value);  
         $hasSpecialChar = preg_match('/[\W_]/', $value); // Caracteres especiales
         $noSpaces = !preg_match('/\s/', $value); // Sin espacios
     
@@ -82,7 +82,7 @@ class AdministradorData extends AdministradorHandler
             $this->contraseña = password_hash($value, PASSWORD_DEFAULT);
             return true;
         } else {
-            $this->data_error = "La contraseña debe contener al menos un carácter alfanumérico, un carácter especial, no debe tener espacios y no debe contener secuencias numéricas consecutivas.";
+            $this->data_error = "Dag la contraseña debe contener al menos un carácter alfanumérico, un carácter especial, no debe tener espacios y no debe contener secuencias numéricas consecutivas.";
             return false;
         }
     }
