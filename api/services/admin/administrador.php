@@ -332,6 +332,24 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al cambiar la contraseña';
                 }
                 break;
+
+            case 'ninetyDaysPasswordChanger':
+                $_POST = Validator::validateForm($_POST);
+                if(!$administrador->validatePassword()){
+                    $result['error'] = 'No es tiempo para cambiar su contraseña aún';
+                } elseif () { 
+                    $result['error'] = 'Confirmación de contraseña diferente';
+                } elseif ($_POST['claveNueva'] != $_POST['confirmarClave']) {
+                    $result['error'] = 'Confirmación de contraseña diferente';
+                } elseif (!$administrador->setContraseña($_POST['claveNueva'])) {
+                    $result['error'] = $administrador->getDataError();
+                } elseif ($administrador->changePassword()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Contraseña cambiada correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al cambiar la contraseña';
+                }
+                break;
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
             }
@@ -469,7 +487,7 @@ if (isset($_GET['action'])) {
                     if($administrador->validatePassword()){
                         
                         $token = Validator::generateRandomString(64);
-                        $_SESSION['secret_change_password_code'] = [
+                        $_SESSION['90_days_password_changer'] = [
                             'token' => $token,
                             'expiration_time' => time() + (60 * 15) # (x*y) y=minutos de vida 
                         ];
