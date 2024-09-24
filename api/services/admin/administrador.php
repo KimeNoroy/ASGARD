@@ -7,6 +7,22 @@ require_once('../../helpers/email.php');
 if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
+
+    // Tiempo límite de inactividad en segundos
+    $inactiveLimit = 300; // Set inactivity limit in seconds
+
+    // Verifica y actualiza el tiempo de actividad
+    if (!isset($_SESSION['last_activity'])) {
+        $_SESSION['last_activity'] = time(); // Initialize last activity time
+    } else if (time() - $_SESSION['last_activity'] > $inactiveLimit) {
+        session_unset(); // Limpia la sesión
+        session_destroy(); // Destruye la sesión
+        echo "La sesión ha sido destruida por inactividad.";
+    }
+    
+    // Actualiza el tiempo de actividad
+    $_SESSION['last_activity'] = time();
+
     // Se instancia la clase correspondiente.
     $administrador = new AdministradorData;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
@@ -248,61 +264,61 @@ if (isset($_GET['action'])) {
                     } 
                 }   
                     break;
-            case 'emailPasswordSender':
-                    $_POST = Validator::validateForm($_POST);
-                
-                    // Validar y establecer el email
-                    if (!$administrador->setEmail($_POST['emailAdministrador'])) {
-                        $result['error'] = $administrador->getDataError();
-                    } elseif ($administrador->editProfile()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Perfil modificado correctamente';
-
-                        // Verifica si 'aliasAdministrador' fue enviado en $_POST
-                        if (isset($_POST['aliasAdministrador'])) {
-                            $_SESSION['aliasAdministrador'] = $_POST['aliasAdministrador'];
-                        } else {
-                            $result['error'] = "El alias del administrador no fue proporcionado.";
-                        }
-                    } else {
-                        $result['error'] = 'Ocurrió un problema al modificar el perfil';
-                    }           
-                    break;
-    
             // case 'emailPasswordSender':
-            //     $_POST = Validator::validateForm($_POST);
+            //         $_POST = Validator::validateForm($_POST);
+                
+            //         // Validar y establecer el email
+            //         if (!$administrador->setEmail($_POST['emailAdministrador'])) {
+            //             $result['error'] = $administrador->getDataError();
+            //         } elseif ($administrador->editProfile()) {
+            //             $result['status'] = 1;
+            //             $result['message'] = 'Perfil modificado correctamente';
+
+            //             // Verifica si 'aliasAdministrador' fue enviado en $_POST
+            //             if (isset($_POST['aliasAdministrador'])) {
+            //                 $_SESSION['aliasAdministrador'] = $_POST['aliasAdministrador'];
+            //             } else {
+            //                 $result['error'] = "El alias del administrador no fue proporcionado.";
+            //             }
+            //         } else {
+            //             $result['error'] = 'Ocurrió un problema al modificar el perfil';
+            //         }           
+            //         break;
+    
+            case 'emailPasswordSender':
+                $_POST = Validator::validateForm($_POST);
             
-            //     // Validar y establecer el email
-            //     if (!$administrador->setEmail($_POST['emailAdministrador'])) {
-            //         $result['error'] = $administrador->getDataError();
-            //     } elseif ($administrador->verifyExistingEmail()) {
-            //         // Generar código de cambio de contraseña y token
-            //         $secret_change_password_code = mt_rand(10000000, 99999999);
-            //         $token = Validator::generateRandomString(64);
+                // Validar y establecer el email
+                if (!$administrador->setEmail($_POST['emailAdministrador'])) {
+                    $result['error'] = $administrador->getDataError();
+                } elseif ($administrador->verifyExistingEmail()) {
+                    // Generar código de cambio de contraseña y token
+                    $secret_change_password_code = mt_rand(10000000, 99999999);
+                    $token = Validator::generateRandomString(64);
             
-            //         // Almacenar código y token en sesión con tiempo de expiración
-            //         $_SESSION['secret_change_password_code'] = [
-            //             'code' => $secret_change_password_code,
-            //             'token' => $token,
-            //             'expiration_time' => time() + (60 * 15) // Expira en 15 minutos
-            //         ];
+                    // Almacenar código y token en sesión con tiempo de expiración
+                    $_SESSION['secret_change_password_code'] = [
+                        'code' => $secret_change_password_code,
+                        'token' => $token,
+                        'expiration_time' => time() + (60 * 15) // Expira en 15 minutos
+                    ];
             
-            //         $_SESSION['usuario_correo_vcc'] = [
-            //             'correo' => $_POST['emailAdministrador'],
-            //             'expiration_time' => time() + (60 * 25) // Expira en 25 minutos
-            //         ];
+                    $_SESSION['usuario_correo_vcc'] = [
+                        'correo' => $_POST['emailAdministrador'],
+                        'expiration_time' => time() + (60 * 25) // Expira en 25 minutos
+                    ];
             
-            //         // Enviar correo de verificación
-            //         sendVerificationEmail($_POST['emailAdministrador'], $secret_change_password_code, $token);
+                    // Enviar correo de verificación
+                    sendVerificationEmail($_POST['emailAdministrador'], $secret_change_password_code);
             
-            //         $result['status'] = 1;
-            //         $result['message'] = 'Correo enviado';
-            //         $result['dataset'] = $token;
-            //     } else {
-            //         $result['error'] = 'El correo indicado no existe';
-            //     } // Cierre de if-elseif-else
+                    $result['status'] = 1;
+                    $result['message'] = 'Correo enviado';
+                    $result['dataset'] = $token;
+                } else {
+                    $result['error'] = 'El correo indicado no existe';
+                } // Cierre de if-elseif-else
             
-            //     break; // Cierre del case
+                break; // Cierre del case
                     
     
             case 'emailPasswordValidator':

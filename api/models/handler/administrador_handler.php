@@ -229,7 +229,7 @@ class AdministradorHandler
         $sql = 'UPDATE tb_administrador SET contraseña_administrador = ? WHERE email_administrador = ?';
         
         // Parámetros: contraseña encriptada y el correo del administrador
-        $params = array($this->contraseña, $_SESSION['usuario_correo_vcc']['correo']);
+        $params = array($this->contraseña, Encryption::aes128_ofb_encrypt($_SESSION['usuario_correo_vcc']['correo']));
         
         // Verificar el valor de la contraseña antes del UPDATE
         error_log("Valor de la contraseña encriptada antes del UPDATE: " . $this->contraseña);

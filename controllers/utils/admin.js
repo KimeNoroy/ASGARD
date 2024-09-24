@@ -185,7 +185,7 @@ const loadTemplate = async () => {
                 </header>
             `);
         } else {
-            //location.href = 'index.html';
+            location.href = 'index.html';
         }
     }
 }
