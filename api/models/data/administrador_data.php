@@ -3,6 +3,9 @@
 require_once('../../helpers/validator.php');
 // Se incluye la clase padre.
 require_once('../../models/handler/administrador_handler.php');
+
+require_once('../../helpers/encryption.php');
+
 /*
  *  Clase para manejar el encapsulamiento de los datos de la tabla USUARIO.
  */
@@ -10,7 +13,6 @@ class AdministradorData extends AdministradorHandler
 {
     // Atributo genérico para manejo de errores.
     private $data_error = null;
-
     /*
      *  Métodos para validar y asignar valores de los atributos.
      */
@@ -31,7 +33,7 @@ class AdministradorData extends AdministradorHandler
             $this->data_error = 'El nombre debe ser un valor alfabético';
             return false;
         } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->nombre = $value;
+            $this->nombre =  Encryption::aes128_ofb_encrypt($value);
             return true;
         } else {
             $this->data_error = 'El nombre debe tener una longitud entre ' . $min . ' y ' . $max;
@@ -45,7 +47,7 @@ class AdministradorData extends AdministradorHandler
             $this->data_error = 'El apellido debe ser un valor alfabético';
             return false;
         } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->apellido = $value;
+            $this->apellido =  Encryption::aes128_ofb_encrypt($value);
             return true;
         } else {
             $this->data_error = 'El apellido debe tener una longitud entre ' . $min . ' y ' . $max;
@@ -59,7 +61,7 @@ class AdministradorData extends AdministradorHandler
             $this->data_error = 'El correo no es válido';
             return false;
         } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->email = $value;
+            $this->email =  Encryption::aes128_ofb_encrypt($value);
             return true;
         } else {
             $this->data_error = 'El correo debe tener una longitud entre ' . $min . ' y ' . $max;

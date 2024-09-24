@@ -267,3 +267,16 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER tr_update_cambio_contraseña
+BEFORE UPDATE ON tb_administrador
+FOR EACH ROW
+BEGIN
+    IF NEW.contraseña_administrador <> OLD.contraseña_administrador THEN
+        SET NEW.cambio_contraseña = NOW() + INTERVAL 90 DAY;
+    END IF;
+END $$
+
+DELIMITER ;

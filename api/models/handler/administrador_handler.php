@@ -1,6 +1,7 @@
 <?php
 // Se incluye la clase para trabajar con la base de datos.
 require_once('../../helpers/database.php');
+require_once('../../helpers/encryption.php');
 /*
  *  Clase para manejar el comportamiento de los datos de la tabla administrador.
  */
@@ -16,6 +17,17 @@ class AdministradorHandler
     protected $clave = null;
     protected $contraseña = null;
 
+    protected $columns = [1, 2, 3];
+
+    public function changeTempPassword()
+    {
+        $sql = 'UPDATE tb_administrador
+                SET contraseña_administrador = ?
+                WHERE id_administrador = ?';
+        $params = array($this->contraseña, $_SESSION['tempChanger']['id']);
+        return Database::executeRow($sql, $params);
+    }
+
     public function clearValidator()
     {
         $sql = 'CALL clear_past_validators();';
@@ -25,13 +37,13 @@ class AdministradorHandler
     public function setValidator($email)
     {
         $sql = 'CALL update_validatorcount(?);';
-        $params = array($email);
+        $params = array(Encryption::aes128_ofb_encrypt($email));
         return Database::executeRow($sql, $params);
     }
 
     public function getValidator($email){
         $sql = 'SELECT validator AS date FROM tb_administrador WHERE email_administrador=?';
-        $params = array($email);
+        $params = array( Encryption::aes128_ofb_encrypt($email));
         $result = Database::getRow($sql, $params);
         return $result['date'] != null;
     }
@@ -39,7 +51,7 @@ class AdministradorHandler
       public function validatePassword()
     {
         $sql = 'SELECT verificar_cambio_contraseña(?) AS date;';
-        $params = array($_SESSION['idAdministrador']);
+        $params = array($_SESSION['tempChanger']['id']);
         $result = Database::getRow($sql, $params);
         return $result['date'] == 1;
     }
@@ -47,20 +59,35 @@ class AdministradorHandler
     /*
      *  Métodos para gestionar la cuenta del administrador.
      */
-    public function checkUser($email, $password)
+    public function checkUser($email, $password): int
     {
         $sql = 'SELECT id_administrador, nombre_administrador, apellido_administrador, email_administrador, contraseña_administrador
                 FROM tb_administrador
                 WHERE  email_administrador = ?';
-          $params = array($email);
-          if (!($data = Database::getRow($sql, $params))) {
-              return false;
+        $params = array(Encryption::aes128_ofb_encrypt($email));
+        $result = Database::getRow($sql, $params);
+        if (!($data = Database::getRow($sql, $params))) {
+              return 0;
           } elseif (password_verify($password, $data['contraseña_administrador'])) {
-            $_SESSION['idAdministrador'] = $data['id_administrador'];
-            $_SESSION['emailAdministrador'] = $data['email_administrador'];
-            return true;  
+
+            $sql = 'SELECT verificar_cambio_contraseña(?) AS date;';
+            $params = array($data['id_administrador']);
+            $result = Database::getRow($sql, $params);
+
+            if(!$result['date'] == 1){
+                $_SESSION['idAdministrador'] = $data['id_administrador'];
+                $_SESSION['emailAdministrador'] =  Encryption::aes128_ofb_decrypt($data['email_administrador']);
+                return 1;
+            } else{
+                $_SESSION['tempChanger'] = [
+                    'id' => $data['id_administrador'],
+                    'expiration_time' => time() + (60 * 10) # (x*y) y=minutos de vida 
+                ];
+                return 2;
+            }
+             
           } else {
-              return false;
+              return 0;
           }
     }
 
@@ -94,7 +121,7 @@ class AdministradorHandler
                 FROM tb_administrador
                 WHERE id_administrador = ?';
         $params = array($_SESSION['idAdministrador']);
-        return Database::getRow($sql, $params);
+        return Database::getRow($sql, $params, $this->columns);
     }
 
     public function editProfile()

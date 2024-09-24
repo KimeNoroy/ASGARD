@@ -12,7 +12,54 @@ if (isset($_GET['action'])) {
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'session' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null, 'username' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
-    if (isset($_SESSION['idAdministrador'])) {
+
+    if(isset($_SESSION['tempChanger'])){
+        if ($_SESSION['tempChanger']['expiration_time'] <= time() or !$administrador->validatePassword()){
+            unset($_SESSION['tempChanger']);
+            unset($_SESSION['90_days_password_changer']);
+        }
+    }
+
+    if(isset($_SESSION['tempChanger'])){
+
+        switch ($_GET['action']) {
+            case 'ninetyDaysPasswordChanger':
+                $_POST = Validator::validateForm($_POST);
+                if(!$administrador->validatePassword()){
+                    $result['error'] = 'No es tiempo para cambiar su contraseña aún';
+                } elseif (!isset($_POST['token'])) {
+                    $result['error'] = "El token no fue proporcionado";
+                } elseif ($_SESSION['90_days_password_changer'] != $_POST["token"]) {
+                    $result['error'] = 'El token es invalido';
+                } elseif ($_POST['claveNueva'] != $_POST['confirmarClave']) {
+                    $result['error'] = 'Confirmación de contraseña diferente';
+                } elseif (!$administrador->setContraseña($_POST['claveNueva'])) {
+                    $result['error'] = $administrador->getDataError();
+                } elseif ($administrador->changeTempPassword()) {
+                    unset($_SESSION['90_days_password_changer']);
+                    $result['status'] = 1;
+                    $result['message'] = 'Contraseña cambiada correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al cambiar la contraseña';
+                }
+                break;
+            case 'logIn':
+                $_POST = Validator::validateForm($_POST);
+                $administrador->clearValidator();
+                if ($administrador->checkUser($_POST['email'], $_POST['clave'])==2) {
+                    $result['dataset'] = ["change", $_SESSION['90_days_password_changer']];
+                } elseif($administrador->setValidator($_POST['email'])) {
+                    $result['error'] = 'Credenciales incorrectas';
+                }
+                break;
+            default:
+                $result['error'] = 'Obligatorio cambiar de contraseña antes de realizar una acción';
+        }
+
+
+    }
+    
+    elseif (isset($_SESSION['idAdministrador'])) {
         $result['session'] = 1;
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
@@ -332,28 +379,12 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al cambiar la contraseña';
                 }
                 break;
-
-            case 'ninetyDaysPasswordChanger':
-                $_POST = Validator::validateForm($_POST);
-                if(!$administrador->validatePassword()){
-                    $result['error'] = 'No es tiempo para cambiar su contraseña aún';
-                } elseif () { 
-                    $result['error'] = 'Confirmación de contraseña diferente';
-                } elseif ($_POST['claveNueva'] != $_POST['confirmarClave']) {
-                    $result['error'] = 'Confirmación de contraseña diferente';
-                } elseif (!$administrador->setContraseña($_POST['claveNueva'])) {
-                    $result['error'] = $administrador->getDataError();
-                } elseif ($administrador->changePassword()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Contraseña cambiada correctamente';
-                } else {
-                    $result['error'] = 'Ocurrió un problema al cambiar la contraseña';
-                }
-                break;
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
             }
-    }else {
+    } 
+    
+    else {
         // Se compara la acción a realizar cuando el administrador no ha iniciado sesión.
         switch ($_GET['action']) {
             case 'readUsers':
@@ -481,19 +512,12 @@ if (isset($_GET['action'])) {
                 $administrador->clearValidator();
                 if($administrador->getValidator($_POST['email'])){
                     $result['error'] = 'Su cuenta se ha suspendido temporalmente';
-                } elseif ($administrador->checkUser($_POST['email'], $_POST['clave'])) {
+                } elseif ($administrador->checkUser($_POST['email'], $_POST['clave'])==1) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
-                    if($administrador->validatePassword()){
-                        
-                        $token = Validator::generateRandomString(64);
-                        $_SESSION['90_days_password_changer'] = [
-                            'token' => $token,
-                            'expiration_time' => time() + (60 * 15) # (x*y) y=minutos de vida 
-                        ];
-
-                        $result['dataset'] = ["change", $token];
-                    }
+                } elseif ($administrador->checkUser($_POST['email'], $_POST['clave'])==2) {
+                    $_SESSION['90_days_password_changer'] = Validator::generateRandomString(64);
+                    $result['dataset'] = ["change", $_SESSION['90_days_password_changer']];
                 } elseif($administrador->setValidator($_POST['email'])) {
                     $result['error'] = 'Credenciales incorrectas';
                 }
