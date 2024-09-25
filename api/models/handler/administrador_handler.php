@@ -91,6 +91,18 @@ class AdministradorHandler
           }
     }
 
+    public function ValidateLogin($email, $password){
+        $sql = 'SELECT id_administrador, nombre_administrador, apellido_administrador, email_administrador, contraseña_administrador
+                FROM tb_administrador
+                WHERE  email_administrador = ?';
+        $params = array(Encryption::aes128_ofb_encrypt($email));
+        if (!($data = Database::getRow($sql, $params))) {
+            return false;
+        } elseif (password_verify($password, $data['contraseña_administrador'])) {
+            return true;
+        }
+    }
+
     public function checkPassword($password)
     {
         $sql = 'SELECT contraseña_administrador

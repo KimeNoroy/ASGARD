@@ -456,7 +456,7 @@ if (isset($_GET['action'])) {
                     ];
 
                     // Enviar correo de verificación
-                    sendVerificationEmail($_POST['emailAdministrador'], $secret_change_password_code, $token);
+                    sendVerificationEmail($_POST['emailAdministrador'], $secret_change_password_code);
 
                     $result['status'] = 1;
                     $result['message'] = 'Correo enviado';
@@ -522,19 +522,58 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al cambiar la contraseña';
                 }
                 break;
-
             case 'logIn':
                 $_POST = Validator::validateForm($_POST);
                 $administrador->clearValidator();
                 if($administrador->getValidator($_POST['email'])){
                     $result['error'] = 'Su cuenta se ha suspendido temporalmente';
-                } elseif ($administrador->checkUser($_POST['email'], $_POST['clave'])==1) {
+                } elseif ($administrador->ValidateLogin($_POST['email'], $_POST['clave'])) {
+
+                    $secrete_code = mt_rand(10000000, 99999999);
+                    $token = Validator::generateRandomString(64);
+            
+                    // Almacenar código y token en sesión con tiempo de expiración
+                    $_SESSION['login_validator'] = [
+                        'code' => $secrete_code,
+                        'token' => $token,
+                        'email' => $_POST['email'],
+                        'password' => $_POST['clave'],
+                        'expiration_time' => time() + (60 * 15)
+                    ];
+            
+                    // Enviar correo de verificación
+                    sendVerificationEmail($_POST['email'], $secrete_code);
+
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
-                } elseif ($administrador->checkUser($_POST['email'], $_POST['clave'])==2) {
+                    $result['dataset'] = $token;
+
+                } elseif($administrador->setValidator($_POST['email'])) {
+                    $result['error'] = 'Credenciales incorrectas';
+                }
+                break;
+                
+            case 'logInConfirm':
+                $_POST = Validator::validateForm($_POST);
+                $administrador->clearValidator();
+                if(!isset($_SESSION['login_validator'])){
+                    $result['error'] = 'Debe de iniciar sesión primero';
+                } elseif ($_SESSION['login_validator']['expiration_time'] <= time()){
+                    $result['message'] = "El código ha expirado.";
+                    unset($_SESSION['login_validator']);
+                } elseif($_SESSION['login_validator']['token'] != $_POST['token']){
+                    $result['error'] = 'Token incorrecto';
+                } elseif($_SESSION['login_validator']['code'] != $_POST['code']){
+                    $result['error'] = 'Codigo incorrecto';
+                } elseif($administrador->getValidator($_SESSION['login_validator']['email'])){
+                    $result['error'] = 'Su cuenta se ha suspendido temporalmente';
+                } elseif ($administrador->checkUser($_SESSION['login_validator']['email'], $_SESSION['login_validator']['password'])==1) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Autenticación correcta';
+                } elseif ($administrador->checkUser($_SESSION['login_validator']['email'], $_SESSION['login_validator']['password'])==2) {
                     $_SESSION['90_days_password_changer'] = Validator::generateRandomString(64);
                     $result['dataset'] = ["change", $_SESSION['90_days_password_changer']];
-                } elseif($administrador->setValidator($_POST['email'])) {
+                } elseif($administrador->setValidator($_SESSION['login_validator']['email'])) {
                     $result['error'] = 'Credenciales incorrectas';
                 }
                 break;

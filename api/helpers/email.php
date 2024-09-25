@@ -64,13 +64,13 @@ function sendEmail($to, $subject, $body) {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com'; // Cambia esto al host de tu servidor SMTP
         $mail->SMTPAuth = true;
-        $mail->Username = 'luxurycat.oficial@gmail.com'; // Cambia esto a tu usuario SMTP
-        $mail->Password = 'zjixbstvdfkpmzcp'; // Cambia esto a tu contraseña SMTP
+        $mail->Username = 'asgard.oficial.sv@gmail.com'; // Cambia esto a tu usuario SMTP
+        $mail->Password = 'kyjpmrdbkxcqeclr'; // Cambia esto a tu contraseña SMTP
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587; // Cambia esto al puerto de tu servidor SMTP
 
         // Configuración del remitente y destinatarios
-        $mail->setFrom('crystal.gate.sender@gmail.com', 'Mailer');
+        $mail->setFrom('asgard.oficial.sv@gmail.com', 'Mailer');
         $mail->addAddress($to);
 
         $mail->CharSet = 'UTF-8';
