@@ -61,7 +61,7 @@ class AdministradorData extends AdministradorHandler
             $this->data_error = 'El correo no es válido';
             return false;
         } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->email =  Encryption::aes128_ofb_encrypt($value);
+            $this->email = Encryption::aes128_ofb_encrypt($value);
             return true;
         } else {
             $this->data_error = 'El correo debe tener una longitud entre ' . $min . ' y ' . $max;
