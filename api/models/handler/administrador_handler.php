@@ -42,10 +42,10 @@ class AdministradorHandler
     }
 
     public function getValidator($email){
-        $sql = 'SELECT validator AS date FROM tb_administrador WHERE email_administrador=?';
+        $sql = "SELECT IF(validator IS NULL OR validator = '', 0, 1) AS value FROM tb_administrador WHERE email_administrador = ?;";
         $params = array(Encryption::aes128_ofb_encrypt($email));
         $result = Database::getRow($sql, $params);
-        return $result['date'] != null;
+        return $result['value'] == 1;
     }
 
       public function validatePassword()

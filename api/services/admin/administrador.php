@@ -522,6 +522,8 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al cambiar la contraseña';
                 }
                 break;
+
+                
             case 'logIn':
                 $_POST = Validator::validateForm($_POST);
                 $administrador->clearValidator();

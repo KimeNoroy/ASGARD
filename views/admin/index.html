@@ -23,7 +23,7 @@
     <div class="main-content-element two">
       <div class="card-container">
         <div class="title">Iniciar Sesión</div>
-        <form id="loginForm" class="main">
+        <form id="logInForm" class="main">
           <div class="input">
             <div class="input-row">
               <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -32,7 +32,7 @@
                   fill="#2F2F2F" />
               </svg>
             </div>
-            <input type="text" placeholder="Correo" id="email" name="email" required>
+            <input type="text" placeholder="Correo" id="email" name="email" required autocomplete="off">
           </div>
 
           <div class="input">
@@ -43,7 +43,77 @@
                   fill="#2F2F2F" />
               </svg>
             </div>
-            <input type="password" placeholder="Contraseña" id="clave" name="clave" required>
+            <input type="password" placeholder="Contraseña" id="clave" name="clave" required autocomplete="off">
+          </div>
+
+          <button class="button" type="submit">Ingresar</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="logInConfirmContent" class="main-cotent login">
+    <div class="main-content-element one">
+      <div class="text-container">
+        <span class="tittle1">¡Verifica</span>
+        <span class="tittle2">tu usurio!</span>
+      </div>
+    </div>
+    <div class="main-content-element two">
+      <div class="card-container">
+        <div class="title">Verificación</div>
+        <form id="logInConfirmForm" class="main">
+
+          <div class="input">
+            <div class="input-row">
+              <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M14 8.5C14 7.56245 13.2151 6.8 12.25 6.8H11.375V4.25C11.375 1.90655 9.41237 0 7 0C4.58763 0 2.625 1.90655 2.625 4.25V6.8H1.75C0.784875 6.8 0 7.56245 0 8.5V15.3C0 16.2376 0.784875 17 1.75 17H12.25C13.2151 17 14 16.2376 14 15.3V8.5ZM4.375 4.25C4.375 2.8441 5.55275 1.7 7 1.7C8.44725 1.7 9.625 2.8441 9.625 4.25V6.8H4.375V4.25Z"
+                  fill="#2F2F2F" />
+              </svg>
+            </div>
+            <input type="text" placeholder="Codigo" id="code" name="code" required autocomplete="off">
+          </div>
+
+          <button class="button" type="submit">Ingresar</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="ninetyDaysPasswordChangerContent" class="main-cotent login">
+    <div class="main-content-element one">
+      <div class="text-container">
+        <span class="tittle1">¡Bienvenido</span>
+        <span class="tittle2">nuevamente!</span>
+      </div>
+    </div>
+    <div class="main-content-element two">
+      <div class="card-container">
+        <div class="title">Iniciar Sesión</div>
+        <form id="ninetyDaysPasswordChangerForm" class="main">
+          <div class="input">
+            <div class="input-row">
+              <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M16 4.032V11.1562C16 12.6726 14.9148 13.9118 13.5475 13.9955L13.4 14H2.6C1.21358 14 0.0806001 12.8131 0.00411205 11.3176L0 11.1562V4.032L7.7216 8.45635C7.896 8.55619 8.104 8.55619 8.2784 8.45635L16 4.032ZM2.6 0H13.4C14.7478 0 15.8561 1.12167 15.987 2.55811L8 7.13414L0.012952 2.55811C0.139088 1.17487 1.17146 0.0835187 2.45127 0.00457621L2.6 0Z"
+                  fill="#2F2F2F" />
+              </svg>
+            </div>
+            <input type="password" placeholder="Nueva contraseña" id="claveNueva" name="claveNueva" required autocomplete="off">
+          </div>
+
+          <div class="input">
+            <div class="input-row">
+              <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M14 8.5C14 7.56245 13.2151 6.8 12.25 6.8H11.375V4.25C11.375 1.90655 9.41237 0 7 0C4.58763 0 2.625 1.90655 2.625 4.25V6.8H1.75C0.784875 6.8 0 7.56245 0 8.5V15.3C0 16.2376 0.784875 17 1.75 17H12.25C13.2151 17 14 16.2376 14 15.3V8.5ZM4.375 4.25C4.375 2.8441 5.55275 1.7 7 1.7C8.44725 1.7 9.625 2.8441 9.625 4.25V6.8H4.375V4.25Z"
+                  fill="#2F2F2F" />
+              </svg>
+            </div>
+            <input type="password" placeholder="Confirmar Contraseña" id="confirmarClave" name="confirmarClave" required autocomplete="off">
           </div>
 
           <button class="button" type="submit">Ingresar</button>
@@ -75,7 +145,7 @@
               </svg>
 
             </div>
-            <input type="text" placeholder="Nombre" id="nombreAdministrador" name="nombreAdministrador" required>
+            <input type="text" placeholder="Nombre" id="nombreAdministrador" name="nombreAdministrador" required autocomplete="off">
           </div>
 
           <div class="input">
@@ -87,7 +157,7 @@
               </svg>
 
             </div>
-            <input type="text" placeholder="Apellido" id="apellidoAdministrador" name="apellidoAdministrador" required>
+            <input type="text" placeholder="Apellido" id="apellidoAdministrador" name="apellidoAdministrador" required autocomplete="off">
           </div>
 
           <div class="input">
@@ -99,7 +169,7 @@
               </svg>
 
             </div>
-            <input type="text" placeholder="Correo" id="emailAdministrador" name="emailAdministrador" required>
+            <input type="text" placeholder="Correo" id="emailAdministrador" name="emailAdministrador" required autocomplete="off">
           </div>
 
           <div class="input">
@@ -111,7 +181,7 @@
               </svg>
 
             </div>
-            <input type="password" placeholder="Contraseña" id="claveAdministrador" name="claveAdministrador" required>
+            <input type="password" placeholder="Contraseña" id="claveAdministrador" name="claveAdministrador" required autocomplete="off">
           </div>
 
           <div class="input">
@@ -124,16 +194,44 @@
 
             </div>
             <input type="password" placeholder="Confirmar Contraseña" id="confirmarClave" name="confirmarClave"
-              required>
+              required autocomplete="off">
           </div>
 
           <button class="button" type="submit">Ingresar</button>
         </form>
+        <p>Change Password</p>
+
+        <div class="fields">
+            <div class="input-container">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="var(--color-fondo-4)"
+                            d="M20 12c0-1.103-.897-2-2-2h-1V7c0-2.757-2.243-5-5-5S7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8zM9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v3H9V7z">
+                        </path>
+                    </svg>
+                </div>
+                <input type="password" placeholder="New Password" id="claveNueva" name="claveNueva">
+            </div>
+
+            <div class="input-container">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="var(--color-fondo-4)"
+                            d="M20 12c0-1.103-.897-2-2-2h-1V7c0-2.757-2.243-5-5-5S7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8zM9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v3H9V7z">
+                        </path>
+                    </svg>
+                </div>
+                <input type="password" placeholder="Confirm Password" id="confirmarClave" name="confirmarClave">
+            </div>
+        </div>
+        <button>Change Password</button>
+    </form>
 
       </div>
 
     </div>
   </div>
+
   <script src="../../resources/js/sweetalert.min.js"></script>
   <script src="../../controllers/admin/index.js"></script>
   <script src="../../controllers/utils/admin.js"></script>
