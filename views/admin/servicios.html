@@ -102,13 +102,13 @@
                                <div class="mb-3">
                                    <label for="nombreServico" class="form-label">Nombre del servicio:</label>
                                    <input type="text" maxlength="100" class="form-control" id="nombreServico"
-                                          placeholder="Ingrese el nombre del servicio" name="nombreServico" required>
+                                          placeholder="Ingrese el nombre del servicio" name="nombreServico" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" title="Solo se permiten letras">
                                </div>
                                
                                <div class="mb-3">
                                    <label for="descripcionServicio" class="form-label">Descripción del servicio:</label>
                                    <textarea placeholder="Ingrese la descripción del servicio" maxlength="150"  
-                                             class="form-control" id="descripcionServicio" name="descripcionServicio" rows="5"></textarea>
+                                             class="form-control" id="descripcionServicio" name="descripcionServicio" rows="5" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" title="Solo se permiten letras"></textarea>
                                </div>
                            </div>
                        </div>

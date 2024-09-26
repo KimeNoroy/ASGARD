@@ -118,13 +118,13 @@
                                             <label for="descripcionServicio" class="col-form-label">Descripción del
                                                 servicio:</label>
                                             <input type="text" class="form-control" id="descripcionServicio"
-                                                name="descripcion" required>
+                                                name="descripcion" required  pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" title="Solo se permiten letras">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-md">
                                             <label for="monto" class="col-form-label">Monto del servicio:</label>
-                                            <input type="number" min="0.01" class="form-control" id="monto" name="monto" required>
+                                            <input type="number" min="  º1" class="form-control" id="monto" name="monto" required  pattern="[^ ]+" title="No se permiten espacios">
                                         </div>
                                         <div class="mb-md">
                                             <label for="tipoServicio" class="col-form-label">Tipo de servicio:</label>

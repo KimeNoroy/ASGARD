@@ -43,7 +43,7 @@
                             </div>
                             <!-- Este input crea la barra de búsqueda -->
                             <input type="search" class="form-control elemento-form" name="buscarUsuario" id="buscarUsuario"
-                            placeholder="Buscar usuario por nombre, apellido o correo...">
+                            placeholder="Buscar usuario por nombre, apellido o correo..." >
                             <div class="d-flex">
                                 <button type="reset" class="input-group-text elemento-form" onclick="fillTable()">
                                     <i class="bi bi-arrow-clockwise"></i>
@@ -123,7 +123,7 @@
                                             <label for="descripcionServicio" class="col-form-label">Descripción del
                                                 servicio:</label>
                                             <input type="text" class="form-control" id="descripcionServicio"
-                                                name="descripcion" required>
+                                                name="descripcion" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" title="Solo se permiten letras">
                                         </div>
                                     </div>
                                     <div class="col-md-6">

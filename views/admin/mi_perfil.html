@@ -1,45 +1,55 @@
 <!DOCTYPE html>
-
-<!-- Definir idioma de la página -->
 <html lang="es">
 
 <head>
-    <!-- Metadatos de la página -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Título del documento -->
     <title>Mi perfil</title>
-    <!-- Mandar a llamar el framework -->
     <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Css de un boton naranja -->
-    <link href="../../resources/css/color_de_botones.css">
-    <!-- Css para la tabla responsive -->
+    <link href="../../resources/css/color_de_botones.css" rel="stylesheet">
     <link rel="stylesheet" href="../../resources/css/sidebar.css">
     <link rel="stylesheet" href="../../resources/css/Inicio.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        main {
+            padding: 20px;
+        }
+        .profile-button {
+            cursor: pointer;
+            background-color: #ff8c00; /* Color de botón naranja */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .modal-header {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
 </head>
 
-<!-- Cuerpo de la página -->
-
 <body>
-    <!-- Contenido principal de la página -->
-    <main>
-        <div class="profile-button" onclick="location.href='ruta/al/archivo/mi_perfil.html'">
-            <p>Mi perfil</p>
+    <main class="container">
+        <div class="text-center">
+            
         </div>
-        <!-- Título del contenido principal -->
-        <h3 id="mainTitle"></h3>
-        <!-- Formulario para cambiar datos personales -->
+        <h3 id="mainTitle" class="text-center mb-4">Editar Perfil</h3>
         <form class="row g-3" id="profileForm">
-            <div class="col-sm-12 col-md-6 col-lg-4 offset-lg-2">
+            <div class="col-md-6">
                 <label for="nombreAdministrador" class="form-label">Nombre</label>
-                <input id="nombreAdministrador" type="text" name="nombreAdministrador" class="form-control" required>
+                <input id="nombreAdministrador" type="text" name="nombreAdministrador" class="form-control" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" title="Solo se permiten letras">
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="col-md-6">
                 <label for="apellidoAdministrador" class="form-label">Apellido</label>
-                <input id="apellidoAdministrador" type="text" name="apellidoAdministrador" class="form-control"
-                    required>
+                <input id="apellidoAdministrador" type="text" name="apellidoAdministrador" class="form-control" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" title="Solo se permiten letras">
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-4 offset-lg-2">
+            <div class="col-md-6">
                 <label for="emailAdministrador" class="form-label">Correo</label>
                 <input id="emailAdministrador" type="email" name="emailAdministrador" class="form-control" required>
             </div>
@@ -47,41 +57,32 @@
                 <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Guardar</button>
             </div>
         </form>
-        <!-- Contenedor con enlace para abrir la caja de diálogo del formulario de cambiar constraseña -->
-        <div class="text-center p-3">
+        <div class="text-center mt-4">
             <button type="button" class="btn btn-secondary" onclick="openPassword()">
                 <i class="bi bi-shield-lock"></i> Cambiar contraseña
             </button>
         </div>
-        <!-- Componente Modal para mostrar el formulario de cambio de contraseña -->
-        <div class="modal fade" id="passwordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="modalTitle" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <!-- Contenido del componente Modal -->
+
+        <div class="modal fade" id="passwordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="modalTitle">Cambiar contraseña</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <!-- Formulario para actualizar contraseña -->
                     <form id="passwordForm">
-                        <div class="modal-body row g-3">
-                            <div class="col-sm-12 col-md-6 offset-md-3">
+                        <div class="modal-body">
+                            <div class="mb-3">
                                 <label for="claveActual" class="form-label">Contraseña actual</label>
-                                <input id="claveActual" type="password" name="claveActual" class="form-control"
-                                    required>
+                                <input id="claveActual" type="password" name="claveActual" class="form-control" required>
                             </div>
-                            <div class="col-12 text-center">
-                                <span>CONTRASEÑA NUEVA</span>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="claveNueva" class="form-label">Contraseña</label>
+                            <div class="mb-3">
+                                <label for="claveNueva" class="form-label">Nueva contraseña</label>
                                 <input id="claveNueva" type="password" name="claveNueva" class="form-control" required>
                             </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="confirmarClave" class="form-label">Confirmar contraseña</label>
-                                <input id="confirmarClave" type="password" name="confirmarClave" class="form-control"
-                                    required>
+                            <div class="mb-3">
+                                <label for="confirmarClave" class="form-label">Confirmar nueva contraseña</label>
+                                <input id="confirmarClave" type="password" name="confirmarClave" class="form-control" required>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -92,26 +93,16 @@
                 </div>
             </div>
         </div>
-
     </main>
-    <!-- IMPORTANDO ARCHIVOS JAVASCRIPT -->
-    <!-- Mandar a llamar el framework -->
-    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
-    <!-- Mandar a llamar la librería de alertas -->
-    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
-    <!-- Llamada al controlador general de la aplicación -->
-    <script type="text/javascript" src="../../controllers/utils/componentes.js"></script>
-    <!-- Mandar a llamar el controlador de la página privada -->
-    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
-    <!-- Mandar a llamar el controlador de sujeto excluido -->
-    <script type="text/javascript" src="../../controllers/admin/mi_perfil.js"></script>
-    <!-- Validar número de teléfono -->
-    <script src="../../resources/js/validar_telefono.js"></script>
-    <!-- Validar número de DUI -->
-    <script src="../../resources/js/validar_dui.js"></script>
 
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/componentes.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
+    <script type="text/javascript" src="../../controllers/admin/mi_perfil.js"></script>
+    <script src="../../resources/js/validar_telefono.js"></script>
+    <script src="../../resources/js/validar_dui.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <!-- Validar número de NIT -->
     <script src="../../resources/js/validar_nit.js"></script>
 </body>
 

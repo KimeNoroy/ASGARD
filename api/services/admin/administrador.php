@@ -568,7 +568,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Token incorrecto';
                 } elseif($_SESSION['login_validator']['code'] != $_POST['code']){
                     $result['error'] = 'Codigo incorrecto';
-                } elseif($administrador->getValidator($_SESSION['login_validator']['email'])){
+                } elseif(!$administrador->getValidator($_SESSION['login_validator']['email'])){
                     $result['error'] = 'Su cuenta se ha suspendido temporalmente';
                 } elseif ($administrador->checkUser($_SESSION['login_validator']['email'], $_SESSION['login_validator']['password'])==1) {
                     $result['status'] = 1;
@@ -576,11 +576,13 @@ if (isset($_GET['action'])) {
                     $result['dataset'] = ["authenticated"];
                 } elseif ($administrador->checkUser($_SESSION['login_validator']['email'], $_SESSION['login_validator']['password'])==2) {
                     $_SESSION['90_days_password_changer'] = Validator::generateRandomString(64);
+                    $result['status'] = 1;
+                    $result['message'] = 'Autenticación correcta, obligatorio cambio de contraseña';
                     $result['dataset'] = ["change", $_SESSION['90_days_password_changer']];
                 } elseif($administrador->setValidator($_SESSION['login_validator']['email'])) {
                     $result['error'] = 'Credenciales incorrectas';
                 }
-                break;
+                break;  
 
             default:
                 $result['error'] = 'Acción no disponible fuera de la sesión';

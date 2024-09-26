@@ -86,22 +86,25 @@ LOGIN_FORM.addEventListener('submit', async (event) => {
 LOGIN_CONFIRM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
-    LOADING_SCREEN.classList.remove('hide')
+    //LOADING_SCREEN.classList.remove('hide')
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(LOGIN_CONFIRM);
     FORM.append('token', token_2fa);
     // Petición para iniciar sesión.
-    const DATA = await fetchData(ADMIN_API, 'logIn', FORM);
+    const DATA = await fetchData(ADMIN_API, 'logInConfirm', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         sweetAlert(1, DATA.message, true);
-        LOADING_SCREEN.classList.add('hide')
+        //LOADING_SCREEN.classList.add('hide')
         if(DATA.dataset[0] == "authenticated"){
             sweetAlert(1, DATA.message, true, 'inicio.html');
-        } else if(DATA.dataset[0] == "passchange"){
+        } else if(DATA.dataset[0] == "change"){
             token_passchange = DATA.dataset[1];
-            LOGIN_CONFIRM.classList.add('hide');
-            CHANGE_PASSWORD.classList.remove('hide');
+            LOGIN_CONFIRM_CONTENT.classList.add('hide');
+            CHANGE_PASSWORD_CONTENT.classList.remove('hide');
+            sweetAlert(1, DATA.message, true);
+        } else{
+            sweetAlert(1, DATA.error, true);
         }
 
     } else {
@@ -113,7 +116,7 @@ LOGIN_CONFIRM.addEventListener('submit', async (event) => {
 CHANGE_PASSWORD.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
-    LOADING_SCREEN.classList.remove('hide')
+    //LOADING_SCREEN.classList.remove('hide')
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(CHANGE_PASSWORD);
     FORM.append('token', token_passchange);
@@ -123,7 +126,7 @@ CHANGE_PASSWORD.addEventListener('submit', async (event) => {
     if (DATA.status) {
         sweetAlert(1, DATA.message, true);
         if(DATA.dataset[0] == "authenticated"){
-            sweetAlert(1, DATA.message, true, 'dashboard.html');
+            sweetAlert(1, DATA.message, true, 'inicio.html');
         } else{
             sweetAlert(1, DATA.error, true);
         }

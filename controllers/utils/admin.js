@@ -149,7 +149,7 @@ const loadTemplate = async () => {
         </div>
 
         <div class="user-container" href="mi_perfil.html">
-            <a class="image">
+            <a href="mi_perfil.html" class="image">
                 <span>JP</span>
                 <svg width="24" height="24" viewBox="0 0 24 24" style="fill: white;">
                     <path
