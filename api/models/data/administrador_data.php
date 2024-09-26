@@ -13,6 +13,8 @@ class AdministradorData extends AdministradorHandler
 {
     // Atributo genérico para manejo de errores.
     private $data_error = null;
+    private $info_error = null;
+
     /*
      *  Métodos para validar y asignar valores de los atributos.
      */
@@ -84,7 +86,7 @@ class AdministradorData extends AdministradorHandler
             $this->contraseña = password_hash($value, PASSWORD_DEFAULT);
             return true;
         } else {
-            $this->data_error = "Dag la contraseña debe contener al menos un carácter alfanumérico, un carácter especial, no debe tener espacios y no debe contener secuencias numéricas consecutivas.";
+            $this->data_error = "la contraseña debe contener al menos un carácter alfanumérico, un carácter especial, no debe tener espacios y no debe contener secuencias numéricas consecutivas.";
             return false;
         }
     }
@@ -98,4 +100,10 @@ class AdministradorData extends AdministradorHandler
     {
         return $this->data_error;
     }
+
+    public function getInfoError()
+    {
+        return $this->info_error;
+    }
+    
 }

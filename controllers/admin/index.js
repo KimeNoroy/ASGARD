@@ -68,15 +68,13 @@ LOGIN_FORM.addEventListener('submit', async (event) => {
         sweetAlert(1, DATA.message, true);
 
         if(DATA.dataset[0] == "authenticated"){
-            window.location.href = "dashboard.html"
-        } else if(DATA.dataset[0] == "passchange"){
+            window.location.href = "inicio.html"
+        } else if(DATA.dataset[0] == "change"){
             token_passchange = DATA.dataset[1];
             LOGIN_VALIDATOR_FORM.classList.add('hide');
             CHANGE_PASSWORD.classList.remove('hide');
         } else{
-            token_2fa = DATA.dataset[1];
-            LOGIN_VALIDATOR_FORM.classList.add('hide');
-            LOGIN_CONFIRM.classList.remove('hide');
+            sweetAlert(1, DATA.error, true);
         }
 
     } else {
