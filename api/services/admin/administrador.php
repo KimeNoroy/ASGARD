@@ -528,7 +528,7 @@ if (isset($_GET['action'])) {
             case 'logIn':
                 $_POST = Validator::validateForm($_POST);
                 $administrador->clearValidator();
-                if($administrador->getValidator($_POST['email'])){
+                if(!$administrador->getValidator($_POST['email'])){
                     $result['error'] = 'Su cuenta se ha suspendido temporalmente';
                 } elseif ($administrador->ValidateLogin($_POST['email'], $_POST['clave'])) {
 
@@ -549,7 +549,7 @@ if (isset($_GET['action'])) {
 
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
-                    $result['dataset'] = $token;
+                    $result['dataset'] = ['2fa', $token];
 
                 } elseif($administrador->setValidator($_POST['email'])) {
                     $result['error'] = 'Credenciales incorrectas';

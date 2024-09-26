@@ -28,12 +28,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else if (DATA.status) {
         // Se establece el título del contenido principal.
         // Se muestra el formulario para iniciar sesión.
-        LOGIN_CONTENT.classList.add('show');
+        LOGIN_CONTENT.classList.remove('hide');
         sweetAlert(4, DATA.message, true);
     } else {
         // Se establece el título del contenido principal.
         // Se muestra el formulario para registrar el primer usuario.
-        SIGNUP_CONTENT.classList.add('show');
+        SIGNUP_CONTENT.classList.remove('hide');
         sweetAlert(4, DATA.error, true);
     }
 });
@@ -59,7 +59,7 @@ LOGIN_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Constante tipo objeto con los datos del formulario.
-    const FORM = new FormData(LOGIN_VALIDATOR_FORM);
+    const FORM = new FormData(LOGIN_FORM);
     // Petición para iniciar sesión.
     const DATA = await fetchData(ADMIN_API, 'logIn', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -69,10 +69,10 @@ LOGIN_FORM.addEventListener('submit', async (event) => {
 
         if(DATA.dataset[0] == "authenticated"){
             window.location.href = "inicio.html"
-        } else if(DATA.dataset[0] == "change"){
-            token_passchange = DATA.dataset[1];
-            LOGIN_VALIDATOR_FORM.classList.add('hide');
-            CHANGE_PASSWORD.classList.remove('hide');
+        } else if(DATA.dataset[0] == "2fa"){
+            token_2fa = DATA.dataset[1];
+            LOGIN_CONTENT.classList.add('hide');
+            LOGIN_CONFIRM_CONTENT.classList.remove('hide');
         } else{
             sweetAlert(1, DATA.error, true);
         }

@@ -42,7 +42,8 @@ class AdministradorHandler
     }
 
     public function getValidator($email){
-        $sql = "SELECT IF(validator IS NULL OR validator = '', 0, 1) AS value FROM tb_administrador WHERE email_administrador = ?;";
+        $sql = "SELECT IF(COUNT(*) = 0, 1, IF(validator IS NULL OR validator = '', 1, 0)) AS value 
+                FROM tb_administrador WHERE email_administrador = ?;";
         $params = array(Encryption::aes128_ofb_encrypt($email));
         $result = Database::getRow($sql, $params);
         return $result['value'] == 1;

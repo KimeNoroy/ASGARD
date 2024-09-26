@@ -216,21 +216,6 @@ body{
   }
 }
 
-.main-cotent#loginContent{
-  display: none;
-}
-.main-cotent#signUpContent{
-  display: none;
-}
-
-#loginContent.show{
-  display: flex;
-}
-
-#signUpContent.show{
-  display: flex;
-}
-
 /* INCIO DE SESION */
 
 #signUpContent .main-content-element.two .card-container{
