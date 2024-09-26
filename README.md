@@ -12,5 +12,6 @@ Seguridad y Autenticación: Implementa medidas de seguridad para proteger la inf
 Tecnologías Utilizadas
 HTML/CSS: Estructura y estilos para una presentación atractiva.
 JavaScript: Interactividad en el lado del cliente.
-PHP: Lógica del servidor para gestionar el backend del sistema.
+PHP 8.2.12: Lógica del servidor para gestionar el backend del sistema.
 Bootstrap: Framework CSS para un diseño moderno y responsivo
+XAMPP 8.1.25:  para poder ocupar los servidores de apache y mysql en un servidor local 
