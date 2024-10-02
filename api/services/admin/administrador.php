@@ -9,7 +9,7 @@ if (isset($_GET['action'])) {
     session_start();
 
     // Tiempo límite de inactividad en segundos
-    $inactiveLimit = 300; // Set inactivity limit in seconds
+    $inactiveLimit = 3000000; // Set inactivity limit in seconds
 
     // Verifica y actualiza el tiempo de actividad
     if (!isset($_SESSION['last_activity'])) {

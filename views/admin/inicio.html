@@ -47,38 +47,37 @@
             </div>
             <!-- Contenedor de gráficos -->
             <div class="container">
-                <div class="row">
-                    <div class="col-md-6 mb-4">
-                        <!-- Gráfico 1 -->
-                        <div class="charts-card">
-                            <canvas id="facturasPorMes"></canvas>
-                        </div>
+                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <canvas id="facturasPorMes"></canvas>
+                      </div>
+                      <div class="carousel-item">
+                        <canvas id="chart4"></canvas>
+                      </div>
+                      <div class="carousel-item">
+                        <canvas id="chart5"></canvas>
+                      </div>
+                      <div class="carousel-item">
+                        <canvas id="chartMontoSrv"></canvas>
+                      </div>
+                      <div class="carousel-item">
+                        <canvas id="chart8" ></canvas>
+                      </div>
+                     
                     </div>
-                    <div class="col-md-6 mb-4">
-                        <!-- Gráfico 2 -->
-                        <div class="charts-card">
-                            <canvas id="chart4"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        <!-- Gráfico 3 -->
-                        <div class="charts-card">
-                            <canvas id="chart5"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        <!-- Gráfico 4 -->
-                        <div class="charts-card">
-                            <canvas id="chartMontoSrv"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-md-5 mb-4">
-                        <!-- Gráfico 4 -->
-                        <div class="charts-card">
-                            <canvas id="chart8" ></canvas>
-                        </div>
-                    </div>
-                    <!-- Gráfico
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                </div>
+    </main>
+          <!-- Gráfico
                     <div class="col-md-6 mb-4">
                          
                         <div class="charts-card">
@@ -93,10 +92,6 @@
                         </div>
                     </div>
                     5 -->
-                </div>
-            </div>
-        </div>
-    </main>
     <!-- Custom JS -->
     <script type="text/javascript" src="../../resources/js/chart.umd.min.js"></script>
     <script src="../../resources/js/sweetalert.min.js"></script>
