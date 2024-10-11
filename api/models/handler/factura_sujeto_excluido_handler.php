@@ -26,10 +26,10 @@ class factura_sujeto_excluido_handler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_factura, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
-                FROM tb_factura_sujeto_excluido
+        $sql = '  SELECT id_factura, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
+                FROM vista_tb_factura_sujeto_excluido
                 WHERE nombre_cliente LIKE ? OR apellido_cliente LIKE ?
-                ORDER BY nombre_cliente';
+                ORDER BY id_cliente';
         $params = array($value, $value);
         return Database::getRows($sql, $params);
     }

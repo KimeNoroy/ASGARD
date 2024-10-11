@@ -26,7 +26,7 @@ class FacturaConsumidorFinalHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_factura, nombre_cliente, apellido_cliente, direccion_cliente, departamento_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
+        $sql = 'SELECT id_factura, nombre_cliente, apellido_cliente, municipio_cliente, email_cliente, telefono_cliente, dui_cliente, tipo_servicio, monto, fecha_emision, descripcion
                 FROM tb_factura_consumidor_final
                 WHERE nombre_cliente LIKE ? OR apellido_cliente LIKE ?
                 ORDER BY nombre_cliente';

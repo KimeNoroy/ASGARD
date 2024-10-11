@@ -18,7 +18,7 @@ if (isset($_GET['action'])) {
             case 'searchRows':
                 if (!Validator::validateSearch($_POST['buscarUsuario'])) {
                     $result['error'] = Validator::getSearchError();
-                } elseif ($result['dataset'] = $clientes->searchRows()) {
+                } elseif ($result['dataset'] = $usuario->searchRows()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } else {

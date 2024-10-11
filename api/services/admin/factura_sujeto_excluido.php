@@ -16,9 +16,9 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'searchRows':
-                if (!Validator::validateSearch($_POST['buscarUsuario'])) {
+                if (!Validator::validateSearch($_GET['buscarUsuario'])) {
                     $result['error'] = Validator::getSearchError();
-                } elseif ($result['dataset'] = $clientes->searchRows()) {
+                } elseif ($result['dataset'] = $usuario->searchRows()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } else {

@@ -2,7 +2,7 @@
 const FACTURA_API = 'services/admin/factura_sujeto_excluido.php';
 const CLIENTE_API = 'services/admin/clientes.php';
 // Constante que almacena el form de búsqueda.
-const SEARCH_FORM = document.getElementById('searchForm');
+const SEARCH_FORM = document.getElementById('buscarUsuario');
 // Constantes para cargar los elementos de la tabla.
 const TABLE_BODY = document.getElementById('tableBody'),
     ROWS_FOUND = document.getElementById('rowsFound');

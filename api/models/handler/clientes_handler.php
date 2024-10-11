@@ -29,19 +29,19 @@ class ClienteHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_cliente, nombre_cliente, apellido_cliente, email_cliente, telefono, direccion_cliente, departamento_cliente, municipio_cliente, dui_cliente
+        $sql = 'SELECT id_cliente, nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente, dui_cliente, imagen_cliente
                 FROM tb_clientes
-                WHERE apellido_cliente LIKE ? OR nombre_cliente LIKE ?
+                WHERE apellido_cliente LIKE ? OR nombre_cliente LIKE ? OR dui_cliente LIKE ? OR email_cliente LIKE ? OR telefono_cliente LIKE ? 
                 ORDER BY apellido_cliente';
-        $params = array($value, $value);
+        $params = array($value, $value, $value, $value, $value);
         return Database::getRows($sql, $params);
     }
 
     public function createRow()
     {
-        $sql = 'INSERT INTO tb_clientes(nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente, dui_cliente,imagen_cliente)
+        $sql = 'INSERT INTO tb_clientes(nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente, dui_cliente, imagen_cliente)
                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->imagen,$this->nombre, $this->apellido, $this->correo, $this->direccion, $this->departamento, $this->municipio, $this->telefono, $this->dui);
+        $params = array($this->nombre, $this->apellido, $this->correo, $this->direccion, $this->departamento, $this->municipio, $this->telefono, $this->dui,$this->imagen);
         return Database::executeRow($sql, $params);
     }
 
@@ -55,7 +55,7 @@ class ClienteHandler
 
     public function readOne()
     {
-        $sql = ' SELECT id_cliente, imagen_cliente, nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente, dui_cliente
+        $sql = ' SELECT id_cliente,nombre_cliente, apellido_cliente, email_cliente, direccion_cliente, departamento_cliente, municipio_cliente, telefono_cliente, dui_cliente
             FROM tb_clientes
             WHERE id_cliente = ?';
         $params = array($this->id);
@@ -87,6 +87,8 @@ class ClienteHandler
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+
+   
 
     // Función para predecir la cantidad de clientes por mes
     public function graficoPrediccionClientes()
