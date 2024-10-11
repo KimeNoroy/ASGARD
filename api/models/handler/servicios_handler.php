@@ -14,11 +14,11 @@ class ServiciosHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_servicio, nombre_servicio
+        $sql = 'SELECT id_servicio, nombre_servicio, descripcion
                 FROM tb_servicios
-                WHERE nombre_servicio LIKE ?
-                ORDER BY nombre_servicio';
-        $params = array($value);
+                WHERE nombre_servicio LIKE ? descripcion LIKE ?
+                ORDER BY nombre_servicio descripcion';
+        $params = array($value, $value);
         return Database::getRows($sql, $params);
     }
 
